@@ -1,0 +1,166 @@
+<?php
+
+define("USERNAME", 'root');
+define("PASSWORD", '');
+define("DBNAME", 'silkrouters');
+define("HOST", 'localhost');
+$dbh = @mysql_connect(HOST, USERNAME, PASSWORD) or die('I cannot connect to the database because: ' . mysql_error());
+$db = @mysql_select_db(DBNAME, $dbh) or die('I cannot connect to the database because: ' . mysql_error());
+
+/**
+ * Static content controller.
+ *
+ * This file will render views from views/pages/
+ *
+ * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
+ * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
+ *
+ * Licensed under The MIT License
+ * For full copyright and license information, please see the LICENSE.txt
+ * Redistributions of files must retain the above copyright notice.
+ *
+ * @copyright     Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
+ * @link          http://cakephp.org CakePHP(tm) Project
+ * @package       app.Controller
+ * @since         CakePHP(tm) v 0.2.9
+ * @license       http://www.opensource.org/licenses/mit-license.php MIT License
+ */
+App::uses('AppController', 'Controller');
+
+/**
+ * Static content controller
+ *
+ * Override this controller by placing a copy in controllers directory of an application
+ *
+ * @package       app.Controller
+ * @link http://book.cakephp.org/2.0/en/controllers/pages-controller.html
+ */
+class WebServiceController extends AppController {
+
+    var $components = array('RequestHandler');
+    public $uses = array('Agent');
+
+    public function beforeFilter() {
+        parent::beforeFilter();
+        $this->Auth->allow('web_service','index','helloWorld','add_agent','soap_smsIn');
+    }
+    
+    public function index(){
+        
+        
+         Configure::write('debug',0);
+        Configure::write('Session.start', false);
+
+
+        App::import('Vendor', 'nusoap', array('file' => 'nusoap' . DS . 'lib' . DS . 'nusoap.php'));
+        $server = new soap_server(); 
+
+        $endpoint = 'http://localhost/silkrouters/web_service/index';
+
+        //initialize WSDL support
+        $server->configureWSDL('helloWorldwsdl', 'urn:helloWorldwsdl', $endpoint);
+
+        $server->soap_defencoding='UTF-8';
+        $server->decode_utf8 = false;
+
+         $this->RequestHandler->respondAs('xml');
+        //$this->layoutPath = 'xml';
+
+        $server->register('helloWorld', array("username" => "xsd:string"),                // method name        
+        array('return' => 'xsd:string'),    // output parameters
+            'urn:helloWorldwsdl',                    // namespace
+            'urn:helloWorldwsdl#helloWorld',                // soapaction
+            'rpc',                                // style
+            'encoded',                            // use
+            'Says hello to the caller'            // documentation
+        );
+
+        $HTTP_RAW_POST_DATA = isset($HTTP_RAW_POST_DATA) ? $HTTP_RAW_POST_DATA : '';
+        $server->service($HTTP_RAW_POST_DATA);
+        $this->autoRender = false;
+        exit();
+    }
+
+    public function web_service() {
+        $this->layout = FALSE;
+        $this->autoRender = FALSE;
+        Configure::write('debug', 2);
+        //ini_set("soap.wsdl_cache_enabled", "0");
+        $this->RequestHandler->respondAs('xml');
+
+        App::import('Vendor', 'nusoap', array('file' => 'nusoap' . DS . 'lib' . DS . 'nusoap.php'));
+        
+        function doAuthenticate()
+        {
+            $sSoapRequest = file_get_contents('php://input');
+            
+            if(isset($sSoapRequest))
+            {
+                $arr = explode(' ', $sSoapRequest);
+               // echo 'USer='.$arr[18].',pass='.$arr[24];
+               $sUsername = hookTextBetweenTags($sSoapRequest, 'Username');
+               $sPassword = hookTextBetweenTags($sSoapRequest, 'Password');
+               
+               if($sUsername=='silkrouters1030' && $sPassword=='silkrouters1030')
+                    return true;
+                else
+                    return false;
+            }
+        }
+        //include 'local_functions.php';
+        if (!isset($HTTP_RAW_POST_DATA))
+            $HTTP_RAW_POST_DATA = file_get_contents('php://input');
+
+
+        $server = new soap_server();
+        $namespace = "http://localhost/silkrouters/web_service/web_service";
+        $soapaction = 'http://localhost/silkrouters/web_service/smsIn';
+        $endpoint = "http://localhost/silkrouters/web_service/web_service";
+        $server->configureWSDL("web-service", $namespace, $endpoint);
+        $server->wsdl->schemaTargetNamespace = $namespace;
+        
+        
+        
+        function hookTextBetweenTags($string, $tagname) {
+            $pattern = "/<$tagname ?.*>(.*)<\/$tagname>/";
+            preg_match($pattern, $string, $matches);
+            return $matches[1];
+        }
+
+        //$server->configureWSDL('server', 'urn:server');
+        //$server->wsdl->schemaTargetNamespace = 'urn:server';
+        // include 'wsdl_types.php';
+        // $server->register("Subscribe", array("accessKey" => "xsd:string", "publisher" => "xsd:string", "subscribeData" => "xsd:string"), array("return" => "xsd:string"), "urn:web-service", "urn:web-service#Subscribe", "rpc", "encoded", "Subscribe to mail or mobile list(s)");
+        // $server->register("SendEmailFromWeb", array("accessKey" => "xsd:string", "publisher" => "xsd:string", "sendEmailFromWebData" => "xsd:string"), array("return" => "xsd:string"), "urn:web-service", "urn:web-service#SendEmailFromWeb", "rpc", "encoded", "Send email from web interface");
+        // $server->register("SendEmailFromMobile", array("accessKey" => "xsd:string", "publisher" => "xsd:string", "sendEmailFromMobileData" => "xsd:string"), array("return" => "xsd:string"), "urn:web-service", "urn:web-service#SendEmailFromMobile", "rpc", "encoded", "Send email from mobile interface");
+        // $server->register("UpdateProfile", array("accessKey" => "xsd:string", "publisher" => "xsd:string", "updateProfileData" => "xsd:string"), array("return" => "xsd:string"), "urn:web-service", "urn:web-service#UpdateProfile", "rpc", "encoded", "Update subscriber profile (name, etc.)");
+        // $server->register("Unsubscribe", array("accessKey" => "xsd:string", "publisher" => "xsd:string", "unsubscribeData" => "xsd:string"), array("return" => "xsd:string"), "urn:web-service", "urn:web-service#Unsubscribe", "rpc", "encoded", "Unsubscribe from mail or mobile list(s)");
+        // $server->register("SMSTriggeredEmailNotify", array("accessKey" => "xsd:string", "publisher" => "xsd:string", "smsTriggeredEmailNotifyData" => "xsd:string"), array("return" => "xsd:string"), "urn:web-service", "urn:web-service#SMSTriggeredEmailNotify", "rpc", "encoded", "Still working on this");
+        $server->register("hello", array("username" => "xsd:string"), array("return" => "xsd:string"), "urn:web-service", "urn:web-service#hello", "rpc", "encoded", "Just say hello");
+        $server->register("add_agent", array("agent_name" => "xsd:string"), array("return" => "xsd:string"), "urn:web-service", "urn:web-service#add_agent", "rpc", "encoded", "Agent Add");
+       // $server->register("smsIn", array('username' =>'xsd:string'),array('ketqua' => 'xsd:int'), $namespace, $soapaction,'rpc','literal','idivu.com');
+       
+      
+        function add_agent($agent_name) {
+            if (!doAuthenticate())
+		return "Invalid username or password";
+            return $agent_name;
+        }
+   
+
+        function hello($username) {
+            if (!doAuthenticate())
+		return "Invalid username or password";
+            return 'sd';
+        }
+        
+        
+
+        $server->service($HTTP_RAW_POST_DATA);
+    }
+    
+   
+    
+
+
+}

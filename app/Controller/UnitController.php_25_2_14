@@ -1,0 +1,78 @@
+<?php
+class UnitController extends AppController {
+	var $uses = 'Unit';
+	
+	public $helpers = array('Html', 'Form', 'Session');
+	public $components = array('Session');
+
+	public function index() {
+		
+		$this->set('units', $this->Unit->find('all', array('order' => 'Unit.unit_name ASC')));
+		
+	}
+	
+	public function add() {
+	
+        if ($this->request->is('post')) 
+		{
+			$this->Unit->create();
+			if ($this->Unit->save($this->request->data)) 
+			{
+				$this->Session->setFlash('Project Unit has been saved.','success');
+				$this->redirect(array('action' => 'index'));
+			} 
+			else {
+					$this->Session->setFlash('Unable to add Project Unit.','failure');
+			}
+        }	
+	
+	}
+
+	
+	/*$cities = $this->Suburb->City->find('all', array('order' => 'City.city_name ASC'));
+		$arrCity = array();
+		if (count($cities) > 0)
+		{
+			foreach ($cities as $city)
+			{
+				$arrCity[$city['City']['id']] = $city['City']['city_name'];
+			}
+		}
+		
+		$this->set('citiess', $arrCity);
+	}
+	*/
+	
+ function edit($id = null)
+	 {
+		if (!$id) {
+			throw new NotFoundException(__('Invalid Project Unit'));
+		}
+	
+		$UNIT = $this->Unit->findById($id);
+		
+		if (!$unit) {
+			throw new NotFoundException(__('Invalid Project Unit'));
+		}
+	
+		if ($this->request->data) {
+			
+			
+			$this->Unit->id = $id;
+			if ($this->Unit->save($this->request->data)) {
+				$this->Session->setFlash('Project Unit has been updated.','success');
+				$this->redirect(array('action' => 'index'));
+			} else {
+				$this->Session->setFlash('Unable to update Project Unit.','failure');
+			}
+		}
+	
+		
+
+	
+		$this->request->data = $unit;
+		
+	}
+
+	 }
+	 

@@ -1,0 +1,1613 @@
+<?php
+
+/**
+ * Travel Action controller.
+ *
+ * This file will render views from views/actions/
+ *
+ * PHP 5
+ *
+ * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
+ * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
+ *
+ * Licensed under The MIT License
+ * For full copyright and license information, please see the LICENSE.txt
+ * Redistributions of files must retain the above copyright notice.
+ *
+ * @copyright     Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
+ * @link          http://cakephp.org CakePHP(tm) Project
+ * @package       app.Controller
+ * @since         CakePHP(tm) v 0.2.9
+ * @license       http://www.opensource.org/licenses/mit-license.php MIT License
+ */
+App::uses('CakeEmail', 'Network/Email');
+/**
+ * Email sender
+ */
+App::uses('AppController', 'Controller');
+App::uses('Xml', 'Utility');
+
+/**
+ * Travel Action controller
+ *
+ *
+ * @package       app.Controller
+ * @link http://book.cakephp.org/2.0/en/controllers/pages-controller.html
+ */
+class TravelActionItemsController extends AppController {
+
+    var $uses = array('TravelActionItem', 'User', 'TravelSupplier', 'TravelCountry', 'TravelActionItemType', 'DuplicateMappinge', 'Agent', 'TravelRemark', 'LookupValueActionItemRejection', 'LookupValueActionItemReturn',
+        'TravelCountrySupplier', 'TravelCitySupplier', 'TravelHotelRoomSupplier', 'LogCall', 'Mappinge', 'TravelCity',
+        'TravelHotelLookup', 'TravelBrand', 'TravelChain', 'TravelSuburb', 'TravelArea');
+
+    public function index() {
+
+        $dummy_status = $this->Auth->user('dummy_status');
+        $role_id = $this->Session->read("role_id");
+        $user_id = $this->Auth->user('id');
+        $search_condition = array();
+
+
+        if ($this->request->is('post') || $this->request->is('put')) {
+
+            if (!empty($this->data['ActionItem']['global_search'])) {
+                $search = $this->data['ActionItem']['global_search'];
+
+                array_push($search_condition, array('OR' => array($this->Lead->getVirtualField('fullname') . ' LIKE' => "%" . mysql_escape_string(trim(strip_tags($search))) . "%", 'Project.project_name' . ' LIKE' => "%" . mysql_escape_string(trim(strip_tags($search))) . "%", 'Builder.builder_name' . ' LIKE' => "%" . mysql_escape_string(trim(strip_tags($search))) . "%")));
+            }
+
+            if (!empty($this->data['ActionItem']['action_item_level_id'])) {
+                $search = $this->data['ActionItem']['action_item_level_id'];
+                array_push($search_condition, array('ActionItem.action_item_level_id' => mysql_escape_string(trim(strip_tags($search)))));
+            }
+
+            if (!empty($this->data['ActionItem']['type_id'])) {
+                $search = $this->data['ActionItem']['type_id'];
+                array_push($search_condition, array('ActionItem.type_id' => mysql_escape_string(trim(strip_tags($search)))));
+            }
+
+            if (!empty($this->data['ActionItem']['lead_status'])) {
+                $search = $this->data['ActionItem']['lead_status'];
+                array_push($search_condition, array('Lead.lead_status' => mysql_escape_string(trim(strip_tags($search)))));
+            }
+        }
+
+        if ($dummy_status)
+            array_push($search_condition, array('TravelActionItem.dummy_status' => $dummy_status));
+
+        if (count($this->params['pass'])) {
+
+            $aaray = explode(':', $this->params['pass'][0]);
+            $field = $aaray[0];
+            $value = $aaray[1];
+            array_push($search_condition, array('TravelActionItem.' . $field => $value)); // when builder is approve/pending
+        }
+
+
+        $this->paginate['conditions'][0] = "TravelActionItem.action_item_active='Yes' AND TravelActionItem.next_action_by = " . $user_id . "";
+        $this->paginate['conditions'][1] = $search_condition;
+        $this->paginate['order'] = array('TravelActionItem.id' => 'desc');
+        $this->set('travel_actionitems', $this->paginate("TravelActionItem"));
+    }
+
+    public function agent_action($actio_itme_id = null) {
+        $this->layout = '';
+
+
+        /*         * *******Checking user*********** */
+        $dummy_status = $this->Auth->user('dummy_status');
+        $user_id = $this->Auth->user('id');
+        $role_id = $this->Session->read("role_id");
+
+        $travel_actionitems = $this->TravelActionItem->findById($actio_itme_id);
+
+        if ($this->request->is('post') || $this->request->is('put')) {
+
+
+            /*             * ************This data is common features **************************************** */
+
+            $this->request->data['TravelActionItem']['parent_action_item_id'] = $actio_itme_id;
+            $this->request->data['TravelActionItem']['dummy_status'] = $dummy_status;
+            $this->request->data['TravelActionItem']['action_item_created'] = date('Y-m-d');
+            $this->request->data['TravelActionItem']['created_by_id'] = $travel_actionitems['TravelActionItem']['created_by_id'];
+            $this->request->data['TravelActionItem']['level_id'] = $travel_actionitems['TravelActionItem']['level_id'];
+            $this->request->data['TravelActionItem']['agent_id'] = $travel_actionitems['TravelActionItem']['agent_id'];
+            $this->request->data['TravelActionItem']['action_item_active'] = 'Yes';
+            $this->request->data['TravelActionItem']['created_by'] = $user_id;
+            $this->request->data['TravelActionItem']['action_item_source'] = $role_id;
+
+            $agents['Agent']['agent_action_parent_id'] = "'" . $travel_actionitems['TravelActionItem']['parent_action_item_id'] . "'";
+            $agents['Agent']['agent_active_primary'] = '0'; // screen primary info.
+            $agents['Agent']['agent_active_preference'] = '0'; // screen details.
+
+            $this->request->data['TravelRemark']['remarks_time'] = date('g:i A');
+            $this->request->data['TravelRemark']['created_by'] = $user_id;
+            $this->request->data['TravelRemark']['agent_id'] = $travel_actionitems['TravelActionItem']['agent_id'];
+            $this->request->data['TravelRemark']['remarks_date'] = date('Y-m-d');
+            $this->request->data['TravelRemark']['dummy_status'] = $dummy_status;
+            $this->request->data['TravelRemark']['remarks_level'] = $travel_actionitems['TravelActionItem']['level_id'];
+
+            $type_id = $this->data['TravelActionItem']['type_id'];
+            if ($type_id == '2') { // Approval
+                $agents['Agent']['agent_status'] = '1'; //  for active for Approval of lookup_agent_statuses
+                $agents['Agent']['agent_approved'] = '1';
+                $agents['Agent']['agent_approved_by'] = "'" . $user_id . "'";
+                $agents['Agent']['agent_approved_date'] = "'" . date('Y-m-d h:i:s') . "'";
+                $this->request->data['TravelRemark']['remarks'] = 'Approve Agent';
+                $this->request->data['TravelActionItem']['description'] = 'Approve Agent';
+            } elseif ($type_id == '3') { // Return
+                $agents['Agent']['agent_status'] = '6'; // Returned
+                $this->request->data['TravelRemark']['remarks'] = 'Returned Agent';
+                $this->request->data['TravelActionItem']['description'] = 'Returned Agent';
+                $this->request->data['TravelActionItem']['next_action_by'] = $travel_actionitems['TravelActionItem']['created_by_id'];
+            } elseif ($type_id == '5') { // Rejection
+                $agents['Agent']['agent_status'] = '11'; // Rejection
+                $this->request->data['TravelRemark']['remarks'] = 'Rejection Agent';
+                $this->request->data['TravelActionItem']['description'] = 'Rejection Agent';
+            } elseif ($type_id == '7') { // Allocation
+                $agents['Agent']['agent_status'] = '3'; //  for Allocated for Approval of lookup_agent_statuses
+                $agents['Agent']['agent_approved'] = '1';
+                $agents['Agent']['agent_approved_by'] = "'" . $user_id . "'";
+                $agents['Agent']['agent_approved_date'] = "'" . date('Y-m-d h:i:s') . "'";
+                $this->request->data['TravelRemark']['remarks'] = 'Allocation Agent';
+                $this->request->data['TravelActionItem']['description'] = 'Allocation Agent';
+            }
+
+
+            $this->TravelActionItem->create();
+            if ($this->TravelActionItem->save($this->data['TravelActionItem'])) {
+                $last_action_id = $this->TravelActionItem->getLastInsertId();
+                $this->TravelRemark->save($this->data['TravelRemark']);
+                $this->TravelActionItem->updateAll(array('TravelActionItem.action_item_active' => "'No'"), array('TravelActionItem.id' => $actio_itme_id));
+                $this->Agent->updateAll($agents['Agent'], array('Agent.id' => $travel_actionitems['TravelActionItem']['agent_id']));
+                //$log = $this->Agent->getDataSource()->getLog(false, false);
+                //debug($log);
+                //die;
+                $this->Session->setFlash('Data have been submitted.', 'success');
+            } else {
+                $this->Session->setFlash('This action is already added, check your input and try again...', 'failure');
+            }
+
+
+            echo '<script>
+                        var objP=parent.document.getElementsByClassName("mfp-bg");
+                        var objC=parent.document.getElementsByClassName("mfp-wrap");
+                        objP[0].style.display="none";
+                        objC[0].style.display="none";
+                        parent.location.reload(true);</script>';
+        }
+
+        if ($travel_actionitems['TravelActionItem']['type_id'] == '6') {
+            $type = $this->TravelActionItemType->find('list', array('fields' => array('id', 'value'), 'conditions' => 'id = 5 OR id = 3 OR id = 7', 'order' => 'value asc'));
+            $travel_actionitems['ActionAgent'] = $this->Agent->findById($travel_actionitems['TravelActionItem']['agent_id']);
+            $travel_actionitems['AgentEvent'] = $this->Event->find('first', array('conditions' => array('Event.agent_id' => $travel_actionitems['TravelActionItem']['agent_id'])));
+        }
+        else
+            $type = $this->TravelActionItemType->find('list', array('fields' => array('id', 'value'), 'conditions' => 'id = 2 OR id = 3 OR id = 5', 'order' => 'value asc'));
+        $this->set(compact('type'));
+
+        $reject_cond = array('type' => array('0'));
+        $rejections = $this->LookupValueActionItemRejection->find('list', array('fields' => 'id, value', 'conditions' => $reject_cond, 'order' => 'value ASC'));
+        $this->set(compact('rejections'));
+
+        $retrun_cond = array('type' => array('0'));
+        $returns = $this->LookupValueActionItemReturn->find('list', array('fields' => 'id, value', 'conditions' => $retrun_cond, 'order' => 'value ASC'));
+        $this->set(compact('returns'));
+
+        if (!$this->request->data) {
+            $this->request->data = $travel_actionitems;
+        }
+    }
+
+    public function submit_action($actio_itme_id = null) {
+        //  $this->layout = '';
+
+        $headding = '';
+        $order_return = '';
+        $log_call_screen = '';
+        $xml_msg = '';
+        $location_URL = 'http://dev.wtbnetworks.com/TravelXmlManagerv001/ProEngine.Asmx';
+        $action_URL = 'http://www.travel.domain/ProcessXML';
+
+        /*         * *******Checking user*********** */
+        $dummy_status = $this->Auth->user('dummy_status');
+        $channel_id = $this->Session->read("channel_id");
+        $user_id = $this->Auth->user('id');
+        $role_id = $this->Session->read("role_id");
+
+
+
+        $travel_actionitems = $this->TravelActionItem->findById($actio_itme_id);
+        $level_id = $travel_actionitems['TravelActionItem']['level_id'];
+        if ($travel_actionitems['TravelActionItem']['type_id'] == '1' || $travel_actionitems['TravelActionItem']['type_id'] == '8')
+            $actiontype = 'AddNew';
+        elseif ($travel_actionitems['TravelActionItem']['type_id'] == '4')
+            $actiontype = 'Update';
+
+        $rejection_cond = array();
+
+        if ($level_id == '2') { // mapping country
+            $retrun_cond = array('type' => array('0', '4')); // 0=other 4=mapping
+            $headding = 'Mapping Country';
+            $this->set('mapping_type', '1');
+            $type = $this->TravelActionItemType->find('list', array('fields' => array('id', 'value'), 'conditions' => 'id = 2 OR id = 3'));
+        } elseif ($level_id == '3') { // mapping city
+            $retrun_cond = array('type' => array('0', '5')); // 0=other 4=mapping
+            $rejection_cond = array('type' => array('0', '4')); // 0=other 4=mapping
+            $headding = 'Mapping City';
+            $this->set('mapping_type', '2');
+            $type = $this->TravelActionItemType->find('list', array('fields' => array('id', 'value'), 'conditions' => 'id = 2 OR id = 3 OR id = 5'));
+            $TravelCitySuppliers = $this->TravelCitySupplier->findById($travel_actionitems['TravelActionItem']['city_supplier_id']);
+
+            $city_name_arr = $this->TravelCity->findByCityCode($TravelCitySuppliers['TravelCitySupplier']['pf_city_code'], array('fields' => 'city_name'));
+            $city_name = $city_name_arr['TravelCity']['city_name'];
+
+            $condition = '';
+
+            for ($indexOfFirstLetter = 0; $indexOfFirstLetter <= strlen($city_name); $indexOfFirstLetter++) {
+
+                for ($indexOfLastLetter = $indexOfFirstLetter + 1; $indexOfLastLetter <= strlen($city_name); $indexOfLastLetter++) {
+                    $new_arr[] = substr($city_name, $indexOfFirstLetter, 3);
+                    //  echo $arr[$indexOfFirstLetter];
+                    $condition .= "(city_name LIKE '%" . $new_arr[$indexOfFirstLetter] . "%')";
+                    if ($indexOfFirstLetter < strlen($city_name) - 1)
+                        $condition .= 'OR';
+                    $indexOfFirstLetter++;
+                }
+            }
+            $Mappinges = $this->TravelCitySupplier->find
+                    (
+                    'all', array
+                (
+                'conditions' => array
+                    (
+                    'TravelCitySupplier.pf_city_code IN (SELECT city_code FROM travel_cities WHERE country_code = "' . $TravelCitySuppliers['TravelCitySupplier']['city_country_code'] . '" AND (' . $condition . '))',
+                    'TravelCitySupplier.city_country_code' => $TravelCitySuppliers['TravelCitySupplier']['city_country_code'], 'TravelCitySupplier.supplier_code' => $TravelCitySuppliers['TravelCitySupplier']['supplier_code'],'TravelCitySupplier.id <>'.$travel_actionitems['TravelActionItem']['city_supplier_id']
+                ),
+                'order' => 'TravelCitySupplier.city_country_code ASC',
+            ));
+
+            $this->set(compact('TravelCitySuppliers'));
+            $this->set('Mappinges', $Mappinges);
+
+            /// $log = $this->TravelCitySupplier->getDataSource()->getLog(false, false);       
+            // debug($log);
+
+            $TravelSuppliers = $this->TravelSupplier->find('all', array('fields' => 'supplier_code, supplier_name', 'conditions' => array('active' => 'TRUE'), 'order' => 'supplier_name ASC'));
+            $TravelSuppliers = Set::combine($TravelSuppliers, '{n}.TravelSupplier.supplier_code', array('%s - %s', '{n}.TravelSupplier.supplier_code', '{n}.TravelSupplier.supplier_name'));
+            $this->set(compact('TravelSuppliers'));
+
+            $TravelCountries = $this->TravelCountry->find('all', array('fields' => 'country_code, country_name', 'conditions' => array('country_code' => $TravelCitySuppliers['TravelCitySupplier']['city_country_code']), 'order' => 'country_name ASC'));
+            $TravelCountries = Set::combine($TravelCountries, '{n}.TravelCountry.country_code', array('%s - %s', '{n}.TravelCountry.country_code', '{n}.TravelCountry.country_name'));
+            $this->set(compact('TravelCountries'));
+
+            $TravelCities = $this->TravelCity->find('all', array('fields' => 'city_code, city_name', 'conditions' => array('city_code' => $TravelCitySuppliers['TravelCitySupplier']['pf_city_code']), 'order' => 'city_name ASC'));
+            $TravelCities = Set::combine($TravelCities, '{n}.TravelCity.city_code', array('%s - %s', '{n}.TravelCity.city_code', '{n}.TravelCity.city_name'));
+            $this->set(compact('TravelCities'));
+
+            // $this->request->data = $TravelCitySuppliers;
+            //  pr($TravelSuppliers);
+        }
+        elseif ($level_id == '4') { // mapping hotel
+            $retrun_cond = array('type' => array('0', '6')); // 0=other 4=mapping
+            $rejection_cond = array('type' => array('0', '5')); // 0=other 4=mapping
+            $headding = 'Mapping Hotel';
+            $this->set('mapping_type', '3');
+            $type = $this->TravelActionItemType->find('list', array('fields' => array('id', 'value'), 'conditions' => 'id = 2 OR id = 3 OR id = 5'));
+            $condition = '';
+            $TravelHotelRoomSuppliers = $this->TravelHotelRoomSupplier->findById($travel_actionitems['TravelActionItem']['hotel_supplier_id']);
+
+            $hotel_code = $TravelHotelRoomSuppliers['TravelHotelRoomSupplier']['hotel_code'];
+            $hotel_name_arr = $this->TravelHotelLookup->findByHotelCode($hotel_code, array('fields' => 'hotel_name'));
+            $hotel_name = $hotel_name_arr['TravelHotelLookup']['hotel_name'];
+
+
+            for ($indexOfFirstLetter = 0; $indexOfFirstLetter <= strlen($hotel_name); $indexOfFirstLetter++) {
+                for ($indexOfLastLetter = $indexOfFirstLetter + 1; $indexOfLastLetter <= strlen($hotel_name); $indexOfLastLetter++) {
+                    $hotel_arr[] = substr($hotel_name, $indexOfFirstLetter, 3);
+                    $condition .= "(hotel_name LIKE '%" . $hotel_arr[$indexOfFirstLetter] . "%')";
+                    if ($indexOfFirstLetter < strlen($hotel_name) - 1)
+                        $condition .= 'OR';
+                    $indexOfFirstLetter++;
+                }
+            }
+
+
+            $Mappinges = $this->TravelHotelRoomSupplier->find
+                    (
+                    'all', array
+                (
+                'conditions' => array
+                    (
+                    'TravelHotelRoomSupplier.hotel_code IN (SELECT hotel_code FROM travel_hotel_lookups WHERE country_code = "' . $TravelHotelRoomSuppliers['TravelHotelRoomSupplier']['hotel_country_code'] . '" AND city_code = "' . $TravelHotelRoomSuppliers['TravelHotelRoomSupplier']['hotel_city_code'] . '" AND (' . $condition . '))',
+                    'TravelHotelRoomSupplier.hotel_city_code' => $TravelHotelRoomSuppliers['TravelHotelRoomSupplier']['hotel_city_code'], 'TravelHotelRoomSupplier.hotel_country_code' => $TravelHotelRoomSuppliers['TravelHotelRoomSupplier']['hotel_country_code'], 'TravelHotelRoomSupplier.supplier_code' => $TravelHotelRoomSuppliers['TravelHotelRoomSupplier']['supplier_code'],'TravelHotelRoomSupplier.id <> '.$travel_actionitems['TravelActionItem']['hotel_supplier_id']
+                ),
+                'order' => 'TravelHotelRoomSupplier.hotel_city_code ASC',
+                    )
+            );
+
+            $this->set('Mappinges', $Mappinges);
+
+            $TravelSuppliers = $this->TravelSupplier->find('all', array('fields' => 'supplier_code, supplier_name', 'conditions' => array('active' => 'TRUE'), 'order' => 'supplier_name ASC'));
+            $TravelSuppliers = Set::combine($TravelSuppliers, '{n}.TravelSupplier.supplier_code', array('%s - %s', '{n}.TravelSupplier.supplier_code', '{n}.TravelSupplier.supplier_name'));
+            $this->set(compact('TravelSuppliers'));
+
+            $TravelCountries = $this->TravelCountry->find('all', array('fields' => 'country_code, country_name', 'conditions' => array('country_code' => $TravelHotelRoomSuppliers['TravelHotelRoomSupplier']['hotel_country_code']), 'order' => 'country_name ASC'));
+            $TravelCountries = Set::combine($TravelCountries, '{n}.TravelCountry.country_code', array('%s - %s', '{n}.TravelCountry.country_code', '{n}.TravelCountry.country_name'));
+            $this->set(compact('TravelCountries'));
+
+            $TravelCities = $this->TravelCity->find('all', array('fields' => 'city_code, city_name', 'conditions' => array('city_code' => $TravelHotelRoomSuppliers['TravelHotelRoomSupplier']['hotel_city_code']), 'order' => 'city_name ASC'));
+            $TravelCities = Set::combine($TravelCities, '{n}.TravelCity.city_code', array('%s - %s', '{n}.TravelCity.city_code', '{n}.TravelCity.city_name'));
+            $this->set(compact('TravelCities'));
+
+            $TravelHotelLookups = $this->TravelHotelLookup->find('all', array('fields' => 'hotel_code, hotel_name', 'conditions' => array('hotel_code' => $TravelHotelRoomSuppliers['TravelHotelRoomSupplier']['hotel_code']), 'order' => 'hotel_name ASC'));
+            $TravelHotelLookups = Set::combine($TravelHotelLookups, '{n}.TravelHotelLookup.hotel_code', array('%s - %s', '{n}.TravelHotelLookup.hotel_code', '{n}.TravelHotelLookup.hotel_name'));
+            $this->set(compact('TravelHotelLookups'));
+
+            $TravelAreas = $this->TravelArea->find('list', array(
+                'conditions' => array(
+                    'TravelArea.id' => $TravelHotelRoomSuppliers['TravelHotelRoomSupplier']['hotel_area_id'],
+                ),
+                'fields' => 'TravelArea.id, TravelArea.area_name',
+                'order' => 'TravelArea.area_name ASC'
+            ));
+
+
+            $TravelSuburbs = $this->TravelSuburb->find('list', array(
+                'conditions' => array(
+                    'TravelSuburb.id' => $TravelHotelRoomSuppliers['TravelHotelRoomSupplier']['hotel_suburb_id'],
+                ),
+                'fields' => 'TravelSuburb.id, TravelSuburb.name',
+                'order' => 'TravelSuburb.name ASC'
+            ));
+
+            $TravelChains = $this->TravelChain->find('list', array(
+                'conditions' => array(
+                    'TravelChain.id' => $TravelHotelRoomSuppliers['TravelHotelRoomSupplier']['hotel_chain_id'],
+                ),
+                'fields' => 'TravelChain.id, TravelChain.chain_name',
+                'order' => 'TravelChain.chain_name ASC'
+            ));
+
+            $TravelBrands = $this->TravelBrand->find('list', array(
+                'conditions' => array(
+                    'TravelBrand.id' => $TravelHotelRoomSuppliers['TravelHotelRoomSupplier']['hotel_brand_id'],
+                ),
+                'fields' => 'TravelBrand.id, TravelBrand.brand_name',
+                'order' => 'TravelBrand.brand_name ASC'
+            ));
+
+            $HotelUrl = $this->TravelHotelLookup->find('first', array('conditions' => array('hotel_code' => $TravelHotelRoomSuppliers['TravelHotelRoomSupplier']['hotel_code']), 'fields' => array('url_hotel','address')));
+           
+            $this->set(compact('TravelHotelRoomSuppliers', 'TravelCountries', 'TravelSuppliers', 'TravelAreas', 'TravelSuburbs', 'TravelChains', 'TravelBrands', 'HotelUrl'));
+            // $this->request->data = $TravelHotelRoomSuppliers;
+        }
+
+        if ($this->request->is('post') || $this->request->is('put')) {
+
+
+            /*             * ************This data is common features **************************************** */
+            $flag = 0;
+            $success = 0;
+            $this->request->data['TravelActionItem']['parent_action_item_id'] = $actio_itme_id;
+            $this->request->data['TravelActionItem']['dummy_status'] = $dummy_status;
+            $this->request->data['TravelActionItem']['action_item_created'] = date('Y-m-d');
+            $this->request->data['TravelActionItem']['created_by_id'] = $travel_actionitems['TravelActionItem']['created_by_id'];
+            $this->request->data['TravelActionItem']['level_id'] = $travel_actionitems['TravelActionItem']['level_id'];
+
+            $this->request->data['TravelActionItem']['action_item_active'] = 'Yes';
+            $this->request->data['TravelActionItem']['created_by'] = $user_id;
+            $this->request->data['TravelActionItem']['action_item_source'] = $role_id;
+
+            $this->request->data['TravelRemark']['remarks_time'] = date('g:i A');
+            $this->request->data['TravelRemark']['created_by'] = $user_id;
+            $this->request->data['TravelRemark']['agent_id'] = $travel_actionitems['TravelActionItem']['agent_id'];
+            $this->request->data['TravelRemark']['remarks_date'] = date('Y-m-d');
+            $this->request->data['TravelRemark']['dummy_status'] = $dummy_status;
+            $this->request->data['TravelRemark']['remarks_level'] = $travel_actionitems['TravelActionItem']['level_id'];
+
+            $type_id = $this->data['TravelActionItem']['type_id'];
+
+
+            if ($type_id == '2' && $level_id == '2') { // Approval in mapping country
+                $this->request->data['TravelActionItem']['country_supplier_id'] = $travel_actionitems['TravelActionItem']['country_supplier_id'];
+                $agents['TravelCountrySupplier']['country_suppliner_status'] = '2';  // 2 for approve of travel_action_item_types
+                $agents['TravelCountrySupplier']['active'] = 'TRUE'; // for approve of travel_action_item_types
+                $agents['TravelCountrySupplier']['approved_by'] = "'" . $user_id . "'";
+                $agents['TravelCountrySupplier']['approved_date'] = "'" . date('Y-m-d h:i:s') . "'";
+
+                $mapping['Mappinge']['status'] = '2';  // 2 for approve of travel_action_item_types
+
+                $this->request->data['TravelRemark']['country_supplier_id'] = $travel_actionitems['TravelActionItem']['country_supplier_id'];
+                $this->request->data['TravelRemark']['remarks'] = 'Approve Mapping Country';
+                $this->request->data['TravelActionItem']['description'] = 'Approve Mapping Country';
+                $this->request->data['TravelActionItem']['next_action_by'] = '';
+
+
+
+                $flag = '22';
+            } elseif ($type_id == '2' && $level_id == '3') { // Approval in mapping city
+                $this->request->data['TravelActionItem']['city_supplier_id'] = $travel_actionitems['TravelActionItem']['city_supplier_id'];
+                $agents['TravelCitySupplier']['city_supplier_status'] = '2';  // 2 for approve of travel_action_item_types
+                $agents['TravelCitySupplier']['active'] = 'TRUE'; // for approve of travel_action_item_types
+                $agents['TravelCitySupplier']['approved_by'] = "'" . $user_id . "'";
+                $agents['TravelCitySupplier']['approved_date'] = "'" . date('Y-m-d h:i:s') . "'";
+                $mapping['Mappinge']['status'] = '2';  // 2 for approve of travel_action_item_types
+
+                $this->request->data['TravelRemark']['city_supplier_id'] = $travel_actionitems['TravelActionItem']['city_supplier_id'];
+                $this->request->data['TravelRemark']['remarks'] = 'Approve Mapping City';
+                $this->request->data['TravelActionItem']['description'] = 'Approve Mapping City';
+                $this->request->data['TravelActionItem']['next_action_by'] = '';
+                $flag = '23';
+            } elseif ($type_id == '2' && $level_id == '4') { // Approval in mapping hotel
+                $this->request->data['TravelActionItem']['hotel_supplier_id'] = $travel_actionitems['TravelActionItem']['hotel_supplier_id'];
+                $agents['TravelHotelRoomSupplier']['hotel_supplier_status'] = '2';  // 2 for approve of travel_action_item_types
+                $agents['TravelHotelRoomSupplier']['active'] = 'TRUE'; // for approve of travel_action_item_types
+                $agents['TravelHotelRoomSupplier']['approved_by'] = "'" . $user_id . "'";
+                $agents['TravelHotelRoomSupplier']['approved_date'] = "'" . date('Y-m-d h:i:s') . "'";
+                $mapping['Mappinge']['status'] = '2';  // 2 for approve of travel_action_item_types
+
+                $this->request->data['TravelRemark']['hotel_supplier_id'] = $travel_actionitems['TravelActionItem']['hotel_supplier_id'];
+                $this->request->data['TravelRemark']['remarks'] = 'Approve Mapping Hotel';
+                $this->request->data['TravelActionItem']['description'] = 'Approve Mapping Hotel';
+                $this->request->data['TravelActionItem']['next_action_by'] = '';
+                $flag = '24';
+            }
+
+            if ($type_id == '3' && $level_id == '2') { // Return in mapping country
+                $this->request->data['TravelActionItem']['country_supplier_id'] = $travel_actionitems['TravelActionItem']['country_supplier_id'];
+                $agents['TravelCountrySupplier']['country_suppliner_status'] = '3';  // 2 for approve of travel_action_item_types
+                $agents['TravelCountrySupplier']['active'] = 'FALSE'; // for FALSE of travel_action_item_types
+                $agents['TravelCountrySupplier']['approved_by'] = "'" . $user_id . "'";
+                $agents['TravelCountrySupplier']['approved_date'] = "'" . date('Y-m-d h:i:s') . "'";
+                $mapping['Mappinge']['status'] = '3';  //3 for RETURN of travel_action_item_types
+
+                $this->request->data['TravelRemark']['country_supplier_id'] = $travel_actionitems['TravelActionItem']['country_supplier_id'];
+                $this->request->data['TravelRemark']['remarks'] = 'Return Mapping Country';
+                $this->request->data['TravelActionItem']['description'] = 'Return Mapping Country';
+                $this->request->data['TravelActionItem']['next_action_by'] = $travel_actionitems['TravelActionItem']['created_by_id'];
+                $flag = '22';
+            } elseif ($type_id == '3' && $level_id == '3') {// Return in mapping city
+                $this->request->data['TravelActionItem']['city_supplier_id'] = $travel_actionitems['TravelActionItem']['city_supplier_id'];
+                $agents['TravelCitySupplier']['city_supplier_status'] = '3';  // 2 for approve of travel_action_item_types
+                $agents['TravelCitySupplier']['active'] = 'FALSE'; // for FALSE of travel_action_item_types
+                $agents['TravelCitySupplier']['approved_by'] = "'" . $user_id . "'";
+                $agents['TravelCitySupplier']['approved_date'] = "'" . date('Y-m-d h:i:s') . "'";
+                $mapping['Mappinge']['status'] = '3';  //3 for RETURN of travel_action_item_types
+
+                $this->request->data['TravelRemark']['city_supplier_id'] = $travel_actionitems['TravelActionItem']['city_supplier_id'];
+                $this->request->data['TravelRemark']['remarks'] = 'Return Mapping City';
+                $this->request->data['TravelActionItem']['description'] = 'Return Mapping City';
+                $this->request->data['TravelActionItem']['next_action_by'] = $travel_actionitems['TravelActionItem']['created_by_id'];
+                $flag = '23';
+            } elseif ($type_id == '3' && $level_id == '4') {// Return in mapping hotel
+                $this->request->data['TravelActionItem']['hotel_supplier_id'] = $travel_actionitems['TravelActionItem']['hotel_supplier_id'];
+                $agents['TravelHotelRoomSupplier']['hotel_supplier_status'] = '3';  // 2 for approve of travel_action_item_types
+                $agents['TravelHotelRoomSupplier']['active'] = 'FALSE'; // for FALSE of travel_action_item_types
+                $agents['TravelHotelRoomSupplier']['approved_by'] = "'" . $user_id . "'";
+                $agents['TravelHotelRoomSupplier']['approved_date'] = "'" . date('Y-m-d h:i:s') . "'";
+                $mapping['Mappinge']['status'] = '3';  //3 for RETURN of travel_action_item_types
+
+                $this->request->data['TravelRemark']['hotel_supplier_id'] = $travel_actionitems['TravelActionItem']['hotel_supplier_id'];
+                $this->request->data['TravelRemark']['remarks'] = 'Return Mapping Hotel';
+                $this->request->data['TravelActionItem']['description'] = 'Return Mapping Hotel';
+                $this->request->data['TravelActionItem']['next_action_by'] = $travel_actionitems['TravelActionItem']['created_by_id'];
+                $flag = '24';
+            } elseif ($type_id == '5' && $level_id == '3') {// Rejection in mapping city
+                $this->request->data['TravelActionItem']['city_supplier_id'] = $travel_actionitems['TravelActionItem']['city_supplier_id'];
+
+
+                $mapping['Mappinge']['status'] = '5';  //3 for RETURN of travel_action_item_types
+
+                /* Email Logic */
+                $to = array('administrator@silkrouters.com', 'data@silkrouters.com');
+                // $to = array('biswa.mee@gmail.com', 'biswajit.das801@gmail.com');
+                $cc = 'infra@sumanus.com';
+                //$cc = 'biswajit@wtbglobal.com';
+                $Email = new CakeEmail();
+                $subject = strtoupper('MAPPING | ' . $TravelCitySuppliers['TravelCitySupplier']['city_mapping_name'] . ' | REJECTED BY - ' . $this->User->Username($user_id));
+                $Email->viewVars(array(
+                    'MappingName' => strtoupper($TravelCitySuppliers['TravelCitySupplier']['city_mapping_name']),
+                    'Supplier' => strtoupper($TravelCitySuppliers['TravelCitySupplier']['supplier_code']),
+                    'Country' => strtoupper($TravelCitySuppliers['TravelCitySupplier']['city_country_code']),
+                    'City' => strtoupper($TravelCitySuppliers['TravelCitySupplier']['pf_city_code']),
+                    'CreatedBy' => $TravelCitySuppliers['TravelCitySupplier']['created_by'],
+                    'Description' => strtoupper($this->data['TravelActionItem']['other_rejection']),
+                ));
+                $Email->template('DuplicateMappinges/template', 'default')->emailFormat('html')->to($to)->cc($cc)->from('admin@silkrouters.com')->subject($subject)->send();
+
+                /* End Emial */
+
+                $this->TravelCitySupplier->delete($travel_actionitems['TravelActionItem']['city_supplier_id']);
+
+                $flag = '534';
+            } elseif ($type_id == '5' && $level_id == '4') {// Rejection in mapping hotel
+                $mapping['Mappinge']['status'] = '5';  //3 for RETURN of travel_action_item_types
+
+                /* Email Logic */
+                $to = array('administrator@silkrouters.com', 'data@silkrouters.com');
+                // $to = array('biswa.mee@gmail.com', 'biswajit.das801@gmail.com');
+                $cc = 'infra@sumanus.com';
+                // $cc = 'biswajit@wtbglobal.com';
+                $Email = new CakeEmail();
+                $subject = strtoupper('MAPPING | ' . $TravelHotelRoomSuppliers['TravelHotelRoomSupplier']['hotel_mapping_name'] . ' | REJECTED BY - ' . $this->User->Username($user_id));
+                $Email->viewVars(array(
+                    'MappingName' => strtoupper($TravelHotelRoomSuppliers['TravelHotelRoomSupplier']['hotel_mapping_name']),
+                    'Supplier' => strtoupper($TravelHotelRoomSuppliers['TravelHotelRoomSupplier']['supplier_code']),
+                    'Country' => strtoupper($TravelHotelRoomSuppliers['TravelHotelRoomSupplier']['hotel_country_code']),
+                    'City' => strtoupper($TravelHotelRoomSuppliers['TravelHotelRoomSupplier']['hotel_city_code']),
+                    'Hotel' => strtoupper($TravelHotelRoomSuppliers['TravelHotelRoomSupplier']['hotel_code']),
+                    'CreatedBy' => $TravelHotelRoomSuppliers['TravelHotelRoomSupplier']['created_by'],
+                    'Description' => strtoupper($this->data['TravelActionItem']['other_rejection']),
+                ));
+                $Email->template('DuplicateMappinges/hotel', 'default')->emailFormat('html')->to($to)->cc($cc)->from('admin@silkrouters.com')->subject($subject)->send();
+
+                /* End Emial */
+
+
+
+                $this->TravelHotelRoomSupplier->delete($travel_actionitems['TravelActionItem']['hotel_supplier_id']);
+                $flag = '534';
+            }
+
+
+            $this->TravelActionItem->create();
+            $mapping['Mappinge']['approved_by'] = "'" . $user_id . "'";
+            $mapping['Mappinge']['approved_date'] = "'" . date('Y-m-d h:i:s') . "'";
+
+            if ($flag == '22') { // country
+                $table = 'TravelCountrySupplier';
+                $table_id = $travel_actionitems['TravelActionItem']['country_supplier_id'];
+                if ($this->TravelActionItem->save($this->data['TravelActionItem'])) {
+
+                    $last_action_id = $this->TravelActionItem->getLastInsertId();
+                    $this->TravelRemark->save($this->data['TravelRemark']);
+                    $this->TravelActionItem->updateAll(array('TravelActionItem.action_item_active' => "'No'"), array('TravelActionItem.id' => $actio_itme_id));
+                    $this->Mappinge->updateAll($mapping['Mappinge'], array('Mappinge.country_supplier_id' => $travel_actionitems['TravelActionItem']['country_supplier_id']));
+                    $this->TravelCountrySupplier->updateAll($agents['TravelCountrySupplier'], array('TravelCountrySupplier.id' => $travel_actionitems['TravelActionItem']['country_supplier_id']));
+
+                    /*                     * *******************XML Logic********************************** */
+                    $TravelCountrySuppliers = $this->TravelCountrySupplier->findById($travel_actionitems['TravelActionItem']['country_supplier_id']);
+
+
+                    $CreatedDate = date('Y-m-d') . 'T' . date('h:i:s');
+                    $date = explode(' ', $TravelCountrySuppliers['TravelCountrySupplier']['created']);
+                    $created = $date[0] . 'T' . $date[1];
+
+
+                    $content_xml_str = '<soap:Body>
+                                        <ProcessXML xmlns="http://www.travel.domain/">
+                                            <RequestInfo>
+                                                <ResourceDataRequest>
+                                                    <RequestAuditInfo>
+                                                        <RequestType>PXML_WData_CountryMapping</RequestType>
+                                                        <RequestTime>' . $CreatedDate . '</RequestTime>
+                                                        <RequestResource>Silkrouters</RequestResource>
+                                                    </RequestAuditInfo>
+                                                    <RequestParameters>                        
+                                                        <ResourceData>
+                                                            <ResourceDetailsData srno="1" actiontype="' . $actiontype . '">
+                                                                <Id>' . $TravelCountrySuppliers['TravelCountrySupplier']['id'] . '</Id>
+                                                                <CountryCode><![CDATA[' . $TravelCountrySuppliers['TravelCountrySupplier']['pf_country_code'] . ']]></CountryCode>
+                                                                <CountryName><![CDATA[' . $TravelCountrySuppliers['TravelCountrySupplier']['country_name'] . ']]></CountryName>
+                                                                <SupplierCode><![CDATA[' . $TravelCountrySuppliers['TravelCountrySupplier']['supplier_code'] . ']]></SupplierCode>
+                                                                <SupplierCountryCode><![CDATA[' . $TravelCountrySuppliers['TravelCountrySupplier']['supplier_country_code'] . ']]></SupplierCountryCode>
+                                                                <CountryId>' . $TravelCountrySuppliers['TravelCountrySupplier']['country_id'] . '</CountryId>
+                                                                <CountryContinentId>' . $TravelCountrySuppliers['TravelCountrySupplier']['country_continent_id'] . '</CountryContinentId>
+                                                                <CountryContinentName><![CDATA[' . $TravelCountrySuppliers['TravelCountrySupplier']['country_continent_name'] . ']]></CountryContinentName>
+                                                                <CountryMappingName><![CDATA[' . $TravelCountrySuppliers['TravelCountrySupplier']['country_mapping_name'] . ']]></CountryMappingName>
+                                                                <BuyingCurrency>NA</BuyingCurrency>
+                                                                <ApplyBuyingCurrency>NA</ApplyBuyingCurrency>
+                                                                <CountrySupplierStatus>' . $TravelCountrySuppliers['TravelCountrySupplier']['country_suppliner_status'] . '</CountrySupplierStatus>
+                                                                <WtbStatus>false</WtbStatus>
+                                                                <Active>' . strtolower($TravelCountrySuppliers['TravelCountrySupplier']['active']) . '</Active>
+                                                                <Excluded>' . strtolower($TravelCountrySuppliers['TravelCountrySupplier']['excluded']) . '</Excluded>                             
+                                                                <ApprovedBy>' . $user_id . '</ApprovedBy>
+                                                                <ApprovedDate>' . $CreatedDate . '</ApprovedDate>
+                                                                <CreatedBy>' . $TravelCountrySuppliers['TravelCountrySupplier']['created_by'] . '</CreatedBy>
+                                                                <CreatedDate>' . $created . '</CreatedDate> 
+                                                            </ResourceDetailsData>              
+                                                    </ResourceData>
+                                                    </RequestParameters>
+                                                </ResourceDataRequest>
+                                            </RequestInfo>
+                                        </ProcessXML>
+                                    </soap:Body>';
+
+                    $log_call_screen = 'Approval - Supplier Country Mapping';
+                    $RESOURCEDATA = 'RESOURCEDATA_COUNTRYMAPPING';
+                    /*                     * *******************End XML************************************** */
+                }
+                $success = 1;
+            } elseif ($flag == '23') { // city
+                $table = 'TravelCitySupplier';
+                $table_id = $travel_actionitems['TravelActionItem']['city_supplier_id'];
+                if ($this->TravelActionItem->save($this->data['TravelActionItem'])) {
+                    $last_action_id = $this->TravelActionItem->getLastInsertId();
+                    $this->TravelRemark->save($this->data['TravelRemark']);
+                    $this->TravelActionItem->updateAll(array('TravelActionItem.action_item_active' => "'No'"), array('TravelActionItem.id' => $actio_itme_id));
+                    $this->TravelCitySupplier->updateAll($agents['TravelCitySupplier'], array('TravelCitySupplier.id' => $travel_actionitems['TravelActionItem']['city_supplier_id']));
+                    $this->Mappinge->updateAll($mapping['Mappinge'], array('Mappinge.city_supplier_id' => $travel_actionitems['TravelActionItem']['city_supplier_id']));
+                    /*                     * *******************XML Logic********************************** */
+                    $TravelCitySuppliers = $this->TravelCitySupplier->findById($travel_actionitems['TravelActionItem']['city_supplier_id']);
+
+                    $CitySupplierStatus = $TravelCitySuppliers['TravelCitySupplier']['city_supplier_status'];
+                    if ($CitySupplierStatus)
+                        $CitySupplierStatus = 'true';
+                    else
+                        $CitySupplierStatus = 'false';
+
+                    $CreatedDate = date('Y-m-d') . 'T' . date('h:i:s');
+                    $date = explode(' ', $TravelCitySuppliers['TravelCitySupplier']['created']);
+                    $created = $date[0] . 'T' . $date[1];
+
+
+                    $content_xml_str = '<soap:Body>
+                                        <ProcessXML xmlns="http://www.travel.domain/">
+                                            <RequestInfo>
+                                                <ResourceDataRequest>
+                                                    <RequestAuditInfo>
+                                                        <RequestType>PXML_WData_CityMapping</RequestType>
+                                                        <RequestTime>' . $CreatedDate . '</RequestTime>
+                                                        <RequestResource>Silkrouters</RequestResource>
+                                                    </RequestAuditInfo>
+                                                    <RequestParameters>                        
+                                                        <ResourceData>
+                                                            <ResourceDetailsData srno="1" actiontype="' . $actiontype . '">
+                                                                <Id>' . $TravelCitySuppliers['TravelCitySupplier']['id'] . '</Id>
+                                                                <CityCode><![CDATA[' . $TravelCitySuppliers['TravelCitySupplier']['pf_city_code'] . ']]></CityCode>
+                                                                <CityName><![CDATA[' . $TravelCitySuppliers['TravelCitySupplier']['city_name'] . ']]></CityName>
+                                                                <CityId>' . $TravelCitySuppliers['TravelCitySupplier']['city_id'] . '</CityId>                                
+                                                                <SupplierCode><![CDATA[' . $TravelCitySuppliers['TravelCitySupplier']['supplier_code'] . ']]></SupplierCode>
+                                                                <SupplierCityCode><![CDATA[' . $TravelCitySuppliers['TravelCitySupplier']['supplier_city_code'] . ']]></SupplierCityCode>
+                                                                <PFCityCode><![CDATA[' . $TravelCitySuppliers['TravelCitySupplier']['pf_city_code'] . ']]></PFCityCode>
+                                                                <CityMappingName><![CDATA[' . $TravelCitySuppliers['TravelCitySupplier']['city_mapping_name'] . ']]></CityMappingName>
+                                                                <CityCountryCode><![CDATA[' . $TravelCitySuppliers['TravelCitySupplier']['city_country_code'] . ']]></CityCountryCode>
+                                                                <CityCountryId>' . $TravelCitySuppliers['TravelCitySupplier']['city_country_id'] . '</CityCountryId>
+                                                                <CityCountryName><![CDATA[' . $TravelCitySuppliers['TravelCitySupplier']['city_country_name'] . ']]></CityCountryName>
+                                                                <CityContinentId>' . $TravelCitySuppliers['TravelCitySupplier']['city_continent_id'] . '</CityContinentId>
+                                                                <CityContinentName><![CDATA[' . $TravelCitySuppliers['TravelCitySupplier']['city_continent_name'] . ']]></CityContinentName>
+                                                                <CitySupplierStatus>' . $CitySupplierStatus . '</CitySupplierStatus>
+                                                                <SupplierCountryCode><![CDATA[' . $TravelCitySuppliers['TravelCitySupplier']['supplier_coutry_code'] . ']]></SupplierCountryCode>
+                                                                <WtbStatus>false</WtbStatus>
+                                                                <Active>' . strtolower($TravelCitySuppliers['TravelCitySupplier']['active']) . '</Active>
+                                                                <Excluded>' . strtolower($TravelCitySuppliers['TravelCitySupplier']['excluded']) . '</Excluded>                             
+                                                                <ApprovedBy>' . $user_id . '</ApprovedBy>
+                                                                <ApprovedDate>' . $CreatedDate . '</ApprovedDate>
+                                                                <CreatedBy>' . $TravelCitySuppliers['TravelCitySupplier']['created_by'] . '</CreatedBy>
+                                                                <CreatedDate>' . $created . '</CreatedDate> 
+                                                            </ResourceDetailsData>              
+                                                    </ResourceData>
+                                                    </RequestParameters>
+                                                </ResourceDataRequest>
+                                            </RequestInfo>
+                                        </ProcessXML>
+                                    </soap:Body>';
+
+                    $log_call_screen = 'Approval - Supplier City Mapping';
+                    $RESOURCEDATA = 'RESOURCEDATA_CITYMAPPING';
+
+                    /*                     * *******************End XML************************************** */
+                }
+                $success = 1;
+            } elseif ($flag == '24') { // hotel
+                $table = 'TravelHotelRoomSupplier';
+                $table_id = $travel_actionitems['TravelActionItem']['hotel_supplier_id'];
+                if ($this->TravelActionItem->save($this->data['TravelActionItem'])) {
+                    $last_action_id = $this->TravelActionItem->getLastInsertId();
+                    $this->TravelRemark->save($this->data['TravelRemark']);
+                    $this->TravelActionItem->updateAll(array('TravelActionItem.action_item_active' => "'No'"), array('TravelActionItem.id' => $actio_itme_id));
+                    $this->TravelHotelRoomSupplier->updateAll($agents['TravelHotelRoomSupplier'], array('TravelHotelRoomSupplier.id' => $travel_actionitems['TravelActionItem']['hotel_supplier_id']));
+                    $this->Mappinge->updateAll($mapping['Mappinge'], array('Mappinge.hotel_supplier_id' => $travel_actionitems['TravelActionItem']['hotel_supplier_id']));
+                    /*                     * *******************XML Logic********************************** */
+                    $TravelHotelRoomSuppliers = $this->TravelHotelRoomSupplier->findById($travel_actionitems['TravelActionItem']['hotel_supplier_id']);
+
+
+                    $CreatedDate = date('Y-m-d') . 'T' . date('h:i:s');
+                    $date = explode(' ', $TravelHotelRoomSuppliers['TravelHotelRoomSupplier']['created']);
+                    $created = $date[0] . 'T' . $date[1];
+
+
+                    $content_xml_str = '<soap:Body>
+                                        <ProcessXML xmlns="http://www.travel.domain/">
+                                            <RequestInfo>
+                                                <ResourceDataRequest>
+                                                    <RequestAuditInfo>
+                                                        <RequestType>PXML_WData_HotelMapping</RequestType>
+                                                        <RequestTime>' . $CreatedDate . '</RequestTime>
+                                                        <RequestResource>Silkrouters</RequestResource>
+                                                    </RequestAuditInfo>
+                                                    <RequestParameters>                        
+                                                        <ResourceData>
+                                                            <ResourceDetailsData srno="1" actiontype="' . $actiontype . '">
+                                                                <Id>' . $TravelHotelRoomSuppliers['TravelHotelRoomSupplier']['id'] . '</Id>
+                                                                <HotelCode><![CDATA[' . trim($TravelHotelRoomSuppliers['TravelHotelRoomSupplier']['hotel_code']) . ']]></HotelCode>
+                                                                <HotelName><![CDATA[' . $TravelHotelRoomSuppliers['TravelHotelRoomSupplier']['hotel_name'] . ']]></HotelName>
+                                                                <SupplierCode><![CDATA[' . $TravelHotelRoomSuppliers['TravelHotelRoomSupplier']['supplier_code'] . ']]></SupplierCode>
+                                                                <WtbStatus>false</WtbStatus>
+                                                                <Active>' . strtolower($TravelHotelRoomSuppliers['TravelHotelRoomSupplier']['active']) . '</Active>
+                                                                <Excluded>' . strtolower($TravelHotelRoomSuppliers['TravelHotelRoomSupplier']['excluded']) . '</Excluded>
+                                                                <ContinentId>' . $TravelHotelRoomSuppliers['TravelHotelRoomSupplier']['hotel_continent_id'] . '</ContinentId>
+                                                                <ContinentCode>NA</ContinentCode>
+                                                                <ContinentName><![CDATA[' . $TravelHotelRoomSuppliers['TravelHotelRoomSupplier']['hotel_continent_name'] . ']]></ContinentName>                              
+                                                                <CountryId>' . $TravelHotelRoomSuppliers['TravelHotelRoomSupplier']['hotel_country_id'] . '</CountryId>
+                                                                <CountryCode><![CDATA[' . trim($TravelHotelRoomSuppliers['TravelHotelRoomSupplier']['hotel_country_code']) . ']]></CountryCode>
+                                                                <CountryName><![CDATA[' . $TravelHotelRoomSuppliers['TravelHotelRoomSupplier']['hotel_country_name'] . ']]></CountryName>
+                                                                <CityId>' . $TravelHotelRoomSuppliers['TravelHotelRoomSupplier']['hotel_city_id'] . '</CityId>
+                                                                <CityCode><![CDATA[' . trim($TravelHotelRoomSuppliers['TravelHotelRoomSupplier']['hotel_city_code']) . ']]></CityCode>
+                                                                <CityName><![CDATA[' . $TravelHotelRoomSuppliers['TravelHotelRoomSupplier']['hotel_city_name'] . ']]></CityName>
+                                                                <SuburbId>' . $TravelHotelRoomSuppliers['TravelHotelRoomSupplier']['hotel_suburb_id'] . '</SuburbId>
+                                                                <SuburbCode>NA</SuburbCode>
+                                                                <SuburbName><![CDATA[' . $TravelHotelRoomSuppliers['TravelHotelRoomSupplier']['hotel_suburb_name'] . ']]></SuburbName>
+                                                                <AreaId>' . $TravelHotelRoomSuppliers['TravelHotelRoomSupplier']['hotel_area_id'] . '</AreaId>
+                                                                <AreaName><![CDATA[' . $TravelHotelRoomSuppliers['TravelHotelRoomSupplier']['hotel_area_name'] . ']]></AreaName>
+                                                                <BrandId>' . $TravelHotelRoomSuppliers['TravelHotelRoomSupplier']['hotel_brand_id'] . '</BrandId>
+                                                                <BrandName><![CDATA[' . $TravelHotelRoomSuppliers['TravelHotelRoomSupplier']['hotel_brand_name'] . ']]></BrandName>
+                                                                <ChainId>' . $TravelHotelRoomSuppliers['TravelHotelRoomSupplier']['hotel_chain_id'] . '</ChainId>
+                                                                <ChainName><![CDATA[' . $TravelHotelRoomSuppliers['TravelHotelRoomSupplier']['hotel_chain_name'] . ']]></ChainName> 
+                                                                <SupplierCountryCode><![CDATA[' . trim($TravelHotelRoomSuppliers['TravelHotelRoomSupplier']['supplier_item_code4']) . ']]></SupplierCountryCode>
+                                                                <SupplierCityCode><![CDATA[' . trim($TravelHotelRoomSuppliers['TravelHotelRoomSupplier']['supplier_item_code3']) . ']]></SupplierCityCode>
+                                                                <SupplierHotelCode><![CDATA[' . trim($TravelHotelRoomSuppliers['TravelHotelRoomSupplier']['supplier_item_code1']) . ']]></SupplierHotelCode>                              
+                                                                <SupplierHotelRoomCode></SupplierHotelRoomCode>
+                                                                <SupplierItemCode5></SupplierItemCode5>
+                                                                <SupplierItemCode6></SupplierItemCode6>                              
+                                                                <SupplierSuburbCode></SupplierSuburbCode>
+                                                                <SupplierAreaCode></SupplierAreaCode>                              
+                                                                <ApprovedBy>' . $user_id . '</ApprovedBy>
+                                                                <ApprovedDate>' . $CreatedDate . '</ApprovedDate>
+                                                                <CreatedBy>' . $TravelHotelRoomSuppliers['TravelHotelRoomSupplier']['created_by'] . '</CreatedBy>
+                                                                <CreatedDate>' . $created . '</CreatedDate> 
+                                                              </ResourceDetailsData>              
+                                                    </ResourceData>
+                                                    </RequestParameters>
+                                                </ResourceDataRequest>
+                                            </RequestInfo>
+                                        </ProcessXML>
+                                    </soap:Body>';
+
+
+
+                    $log_call_screen = 'Approval - Supplier Hotel Mapping';
+                    $RESOURCEDATA = 'RESOURCEDATA_HOTELMAPPING';
+
+                    /*                     * *******************End XML************************************** */
+                }
+                $success = 1;
+            } elseif ($flag == '534') {
+                $this->TravelActionItem->updateAll(array('TravelActionItem.action_item_active' => "'No'"), array('TravelActionItem.id' => $actio_itme_id));
+                $success = 1;
+            }
+
+            if ($flag == '22' || $flag == '23' || $flag == '24') { // XML calling
+                $xml_string = Configure::read('travel_start_xml_str') . $content_xml_str . Configure::read('travel_end_xml_str');
+
+                $client = new SoapClient(null, array(
+                    'location' => $location_URL,
+                    'uri' => '',
+                    'trace' => 1,
+                ));
+
+                try {
+                    $order_return = $client->__doRequest($xml_string, $location_URL, $action_URL, 1);
+//Get response from here
+                    $xml_arr = $this->xml2array($order_return);
+
+                    //echo htmlentities($xml_string);
+                    //pr($xml_arr);
+                    //die;
+
+
+                    if ($xml_arr['SOAP:ENVELOPE']['SOAP:BODY']['PROCESSXMLRESPONSE']['PROCESSXMLRESULT'][$RESOURCEDATA]['RESPONSEAUDITINFO']['RESPONSEINFO']['RESPONSEID'][0] == '201') {
+                        $log_call_status_code = $xml_arr['SOAP:ENVELOPE']['SOAP:BODY']['PROCESSXMLRESPONSE']['PROCESSXMLRESULT'][$RESOURCEDATA]['RESPONSEAUDITINFO']['RESPONSEINFO']['RESPONSEID'][0];
+                        $log_call_status_message = $xml_arr['SOAP:ENVELOPE']['SOAP:BODY']['PROCESSXMLRESPONSE']['PROCESSXMLRESULT'][$RESOURCEDATA]['RESPONSEAUDITINFO']['UPDATEINFO']['STATUS'][0];
+                        $xml_msg = "Foreign record has been successfully created [Code:$log_call_status_code]";
+                        $this->$table->updateAll(array('wtb_status' => "'1'", 'is_update' => "'Y'"), array('id' => $table_id));
+                    } else {
+
+                        $log_call_status_message = $xml_arr['SOAP:ENVELOPE']['SOAP:BODY']['PROCESSXMLRESPONSE']['PROCESSXMLRESULT'][$RESOURCEDATA]['RESPONSEAUDITINFO']['ERRORINFO']['ERROR'][0];
+                        $log_call_status_code = $xml_arr['SOAP:ENVELOPE']['SOAP:BODY']['PROCESSXMLRESPONSE']['PROCESSXMLRESULT'][$RESOURCEDATA]['RESPONSEAUDITINFO']['RESPONSEINFO']['RESPONSEID'][0]; // RESPONSEID
+                        $xml_msg = "There was a problem with foreign record creation [Code:$log_call_status_code]";
+                        $this->$table->updateAll(array('wtb_status' => "'2'"), array('id' => $table_id));
+                    }
+                } catch (SoapFault $exception) {
+                    var_dump(get_class($exception));
+                    var_dump($exception);
+                }
+
+
+                $this->request->data['LogCall']['log_call_nature'] = 'Production';
+                $this->request->data['LogCall']['log_call_type'] = 'Outbound';
+                $this->request->data['LogCall']['log_call_parms'] = trim($xml_string);
+                $this->request->data['LogCall']['log_call_status_code'] = $log_call_status_code;
+                $this->request->data['LogCall']['log_call_status_message'] = $log_call_status_message;
+                $this->request->data['LogCall']['log_call_screen'] = $log_call_screen;
+                $this->request->data['LogCall']['log_call_counterparty'] = 'WTBNETWORKS';
+                $this->request->data['LogCall']['log_call_by'] = $user_id;
+                $this->LogCall->save($this->request->data['LogCall']);
+            }
+
+            $message = 'Local record has been successfully updated.<br />' . $xml_msg;
+
+            if ($success)
+                $this->Session->setFlash($message, 'success');
+            else
+                $this->Session->setFlash('Unable to add Action item.', 'failure');
+
+            $this->redirect(array('controller' => 'travel_action_items', 'action' => 'index'));
+
+            /*
+              echo '<script>
+              var objP=parent.document.getElementsByClassName("mfp-bg");
+              var objC=parent.document.getElementsByClassName("mfp-wrap");
+              objP[0].style.display="none";
+              objC[0].style.display="none";
+              parent.location.reload(true);</script>';
+             * 
+             */
+        }
+
+
+
+        $this->set(compact('headding'));
+
+        // $type = $this->TravelActionItemType->find('list', array('fields' => array('id', 'value'), 'conditions' => 'id = 2 OR id = 3'));
+        $this->set(compact('type'));
+
+
+        $returns = $this->LookupValueActionItemReturn->find('list', array('fields' => 'id, value', 'conditions' => $retrun_cond, 'order' => 'value ASC'));
+        $this->set(compact('returns'));
+
+        $rejections = $this->LookupValueActionItemRejection->find('list', array('fields' => 'id, value', 'conditions' => $rejection_cond, 'order' => 'value ASC'));
+        $this->set(compact('rejections'));
+    }
+
+    public function duplicate_city_supplier_action($actio_itme_id = null, $duplicate_city_supplier_id = null) {
+        $this->layout = '';
+        /*         * *******Checking user*********** */
+        $dummy_status = $this->Auth->user('dummy_status');
+        $channel_id = $this->Session->read("channel_id");
+        $user_id = $this->Auth->user('id');
+        $role_id = $this->Session->read("role_id");
+
+
+        $travel_actionitems = $this->TravelActionItem->findById($actio_itme_id);
+        $ListDuplicateMappinges = $this->DuplicateMappinge->findById($duplicate_city_supplier_id);
+        $Mappinge = $this->TravelCitySupplier->findById($ListDuplicateMappinges['DuplicateMappinge']['duplicate_id']);
+        $this->set(compact('Mappinge'));
+        if ($this->request->is('post') || $this->request->is('put')) {
+            /*             * ************This data is common features **************************************** */
+            $flag = '';
+            $success = 0;
+            $this->request->data['TravelActionItem']['parent_action_item_id'] = $actio_itme_id;
+            $this->request->data['TravelActionItem']['dummy_status'] = $dummy_status;
+            $this->request->data['TravelActionItem']['action_item_created'] = date('Y-m-d');
+            $this->request->data['TravelActionItem']['created_by_id'] = $travel_actionitems['TravelActionItem']['created_by_id'];
+            $this->request->data['TravelActionItem']['level_id'] = $travel_actionitems['TravelActionItem']['level_id'];
+            $this->request->data['TravelActionItem']['duplicate_city_supplier_id'] = $travel_actionitems['TravelActionItem']['duplicate_city_supplier_id'];
+            $this->request->data['TravelActionItem']['action_item_active'] = 'Yes';
+            $this->request->data['TravelActionItem']['created_by'] = $user_id;
+            $this->request->data['TravelActionItem']['action_item_source'] = $role_id;
+
+            $this->request->data['TravelRemark']['remarks_time'] = date('g:i A');
+            $this->request->data['TravelRemark']['created_by'] = $user_id;
+            $this->request->data['TravelRemark']['duplicate_city_supplier_id'] = $travel_actionitems['TravelActionItem']['duplicate_city_supplier_id'];
+            $this->request->data['TravelRemark']['remarks_date'] = date('Y-m-d');
+            $this->request->data['TravelRemark']['dummy_status'] = $dummy_status;
+            $this->request->data['TravelRemark']['remarks_level'] = $travel_actionitems['TravelActionItem']['level_id'];
+
+            $type_id = $this->data['TravelActionItem']['type_id'];
+            $level_id = $travel_actionitems['TravelActionItem']['level_id'];
+
+            if ($type_id == '2' && $level_id == '5') { // Approval in mapping country
+                $DuplicateMappinges['DuplicateMappinge']['status'] = '2';  // 2 for approve of travel_action_item_types
+
+                $DuplicateMappinges['DuplicateMappinge']['approved_by'] = "'" . $user_id . "'";
+                $DuplicateMappinges['DuplicateMappinge']['approved_date'] = "'" . date('Y-m-d h:i:s') . "'";
+
+
+
+                $this->request->data['TravelRemark']['remarks'] = 'Approve Duplicate City Supplier';
+                $this->request->data['TravelActionItem']['description'] = 'Approve Duplicate City Supplier';
+                $this->request->data['TravelActionItem']['next_action_by'] = '';
+            }
+            if ($type_id == '5' && $level_id == '5') { // Reject 
+                $DuplicateMappinges['DuplicateMappinge']['status'] = '5';  // 5 for Rejecttion of travel_action_item_types
+
+                $DuplicateMappinges['DuplicateMappinge']['approved_by'] = "'" . $user_id . "'";
+                $DuplicateMappinges['DuplicateMappinge']['approved_date'] = "'" . date('Y-m-d h:i:s') . "'";
+                $DuplicateMappinges['DuplicateMappinge']['description'] = "'" . $this->data['TravelActionItem']['other_rejection'] . "'";
+                $DuplicateMappinges['DuplicateMappinge']['rejection_id'] = "'" . $this->data['TravelActionItem']['lookup_rejection_id'] . "'";
+
+
+
+                $this->request->data['TravelRemark']['remarks'] = 'Rejection Duplicate City Supplier';
+                $this->request->data['TravelActionItem']['description'] = 'Rejection Duplicate City Supplier';
+                $this->request->data['TravelActionItem']['next_action_by'] = '';
+                $flag = '1';
+            }
+
+            if ($this->TravelActionItem->save($this->data['TravelActionItem'])) {
+                $last_action_id = $this->TravelActionItem->getLastInsertId();
+                $this->TravelRemark->save($this->data['TravelRemark']);
+                $this->TravelActionItem->updateAll(array('TravelActionItem.action_item_active' => "'No'"), array('TravelActionItem.id' => $actio_itme_id));
+                $this->DuplicateMappinge->updateAll($DuplicateMappinges['DuplicateMappinge'], array('DuplicateMappinge.id' => $travel_actionitems['TravelActionItem']['duplicate_city_supplier_id']));
+
+                $this->Session->setFlash('Local record has been successfully updated.', 'success');
+                $flag .= '2';
+            }
+            else
+                $this->Session->setFlash('Unable to add Action item.', 'failure');
+
+            if ($flag == '12') {
+
+                $this->TravelCity->updateAll(array('TravelCity.city_status' => "'0'"), array('TravelCity.city_code LIKE' => $ListDuplicateMappinges['DuplicateMappinge']['city_wtb_code']));
+
+                /* Email Logic */
+                $to = array('administrator@silkrouters.com', 'data@silkrouters.com');
+                // $to = array('biswa.mee@gmail.com', 'biswajit.das801@gmail.com');
+                $cc = 'infra@sumanus.com';
+                // $cc = 'biswajit@wtbglobal.com';
+                $Email = new CakeEmail();
+                $subject = strtoupper('DUPLICATE ENTRY | ' . $ListDuplicateMappinges['DuplicateMappinge']['mapping_name'] . ' | REJECTED BY - ' . $this->User->Username($user_id));
+                $Email->viewVars(array(
+                    'MappingName' => strtoupper($ListDuplicateMappinges['DuplicateMappinge']['mapping_name']),
+                    'Supplier' => strtoupper($ListDuplicateMappinges['DuplicateMappinge']['supplier_code']),
+                    'Country' => strtoupper($ListDuplicateMappinges['DuplicateMappinge']['country_wtb_code']),
+                    'City' => strtoupper($ListDuplicateMappinges['DuplicateMappinge']['city_wtb_code']),
+                    'CreatedBy' => $user_id,
+                    'Description' => strtoupper($this->data['TravelActionItem']['other_rejection']),
+                ));
+                $Email->template('DuplicateMappinges/template', 'default')->emailFormat('html')->to($to)->cc($cc)->from('admin@silkrouters.com')->subject($subject)->send();
+
+                /* End Emial */
+            }
+
+            // $this->redirect(array('controller' => 'travel_action_items', 'action' => 'index'));    
+
+            echo '<script>
+                var objP=parent.document.getElementsByClassName("mfp-bg");
+                var objC=parent.document.getElementsByClassName("mfp-wrap");
+                objP[0].style.display="none";
+                objC[0].style.display="none";
+                parent.location.reload(true);</script>';
+        }
+
+        $TravelCities = $this->TravelCity->find
+                (
+                'first', array
+            (
+            'fields' => array('TravelCity.city_code', 'TravelCity.city_name'),
+            'conditions' => array
+                (
+                'TravelCity.city_code' => $ListDuplicateMappinges['DuplicateMappinge']['city_wtb_code']
+            ),
+                )
+        );
+
+
+
+        //  $TravelCities = Set::combine($TravelCities, '{n}.TravelCity.city_code', array('%s - %s', '{n}.TravelCity.city_code', '{n}.TravelCity.city_name'));
+        // pr($TravelCities);
+        $this->set(compact('TravelCities'));
+
+        $type = $this->TravelActionItemType->find('list', array('fields' => array('id', 'value'), 'conditions' => 'id = 2 OR id = 5'));
+        $this->set(compact('type'));
+
+        $retrun_cond = array('type' => array('0', '6')); // 0=other 4=mapping
+        $returns = $this->LookupValueActionItemRejection->find('list', array('fields' => 'id, value', 'conditions' => $retrun_cond, 'order' => 'value ASC'));
+        $this->set(compact('returns'));
+    }
+
+    public function duplicate_hotel_supplier_action($actio_itme_id = null, $duplicate_city_supplier_id = null) {
+        $this->layout = '';
+        /*         * *******Checking user*********** */
+        $dummy_status = $this->Auth->user('dummy_status');
+        $channel_id = $this->Session->read("channel_id");
+        $user_id = $this->Auth->user('id');
+        $role_id = $this->Session->read("role_id");
+
+
+        $travel_actionitems = $this->TravelActionItem->findById($actio_itme_id);
+        $ListDuplicateMappinges = $this->DuplicateMappinge->findById($duplicate_city_supplier_id);
+        $Mappinge = $this->TravelHotelRoomSupplier->findById($ListDuplicateMappinges['DuplicateMappinge']['duplicate_id']);
+        $this->set(compact('Mappinge'));
+        if ($this->request->is('post') || $this->request->is('put')) {
+            /*             * ************This data is common features **************************************** */
+            $flag = '';
+            $success = 0;
+            $this->request->data['TravelActionItem']['parent_action_item_id'] = $actio_itme_id;
+            $this->request->data['TravelActionItem']['dummy_status'] = $dummy_status;
+            $this->request->data['TravelActionItem']['action_item_created'] = date('Y-m-d');
+            $this->request->data['TravelActionItem']['created_by_id'] = $travel_actionitems['TravelActionItem']['created_by_id'];
+            $this->request->data['TravelActionItem']['level_id'] = $travel_actionitems['TravelActionItem']['level_id'];
+            $this->request->data['TravelActionItem']['duplicate_city_supplier_id'] = $travel_actionitems['TravelActionItem']['duplicate_city_supplier_id'];
+            $this->request->data['TravelActionItem']['action_item_active'] = 'Yes';
+            $this->request->data['TravelActionItem']['created_by'] = $user_id;
+            $this->request->data['TravelActionItem']['action_item_source'] = $role_id;
+
+            $this->request->data['TravelRemark']['remarks_time'] = date('g:i A');
+            $this->request->data['TravelRemark']['created_by'] = $user_id;
+            $this->request->data['TravelRemark']['duplicate_city_supplier_id'] = $travel_actionitems['TravelActionItem']['duplicate_city_supplier_id'];
+            $this->request->data['TravelRemark']['remarks_date'] = date('Y-m-d');
+            $this->request->data['TravelRemark']['dummy_status'] = $dummy_status;
+            $this->request->data['TravelRemark']['remarks_level'] = $travel_actionitems['TravelActionItem']['level_id'];
+
+            $type_id = $this->data['TravelActionItem']['type_id'];
+            $level_id = $travel_actionitems['TravelActionItem']['level_id'];
+
+            if ($type_id == '2' && $level_id == '6') { // Approval in mapping country
+                $DuplicateMappinges['DuplicateMappinge']['status'] = '2';  // 2 for approve of travel_action_item_types
+
+                $DuplicateMappinges['DuplicateMappinge']['approved_by'] = "'" . $user_id . "'";
+                $DuplicateMappinges['DuplicateMappinge']['approved_date'] = "'" . date('Y-m-d h:i:s') . "'";
+
+
+
+                $this->request->data['TravelRemark']['remarks'] = 'Approve Duplicate City Supplier';
+                $this->request->data['TravelActionItem']['description'] = 'Approve Duplicate City Supplier';
+                $this->request->data['TravelActionItem']['next_action_by'] = '';
+            }
+            if ($type_id == '5' && $level_id == '6') { // Reject 
+                $DuplicateMappinges['DuplicateMappinge']['status'] = '5';  // 5 for Rejecttion of travel_action_item_types
+
+                $DuplicateMappinges['DuplicateMappinge']['approved_by'] = "'" . $user_id . "'";
+                $DuplicateMappinges['DuplicateMappinge']['approved_date'] = "'" . date('Y-m-d h:i:s') . "'";
+                $DuplicateMappinges['DuplicateMappinge']['description'] = "'" . $this->data['TravelActionItem']['other_rejection'] . "'";
+                $DuplicateMappinges['DuplicateMappinge']['rejection_id'] = "'" . $this->data['TravelActionItem']['lookup_rejection_id'] . "'";
+
+
+
+                $this->request->data['TravelRemark']['remarks'] = 'Rejection Duplicate Hotel Supplier';
+                $this->request->data['TravelActionItem']['description'] = 'Rejection Duplicate Hotel Supplier';
+                $this->request->data['TravelActionItem']['next_action_by'] = '';
+                $flag = '1';
+            }
+
+            if ($this->TravelActionItem->save($this->data['TravelActionItem'])) {
+                $last_action_id = $this->TravelActionItem->getLastInsertId();
+                $this->TravelRemark->save($this->data['TravelRemark']);
+                $this->TravelActionItem->updateAll(array('TravelActionItem.action_item_active' => "'No'"), array('TravelActionItem.id' => $actio_itme_id));
+                $this->DuplicateMappinge->updateAll($DuplicateMappinges['DuplicateMappinge'], array('DuplicateMappinge.id' => $travel_actionitems['TravelActionItem']['duplicate_city_supplier_id']));
+
+                $this->Session->setFlash('Local record has been successfully updated.', 'success');
+                $flag .= '2';
+            }
+            else
+                $this->Session->setFlash('Unable to add Action item.', 'failure');
+
+            if ($flag == '12') {
+
+                $this->TravelHotelLookup->updateAll(array('TravelHotelLookup.active' => "'TRUE'"), array('TravelHotelLookup.hotel_code LIKE' => $ListDuplicateMappinges['DuplicateMappinge']['hotel_wtb_code']));
+                // $hotel_code = $ListDuplicateMappinges['DuplicateMappinge']['hotel_wtb_code'];
+                //  $hotel_name_arr = $this->TravelHotelLookup->findByHotelCode($hotel_code, array('fields' => 'hotel_name'));
+                //$city_name = substr(trim($city_name_arr['TravelCity'  ]['city_name']), 0, 2);
+                //  $hotel_name = $hotel_name_arr['TravelHotelLookup']['hotel_name']; 
+                $subject = strtoupper('DUPLICATE ENTRY | ' . $ListDuplicateMappinges['DuplicateMappinge']['mapping_name'] . ' | REJECTED BY - ' . $this->User->Username($user_id));
+                /* Email Logic */
+                $to = array('administrator@silkrouters.com', 'data@silkrouters.com');
+                // $to = array('biswa.mee@gmail.com', 'biswajit.das801@gmail.com');
+                $cc = 'infra@sumanus.com';
+                // $cc = 'biswajit@wtbglobal.com';
+                $Email = new CakeEmail();
+                $Email->viewVars(array(
+                    'MappingName' => strtoupper($ListDuplicateMappinges['DuplicateMappinge']['mapping_name']),
+                    'Supplier' => strtoupper($ListDuplicateMappinges['DuplicateMappinge']['supplier_code']),
+                    'Country' => strtoupper($ListDuplicateMappinges['DuplicateMappinge']['country_wtb_code']),
+                    'City' => strtoupper($ListDuplicateMappinges['DuplicateMappinge']['city_wtb_code']),
+                    'Hotel' => strtoupper($ListDuplicateMappinges['DuplicateMappinge']['hotel_wtb_code']),
+                    'CreatedBy' => $ListDuplicateMappinges['DuplicateMappinge']['created_by'],
+                    'Description' => strtoupper($this->data['TravelActionItem']['other_rejection']),
+                ));
+                $Email->template('DuplicateMappinges/hotel', 'default')->emailFormat('html')->to($to)->cc($cc)->from('admin@silkrouters.com')->subject($subject)->send();
+
+                /* End Emial */
+            }
+
+            //$log = $this->TravelHotelLookup->getDataSource()->getLog(false, false);
+            //  debug($log);
+            // die;
+
+
+            echo '<script>
+                var objP=parent.document.getElementsByClassName("mfp-bg");
+                var objC=parent.document.getElementsByClassName("mfp-wrap");
+                objP[0].style.display="none";
+                objC[0].style.display="none";
+                parent.location.reload(true);</script>';
+        }
+
+        $TravelHotelLookups = $this->TravelHotelLookup->find('first', array('fields' => 'hotel_code, hotel_name', 'conditions' => array('hotel_code like' => $ListDuplicateMappinges['DuplicateMappinge']['hotel_wtb_code']), 'order' => 'hotel_name ASC'));
+        $this->set(compact('TravelHotelLookups'));
+
+        $type = $this->TravelActionItemType->find('list', array('fields' => array('id', 'value'), 'conditions' => 'id = 2 OR id = 5'));
+        $this->set(compact('type'));
+
+        $retrun_cond = array('type' => array('0', '7')); // 0=other 4=mapping
+        $returns = $this->LookupValueActionItemRejection->find('list', array('fields' => 'id, value', 'conditions' => $retrun_cond, 'order' => 'value ASC'));
+        $this->set(compact('returns'));
+    }
+
+    public function hotel_action($actio_itme_id = null) {
+        $this->layout = '';
+
+
+        /*         * *******Checking user*********** */
+        $location_URL = 'http://dev.wtbnetworks.com/TravelXmlManagerv001/ProEngine.Asmx';
+        $action_URL = 'http://www.travel.domain/ProcessXML';
+        $user_id = $this->Auth->user('id');
+        $dummy_status = $this->Auth->user('dummy_status');
+        $role_id = $this->Session->read("role_id");
+
+        $travel_actionitems = $this->TravelActionItem->findById($actio_itme_id);
+
+        if ($this->request->is('post') || $this->request->is('put')) {
+
+
+            /*             * ************This data is common features **************************************** */
+
+            $this->request->data['TravelActionItem']['parent_action_item_id'] = $actio_itme_id;
+            $this->request->data['TravelActionItem']['dummy_status'] = $dummy_status;
+            $this->request->data['TravelActionItem']['action_item_created'] = date('Y-m-d');
+            $this->request->data['TravelActionItem']['created_by_id'] = $travel_actionitems['TravelActionItem']['created_by_id'];
+            $this->request->data['TravelActionItem']['level_id'] = $travel_actionitems['TravelActionItem']['level_id'];
+            $this->request->data['TravelActionItem']['hotel_id'] = $travel_actionitems['TravelActionItem']['hotel_id'];
+            $this->request->data['TravelActionItem']['action_item_active'] = 'Yes';
+            $this->request->data['TravelActionItem']['created_by'] = $user_id;
+            $this->request->data['TravelActionItem']['action_item_source'] = $role_id;
+
+            $this->request->data['TravelRemark']['remarks_time'] = date('g:i A');
+            $this->request->data['TravelRemark']['created_by'] = $user_id;
+            $this->request->data['TravelRemark']['hotel_id'] = $travel_actionitems['TravelActionItem']['hotel_id'];
+            $this->request->data['TravelRemark']['remarks_date'] = date('Y-m-d');
+            $this->request->data['TravelRemark']['dummy_status'] = $dummy_status;
+            $this->request->data['TravelRemark']['remarks_level'] = $travel_actionitems['TravelActionItem']['level_id'];
+
+            $type_id = $this->data['TravelActionItem']['type_id'];
+
+            if ($type_id == '2') { // Approval
+                $TravelHotelLookups['TravelHotelLookup']['status'] = '2'; //  for active for Approval of lookup_agent_statuses
+                $TravelHotelLookups['TravelHotelLookup']['active'] = 'TRUE';
+                $TravelHotelLookups['TravelHotelLookup']['approved_by'] = "'" . $user_id . "'";
+                $TravelHotelLookups['TravelHotelLookup']['approved_date'] = "'" . date('Y-m-d h:i:s') . "'";
+                $this->request->data['TravelRemark']['remarks'] = 'Approve Hotel';
+                $this->request->data['TravelActionItem']['description'] = 'Approve Hotel';
+            } elseif ($type_id == '3') { // Return
+                $TravelHotelLookups['TravelHotelLookup']['status'] = '3'; // Returned
+                $this->request->data['TravelRemark']['remarks'] = 'Returned Hotel';
+                $this->request->data['TravelActionItem']['description'] = 'Returned Hotel';
+                $this->request->data['TravelActionItem']['next_action_by'] = $travel_actionitems['TravelActionItem']['created_by_id'];
+            }
+
+            //$TravelHotelLookups['TravelHotelLookup']['is_updated'] = 'Y';
+            $this->TravelActionItem->create();
+            if ($this->TravelActionItem->save($this->data['TravelActionItem'])) {
+                $last_action_id = $this->TravelActionItem->getLastInsertId();
+                $this->TravelRemark->save($this->data['TravelRemark']);
+                $this->TravelActionItem->updateAll(array('TravelActionItem.action_item_active' => "'No'"), array('TravelActionItem.id' => $actio_itme_id));
+                $this->TravelHotelLookup->updateAll($TravelHotelLookups['TravelHotelLookup'], array('TravelHotelLookup.id' => $travel_actionitems['TravelActionItem']['hotel_id']));
+                $HotelArray = $this->TravelHotelLookup->findById($travel_actionitems['TravelActionItem']['hotel_id']);
+
+                $HotelId = $HotelArray['TravelHotelLookup']['id'];
+                $HotelCode = $HotelArray['TravelHotelLookup']['hotel_code'];
+                $HotelName = $HotelArray['TravelHotelLookup']['hotel_name'];
+                $AreaId = $HotelArray['TravelHotelLookup']['area_id'];
+                $AreaName = $HotelArray['TravelHotelLookup']['area_name'];
+                $AreaCode = $HotelArray['TravelHotelLookup']['area_code'];
+                $SuburbId = $HotelArray['TravelHotelLookup']['suburb_id'];
+                $SuburbName = $HotelArray['TravelHotelLookup']['suburb_name'];
+
+                $CityId = $HotelArray['TravelHotelLookup']['city_id'];
+                $CityName = $HotelArray['TravelHotelLookup']['city_name'];
+                $CityCode = $HotelArray['TravelHotelLookup']['city_code'];
+                $CountryId = $HotelArray['TravelHotelLookup']['country_id'];
+                $CountryName = $HotelArray['TravelHotelLookup']['country_name'];
+                $CountryCode = $HotelArray['TravelHotelLookup']['country_code'];
+                $ContinentId = $HotelArray['TravelHotelLookup']['continent_id'];
+                $ContinentName = $HotelArray['TravelHotelLookup']['continent_name'];
+                $ContinentCode = $HotelArray['TravelHotelLookup']['continent_code'];
+                $BrandId = $HotelArray['TravelHotelLookup']['brand_id'];
+                $BrandName = $HotelArray['TravelHotelLookup']['brand_name'];
+                $ChainId = $HotelArray['TravelHotelLookup']['chain_id'];
+                $ChainName = $HotelArray['TravelHotelLookup']['chain_name'];
+                $HotelComment = $HotelArray['TravelHotelLookup']['hotel_comment'];
+                $Star = $HotelArray['TravelHotelLookup']['star'];
+                $Keyword = $HotelArray['TravelHotelLookup']['keyword'];
+                $StandardRating = $HotelArray['TravelHotelLookup']['standard_rating'];
+                $HotelRating = $HotelArray['TravelHotelLookup']['hotel_rating'];
+                $FoodRating = $HotelArray['TravelHotelLookup']['food_rating'];
+                $ServiceRating = $HotelArray['TravelHotelLookup']['service_rating'];
+                $LocationRating = $HotelArray['TravelHotelLookup']['location_rating'];
+                $ValueRating = $HotelArray['TravelHotelLookup']['value_rating'];
+                $OverallRating = $HotelArray['TravelHotelLookup']['overall_rating'];
+                $HotelImage1 = $HotelArray['TravelHotelLookup']['hotel_img1'];
+                $HotelImage2 = $HotelArray['TravelHotelLookup']['hotel_img2'];
+                $HotelImage3 = $HotelArray['TravelHotelLookup']['hotel_img3'];
+                $HotelImage4 = $HotelArray['TravelHotelLookup']['hotel_img4'];
+                $HotelImage5 = $HotelArray['TravelHotelLookup']['hotel_img5'];
+                $HotelImage6 = $HotelArray['TravelHotelLookup']['hotel_img6'];
+                $Logo = $HotelArray['TravelHotelLookup']['logo'];
+                $Logo1 = $HotelArray['TravelHotelLookup']['logo1'];
+                $BusinessCenter = $HotelArray['TravelHotelLookup']['business_center'];
+                $MeetingFacilities = $HotelArray['TravelHotelLookup']['meeting_facilities'];
+                $DiningFacilities = $HotelArray['TravelHotelLookup']['dining_facilities'];
+                $BarLounge = $HotelArray['TravelHotelLookup']['bar_lounge'];
+                $FitnessCenter = $HotelArray['TravelHotelLookup']['fitness_center'];
+                $Pool = $HotelArray['TravelHotelLookup']['pool'];
+                $Golf = $HotelArray['TravelHotelLookup']['golf'];
+                $Tennis = $HotelArray['TravelHotelLookup']['tennis'];
+                $Kids = $HotelArray['TravelHotelLookup']['kids'];
+                $Handicap = $HotelArray['TravelHotelLookup']['handicap'];
+                $URLHotel = $HotelArray['TravelHotelLookup']['url_hotel'];
+                $Address = $HotelArray['TravelHotelLookup']['address'];
+                $PostCode = $HotelArray['TravelHotelLookup']['post_code'];
+                $NoRoom = $HotelArray['TravelHotelLookup']['no_room'];
+                $Active = $HotelArray['TravelHotelLookup']['active'];
+                if ($Active == 'TRUE')
+                    $Active = '1';
+                else
+                    $Active = '0';
+                $ReservationEmail = $HotelArray['TravelHotelLookup']['reservation_email'];
+                $ReservationContact = $HotelArray['TravelHotelLookup']['reservation_contact'];
+                $EmergencyContactName = $HotelArray['TravelHotelLookup']['emergency_contact_name'];
+                $ReservationDeskNumber = $HotelArray['TravelHotelLookup']['reservation_desk_number'];
+                $EmergencyContactNumber = $HotelArray['TravelHotelLookup']['emergency_contact_number'];
+                $GPSPARAM1 = $HotelArray['TravelHotelLookup']['gps_prm_1'];
+                $GPSPARAM2 = $HotelArray['TravelHotelLookup']['gps_prm_2'];
+                $TopHotel = strtolower($HotelArray['TravelHotelLookup']['top_hotel']);
+                $CreatedDate = date('Y-m-d') . 'T' . date('h:i:s');
+
+                $is_update = $HotelArray['TravelHotelLookup']['is_updated'];
+                if ($is_update == 'Y') {
+                    $actiontype = 'Update';
+                    $ACTIVE_MSG = 'Edit';
+                } else {
+                    $actiontype = 'AddNew';
+                    $ACTIVE_MSG = 'Add';
+                }
+
+                $content_xml_str = '<soap:Body>
+                                        <ProcessXML xmlns="http://www.travel.domain/">
+                                            <RequestInfo>
+                                                <ResourceDataRequest>
+                                                    <RequestAuditInfo>
+                                                        <RequestType>PXML_WData_Hotel</RequestType>
+                                                        <RequestTime>' . $CreatedDate . '</RequestTime>
+                                                        <RequestResource>Silkrouters</RequestResource>
+                                                    </RequestAuditInfo>
+                                                    <RequestParameters>                        
+                                                        <ResourceData>
+                                                            <ResourceDetailsData srno="1" actiontype="' . $actiontype . '">
+                                                                <HotelId>' . $HotelId . '</HotelId>
+                                                                <HotelCode><![CDATA[' . $HotelCode . ']]></HotelCode>
+                                                                <HotelName><![CDATA[' . $HotelName . ']]></HotelName>
+                                                                <AreaId>' . $AreaId . '</AreaId>
+                                                                <AreaCode><![CDATA[' . $AreaCode . ']]></AreaCode>
+                                                                <AreaName><![CDATA[' . $AreaName . ']]></AreaName>
+                                                                <SuburbId>' . $SuburbId . '</SuburbId>
+                                                                <SuburbCode>NA</SuburbCode>
+                                                                <SuburbName><![CDATA[' . $SuburbName . ']]></SuburbName>
+                                                                <CityId>' . $CityId . '</CityId>
+                                                                <CityCode><![CDATA[' . $CityCode . ']]></CityCode>
+                                                                <CityName><![CDATA[' . $CityName . ']]></CityName>
+                                                                <CountryId>' . $CountryId . '</CountryId>
+                                                                <CountryCode><![CDATA[' . $CountryCode . ']]></CountryCode>
+                                                                <CountryName><![CDATA[' . $CountryName . ']]></CountryName>
+                                                                <ContinentId>' . $ContinentId . '</ContinentId>
+                                                                <ContinentCode><![CDATA[' . $ContinentCode . ']]></ContinentCode>
+                                                                <ContinentName><![CDATA[' . $ContinentName . ']]></ContinentName>
+                                                                <BrandId>' . $BrandId . '</BrandId>
+                                                                <BrandName><![CDATA[' . $BrandName . ']]></BrandName>
+                                                                <ChainId>' . $ChainId . '</ChainId>
+                                                                <ChainName><![CDATA[' . $ChainName . ']]></ChainName>
+                                                                <HotelComment><![CDATA[' . $HotelComment . ']]></HotelComment>
+                                                                <Star>' . $Star . '</Star>
+                                                                <Keyword><![CDATA[' . $Keyword . ']]></Keyword>
+                                                                <StandardRating>' . $StandardRating . '</StandardRating>
+                                                                <HotelRating>' . $HotelRating . '</HotelRating>
+                                                                <FoodRating>' . $FoodRating . '</FoodRating>
+                                                                <ServiceRating>' . $ServiceRating . '</ServiceRating>
+                                                                <LocationRating>' . $LocationRating . '</LocationRating>
+                                                                <ValueRating>' . $ValueRating . '</ValueRating>
+                                                                <OverallRating>' . $OverallRating . '</OverallRating>
+                                                                <HotelImage1>' . $HotelImage1 . '</HotelImage1>
+                                                                <HotelImage2>' . $HotelImage2 . '</HotelImage2>
+                                                                <HotelImage3>' . $HotelImage3 . '</HotelImage3>
+                                                                <HotelImage4>' . $HotelImage4 . '</HotelImage4>
+                                                                <HotelImage5>' . $HotelImage5 . '</HotelImage5>
+                                                                <HotelImage6>' . $HotelImage6 . '</HotelImage6>
+                                                                <Logo>' . $Logo . '</Logo>
+                                                                <Logo1>' . $Logo1 . '</Logo1>
+                                                                <BusinessCenter>' . $BusinessCenter . '</BusinessCenter>
+                                                                <MeetingFacilities>' . $MeetingFacilities . '</MeetingFacilities>
+                                                                <DiningFacilities>' . $DiningFacilities . '</DiningFacilities>
+                                                                <BarLounge>' . $BarLounge . '</BarLounge>
+                                                                <FitnessCenter>' . $FitnessCenter . '</FitnessCenter>
+                                                                <Pool>' . $Pool . '</Pool>
+                                                                <Golf>' . $Golf . '</Golf>
+                                                                <Tennis>' . $Tennis . '</Tennis>
+                                                                <Kids>' . $Kids . '</Kids>
+                                                                <Handicap>' . $Handicap . '</Handicap>
+                                                                <URLHotel>' . $URLHotel . '</URLHotel>
+                                                                <Address>' . $Address . '</Address>
+                                                                <PostCode>' . $PostCode . '</PostCode>
+                                                                <NoRoom>' . $NoRoom . '</NoRoom>
+                                                                <Active>' . $Active . '</Active>
+                                                                <ReservationEmail>' . $ReservationEmail . '</ReservationEmail>
+                                                                <ReservationContact>' . $ReservationContact . '</ReservationContact>
+                                                                <EmergencyContactName>' . $EmergencyContactName . '</EmergencyContactName>
+                                                                <ReservationDeskNumber>' . $ReservationDeskNumber . '</ReservationDeskNumber>
+                                                                <EmergencyContactNumber>' . $EmergencyContactNumber . '</EmergencyContactNumber>
+                                                                <GPSPARAM1>' . $GPSPARAM1 . '</GPSPARAM1>
+                                                                <GPSPARAM2>' . $GPSPARAM2 . '</GPSPARAM2>
+                                                                <TopHotel>' . $TopHotel . '</TopHotel>                                
+                                                                <ApprovedBy>0</ApprovedBy>
+                                                                <ApprovedDate>1111-01-01T00:00:00</ApprovedDate>
+                                                                <CreatedBy>' . $user_id . '</CreatedBy>
+                                                                <CreatedDate>' . $CreatedDate . '</CreatedDate>
+                                                            </ResourceDetailsData>
+                         
+                                                    </ResourceData>
+                                                    </RequestParameters>
+                                                </ResourceDataRequest>
+                                            </RequestInfo>
+                                        </ProcessXML>
+                                    </soap:Body>';
+
+
+                $log_call_screen = 'Hotel - ' . $ACTIVE_MSG;
+
+                $xml_string = Configure::read('travel_start_xml_str') . $content_xml_str . Configure::read('travel_end_xml_str');
+                $client = new SoapClient(null, array(
+                    'location' => $location_URL,
+                    'uri' => '',
+                    'trace' => 1,
+                ));
+
+                try {
+                    $order_return = $client->__doRequest($xml_string, $location_URL, $action_URL, 1);
+
+                    $xml_arr = $this->xml2array($order_return);
+                    // echo htmlentities($xml_string);
+                    //   pr($xml_arr);
+                    //   die;
+
+                    if ($xml_arr['SOAP:ENVELOPE']['SOAP:BODY']['PROCESSXMLRESPONSE']['PROCESSXMLRESULT']['RESOURCEDATA_HOTEL']['RESPONSEAUDITINFO']['RESPONSEINFO']['RESPONSEID'][0] == '201') {
+                        $log_call_status_code = $xml_arr['SOAP:ENVELOPE']['SOAP:BODY']['PROCESSXMLRESPONSE']['PROCESSXMLRESULT']['RESOURCEDATA_HOTEL']['RESPONSEAUDITINFO']['RESPONSEINFO']['RESPONSEID'][0];
+                        $log_call_status_message = $xml_arr['SOAP:ENVELOPE']['SOAP:BODY']['PROCESSXMLRESPONSE']['PROCESSXMLRESULT']['RESOURCEDATA_HOTEL']['RESPONSEAUDITINFO']['UPDATEINFO']['STATUS'][0];
+                        $xml_msg = "Foreign record has been successfully created [Code:$log_call_status_code]";
+                        $this->TravelHotelLookup->updateAll(array('TravelHotelLookup.wtb_status' => "'1'", 'TravelHotelLookup.is_updated' => "'Y'"), array('TravelHotelLookup.id' => $HotelId));
+                    } else {
+
+                        $log_call_status_message = $xml_arr['SOAP:ENVELOPE']['SOAP:BODY']['PROCESSXMLRESPONSE']['PROCESSXMLRESULT']['RESOURCEDATA_HOTEL']['RESPONSEAUDITINFO']['ERRORINFO']['ERROR'][0];
+                        $log_call_status_code = $xml_arr['SOAP:ENVELOPE']['SOAP:BODY']['PROCESSXMLRESPONSE']['PROCESSXMLRESULT']['RESOURCEDATA_HOTEL']['RESPONSEAUDITINFO']['RESPONSEINFO']['RESPONSEID'][0]; // RESPONSEID
+                        $xml_msg = "There was a problem with foreign record creation [Code:$log_call_status_code]";
+                        $this->TravelHotelLookup->updateAll(array('TravelHotelLookup.wtb_status' => "'2'"), array('TravelHotelLookup.id' => $HotelId));
+                    }
+                } catch (SoapFault $exception) {
+                    var_dump(get_class($exception));
+                    var_dump($exception);
+                }
+
+
+                $this->request->data['LogCall']['log_call_nature'] = 'Production';
+                $this->request->data['LogCall']['log_call_type'] = 'Outbound';
+                $this->request->data['LogCall']['log_call_parms'] = trim($xml_string);
+                $this->request->data['LogCall']['log_call_status_code'] = $log_call_status_code;
+                $this->request->data['LogCall']['log_call_status_message'] = $log_call_status_message;
+                $this->request->data['LogCall']['log_call_screen'] = $log_call_screen;
+                $this->request->data['LogCall']['log_call_counterparty'] = 'WTBNETWORKS';
+                $this->request->data['LogCall']['log_call_by'] = $user_id;
+                $this->LogCall->create();
+                $this->LogCall->save($this->request->data['LogCall']);
+
+                /**
+                 * Hotel mapping update section.
+                 */
+                if ($actiontype == 'Update') {
+
+
+                    $arrs = $this->TravelHotelRoomSupplier->find('all', array('conditions' => array('TravelHotelRoomSupplier.hotel_id' => $HotelId)));
+                    if (count($arrs) > 0) {
+                        foreach ($arrs as $val) {
+                            
+                            $Id = $val['TravelHotelRoomSupplier']['id'];
+                            $this->request->data['TravelHotelRoomSupplier']['hotel_name'] = "'" . $HotelName . "'";
+                            $this->request->data['TravelHotelRoomSupplier']['hotel_area_id'] = "'" . $AreaId . "'";
+                            $this->request->data['TravelHotelRoomSupplier']['hotel_area_name'] = "'" . $AreaName . "'";
+                            $this->request->data['TravelHotelRoomSupplier']['hotel_suburb_id'] = "'" . $SuburbId . "'";
+                            $this->request->data['TravelHotelRoomSupplier']['hotel_suburb_name'] = "'" . $SuburbName . "'";
+                            $this->request->data['TravelHotelRoomSupplier']['hotel_city_id'] = "'" . $CityId . "'";
+                            $this->request->data['TravelHotelRoomSupplier']['hotel_city_name'] = "'" . $CityName . "'";
+                            $this->request->data['TravelHotelRoomSupplier']['hotel_country_id'] = "'" . $CountryId . "'";
+                            $this->request->data['TravelHotelRoomSupplier']['hotel_country_name'] = "'" . $CountryName . "'";
+                            $this->request->data['TravelHotelRoomSupplier']['hotel_continent_id'] = "'" . $ContinentId . "'";
+                            $this->request->data['TravelHotelRoomSupplier']['hotel_continent_name'] = "'" . $ContinentName . "'";
+                            $this->request->data['TravelHotelRoomSupplier']['hotel_chain_id'] = "'" . $ContinentId . "'";
+                            $this->request->data['TravelHotelRoomSupplier']['hotel_chain_name'] = "'" . $ChainName . "'";
+                            $this->request->data['TravelHotelRoomSupplier']['hotel_brand_id'] = "'" . $BrandId . "'";
+                            $this->request->data['TravelHotelRoomSupplier']['hotel_brand_name'] = "'" . $BrandName . "'";
+                            
+                            $this->TravelHotelRoomSupplier->updateAll($this->request->data['TravelHotelRoomSupplier'], array('TravelHotelRoomSupplier.id' => $Id));
+
+
+
+                            $country_code = trim($val['TravelHotelRoomSupplier']['hotel_country_code']);
+                            $hotel_code = trim($val['TravelHotelRoomSupplier']['hotel_code']);
+                            $city_code = $val['TravelHotelRoomSupplier']['hotel_city_code'];
+                            $SupplierCode = $val['TravelHotelRoomSupplier']['supplier_code'];
+                            $Active = strtolower($val['TravelHotelRoomSupplier']['active']);
+                            $Excluded = strtolower($val['TravelHotelRoomSupplier']['excluded']);
+                            $SupplierCountryCode = $val['TravelHotelRoomSupplier']['supplier_item_code4'];
+                            $SupplierCityCode = $val['TravelHotelRoomSupplier']['supplier_item_code3'];
+                            $SupplierHotelCode = $val['TravelHotelRoomSupplier']['supplier_item_code1'];
+                            $HotelName = $HotelName;
+                            $CityId = $CityId;
+                            $CityName = $CityName;
+                            $SuburbId = $SuburbId;
+                            $SuburbName = $SuburbName;
+                            $AreaId = $AreaId;
+                            $AreaName = $AreaName;
+                            $BrandId = $BrandId;
+                            $BrandName = $BrandName;
+                            $ChainId = $ContinentId;
+                            $ChainName = $ChainName;
+                            $CountryId = $CountryId;
+                            $CountryName = $CountryName;
+                            $ContinentId = $ContinentId;
+                            $ContinentName = $ContinentName;
+                            $ApprovedBy = $val['TravelHotelRoomSupplier']['approved_by'];
+                            $CreatedBy = $val['TravelHotelRoomSupplier']['created_by'];
+                            $app_date = explode(' ', $val['TravelHotelRoomSupplier']['approved_date']);
+                            $ApprovedDate = $app_date[0] . 'T' . $app_date[1];
+                            $date = explode(' ', $val['TravelHotelRoomSupplier']['created']);
+                            $created = $date[0] . 'T' . $date[1];
+                            $is_update = $val['TravelHotelRoomSupplier']['is_update'];
+                            if ($is_update == 'Y')
+                                $hotel_actiontype = 'Update';
+                            else
+                                $hotel_actiontype = 'AddNew';
+
+                            $content_xml_str = '<soap:Body>
+                                        <ProcessXML xmlns="http://www.travel.domain/">
+                                            <RequestInfo>
+                                                <ResourceDataRequest>
+                                                    <RequestAuditInfo>
+                                                        <RequestType>PXML_WData_HotelMapping</RequestType>
+                                                        <RequestTime>' . $CreatedDate . '</RequestTime>
+                                                        <RequestResource>Silkrouters</RequestResource>
+                                                    </RequestAuditInfo>
+                                                    <RequestParameters>                        
+                                                        <ResourceData>
+                                                            <ResourceDetailsData srno="1" actiontype="' . $hotel_actiontype . '">
+                                                                <Id>' . $Id . '</Id>
+                                                                <HotelCode>' . $hotel_code . '</HotelCode>
+                                                                <HotelName>' . $HotelName . '</HotelName>
+                                                                <SupplierCode>' . $SupplierCode . '</SupplierCode>
+                                                                <WtbStatus>false</WtbStatus>
+                                                                <Active>' . $Active . '</Active>
+                                                                <Excluded>' . $Excluded . '</Excluded>
+                                                                <ContinentId>' . $ContinentId . '</ContinentId>
+                                                                <ContinentCode>NA</ContinentCode>
+                                                                <ContinentName>' . $ContinentName . '</ContinentName>                              
+                                                                <CountryId>' . $CountryId . '</CountryId>
+                                                                <CountryCode>' . $country_code . '</CountryCode>
+                                                                <CountryName>' . $CountryName . '</CountryName>
+                                                                <CityId>' . $CityId . '</CityId>
+                                                                <CityCode>' . $city_code . '</CityCode>
+                                                                <CityName>' . $CityName . '</CityName>
+                                                                <SuburbId>' . $SuburbId . '</SuburbId>
+                                                                <SuburbCode>NA</SuburbCode>
+                                                                <SuburbName>' . $SuburbName . '</SuburbName>
+                                                                <AreaId>' . $AreaId . '</AreaId>
+                                                                <AreaName>' . $AreaName . '</AreaName>
+                                                                <BrandId>' . $BrandId . '</BrandId>
+                                                                <BrandName>' . $BrandName . '</BrandName>
+                                                                <ChainId>' . $ChainId . '</ChainId>
+                                                                <ChainName>' . $ChainName . '</ChainName>    
+                                                                <SupplierCountryCode>' . $SupplierCountryCode . '</SupplierCountryCode>
+                                                                <SupplierCityCode>' . $SupplierCityCode . '</SupplierCityCode>
+                                                                <SupplierHotelCode>' . $SupplierHotelCode . '</SupplierHotelCode>                              
+                                                                <SupplierHotelRoomCode></SupplierHotelRoomCode>
+                                                                <SupplierItemCode5></SupplierItemCode5>
+                                                                <SupplierItemCode6></SupplierItemCode6>                              
+                                                                <SupplierSuburbCode></SupplierSuburbCode>
+                                                                <SupplierAreaCode></SupplierAreaCode>                              
+                                                                <ApprovedBy>' . $ApprovedBy . '</ApprovedBy>
+                                                                <ApprovedDate>' . $ApprovedDate . '</ApprovedDate>
+                                                                <CreatedBy>' . $CreatedBy . '</CreatedBy>
+                                                                <CreatedDate>' . $created . '</CreatedDate> 
+                                                              </ResourceDetailsData>              
+                                                    </ResourceData>
+                                                    </RequestParameters>
+                                                </ResourceDataRequest>
+                                            </RequestInfo>
+                                        </ProcessXML>
+                                    </soap:Body>';
+
+                            $log_call_screen = 'Re-Try WTB Operation - Hotel Mapping';
+                            $RESOURCEDATA = 'RESOURCEDATA_HOTELMAPPING';
+
+                            $xml_string = Configure::read('travel_start_xml_str') . $content_xml_str . Configure::read('travel_end_xml_str');
+
+                            $client = new SoapClient(null, array(
+                                'location' => $location_URL,
+                                'uri' => '',
+                                'trace' => 1,
+                            ));
+
+                            try {
+                                $order_return = $client->__doRequest($xml_string, $location_URL, $action_URL, 1);
+//Get response from here
+                                $xml_arr = $this->xml2array($order_return);
+
+                                if ($xml_arr['SOAP:ENVELOPE']['SOAP:BODY']['PROCESSXMLRESPONSE']['PROCESSXMLRESULT'][$RESOURCEDATA]['RESPONSEAUDITINFO']['RESPONSEINFO']['RESPONSEID'][0] == '201') {
+                                    $log_call_status_code = $xml_arr['SOAP:ENVELOPE']['SOAP:BODY']['PROCESSXMLRESPONSE']['PROCESSXMLRESULT'][$RESOURCEDATA]['RESPONSEAUDITINFO']['RESPONSEINFO']['RESPONSEID'][0];
+                                    $log_call_status_message = $xml_arr['SOAP:ENVELOPE']['SOAP:BODY']['PROCESSXMLRESPONSE']['PROCESSXMLRESULT'][$RESOURCEDATA]['RESPONSEAUDITINFO']['UPDATEINFO']['STATUS'][0];
+                                    $xml_msg = "Foreign record has been successfully created [Code:$log_call_status_code]";
+                                    $this->TravelCitySupplier->updateAll(array('wtb_status' => "'1'", 'is_update' => "'Y'"), array('id' => $id));
+                                } else {
+
+                                    $log_call_status_message = $xml_arr['SOAP:ENVELOPE']['SOAP:BODY']['PROCESSXMLRESPONSE']['PROCESSXMLRESULT'][$RESOURCEDATA]['RESPONSEAUDITINFO']['ERRORINFO']['ERROR'][0];
+                                    $log_call_status_code = $xml_arr['SOAP:ENVELOPE']['SOAP:BODY']['PROCESSXMLRESPONSE']['PROCESSXMLRESULT'][$RESOURCEDATA]['RESPONSEAUDITINFO']['RESPONSEINFO']['RESPONSEID'][0]; // RESPONSEID
+                                    $xml_msg = "There was a problem with foreign record creation [Code:$log_call_status_code]";
+                                    $this->TravelCitySupplier->updateAll(array('wtb_status' => "'2'"), array('id' => $id));
+                                }
+                            } catch (SoapFault $exception) {
+                                var_dump(get_class($exception));
+                                var_dump($exception);
+                            }
+
+
+                            $this->request->data['LogCall']['log_call_nature'] = 'Production';
+                            $this->request->data['LogCall']['log_call_type'] = 'Outbound';
+                            $this->request->data['LogCall']['log_call_parms'] = trim($xml_string);
+                            $this->request->data['LogCall']['log_call_status_code'] = $log_call_status_code;
+                            $this->request->data['LogCall']['log_call_status_message'] = $log_call_status_message;
+                            $this->request->data['LogCall']['log_call_screen'] = $log_call_screen;
+                            $this->request->data['LogCall']['log_call_counterparty'] = 'WTBNETWORKS';
+                            $this->request->data['LogCall']['log_call_by'] = $user_id;
+                            $this->LogCall->create();
+                            $this->LogCall->save($this->request->data['LogCall']);
+                        }
+                    }
+                }
+
+                //$this->TravelHotelLookup->updateAll(array('TravelHotelLookup.is_updated' => "'Y'"), array('TravelHotelLookup.id' => $HotelId));
+                $message = 'Local record has been successfully updated.<br />' . $xml_msg;
+                $this->Session->setFlash($message, 'success');
+//$log = $this->Agent->getDataSource()->getLog(false, false);
+                //debug($log);
+                //die;
+                // $this->Session->setFlash('Data have been submitted.', 'success');
+            } else {
+                $this->Session->setFlash('This action is already added, check your input and try again...', 'failure');
+            }
+
+
+            echo '<script>
+                        var objP=parent.document.getElementsByClassName("mfp-bg");
+                        var objC=parent.document.getElementsByClassName("mfp-wrap");
+                        objP[0].style.display="none";
+                        objC[0].style.display="none";
+                        parent.location.reload(true);</script>';
+        }
+
+
+        $type = $this->TravelActionItemType->find('list', array('fields' => array('id', 'value'), 'conditions' => 'id = 2 OR id = 3', 'order' => 'value asc'));
+        $this->set(compact('type'));
+        
+        $TravelHotelRoomSuppliers = $this->TravelHotelRoomSupplier->find('all', array('conditions' => array('TravelHotelRoomSupplier.hotel_id' => $travel_actionitems['TravelActionItem']['hotel_id'])));
+
+
+        $retrun_cond = array('type' => array('0'));
+        $returns = $this->LookupValueActionItemReturn->find('list', array('fields' => 'id, value', 'conditions' => $retrun_cond, 'order' => 'value ASC'));
+        $this->set(compact('returns','TravelHotelRoomSuppliers'));
+
+        if (!$this->request->data) {
+            $this->request->data = $travel_actionitems;
+        }
+    }
+
+}
+
+?>

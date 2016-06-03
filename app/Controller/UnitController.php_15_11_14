@@ -1,0 +1,91 @@
+<?php
+
+class UnitController extends AppController {
+
+    var $uses = array('Unit','Project');
+
+    public function index() {
+
+        $this->set('units', $this->Unit->find('all', array('order' => 'Unit.unit_name ASC')));
+    }
+
+    public function add($id = null) {
+         $this->layout = '';
+
+        if ($this->request->is('post')) {
+            $this->Unit->create();
+            if ($this->Unit->save($this->request->data)) {
+                 $this->Session->write('success_msg', 'Project Unit has been saved.');
+                 
+                echo '<script>parent.$.fancybox.close(); parent.location.reload(true);exit();</script>';
+            } else {
+                $this->Session->setFlash('Unable to add Project Unit.', 'failure');
+            }
+        }
+        $project = $this->Project->findById($id);
+        $this->set('project',$project);
+    }
+
+    /* $cities = $this->Suburb->City->find('all', array('order' => 'City.city_name ASC'));
+      $arrCity = array();
+      if (count($cities) > 0)
+      {
+      foreach ($cities as $city)
+      {
+      $arrCity[$city['City']['id']] = $city['City']['city_name'];
+      }
+      }
+
+      $this->set('citiess', $arrCity);
+      }
+     */
+
+    function edit($id = null) {
+        $this->layout = '';
+
+        if (!$id) {
+            throw new NotFoundException(__('Invalid Project Unit'));
+        }
+
+        //$unit = $this->Unit->findById($id);
+
+        $unit = $this->Unit->find('first', array(
+            'fields' => array('Unit.*', 'Project.project_name'),
+            'joins' => array(
+                array(
+                    'table' => 'projects',
+                    'alias' => 'Project',
+                    'tyle' => 'INNER',
+                    'conditions' => array(
+                        'Unit.project_id = Project.id'
+                    )
+                )
+            ),
+            'conditions' => array('Unit.id =' => $id)
+        ));
+
+
+        if (!$unit) {
+            throw new NotFoundException(__('Invalid Project Unit'));
+        }
+
+        if ($this->request->data) {
+
+
+            $this->Unit->id = $id;
+            if ($this->Unit->save($this->request->data)) {
+               // $this->Session->setFlash('Project Unit has been updated.', 'success');
+                $this->Session->write('success_msg', 'Project Unit has been updated.');
+                 
+                echo '<script>parent.$.fancybox.close(); parent.location.reload(true);exit();</script>';
+              
+            } else {
+                $this->Session->setFlash('Unable to update Project Unit.', 'failure');
+            }
+        }
+
+        $this->request->data = $unit;
+    }
+
+}
+

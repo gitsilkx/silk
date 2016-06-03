@@ -1,0 +1,189 @@
+<?php
+
+ini_set('memory_limit', '256M');
+set_time_limit(0);
+/**
+ * Application level Controller
+ *
+ * This file is application-wide controller file. You can put all
+ * application-wide controller-related methods here.
+ *
+ * PHP 5
+ *
+ * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
+ * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
+ *
+ * Licensed under The MIT License
+ * For full copyright and license information, please see the LICENSE.txt
+ * Redistributions of files must retain the above copyright notice.
+ *
+ * @copyright     Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
+ * @link          http://cakephp.org CakePHP(tm) Project
+ * @package       app.Controller
+ * @since         CakePHP(tm) v 0.2.9
+ * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
+ */
+App::uses('Controller', 'Controller');
+
+/**
+ * Application Controller
+ *
+ * Add your application-wide methods in the class below, your controllers
+ * will inherit them.
+ *
+ * @package		app.Controller
+ * @link		http://book.cakephp.org/2.0/en/controllers.html#the-app-controller
+ */
+class AppController extends Controller {
+
+    //var $components = array('Auth', 'Session');
+
+    public $components = array(
+        'Auth' => array(
+            'authorize' => 'Controller',
+            'loginRedirect' => array(
+                'admin' => false,
+                'controller' => 'users',
+                'action' => 'dashboard',
+            ),
+            'loginError' => 'Invalid account specified',
+            'authError' => 'You do not have sufficient permission to access this section',
+        ),
+        'Session'
+    );
+    var $helpers = array('Html', 'Session', 'Js', 'Form', 'Text', 'Time', 'Paginator');
+    public $paginate = array(
+        'paramType' => 'querystring',
+        'limit' => 100,
+        'maxLimit' => 100
+    );
+
+    //  public $dummy_status = $this->Auth->user('dummy_status');
+
+
+
+    public function beforeFilter() {
+        $this->loadModel('Event');
+        $this->loadModel('ActionItem');
+        $this->loadModel('TravelActionItem');
+        $self_id = $this->Auth->user("id");
+        $this->set('title_for_layout', 'SilkRouters Private Distribution Network');
+
+        $user_fname = $this->Auth->user("fname");
+        $user_lname = $this->Auth->user("lname");
+        $industry = $this->Session->read("industry");
+
+        $count_events = $this->Event->find('count', array('conditions' => array('DATE(Event.start_date)' => date('Y-m-d'), 'Event.user_id' => $self_id), 'order' => 'Event.start_date, Event.description'));
+        $this->set('count_events', $count_events);
+
+        $count_action = $this->ActionItem->find('count', array('conditions' => array('ActionItem.action_item_active' => 'Yes', 'ActionItem.next_action_by' => $self_id)));
+        $this->set('count_action', $count_action);
+        
+        $travel_count_action = $this->TravelActionItem->find('count', array('conditions' => array('TravelActionItem.action_item_active' => 'Yes', 'TravelActionItem.next_action_by' => $self_id)));
+        $this->set(compact('travel_count_action'));
+
+        $this->set(compact('industry'));
+        $this->set('fname', $user_fname);
+        $this->set('lname', $user_lname);
+        $this->Auth->allow(array('get_suburb_by_city','get_area_by_suburb','get_list_builder_by_project_id','get_unit_by_project_id','get_project_legal_list_by_project_id',
+            'get_project_legal_details_by_prolegal_id','get_project_unit_details_by_unit_id','get_client_details_by_client_id',''));
+    }
+
+    public function isAuthorized($user = null) {
+
+        $isAllowed = false;
+
+        $user_role = $this->Session->read('role_id');
+
+        if ($user_role == '')
+            $user_role = $this->Auth->user("role_id");
+
+        if (isset($user_role) && $user_role <> "") {
+            $isAllowed = $this->checkAccessRights($user_role);
+        }
+        if ($isAllowed) {
+            return $isAllowed;
+        } else {
+            // set a Restrict permission.
+            // $this->view('Messages/index');
+            $this->redirect(array('controller' => 'messages', 'action' => 'error'));
+            //  $this->Session->setFlash('You are not authorized to access this page', 'default', array(), 'restrict');
+            // $this->render();
+        }
+    }
+
+    public function checkAccessRights($role) {
+        $this->loadModel('PermissionSet');
+        $permissions = $this->PermissionSet->find('all', array(
+            'fields' => '*',
+            'joins' => array(
+                array(
+                    'table' => 'controller_sets',
+                    'alias' => 'ControllerSet',
+                    'type' => 'INNER',
+                    'conditions' => array(
+                        'PermissionSet.controller_id = ControllerSet.id'
+                    )
+                )
+            ),
+            'conditions' => array(
+                'PermissionSet.role_id' => $role,
+                'ControllerSet.controller_name' => $this->params['controller']
+            )
+        ));
+        //pr($permissions);//exit;
+
+        $flag = 0;
+        foreach ($permissions as $permission) {
+            if ($permission['ControllerSet']['action_name'] == $this->params['action']) {
+                $flag = 1;
+                break;
+            }
+        }
+
+
+        if ($flag == 0) {
+
+            return false;
+        } else {
+
+            return true;
+        }
+    }
+
+    function beforeRender() {
+
+        if ($this->name == 'CakeError') {
+            $this->layout = 'error';
+        }
+    }
+
+    public function generateRandomAlpha($length = 10) {
+        $pool = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        $lchr = strlen($pool) - 1;
+        $ranid = "";
+        for ($i = 0; $i < $length; $i++) {
+            $ranid .= $pool[mt_rand(0, $lchr)];
+        }
+        return $ranid;
+    }
+
+    public function generateRandomNumber($length = 10) {
+        $pool = "1234567890";
+        $lchr = strlen($pool) - 1;
+        $ranid = "";
+        for ($i = 0; $i < $length; $i++) {
+            $ranid .= $pool[mt_rand(0, $lchr)];
+        }
+        return $ranid;
+    }
+
+    function recordActivity() {
+
+// The following line makes this script work for CakePHP installations that use either mod_rewrite or CakePHP's own URL shortening tricks.
+        $pages = str_replace("/index.php", '', $_SERVER['PHP_SELF']);
+        $pages = explode("/", $pages);
+// You will probably all reconise this, we are just getting all the values we need to store and assigning them to CakePHP.
+    }
+
+}

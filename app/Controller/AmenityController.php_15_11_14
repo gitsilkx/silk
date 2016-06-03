@@ -1,0 +1,97 @@
+<?php
+class AmenityController extends AppController {
+	var $uses = 'Amenity';
+	
+	public $helpers = array('Html', 'Form', 'Session');
+	public $components = array('Session');
+
+	public function admin_index() {
+		
+		
+				
+		$this->set('amenities', $this->Amenity->find('all', array('order' => 'Amenity.amenity_name ASC')));
+		
+	}
+	
+	public function admin_add() {
+	
+        if ($this->request->is('post')) {
+            $this->Amenity->create();
+            if ($this->Amenity->save($this->request->data)) {
+                $this->Session->setFlash('Amenity has been saved.','success');
+                $this->redirect(array('action' => 'index'));
+            } else {
+                $this->Session->setFlash('Unable to add Amenity.','failure');
+            }
+        }	
+	$groups = $this->Amenity->Group->find('all', array('order' => 'Group.group_name ASC'));
+		$arrGroup = array();
+		if (count($groups) > 0)
+		{
+			foreach ($groups as $group)
+			{
+				$arrGroup[$group['Group']['id']] = $group['Group']['group_name'];
+			}
+		}
+		
+		$this->set('groups', $arrGroup);
+	}
+
+	
+	/*$cities = $this->Suburb->City->find('all', array('order' => 'City.city_name ASC'));
+		$arrCity = array();
+		if (count($cities) > 0)
+		{
+			foreach ($cities as $city)
+			{
+				$arrCity[$city['City']['id']] = $city['City']['city_name'];
+			}
+		}
+		
+		$this->set('citiess', $arrCity);
+	}
+	*/
+	
+ function admin_edit($id = null)
+	 {
+		if (!$id) {
+			throw new NotFoundException(__('Invalid Amenity'));
+		}
+	
+		$amenity = $this->Amenity->findById($id);
+		
+		if (!$amenity) {
+			throw new NotFoundException(__('Invalid Amenity'));
+		}
+	
+		if ($this->request->data) {
+			
+			
+			$this->Amenity->id = $id;
+			if ($this->Amenity->save($this->request->data)) {
+				$this->Session->setFlash('Amenity has been updated.','success');
+				$this->redirect(array('action' => 'index'));
+			} else {
+				$this->Session->setFlash('Unable to update Amenity.','failure');
+			}
+		}
+	
+		
+	$groups = $this->Amenity->Group->find('all', array('order' => 'Group.group_name ASC'));
+		$arrGroup = array();
+		if (count($groups) > 0)
+		{
+			foreach ($groups as $group)
+			{
+				$arrGroup[$group['Group']['id']] = $group['Group']['group_name'];
+			}
+		}
+		
+		$this->set('groups', $arrGroup);
+	
+		$this->request->data = $amenity;
+		
+	}
+
+	 }
+	 

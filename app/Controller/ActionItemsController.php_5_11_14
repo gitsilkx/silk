@@ -1,0 +1,575 @@
+<?php
+App::uses('CakeEmail', 'Network/Email');
+class ActionItemsController extends AppController{
+    var $uses = array('Amenity', 'Group','City','Channel','Project','Lead','Builder','Role','ActionItem','ActionItemType','Remark','Channel','ActionItemLevel','LookupValueProjectUnitType','LookupValueActionItemRejection','LookupValueActionItemReturn','LeadStatus','Suburb','Area','User');
+    public $components = array('Sms');
+    
+	public function index(){
+	    
+		$dummy_status = $this->Auth->user('dummy_status');
+		$role_id = $this->Session->read("role_id");
+		$channel_id = $this->Session->read("channel_id");
+		$channels = $this->Channel->findById($channel_id);
+		$channel_head = $channels['Channel']['channel_head'];
+		$user_id = $this->Auth->user('id');
+		$city_id = $channels['Channel']['city_id'];
+		$roles = $this->Role->find('all',array('conditions' => 'Role.id = '.$role_id));
+		$this->set(compact('roles'));
+		$group_user = $roles[0]['Role']['id'];
+		$search_condition = array();
+	
+	if ($this->request->is('post') || $this->request->is('put')) {
+	    
+	    if (!empty($this->data['ActionItem']['global_search'])) {
+		$search = $this->data['ActionItem']['global_search'];      
+		   
+		array_push($search_condition, array('OR' => array('Lead.lead_fname' . ' LIKE' => "%". mysql_escape_string(trim(strip_tags($search))) . "%", 'Project.project_name' . ' LIKE' => "%".mysql_escape_string(trim(strip_tags($search))) . "%", 'Builder.builder_name' . ' LIKE' => "%".mysql_escape_string(trim(strip_tags($search))) . "%")));
+		
+		//array_push($search_condition, array('Builder.builder_name LIKE' => mysql_escape_string(trim(strip_tags($search))) . "%"));
+	    }
+	    if (!empty($this->data['ActionItem']['lead_id'])) {
+			 $search = $this->data['ActionItem']['lead_id'];
+			array_push($search_condition, array('Lead.lead_id' => mysql_escape_string(trim(strip_tags($search)))));
+		     }
+		     
+	   
+	    
+	    if (!empty($this->data['ActionItem']['action_item_level_id'])) {
+		$search = $this->data['ActionItem']['action_item_level_id'];
+	       array_push($search_condition, array('ActionItem.action_item_level_id' => mysql_escape_string(trim(strip_tags($search)))));
+	    }
+	    if (!empty($this->data['ActionItem']['type_id'])) {
+		$search = $this->data['ActionItem']['type_id'];
+	       array_push($search_condition, array('ActionItem.type_id' => mysql_escape_string(trim(strip_tags($search)))));
+	    }
+	    if (!empty($this->data['ActionItem']['lead_status'])) {
+		$search = $this->data['ActionItem']['lead_status'];
+	       array_push($search_condition, array('Lead.lead_status' => mysql_escape_string(trim(strip_tags($search)))));
+	    }
+
+	    
+	}
+	
+	if($dummy_status)
+	    array_push($search_condition, array('ActionItem.dummy_status' => $dummy_status));
+	  
+	  if(count($this->params['pass']))
+		 	array_push($search_condition, array('ActionItem.action_item_level_id' => $this->params['pass'][0])); // when builder is approve/pending
+	 
+	 
+      
+        if($channel_id == '2' || $channel_id == '4' ||  $channel_id == '136'|| $group_user == '4'){ // 136 for dummy user and cheking for Global Administration Channel or Global Business Admin Channel from chennels table  
+		  // 13 for business admin for channel_role of lookup_value_channel_roles table
+           if($city_id == '1' || $city_id == '12'){ //city for global 
+	   
+                $this->paginate['conditions'][0] = "ActionItem.action_item_level_id = 1 AND ActionItem.action_item_active='Yes' AND (ActionItem.type_id = 1 OR ActionItem.type_id = 8) AND Lead.lead_managerprimary IS NULL AND Lead.lead_managersecondary IS NULL AND ActionItem.next_action_by = ".$user_id."";
+		
+		
+	   }
+           else{
+	    
+                $this->paginate['conditions'][0] = "ActionItem.action_item_level_id = 1 AND ActionItem.action_item_active='Yes' AND Lead.city_id ='$city_id' AND (ActionItem.type_id = 1 OR ActionItem.type_id = 8) AND Lead.lead_managerprimary IS NULL AND Lead.lead_managersecondary IS NULL AND ActionItem.next_action_by = ".$user_id."";
+		
+                }
+			
+        }
+        elseif($group_user == '7'){ // FOR Execution Manager
+		
+            $this->paginate['conditions'][0] = "ActionItem.action_item_level_id = 1 AND ActionItem.action_item_active='Yes' AND ActionItem.next_action_by = ".$user_id."";
+	    
+        }
+        elseif($group_user == '8'){ // FOR TEAM MEMBER
+           $this->paginate['conditions'][0] = "ActionItem.action_item_level_id = 1 AND ActionItem.type_id = 5 AND Lead.lead_managersecondary = $user_id  AND ActionItem.action_item_active='Yes' AND ActionItem.next_action_by = ".$user_id."";
+	   
+        }
+		elseif($channel_id == '133'){ // FOR Overseeing, Global
+		
+			$this->paginate['conditions'][0] = "ActionItem.action_item_active='Yes' AND ActionItem.next_action_by = ".$user_id."";
+            
+        }
+		elseif($role_id == '3'){ // FOR data, Global
+            $this->paginate['conditions'][0] = "ActionItem.action_item_active='Yes' AND ActionItem.next_action_by = ".$user_id."";
+			
+        }
+      $this->paginate['conditions'][1] = $search_condition;
+	  $this->paginate['order'] = array('ActionItem.id' => 'desc');	
+	  $this->set('actionitems',$this->paginate("ActionItem"));
+	  
+	    //$log = $this->ActionItem->getDataSource()->getLog(false, false);       
+         ///debug($log);
+       // pr($actionitems);
+	  
+	$all_action = $this->ActionItem->find('count',array('conditions' => array('OR' => array('ActionItem.next_action_by' => $user_id,'ActionItem.created_by_id'=>$user_id))));
+	$this->set(compact('all_action'));
+	
+	$all_action_pending = $this->ActionItem->find('count',array('conditions' => array('ActionItem.next_action_by' => $user_id,'ActionItem.action_item_active' => 'Yes')));
+	$this->set(compact('all_action_pending'));
+
+	
+	$builder_action_pending = $this->ActionItem->find('count',array('conditions' => array('ActionItem.action_item_active' => 'Yes','ActionItem.action_item_level_id' => '2','ActionItem.next_action_by' => $user_id)));
+	$this->set(compact('builder_action_pending'));
+	
+	$project_action_pending = $this->ActionItem->find('count',array('conditions' => array('ActionItem.action_item_active' => 'Yes','ActionItem.action_item_level_id' => '3','ActionItem.next_action_by' => $user_id)));
+	$this->set(compact('project_action_pending'));
+	
+	$client_action_pending = $this->ActionItem->find('count',array('conditions' => array('ActionItem.action_item_active' => 'Yes','ActionItem.action_item_level_id' => '1','ActionItem.next_action_by' => $user_id)));
+	$this->set(compact('client_action_pending'));
+	
+	$client_action_pending = $this->ActionItem->find('count',array('conditions' => array('ActionItem.action_item_active' => 'Yes','ActionItem.action_item_level_id' => '1','ActionItem.next_action_by' => $user_id)));
+	$this->set(compact('client_action_pending'));
+
+	  
+	$action_level = $this->ActionItemLevel->find('list',array('fields' => array('id','level'),'order' => 'level asc'));
+	$this->set(compact('action_level'));
+	
+	$status = $this->LeadStatus->find('list',array('fields' => array('id','status')));
+	$this->set(compact('status'));
+	
+	$action_type = $this->ActionItemType->find('list',array('fields' => array('id','type'),'order' => 'type asc'));
+	$this->set(compact('action_type'));
+	
+	$action_about = $this->Lead->find('all',array('fields' => array('id','lead_fname','lead_lname'),'order'=> 'lead_fname asc'));
+
+    $action_about = Set::combine($action_about, '{n}.Lead.id',array('%s %s','{n}.Lead.lead_fname','{n}.Lead.lead_lname'));
+	$this->set(compact('action_about'));
+	
+	$returns = $this->LookupValueActionItemRejection->find('list', array('fields' => 'id, value', 'order' => 'value ASC'));
+	$this->set(compact('returns'));
+
+  }
+    
+    public function add($actio_itme_id = null) {
+         $this->layout = '';
+		 
+		 /***********Checking user************/
+		$dummy_status = $this->Auth->user('dummy_status');		 
+		$channel_id = $this->Session->read("channel_id");
+		$channels = $this->Channel->findById($channel_id);
+		
+		$channel_head = $channels['Channel']['channel_head'];
+		$channel_city_id = $channels['Channel']['city_id'];
+		$user_id = $this->Auth->user('id');
+		$role_id = $this->Session->read("role_id");
+		$roles = $this->Role->find('all',array('conditions' => 'Role.id = '.$role_id));
+		$group_user = $roles[0]['Role']['id'];
+		$id = $this->Auth->user("id");
+         $actionitems = $this->ActionItem->findById($actio_itme_id);
+		// pr($actionitems);
+		 $general_exu_id = '';
+		 
+        
+		 
+		  if(($channel_id == '2' || $channel_id == '4' || $channel_id == '136' || $group_user == '4' || $channel_id == '133') && $actionitems['ActionItem']['action_item_level_id'] == '1'){ //cheking for Global Administration Channel or Global Business Admin Channel from chennels table   
+		  		$this->set('user_type','Global');
+				$type = $this->ActionItemType->find('list',array('fields' => array('id','type'),'conditions' =>'ActionItemType.id = 4 OR ActionItemType.id = 9'));
+		  }
+		  elseif($channel_id == '133' && $actionitems['ActionItem']['action_item_level_id'] != '1')
+		  {
+		  		$this->set('user_type','Builder');
+				$type = $this->ActionItemType->find('list',array('fields' => array('id','type'),'conditions' =>'ActionItemType.id = 6 OR ActionItemType.id = 9'));
+		  }
+		  elseif($group_user == '7' ){ // FOR PRIMARY MANAGER
+		   		$this->set('user_type','Execution');
+				$type = $this->ActionItemType->find('list',array('fields' => array('id','type'),'conditions' =>'ActionItemType.id = 3 OR ActionItemType.id = 5 OR ActionItemType.id = 8'));
+		   }
+		  elseif($group_user == '8' ){ // FOR TEAM MEMBER
+				$this->set('user_type','Team');
+				$type = $this->ActionItemType->find('list',array('fields' => array('id','type'),'conditions' =>'ActionItemType.id = 3 OR ActionItemType.id = 8')); // 2 = Acceptance , 8 = Return of action_item_types
+			}
+		elseif($role_id == '3' ){ // FOR DDATA GLOBAL
+				$this->set('user_type','Data');
+				$type = $this->ActionItemType->find('list',array('fields' => array('id','type'),'conditions' =>'ActionItemType.id = 10')); // 10 = Re-Submission For Approval
+			}	
+			
+			
+        $this->set(compact('type'));
+		 
+		 
+		 
+		 
+         //$city_id = $this->Auth->user("city_id");
+         
+		 
+       // pr($actionitems);
+		//die;
+        $city_id = $actionitems['Lead']['city_id'];
+       // die;
+         $this->set(compact('actionitems')); 
+
+        if ($this->request->is('post')) {
+		
+				$this->request->data['ActionItem']['parent_action_item_id'] = $actio_itme_id;
+				$this->request->data['ActionItem']['dummy_status'] = $dummy_status;
+				
+ 				if($actionitems['ActionItem']['action_item_level_id']==1){
+					
+					$this->request->data['ActionItem']['action_item_created'] = date('Y-m-d');
+					$this->request->data['ActionItem']['created_by_id'] = $id;
+					$this->request->data['ActionItem']['action_item_active'] = 'Yes';
+					
+					$this->request->data['ActionItem']['action_item_status'] = '4'; // 4 for allocated of lookup_value_action_item_statuses
+					
+					$this->request->data['ActionItem']['created_by'] = $id;
+					$lead_status = '2';  // 2 for allocated of lookup_value_leads_statuses
+					$this->request->data['Remark']['remarks'] = 'Allocated';
+					$this->request->data['ActionItem']['description'] = 'Allocated';
+					$this->request->data['Remark']['created_by'] = $id;
+					$this->request->data['Remark']['remarks_by'] = $id;
+					$this->request->data['Remark']['lead_id'] = $this->data['ActionItem']['lead_id'];
+					$this->request->data['Remark']['remarks_date'] = date('Y-m-d');
+					$this->request->data['Remark']['remarks_level'] = '3'; //3 for client from lookup_value_remarks_level
+					$this->request->data['Remark']['remarks_time'] = date('g:i A');
+					$channel_id = $this->data['ActionItem']['allocated_channel_id'];
+				}
+				
+           
+	    if($this->data['ActionItem']['type_id'] == 9 && $actionitems['ActionItem']['action_item_level_id']==1){  // 9 for rejection.
+                
+				$this->request->data['ActionItem']['primary_manager_id'] = NULL;
+                $this->request->data['ActionItem']['allocated_channel_id'] = NULL;
+				$this->request->data['Remark']['remarks'] = 'Rejection';
+				$this->request->data['ActionItem']['action_item_status'] = '8'; // 8 for Return of lookup_value_action_item_statuses
+    			$this->request->data['ActionItem']['description'] = 'Rejection';
+				$this->request->data['Lead']['lead_managerprimary'] = $this->data['ActionItem']['primary_manager_id'];
+				$this->request->data['Lead']['lead_status'] = '5'; // 5 for return of lookup_value_leads_statuses
+				$this->request->data['ActionItem']['next_action_by'] = $actionitems['ActionItem']['created_by'];
+				$this->request->data['ActionItem']['action_item_active'] = 'Yes';
+				$this->request->data['ActionItem']['builder_id'] = NULL;
+				$this->request->data['ActionItem']['project_id'] = NULL;
+				
+				
+            }
+			
+		if($this->data['ActionItem']['type_id'] == 9 && $actionitems['ActionItem']['action_item_level_id']==2){  // 9 for rejection for builder
+               
+				$this->request->data['Remark']['remarks'] = 'Rrturn';
+				$this->request->data['Remark']['remarks_date'] = date('Y-m-d');
+				$this->request->data['Remark']['builder_id'] = $actionitems['ActionItem']['builder_id'];
+				$this->request->data['Remark']['remarks_level'] = '1'; //1 for builder from lookup_value_remarks_level
+				$this->request->data['Remark']['created_by'] = $user_id;
+				$this->request->data['Remark']['remarks_time'] = date('g:i A');
+				$this->request->data['Remark']['dummy_status'] = $dummy_status;
+				$this->request->data['ActionItem']['action_item_status'] = '8'; // 8 for Return of lookup_value_action_item_statuses
+    			$this->request->data['ActionItem']['description'] = 'Rrturn';
+				$this->request->data['ActionItem']['builder_id'] =  $actionitems['ActionItem']['builder_id'];	
+				$this->request->data['ActionItem']['created_by'] =  $user_id;
+				$this->request->data['ActionItem']['created_by_id'] =  $user_id;
+				$this->request->data['ActionItem']['action_item_source'] =  $role_id;
+				$this->request->data['ActionItem']['next_action_by'] = $actionitems['ActionItem']['created_by'];
+				
+				$this->request->data['ActionItem']['action_item_active'] = 'Yes';	
+				
+            }
+			
+	if($this->data['ActionItem']['type_id'] == 9 && $actionitems['ActionItem']['action_item_level_id']==3){  // 9 for rejection for Project
+               
+				$this->request->data['Remark']['remarks'] = 'Rrturn';
+				$this->request->data['Remark']['remarks_date'] = date('Y-m-d');
+				$this->request->data['Remark']['project_id'] = $actionitems['ActionItem']['project_id'];
+				$this->request->data['Remark']['remarks_level'] = '2'; //1 for builder from lookup_value_remarks_level
+				$this->request->data['Remark']['created_by'] = $user_id;
+				$this->request->data['Remark']['remarks_time'] = date('g:i A');
+				$this->request->data['Remark']['dummy_status'] = $dummy_status;
+				$this->request->data['ActionItem']['action_item_status'] = '8'; // 8 for Return of lookup_value_action_item_statuses
+    			$this->request->data['ActionItem']['description'] = 'Rrturn';
+				$this->request->data['ActionItem']['project_id'] =  $actionitems['ActionItem']['project_id'];	
+				$this->request->data['ActionItem']['created_by'] =  $user_id;
+				$this->request->data['ActionItem']['created_by_id'] =  $user_id;
+				$this->request->data['ActionItem']['action_item_source'] =  $role_id;
+				$this->request->data['ActionItem']['next_action_by'] = $actionitems['ActionItem']['created_by'];
+				
+				$this->request->data['ActionItem']['action_item_active'] = 'Yes';	
+				
+            }		
+				
+			
+	if($this->data['ActionItem']['type_id'] == 10 && $actionitems['ActionItem']['action_item_level_id']==2){  // 10 for Re-Submission For Approval
+               
+	
+				$this->request->data['ActionItem']['action_item_active'] = 'Yes';	
+				
+				$this->request->data['ActionItem']['description'] = 'Re-Submission For Approval';
+				$this->request->data['ActionItem']['builder_id'] =  $actionitems['ActionItem']['builder_id'];	
+				$this->request->data['ActionItem']['created_by'] =  $user_id;
+				$this->request->data['ActionItem']['next_action_by'] = '136'; // for oversing user
+				$this->request->data['ActionItem']['action_item_created'] = date('Y-m-d');
+				$this->request->data['ActionItem']['created_by_id'] = $id;
+				$this->request->data['ActionItem']['created_by'] = $id;
+			
+				$this->request->data['ActionItem']['action_item_status'] = '10'; // 6 for Approved of lookup_value_action_item_statuses
+				$this->request->data['Remark']['remarks'] = 'Re-Submission For Approval';
+				$this->request->data['Builder']['builder_approved'] = '2'; // for approved
+				$this->request->data['Remark']['remarks_date'] = date('Y-m-d');
+				$this->request->data['Remark']['builder_id'] = $actionitems['ActionItem']['builder_id'];
+				$this->request->data['Remark']['remarks_level'] = '1'; //1 for builder from lookup_value_remarks_level
+				$this->request->data['Remark']['created_by'] = $user_id;
+				$this->request->data['Remark']['remarks_time'] = date('g:i A');
+				$this->request->data['Remark']['dummy_status'] = $dummy_status;
+				
+            }		
+		
+			
+	    if($this->data['ActionItem']['type_id'] == 2 && $actionitems['ActionItem']['action_item_level_id']==1){  // 4 for acceptance.
+		
+				$this->request->data['ActionItem']['description'] = 'Acceptance';
+				$this->request->data['Remark']['remarks'] = 'Acceptance';
+				$this->request->data['Lead']['lead_status'] = '4'; // 4 for Activation of lookup_value_leads_statuses
+	      } 
+		  if($this->data['ActionItem']['type_id'] == 4 && $actionitems['ActionItem']['action_item_level_id']==1){  // 4 for Allocation.
+				
+				$this->request->data['Lead']['lead_managerprimary'] = $this->request->data['ActionItem']['primary_manager_id'];
+				$this->request->data['ActionItem']['next_action_by'] = $this->request->data['ActionItem']['primary_manager_id'];
+				$this->request->data['Lead']['lead_status'] = '2'; // for allocated of lead_statues
+		 
+	      }
+		  if(($this->data['ActionItem']['type_id'] == 6)  && $actionitems['ActionItem']['action_item_level_id']==2){  // 6 for Approval.
+				$this->request->data['ActionItem']['description'] = 'Approval';
+				$this->request->data['ActionItem']['action_item_created'] = date('Y-m-d');
+				$this->request->data['ActionItem']['created_by_id'] = $id;
+				$this->request->data['ActionItem']['created_by'] = $id;
+				$this->request->data['ActionItem']['dummy_status'] = $dummy_status;
+				$this->request->data['ActionItem']['action_item_status'] = '6'; // 6 for Approved of lookup_value_action_item_statuses
+				$this->request->data['ActionItem']['builder_id'] = $actionitems['ActionItem']['builder_id'];
+				$this->request->data['Remark']['remarks'] = 'Approval';
+				$this->request->data['Remark']['builder_id'] = $actionitems['ActionItem']['builder_id'];
+				$this->request->data['Builder']['builder_approved'] = '1'; // for approved
+				$this->request->data['Remark']['remarks_date'] = date('Y-m-d');
+				$this->request->data['Remark']['remarks_level'] = '1'; //1 for builder from lookup_value_remarks_level
+				$this->request->data['Remark']['remarks_time'] = date('g:i A');
+		 
+	      }
+		   if(($this->data['ActionItem']['type_id'] == 6)  && $actionitems['ActionItem']['action_item_level_id']==3){  // 6 for Approval.
+				$this->request->data['ActionItem']['description'] = 'Approval';
+				$this->request->data['ActionItem']['action_item_created'] = date('Y-m-d');
+				$this->request->data['ActionItem']['created_by_id'] = $id;
+				$this->request->data['ActionItem']['created_by'] = $id;
+				$this->request->data['ActionItem']['project_id'] =  $actionitems['ActionItem']['project_id'];
+				$this->request->data['ActionItem']['dummy_status'] = $dummy_status;
+				$this->request->data['ActionItem']['action_item_status'] = '6'; // 6 for Approved of lookup_value_action_item_statuses
+				$this->request->data['Remark']['remarks'] = 'Approval';
+				$this->request->data['Remark']['project_id'] = $actionitems['ActionItem']['project_id'];
+				$this->request->data['Project']['proj_approved'] = '1'; // for approved
+				$this->request->data['Remark']['remarks_date'] = date('Y-m-d');
+				$this->request->data['Remark']['remarks_level'] = '2'; //2 for project from lookup_value_remarks_level
+				$this->request->data['Remark']['remarks_time'] = date('g:i A');
+		 
+	      }
+		   if($this->data['ActionItem']['type_id'] == 5 && $actionitems['ActionItem']['action_item_level_id']==1){  // 5 for Re-Allocated of action_status.
+		   		
+				$this->request->data['ActionItem']['description'] = 'Re-Allocated';
+				$this->request->data['ActionItem']['primary_manager_id'] = NULL;
+				$this->request->data['ActionItem']['next_action_by'] = $this->data['ActionItem']['secondary_manager_id'];
+				$this->request->data['Remark']['remarks'] = 'Acceptance';
+				$this->request->data['Lead']['lead_status'] = '4'; // 4 for activated of lookup_value_leads_statuses
+				$this->request->data['Lead']['lead_managersecondary'] = $this->data['ActionItem']['secondary_manager_id'];	 
+				$this->request->data['Lead']['lead_status'] = '3'; //Re-Allocated of lead_status.
+		   			
+		   }
+		   if($this->data['ActionItem']['type_id'] == 3 && $actionitems['ActionItem']['action_item_level_id']==1){  // 3 for Activates.
+		   
+					$this->request->data['ActionItem']['description'] = 'Activates';
+					$this->request->data['ActionItem']['primary_manager_id'] = NULL;
+					$this->request->data['Lead']['lead_managersecondary'] = $user_id;
+					$this->request->data['ActionItem']['next_action_by'] = NULL;
+					$this->request->data['Lead']['lead_managerprimary'] = NULL;
+					$this->request->data['ActionItem']['secondary_manager_id'] =  $user_id;
+					$this->request->data['Lead']['lead_status'] = '4'; //Activate of lead_status.
+
+	      } 
+	     if($this->data['ActionItem']['type_id'] == 8 && $actionitems['ActionItem']['action_item_level_id']==1){  // 4 for return.
+		    
+					$this->request->data['ActionItem']['description'] = 'Return';
+					$this->request->data['Remark']['remarks'] = 'Return';
+					$this->request->data['Lead']['lead_status'] = '5'; // 5 for Returned of lead status
+					$this->request->data['ActionItem']['next_action_by'] = $actionitems['ActionItem']['created_by'];
+					$this->request->data['ActionItem']['builder_id'] = NULL;
+					$this->request->data['ActionItem']['project_id'] = NULL;
+					$this->request->data['ActionItem']['primary_manager_id'] = NULL;
+					$this->request->data['Lead']['lead_managersecondary'] = NULL;
+					$this->request->data['Lead']['lead_managerprimary'] = NULL;
+					$this->request->data['ActionItem']['secondary_manager_id'] = NULL;
+					$this->request->data['ActionItem']['action_item_status'] = '5';
+
+			  
+			  
+	      } 
+     		
+            $channels = $this->Channel->find('all',array('conditions' => array('Channel.id' => $channel_id)));
+           // $to = $channels[0]['User']['company_email_id'];
+            $to = 'neerajs@wtbglobal.com';
+
+            $this->ActionItem->create();
+            if ($this->ActionItem->save($this->data['ActionItem'])) {
+              // $this->ActionItem->id = $actio_itme_id;
+               // $this->ActionItem->saveField('action_item_active' , 'No');
+				$this->ActionItem->updateAll(array('ActionItem.action_item_active' => "'No'"),array('ActionItem.id' => $actio_itme_id));
+                 //$this->Lead->id = $this->data['ActionItem']['lead_id'];
+				if($actionitems['ActionItem']['action_item_level_id']==1)  // for client
+                	$this->Lead->updateAll($this->data['Lead'],array('Lead.id' => $this->data['ActionItem']['lead_id']));
+				
+				
+				 if((($this->data['ActionItem']['type_id'] == 6) || ($this->data['ActionItem']['type_id'] == 10)) && $actionitems['ActionItem']['action_item_level_id']==2){  // for builder
+                	$this->Builder->updateAll($this->data['Builder'],array('Builder.id' => $actionitems['ActionItem']['builder_id']));	
+					}
+					
+					if((($this->data['ActionItem']['type_id'] == 6) || ($this->data['ActionItem']['type_id'] == 10)) && $actionitems['ActionItem']['action_item_level_id']==3){  // for builder
+                	$this->Project->updateAll($this->data['Project'],array('Project.id' => $actionitems['ActionItem']['project_id']));
+                }
+                
+                 $this->Remark->save($this->data['Remark']);
+                
+                
+                 //$this->Session->write('success_msg', 'Action Item has been saved.');
+                /* Email Logic */ 
+               /* $Email = new CakeEmail();
+                $Email->viewVars(array(
+                    'City' => $actionitems['City']['city_name'],
+                    'Urgency' => $actionitems['Urgency']['value'],
+                    'Importance' => $actionitems['Importance']['value'],
+                    'Country' => $actionitems['Country']['value'],
+                    'lead_primaryphonenumber' => $actionitems['Lead']['lead_primaryphonenumber'],
+                    'lead_emailid' => $actionitems['Lead']['lead_emailid'],
+                    'Area' => $actionitems['Area']['area_name'],
+                    'Suburb' => $actionitems['Suburb']['suburb_name'],
+                    'Builder' => $actionitems['Builder']['builder_name'],
+                    'Project' => $actionitems['Project']['project_name'],
+                    'TypeProject' => $actionitems['TypeProject']['value'],
+                ));
+                $Email->template('lead_template', 'default')->emailFormat('html')->to($to)->from('admin@silkrouters.com')->subject('Silkrouters - Allocation')->send();*/
+                 /* End Emial */
+                 /* Phone API */
+                 $msg = $actionitems['City']['city_name'].' | '.$actionitems['Urgency']['value'].' | '.$actionitems['Importance']['value'].' | '.$actionitems['Country']['value'].' | '.$actionitems['Lead']['lead_primaryphonenumber'].' | '.$actionitems['Lead']['lead_emailid'].' | '.$actionitems['Area']['area_name'].' , '.$actionitems['Suburb']['suburb_name'].' , '.$actionitems['Builder']['builder_name'].' , '.$actionitems['Project']['project_name'].' , '.$actionitems['TypeProject']['value'];
+                 $authKey = Configure::read('sms_api_key');
+		 $senderId = Configure::read('sms_sender_id');
+               // $mobileNumber = $channels[0]['User']['primary_mobile_number'];
+		$mobileNumber = "9833156460";
+		$message = urlencode($msg);
+		$route = "default";		
+		$this->Sms->send_sms($authKey,$mobileNumber,$message,$senderId,$route);
+                
+                /* End Phone */
+                 echo '<script>
+				 			var objP=parent.document.getElementsByClassName("mfp-bg");
+							var objC=parent.document.getElementsByClassName("mfp-wrap");
+							objP[0].style.display="none";
+							objC[0].style.display="none";
+							parent.location.reload(true);</script>';
+            } else {
+                $this->Session->setFlash('Unable to add Action item.', 'failure');
+            }
+        }
+              
+        
+        
+		
+		$conditions = array('city_id = "'.$city_id.'" AND (channel_role = 1 OR channel_role = 3)'); // 1 for Execution 3 for Consulting of lookup_value_channel_roles
+        
+        $channels = $this->Channel->find('list',array('fields' => array('id','channel_name'),
+                                                      'conditions' => $conditions												  
+											
+													 ));
+        $this->set(compact('channels'));
+		
+		$reject_cond = array('type' => array($actionitems['ActionItem']['action_item_level_id'],'0'));
+		$rejections = $this->LookupValueActionItemRejection->find('list', array('fields' => 'id, value','conditions' => $reject_cond, 'order' => 'value ASC'));
+		$this->set(compact('rejections'));
+		
+		$general_exu = $this->Channel->find('first', array('conditions' => array('Channel.city_id' => $channel_city_id , 'Channel.channel_role' => '16', 'Channel.dummy_status' => $dummy_status)));
+		
+		if(!empty($general_exu))
+				$general_exu_id = $general_exu['Channel']['id'];
+			
+	
+		
+		$secondary_manager = $this->User->find('all',array('fields' => array('User.id','User.fname','User.mname','User.lname'),
+                                                         'conditions' =>  array(
+														 		 'OR' =>
+																		array(
+																			   'AND' => array(
+																							 'User.exu_channel_id' => $channel_id,
+																							  'User.exu_role_id' => '8', // Execution Associate of roles
+																							  'User.dummy_status' => $dummy_status
+																							
+
+																						),
+																				'OR' =>  array(
+																						'AND' => array(
+																							 'User.general_exe_channel_id' => $general_exu_id,
+																							  'User.general_exe_role_id' => '9', // General Execution Associate of roles
+																							   'User.dummy_status' => $dummy_status
+																						  )
+																					),
+																						
+																			 
+																			 ),
+																			 
+																	)
+														 
+														 	
+														 
+												
+														 
+														 ));
+						 
+		// $log = $this->User->getDataSource()->getLog(false, false);       
+        // debug($log);
+		$secondary_manager = Set::combine($secondary_manager, '{n}.User.id',array('%s %s %s','{n}.User.fname','{n}.User.mname','{n}.User.lname'));
+		$this->set(compact('secondary_manager'));
+		
+		
+		$returns = $this->LookupValueActionItemReturn->find('list', array('fields' => 'id, value', 'order' => 'value ASC'));
+		$this->set(compact('returns'));
+ 
+    }
+    
+    function edit($id = null) {
+        
+        $city_id = $this->Auth->user("city_id");
+        if (!$id) {
+            throw new NotFoundException(__('Invalid Builder'));
+        }
+
+        $action_item = $this->ActionItem->findById($id);
+
+        if (!$action_item) {
+            throw new NotFoundException(__('Invalid builder'));
+        }
+
+        if ($this->request->data) {
+
+
+            $this->ActionItem->id = $id;
+            $action_item_created= explode('/',$this->data['ActionItem']['action_item_created']);
+            $date = $action_item_created[0];
+            $month = $action_item_created[1];
+            $year = $action_item_created[2];
+            $this->request->data['ActionItem']['action_item_created'] = $year.'-'.$month.'-'.$date;
+            
+            if ($this->ActionItem->save($this->request->data)) {
+                $this->Session->setFlash('Action Item has been updated.', 'success');
+                $this->redirect(array('action' => 'index'));
+            } else {
+                $this->Session->setFlash('Unable to update Action Item.', 'failure');
+            }
+        }
+        
+        $type = $this->ActionItemType->find('list',array('fields' => array('id','type')));
+        $this->set(compact('type'));
+        
+        $channels = $this->Channel->find('list',array('fields' => array('id','channel_name'),
+                                                      'conditions' => array('city_id ='.$city_id)));
+        $this->set(compact('channels'));
+        
+        $leads = $this->Lead->find('all',array('fields' => array('Lead.id','Lead.lead_fname','Lead.lead_lname')));
+        $leads = Set::combine($leads, '{n}.Lead.id',array('%s %s','{n}.Lead.lead_fname','{n}.Lead.lead_lname'));
+
+        $this->set(compact('leads'));
+        
+        $levels = $this->ActionItemLevel->find('list',array('fields' => array('id','level')));
+        $this->set(compact('levels'));
+
+        $this->request->data = $action_item;
+    }
+
+}
+?>

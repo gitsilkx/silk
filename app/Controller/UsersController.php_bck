@@ -1,0 +1,346 @@
+<?php
+App::uses('AppController', 'Controller');
+App::uses('CakeEmail', 'Network/Email');
+
+class UsersController extends AppController {
+
+    var $name = 'Users';
+    var $uses = array('User', 'Role', 'Event', 'City','Channel','GroupsUser');
+    
+    public $components = array(
+        'Auth' => array(
+            'authenticate' => array(
+                'Form' => array(
+                    'fields' => array('username' => 'company_email_id')
+                )
+            )
+        )
+    );
+
+    function dashboard() {
+        $role_id = '';
+        if(isset($this->params['named']['id'])){
+            $role_id = $this->params['named']['id'];
+            $channel_id = $this->params['named']['channel'];
+            if(!$this->Session->read('role_id'))
+            $this->Session->write('role_id',$role_id);
+            $this->Session->write('channel_id',$channel_id);
+            
+        }
+        $role_id = $this->Session->read('role_id');
+        if($role_id == '')
+        {
+           $role_id =  $this->Auth->user("role_id");
+            
+        }
+       
+        $self_id = $this->Auth->user("id");
+ 
+        $this->Event->recursive = 1;
+        $count_events = $this->Event->find('count', array('conditions' => array('DATE(Event.start_date)' => date('Y-m-d'), 'Event.user_id' => $self_id), 'order' => 'Event.start_date, Event.description'));
+        $user = $this->User->find('first', array('conditions' => array('User.id' => $self_id), array()));
+        $this->set('count_events', $count_events);
+        $this->set('user', $user);
+        if (!$self_id) {
+            $this->Session->setFlash(sprintf(__('Invalid user', true), 'user'), 'error');
+            $this->redirect(array('action' => 'index'));
+        }
+  
+        $roles = $this->Role->find('all',array('conditions' => 'Role.id = '.$role_id));
+        $this->set(compact('roles'));
+        
+         if (isset($this->data['User'])) {
+            $this->User->validate = array(
+                'fname' => array(// Field: first_name
+                    'notempty' => array(// Identifier name: notempty
+                        'rule' => array('notempty'), // Rule: notempty
+                        'message' => 'Please enter first name',
+                    ),
+                    'validChars' => array(
+                        'rule' => '/^[a-z. ]{2,}$/i',
+                        'message' => 'First name should only contain letters and dot(.), min 3 characters'
+                    ),
+                ),
+                'lname' => array(// Field: last_name
+
+                    'notempty' => array(// Identifier name: notempty
+
+                        'rule' => array('notempty'), // Rule: notempty
+                        'message' => 'Please enter last name',
+                    ),
+                    'validChars' => array(
+                        'rule' => '/^[a-z. ]{2,}$/i',
+                        'message' => 'Last name should only contain letters and dot(.), min 3 characters'
+                    ),
+                ),
+                'primary_mobile_number' => array(// Field: group_id
+                    'notempty' => array(// Identifier name: notempty
+                        'rule' => array('notempty'), // Rule: notempty
+                        'message' => 'Primary mobile number canot be blank',
+                    ),
+                    'numeric' => array(
+                        'rule' => array('numeric'),
+                        'message' => 'Invalid mobile number'
+                    )
+                )
+            );
+
+            if ($this->User->save($this->data['User'])) {
+                $this->Session->setFlash('User has been saved.', 'success');
+                $this->redirect(array('action' => 'dashboard'));
+            } else {
+                $this->Session->setFlash('Unable to update User.', 'error');
+            }
+        }
+
+
+    }
+
+    function index() {
+        
+        $search_condition = array();
+        
+        if ($this->request->is('post') || $this->request->is('put')) {
+           
+            if (!empty($this->data['User']['search_value'])) {
+                $search = $this->data['User']['search_value'];         
+                array_push($search_condition, array('OR' => array('User.fname' . ' LIKE' => mysql_escape_string(trim(strip_tags($search))) . "%", 'User.lname' . ' LIKE' => mysql_escape_string(trim(strip_tags($search))) . "%")));
+            }
+        }
+        
+        $this->paginate['order'] = array('User.fname' => 'asc');
+         
+        $this->set('users', $this->paginate("User", $search_condition));
+
+       $roles = $this->Role->find('list',array('fields' => array('id','role_name')));
+       $this->set(compact('roles'));
+       $channels = $this->Channel->find('list',array('fields' => array('id','channel_name')));
+       $this->set(compact('channels'));
+    }
+
+    function login() {
+        
+        $this->layout = 'login';
+        
+        if ($this->request->is('post')) {
+
+            if ($this->Auth->login()) {
+                $arrLoginInfo = $this->request->data["User"];
+                $details = $this->User->find('first', array(
+                    'conditions' => array('company_email_id' => $arrLoginInfo["company_email_id"])
+                ));
+                return $this->redirect($this->Auth->redirect('users/home'));
+                exit;
+            } else {
+
+                $this->Session->setFlash(__('Error: invalid username and/or password'), 'login_error');
+            }
+        }
+
+        $this->set('isLoginPage', 1);
+    }
+    
+    function home(){
+        $this->layout = 'home';
+        $role_id = array();
+        $role_field = $this->GroupsUser->find('list',array('fields' => array('channel_field','role_field')));
+        //pr($role_field);
+        foreach($role_field as $key=>$val){
+           // echo $key;
+           if($this->Auth->user($val)){
+            $role_id[] = $this->Auth->user($key).','.$this->Auth->user($val);
+           }
+        }
+       
+        $roles = $this->Role->find('list',array('fields' => array('id','group_id'))); 
+       
+        $this->set(compact('roles'));
+        $this->set('role_id',$role_id);
+        $groups = $this->GroupsUser->find('list',array('fields' => array('id','name')));
+        $this->set(compact('groups'));
+       // pr($groups);
+    }
+
+    function logout() {
+        $this->Session->delete('role_id');
+        $this->redirect($this->Auth->logout());
+        
+    }
+
+    public function add() {
+	
+		$dummy_status = $this->Auth->user('dummy_status');
+
+        if ($this->request->is('post')) {
+
+            //Set User password
+
+            $password = $this->generateRandomAlpha(4);
+            $password = $password . '' . $this->generateRandomNumber(3);
+            $password = $password . '' . $this->generateRandomAlpha(2);
+            $password = $password . '' . $this->generateRandomNumber(1);
+            $this->request->data['User']['password'] = $password;
+			$this->request->data['User']['dummy_status'] = $dummy_status;
+            $this->User->create();
+            if ($this->User->save($this->request->data)) {
+
+                //Send email with password
+                $Email = new CakeEmail();
+                $Email->viewVars(array(
+                    'name' => $this->request->data['User']['fname'],
+                    'email' => $this->request->data['User']['company_email_id'],
+                    'password' => $password
+                ));
+                $Email->template('registration_password', 'default')->emailFormat('html')->to($this->request->data['User']['company_email_id'])->from('admin@silkrouters.com')->subject('Silkrouters - Your Password')->send();
+                $this->Session->setFlash('User has been saved.', 'success');
+                $this->redirect(array('action' => 'index'));
+            } else {
+                $this->Session->setFlash('Unable to add User.', 'error');
+            }
+        }
+        $channels = $this->Channel->find('list',array('fields' => array('id','channel_name')));
+        $this->set(compact('channels'));
+        $cities = $this->City->find('list', array('fields' => array('id', 'city_name')));
+        $this->set(compact('cities'));
+        $roles = $this->Role->find('all');
+        $this->set('roles', $roles);
+        
+        $groups = $this->GroupsUser->find('all');
+        $this->set(compact('groups'));
+     //   pr($groups);
+    }
+
+    public function edit($id = NULL) {
+        
+        $id = base64_decode($id);
+
+        if (!$id) {            // If id is not passed from the URL
+            $this->Session->setFlash(sprintf(__('Invalid user', true), 'user'), 'error');   // Set flash error message
+
+            $this->redirect(array('action' => 'index'));       // Redirect back to list page with the message
+        }
+        $user = $this->User->findById($id);
+       // pr($user);
+       
+  
+
+         if ($this->request->data) {
+                      
+             $this->User->id = $id;
+             
+             
+
+            if ($this->User->save($this->request->data)) {
+              // $this->log('special', 'foo');
+                $this->Session->setFlash('User has been saved.', 'success');
+                $this->redirect(array('action' => 'index'));
+            } else {
+                $this->Session->setFlash('Unable to edit User.', 'error');
+            }
+        }
+        
+        
+       
+        
+        $cities = $this->City->find('list', array('fields' => array('id', 'city_name')));
+        $this->set(compact('cities'));
+     
+        
+         $role_id = array();
+              $role_field = $this->GroupsUser->find('list',array('fields' => array('id','role_field')));
+
+        foreach($role_field as $field){
+            $role_id[] = $user['User'][$field];
+        }
+        $role_id = array_filter($role_id);
+        $this->set('role_id',$role_id);
+        
+        $roles = $this->Role->find('all');
+        $this->set('roles', $roles);
+        
+        $channels = $this->Channel->find('list',array('fields' => array('id','channel_name')));
+        $this->set(compact('channels'));
+        
+        $groups = $this->GroupsUser->find('all');
+        $this->set(compact('groups'));
+        
+        $this->request->data = $user;
+
+     
+    }
+    
+    function group(){
+        
+        $search_condition = array();
+
+        
+         if ($this->request->is('post') || $this->request->is('put')) {
+            if (!empty($this->data['GroupsUser']['search_value'])) {
+                $search = $this->data['GroupsUser']['search_value'];
+                array_push($search_condition, array('GroupsUser.name' . ' LIKE' => mysql_escape_string(trim(strip_tags($search))) . "%"));
+             } 
+        } 
+
+         $this->set('groups', $this->paginate("GroupsUser", $search_condition));
+
+    }
+    
+     public function group_add() {
+
+        if ($this->request->is('post') || $this->request->data('put')) {
+           // pr($this->request->data['GroupsUser']['role_field']);
+            $role_field = $this->request->data['GroupsUser']['role_field'];
+            $channel_field = $this->request->data['GroupsUser']['channel_field'];
+
+            $this->GroupsUser->set($this->data);
+
+            if ($this->GroupsUser->validates() == true) {
+
+                if ($this->GroupsUser->save($this->request->data)) {
+                    $this->User->query("ALTER TABLE `users` ADD "  .$role_field." INT( 2 ) NULL");
+                    $this->User->query("ALTER TABLE `users` ADD "  .$channel_field." INT( 2 ) NULL");
+                    $this->Session->setFlash('Group has been saved.', 'success');
+                    $this->redirect(array('controller' => 'users','action' => 'group'));
+                } else {
+                    $this->Session->setFlash('Unable to add Group.', 'error');
+                }
+            }
+        }       
+    }
+    
+     /**
+     * Edit group and on sussess or failure, shows messages.
+     * 
+     * @param intiger $id Either value or null.
+     * @return null    This method does not return any data.
+     */
+    public function group_edit($id = null) {
+        $id = base64_decode($id);
+        
+        if (!$id) {
+            throw new NotFoundException(__('Invalid Group'));
+        }
+
+        $role = $this->GroupsUser->findById($id);
+
+        if (!$role) {
+            throw new NotFoundException(__('Invalid Group'));
+        }
+
+        if ($this->request->data) {
+
+            $this->GroupsUser->id = $id;
+            if ($this->GroupsUser->save($this->request->data)) {
+                $this->Session->setFlash('Group has been updated.', 'success');
+                $this->redirect(array('controller' => 'users','action' => 'group'));
+            } else {
+                $this->Session->setFlash('Unable to update Group.', 'failure');
+            }
+        }
+
+        if (!$this->request->data) {
+            $this->request->data = $role;
+        }
+    }
+    
+}
