@@ -212,12 +212,8 @@ class AgentsController extends AppController {
 
 
         $this->paginate['order'] = array('Agent.created' => 'asc');
-
         $this->set('Agents', $this->paginate("Agent", $search_condition));
 
-        //  $log = $this->Agents->getDataSource()->getLog(false, false);       
-        // debug($log);
-        //die;
 
 
         $countries = $this->CwrCountry->find('list', array('fields' => 'CwrCountry.id, CwrCountry.name', 'conditions' => array('CwrCountry.id' => '113'), 'order' => 'CwrCountry.name ASC'));
