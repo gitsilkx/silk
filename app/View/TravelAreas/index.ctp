@@ -1,5 +1,4 @@
-<?php $this->Html->addCrumb('My Areas', 'javascript:void(0);', array('class' => 'breadcrumblast'));
-echo 'd';
+<?php $this->Html->addCrumb('My Areass', 'javascript:void(0);', array('class' => 'breadcrumblast'));
 ?>
 <div class="row">
     <div class="col-sm-12">
