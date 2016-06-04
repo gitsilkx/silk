@@ -1,4 +1,6 @@
-<?php $this->Html->addCrumb('My Areas', 'javascript:void(0);', array('class' => 'breadcrumblast')); ?>
+<?php $this->Html->addCrumb('My Areas', 'javascript:void(0);', array('class' => 'breadcrumblast'));
+echo 'df';
+?>
 <div class="row">
     <div class="col-sm-12">
         <div class="table-heading">
