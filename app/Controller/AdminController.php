@@ -57,6 +57,11 @@ class AdminController extends AppController {
         $search_condition = array();
         $this->paginate['order'] = array('TravelFetchTable.id' => 'asc');
         $this->set('TravelFetchTables', $this->paginate("TravelFetchTable", $search_condition));
+        
+        $SupplierCityCount = $this->SupplierCity->find('count');
+        $SupplierCountryCount = $this->SupplierCountry->find('count');
+        $SupplierHotelCount = $this->SupplierHotel->find('count');
+        $this->set(compact('SupplierCityCount','SupplierCountryCount','SupplierHotelCount'));
     }
 
     public function add_hotel() {
@@ -288,8 +293,11 @@ class AdminController extends AppController {
         $search_condition = array();
         $this->paginate['order'] = array('SupplierCountry.id' => 'asc');
         $this->set('SupplierCountries', $this->paginate("SupplierCountry", $search_condition));      
+        
+        $SupplierCityCount = $this->SupplierCity->find('count');
         $SupplierCountryCount = $this->SupplierCountry->find('count');
-        $this->set(compact('SupplierCountryCount'));
+        $SupplierHotelCount = $this->SupplierHotel->find('count');
+        $this->set(compact('SupplierCityCount','SupplierCountryCount','SupplierHotelCount'));
     }
 
     public function add_city() {
@@ -393,6 +401,11 @@ class AdminController extends AppController {
         $search_condition = array();
         $this->paginate['order'] = array('SupplierCity.id' => 'asc');
         $this->set('SupplierCities', $this->paginate("SupplierCity", $search_condition));
+        
+        $SupplierCityCount = $this->SupplierCity->find('count');
+        $SupplierCountryCount = $this->SupplierCountry->find('count');
+        $SupplierHotelCount = $this->SupplierHotel->find('count');
+        $this->set(compact('SupplierCityCount','SupplierCountryCount','SupplierHotelCount'));
     }
 
     public function supplier_hotel_mappings() {
@@ -479,6 +492,11 @@ class AdminController extends AppController {
         $search_condition = array();
         $this->paginate['order'] = array('SupplierHotel.id' => 'asc');
         $this->set('SupplierHotels', $this->paginate("SupplierHotel", $search_condition));
+        
+        $SupplierCityCount = $this->SupplierCity->find('count');
+        $SupplierCountryCount = $this->SupplierCountry->find('count');
+        $SupplierHotelCount = $this->SupplierHotel->find('count');
+        $this->set(compact('SupplierCityCount','SupplierCountryCount','SupplierHotelCount'));
     }
 
     public function country_mapping($id = null) {

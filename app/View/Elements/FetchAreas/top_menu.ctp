@@ -29,7 +29,7 @@ $cur_page = $aaray[0];
                 <span aria-hidden="true" class="icon icon-layers"></span>
             </div>
             <div class="info-details">
-<?php echo $this->Html->link('<h4>Supplier Cities<span class="pull-right">0</span></h4>', '/admin/supplier_city', array('data-toggle' => 'tooltip', 'data-placement' => 'right', 'title' => 'My Projects', 'escape' => false));
+<?php echo $this->Html->link('<h4>Supplier Cities<span class="pull-right">'.$SupplierCityCount.'</span></h4>', '/admin/supplier_city', array('data-toggle' => 'tooltip', 'data-placement' => 'right', 'title' => 'My Projects', 'escape' => false));
 ?>
             </div>
         </div>
@@ -40,7 +40,7 @@ $cur_page = $aaray[0];
                 <span aria-hidden="true" class="icon icon-layers"></span>
             </div>
             <div class="info-details">
-<?php echo $this->Html->link('<h4>Supplier Hotels<span class="pull-right">0</span></h4>', '/admin/supplier_hotels', array('data-toggle' => 'tooltip', 'data-placement' => 'right', 'title' => 'My Projects', 'escape' => false));
+<?php echo $this->Html->link('<h4>Supplier Hotels<span class="pull-right">'.$SupplierHotelCount.'</span></h4>', '/admin/supplier_hotels', array('data-toggle' => 'tooltip', 'data-placement' => 'right', 'title' => 'My Projects', 'escape' => false));
 ?>
             </div>
         </div>
