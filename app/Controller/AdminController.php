@@ -287,7 +287,9 @@ class AdminController extends AppController {
 
         $search_condition = array();
         $this->paginate['order'] = array('SupplierCountry.id' => 'asc');
-        $this->set('SupplierCountries', $this->paginate("SupplierCountry", $search_condition));
+        $this->set('SupplierCountries', $this->paginate("SupplierCountry", $search_condition));      
+        $SupplierCountryCount = $this->SupplierCountries->find('count');
+        $this->set(compact('SupplierCountryCount'));
     }
 
     public function add_city() {
