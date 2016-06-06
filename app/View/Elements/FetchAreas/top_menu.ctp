@@ -13,6 +13,7 @@ $cur_page = $aaray[0];
             </div>
             <div class="info-details">
                 <?php
+                
                 echo $this->Html->link('<h4>Supplier Countries<span class="pull-right">'.$SupplierCountryCountb.'</span></h4>', '/admin/supplier_country', array('data-toggle' => 'tooltip', 'data-placement' => 'right', 'title' => 'My Projects', 'escape' => false));
                 //echo $this->Html->link('<p>Yes <span class="badge pull-right bg-white text-success">'.$highend_yes.'</span> </p>', '/my-projects/proj_highendresidential:1', array('data-toggle' => 'tooltip','data-placement' => 'right','title' => 'Approved','escape' => false));
                 //echo $this->Html->link('<p>No <span class="badge pull-right bg-white text-success">'.$highend_no.'</span> </p>', '/my-projects/proj_highendresidential:2', array('data-toggle' => 'tooltip','data-placement' => 'right','title' => 'Pending','escape' => false));
