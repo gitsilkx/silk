@@ -197,7 +197,7 @@ endif; ?>
 <table class="table toggle-square" style="margin-top:-16px !important">
 <tbody>
 <tr>
-                                <td  width="59.29%">Total</td>
+                                <td  width="37%">Total</td>
                                 <td width="7%"><?php echo $sum5?></td>
                                 <td width="7%"><?php echo $sum6?></td>
                                 
@@ -212,10 +212,10 @@ endif; ?>
                                 
                                 <td width="7%"><?php echo $sum3?></td>
                                 <td  width="7%"><?php echo $sum4;?></td>
-                                <td  width="7%">&nbsp;</td>
+                                
                             </tr>
 <tr>
-                                <td  width="54%">Blank Continent</td>
+                                <td  width="37%">Blank Continent</td>
                                 <td width="7%"><?php 
 								
 								echo ($country_count) ? $this->Html->link($country_count, array('controller' => 'reports', 'action' => 'city_mapping_list/city_id:0/city_country_id:'.$country_id), array('class' => 'act-ico', 'escape' => false,'target' => '_blank')) : '0';
@@ -261,10 +261,10 @@ endif; ?>
 									$this->Html->link($area_count, array('controller' => 'reports', 'action' => 'area_list/city_id:0/country_id:'.$country_id), array('class' => 'act-ico', 'escape' => false,'target' => '_blank')) : '0';
 								
 								?></td>
-                                <td  width="7%">&nbsp;</td>
+                               
                             </tr>
                             <tr>
-                                <td  width="54%">All Counts</td>
+                                <td  width="37%">All Counts</td>
                                 <td width="7%"><?php echo $sum5 + $country_count;?></td>
                                 <td width="7%"><?php echo $sum6 + $country_mapping_count;?></td>
                                 <td width="7%"><?php echo $sum + $hotel_count;?></td> 
@@ -275,7 +275,7 @@ endif; ?>
                                                                
                                 <td width="7%"><?php echo $sum3 + $suburb_count;?></td>
                                 <td  width="7%"><?php echo $sum4 + $area_count;?></td>
-                                <td  width="7%">&nbsp;</td>
+                               
                             </tr>
 
 </tbody>
