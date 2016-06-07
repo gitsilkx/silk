@@ -4579,6 +4579,22 @@ class ReportsController extends AppController {
                 array_push($search_condition, array('Province.active' => $active));
             }
         }
+        
+        if (count($this->params['pass'])) {
+
+           foreach ($this->params['pass'] as $key => $value) {
+                array_push($search_condition, array('Province.' . $key => $value));
+               
+            }                
+        } elseif (count($this->params['named'])) {
+
+            foreach ($this->params['named'] as $key => $value) {
+                array_push($search_condition, array('Province.' . $key => $value));
+                
+            }
+        }
+        
+        
         $this->paginate['order'] = array('Province.name' => 'asc');
         $this->set('Provinces', $this->paginate("Province", $search_condition));
 
