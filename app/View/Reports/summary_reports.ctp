@@ -136,12 +136,13 @@ echo $this->Form->end();
                         foreach ($TravelLookupContinents as $value):                       
                          $Status = $value['TravelLookupContinent']['continent_status'] ? 'OK' : 'ERROR';
                          $WTBStatus = $value['TravelLookupContinent']['wtb_status'] ? 'OK' : 'ERROR';
+                         $continent_id = $value['TravelLookupContinent']['id'];
                             ?>
                             <tr>
                                 <td class="tablebody"><?php											
                                 echo $this->Form->checkbox('check', array('name' => 'data[TravelLookupContinent][check][]','class' => 'msg_select','readonly' => true,'hiddenField' => false,'value' => $value['TravelLookupContinent']['id']));
                                 ?></td>
-                                <td><?php echo $value['TravelLookupContinent']['id'];?></td> 
+                                <td><?php echo $continent_id;?></td> 
                               
                                 <td><?php echo $value['TravelLookupContinent']['continent_name']; ?></td>
                                 <td><?php echo $value['TravelLookupContinent']['continent_code']; ?></td>
@@ -151,14 +152,14 @@ echo $this->Form->end();
                                 <td><?php echo $WTBStatus; ?></td>
                                 <td><?php $sum5 = $sum5 + count($value['TravelCountry']);  
 
-echo $this->Html->link(count($value['TravelCountry']), array('controller' => 'reports', 'action' => 'city_mapping_list/city_id:'.$value['TravelCity']['id'].'/province_id:'.$value['TravelCity']['province_id'].'/city_country_id:'.$value['TravelCity']['country_id'].'/city_continent_id:'.$value['TravelCity']['continent_id']), array('class' => 'act-ico', 'escape' => false,'target' => '_blank'));
+echo $this->Html->link(count($value['TravelCountry']), array('controller' => 'reports', 'action' => ''), array('class' => 'act-ico', 'escape' => false,'target' => '_blank'));
 //echo count($value['TravelCitySuppliers']); ?></td>
                                 <td><?php $sum6 = $sum6 + count($value['TravelCountrySupplier']);  
 
-echo $this->Html->link(count($value['TravelCountrySupplier']), array('controller' => 'reports', 'action' => 'city_mapping_list/city_id:'.$value['TravelCity']['id'].'/province_id:'.$value['TravelCity']['province_id'].'/city_country_id:'.$value['TravelCity']['country_id'].'/city_continent_id:'.$value['TravelCity']['continent_id']), array('class' => 'act-ico', 'escape' => false,'target' => '_blank'));
+echo $this->Html->link(count($value['TravelCountrySupplier']), array('controller' => 'reports', 'action' => ''), array('class' => 'act-ico', 'escape' => false,'target' => '_blank'));
 //echo count($value['TravelCitySuppliers']); ?></td>
                                 <td><?php $sum = $sum + count($value['TravelHotelLookup']);  
-                                 echo $this->Html->link(count($value['TravelHotelLookup']), array('controller' => 'reports', 'action' => 'hotel_summary/city_id:'.$value['TravelCity']['id'].'/province_id:'.$value['TravelCity']['province_id'].'/country_id:'.$value['TravelCity']['country_id'].'/continent_id:'.$value['TravelCity']['continent_id']), array('class' => 'act-ico', 'escape' => false,'target' => '_blank'));
+                                 echo $this->Html->link(count($value['TravelHotelLookup']), array('controller' => 'reports', 'action' => 'hotel_summary/city_id:'.$continent_id), array('class' => 'act-ico', 'escape' => false,'target' => '_blank'));
                                 
                                 //echo count($value['TravelHotelLookup']); ?></td> 
                                 <td><?php $sum1 = $sum1 + count($value['TravelHotelRoomSupplier']);  
@@ -167,23 +168,23 @@ echo $this->Html->link(count($value['TravelCountrySupplier']), array('controller
 //echo count($value['TravelHotelRoomSupplier']); ?></td>
                                 <td><?php $sum8 = $sum8 + count($value['Province']);  
 
-                                echo $this->Html->link(count($value['Province']), array('controller' => 'reports', 'action' => 'hotel_mapping_list/hotel_city_id:'.$value['TravelCity']['id'].'/province_id:'.$value['TravelCity']['province_id'].'/hotel_country_id:'.$value['TravelCity']['country_id'].'/hotel_continent_id:'.$value['TravelCity']['continent_id']), array('class' => 'act-ico', 'escape' => false,'target' => '_blank'));
+                                echo $this->Html->link(count($value['Province']), array('controller' => 'reports', 'action' => 'province_list/continent_id:'.$continent_id), array('class' => 'act-ico', 'escape' => false,'target' => '_blank'));
 //echo count($value['TravelHotelRoomSupplier']); ?></td>
                                 <td><?php $sum7 = $sum7 + count($value['TravelCity']);  
 
-echo $this->Html->link(count($value['TravelCity']), array('controller' => 'reports', 'action' => 'city_mapping_list/city_id:'.$value['TravelCity']['id'].'/province_id:'.$value['TravelCity']['province_id'].'/city_country_id:'.$value['TravelCity']['country_id'].'/city_continent_id:'.$value['TravelCity']['continent_id']), array('class' => 'act-ico', 'escape' => false,'target' => '_blank'));
+echo $this->Html->link(count($value['TravelCity']), array('controller' => 'reports', 'action' => 'city_reports/continent_id:'.$continent_id), array('class' => 'act-ico', 'escape' => false,'target' => '_blank'));
 //echo count($value['TravelCitySuppliers']); ?></td>
                                 <td><?php $sum2 = $sum2 + count($value['TravelCitySuppliers']);  
 
-echo $this->Html->link(count($value['TravelCitySuppliers']), array('controller' => 'reports', 'action' => 'city_mapping_list/city_id:'.$value['TravelCity']['id'].'/province_id:'.$value['TravelCity']['province_id'].'/city_country_id:'.$value['TravelCity']['country_id'].'/city_continent_id:'.$value['TravelCity']['continent_id']), array('class' => 'act-ico', 'escape' => false,'target' => '_blank'));
+echo $this->Html->link(count($value['TravelCitySuppliers']), array('controller' => 'reports', 'action' => 'city_mapping_list/city_id:'.$continent_id), array('class' => 'act-ico', 'escape' => false,'target' => '_blank'));
 //echo count($value['TravelCitySuppliers']); ?></td>
                                  
                                  
                                 <td><?php $sum3 = $sum3 + count($value['TravelSuburb']);  
-echo $this->Html->link(count($value['TravelSuburb']), array('controller' => 'reports', 'action' => 'suburb_list/city_id:'.$value['TravelCity']['id'].'/province_id:'.$value['TravelCity']['province_id'].'/country_id:'.$value['TravelCity']['country_id'].'/continent_id:'.$value['TravelCity']['continent_id']), array('class' => 'act-ico', 'escape' => false,'target' => '_blank'));
+echo $this->Html->link(count($value['TravelSuburb']), array('controller' => 'reports', 'action' => 'suburb_list/continent_id:'.$continent_id), array('class' => 'act-ico', 'escape' => false,'target' => '_blank'));
 //echo count($value['TravelSuburb']); ?></td> 
                                 <td><?php $sum4 = $sum4 + count($value['TravelArea']);  //echo count($value['TravelArea']);
-echo $this->Html->link(count($value['TravelArea']), array('controller' => 'reports', 'action' => 'area_list/city_id:'.$value['TravelCity']['id'].'/province_id:'.$value['TravelCity']['province_id'].'/country_id:'.$value['TravelCity']['country_id'].'/continent_id:'.$value['TravelCity']['continent_id']), array('class' => 'act-ico', 'escape' => false,'target' => '_blank'));
+echo $this->Html->link(count($value['TravelArea']), array('controller' => 'reports', 'action' => 'area_list/continent_id:'.$continent_id), array('class' => 'act-ico', 'escape' => false,'target' => '_blank'));
  ?></td> 
                                
                             </tr>
@@ -218,47 +219,47 @@ endif; ?>
                                 <td  width="37%">Blank Continent</td>
                                 <td width="7%"><?php 
 								
-								echo ($country_count) ? $this->Html->link($country_count, array('controller' => 'reports', 'action' => 'city_mapping_list/city_id:0/city_country_id:'.$country_id), array('class' => 'act-ico', 'escape' => false,'target' => '_blank')) : '0';
+								echo ($country_count) ? $this->Html->link($country_count, array('controller' => 'reports', 'action' => ''), array('class' => 'act-ico', 'escape' => false,'target' => '_blank')) : '0';
 								
 								//echo $city_mapping_count?></td>
                                 <td width="7%"><?php 
 								
-								echo ($country_mapping_count) ? $this->Html->link($country_mapping_count, array('controller' => 'reports', 'action' => 'city_mapping_list/city_id:0/city_country_id:'.$country_id), array('class' => 'act-ico', 'escape' => false,'target' => '_blank')) : '0';
+								echo ($country_mapping_count) ? $this->Html->link($country_mapping_count, array('controller' => 'reports', 'action' => ''), array('class' => 'act-ico', 'escape' => false,'target' => '_blank')) : '0';
 								
 								//echo $city_mapping_count?></td>
                                 
                                 <td width="7%"><?php 
 								
-								echo ($hotel_count) ? $this->Html->link($hotel_count, array('controller' => 'reports', 'action' => 'hotel_summary/city_id:0/country_id:'.$country_id), array('class' => 'act-ico', 'escape' => false,'target' => '_blank')) : '0';
+								echo ($hotel_count) ? $this->Html->link($hotel_count, array('controller' => 'reports', 'action' => 'hotel_summary/continent_id:0'), array('class' => 'act-ico', 'escape' => false,'target' => '_blank')) : '0';
 								//echo $hotel_count?></td> 
                                 <td width="7%"><?php echo ($hotel_mapping_count) ? 
-								$this->Html->link($hotel_mapping_count, array('controller' => 'reports', 'action' => 'hotel_mapping_list/hotel_city_id:0/hotel_country_id:'.$country_id), array('class' => 'act-ico', 'escape' => false,'target' => '_blank')) : '0';
+								$this->Html->link($hotel_mapping_count, array('controller' => 'reports', 'action' => 'hotel_mapping_list/hotel_continent_id:0'), array('class' => 'act-ico', 'escape' => false,'target' => '_blank')) : '0';
 								
 								?></td> 
                                 
                                 <td width="7%"><?php 
 								
-								echo ($province_count) ? $this->Html->link($province_count, array('controller' => 'reports', 'action' => 'city_mapping_list/city_id:0/city_country_id:'.$country_id), array('class' => 'act-ico', 'escape' => false,'target' => '_blank')) : '0';
+								echo ($province_count) ? $this->Html->link($province_count, array('controller' => 'reports', 'action' => 'province_list/continent_id:0'), array('class' => 'act-ico', 'escape' => false,'target' => '_blank')) : '0';
 								
 								//echo $city_mapping_count?></td>
                                 <td width="7%"><?php 
 								
-								echo ($city_count) ? $this->Html->link($city_count, array('controller' => 'reports', 'action' => 'city_mapping_list/city_id:0/city_country_id:'.$country_id), array('class' => 'act-ico', 'escape' => false,'target' => '_blank')) : '0';
+								echo ($city_count) ? $this->Html->link($city_count, array('controller' => 'reports', 'action' => 'city_reports/continent_id:0'), array('class' => 'act-ico', 'escape' => false,'target' => '_blank')) : '0';
 								
 								//echo $city_mapping_count?></td>
                                 <td width="7%"><?php 
 								
-								echo ($city_mapping_count) ? $this->Html->link($city_mapping_count, array('controller' => 'reports', 'action' => 'city_mapping_list/city_id:0/city_country_id:'.$country_id), array('class' => 'act-ico', 'escape' => false,'target' => '_blank')) : '0';
+								echo ($city_mapping_count) ? $this->Html->link($city_mapping_count, array('controller' => 'reports', 'action' => 'city_mapping_list/city_continent_id:0'), array('class' => 'act-ico', 'escape' => false,'target' => '_blank')) : '0';
 								
 								//echo $city_mapping_count?></td>
                                                                
                                 <td width="7%"><?php echo ($suburb_count) ? 
-								$this->Html->link($suburb_count, array('controller' => 'reports', 'action' => 'suburb_list/city_id:0/country_id:'.$country_id), array('class' => 'act-ico', 'escape' => false,'target' => '_blank')) : '0';
+								$this->Html->link($suburb_count, array('controller' => 'reports', 'action' => 'suburb_list/continent_id:0'), array('class' => 'act-ico', 'escape' => false,'target' => '_blank')) : '0';
 								
 								
 								?></td>
                                 <td  width="7%"><?php echo ($area_count) ?
-									$this->Html->link($area_count, array('controller' => 'reports', 'action' => 'area_list/city_id:0/country_id:'.$country_id), array('class' => 'act-ico', 'escape' => false,'target' => '_blank')) : '0';
+									$this->Html->link($area_count, array('controller' => 'reports', 'action' => 'area_list/continent_id:0'), array('class' => 'act-ico', 'escape' => false,'target' => '_blank')) : '0';
 								
 								?></td>
                                
@@ -292,38 +293,7 @@ echo $this->Form->end();
         </div>
     </div>
 </div>
-<?php
-$data = $this->Js->get('#parsley_reg')->serializeForm(array('isForm' => true, 'inline' => true));
-$this->Js->get('#ReportContinentId')->event('change', $this->Js->request(array(
-            'controller' => 'all_functions',
-            'action' => 'get_travel_country_by_continent_id/Report/continent_id'
-                ), array(
-            'update' => '#ReportCountryId',
-            'async' => true,
-            'before' => 'loading("ReportCountryId")',
-            'complete' => 'loaded("ReportCountryId")',
-            'method' => 'post',
-            'dataExpression' => true,
-            'data' => $this->Js->serializeForm(array(
-                'isForm' => true,
-                'inline' => true
-            ))
-        ))
-);
-$this->Js->get('#ReportCountryId')->event('change', $this->Js->request(array(
-            'controller' => 'all_functions',
-            'action' => 'get_province_by_continent_country/Report/continent_id/country_id'
-                ), array(
-            'update' => '#ReportProvinceId',
-            'async' => true,
-            'before' => 'loading("ReportProvinceId")',
-            'complete' => 'loaded("ReportProvinceId")',
-            'method' => 'post',
-            'dataExpression' => true,
-            'data' => $data
-        ))
-);
-?>
+
 <script>
     
     $('.mbox_select_all').click(function () {
