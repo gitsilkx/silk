@@ -35,7 +35,7 @@ App::uses('AppController', 'Controller');
  */
 class ReportsController extends AppController {
 
-    public $uses = array('TravelHotelLookup', 'TravelCity', 'TravelCountry', 'TravelLookupContinent', 'TravelLookupValueContractStatus', 'TravelChain',
+    public $uses = array('TravelHotelLookup', 'TravelCity', 'TravelCountry','TravelCountrySupplier', 'TravelLookupContinent', 'TravelLookupValueContractStatus', 'TravelChain',
         'TravelSuburb', 'TravelArea', 'TravelBrand', 'Province', 'TravelHotelRoomSupplier', 'TravelCitySupplier', 'Mappinge', 'TravelSupplier', 'LogCall',
         'TravelActionItemType', 'User', 'DeleteTravelHotelLookup', 'DeleteLogTable', 'DeleteTravelHotelRoomSupplier', 'DeleteTravelCitySupplier', 'DeleteTravelCity',
         'DeleteTravelSuburb', 'DeleteTravelArea', 'DeleteProvince', 'TravelActionItem','TravelCitySuppliers');
@@ -204,8 +204,10 @@ class ReportsController extends AppController {
         $CityMappingCon = array();
         $SuburbCon = array();
         $AreaCon = array();
-        
-        
+        $CityCon = array();
+        $CountryCon = array();
+        $CountryMappingCon = array();
+        $ProvinceCon = array();
 
         if ($this->request->is('post') || $this->request->is('put')) {
             //$country_id = $this->data['Report']['country_id'];
@@ -229,12 +231,15 @@ class ReportsController extends AppController {
             }
         }
         //array_push($search_condition, array('TravelCity.country_id' => $country_id));
-
-        array_push($HotelCon, array('TravelHotelLookup.country_id' => $country_id,'TravelHotelLookup.city_id' => 0));       
-        array_push($HotelMappingCon, array('TravelHotelRoomSupplier.hotel_country_id' => $country_id,'TravelHotelRoomSupplier.hotel_city_id' => 0));
-        array_push($CityMappingCon, array('TravelCitySuppliers.city_country_id' => $country_id,'TravelCitySuppliers.city_id' => 0));
-        array_push($SuburbCon, array('TravelSuburb.country_id' => $country_id,'TravelSuburb.city_id' => 0));
-        array_push($AreaCon, array('TravelArea.country_id' => $country_id,'TravelArea.city_id' => 0));
+        array_push($CountryCon, array('TravelCountry.continent_id' => 0));       
+        array_push($CountryMappingCon, array('TravelCountrySupplier.country_continent_id' => 0));       
+        array_push($ProvinceCon, array('Province.continent_id' => 0));       
+        array_push($HotelCon, array('TravelHotelLookup.continent_id' => 0));       
+        array_push($HotelMappingCon, array('TravelHotelRoomSupplier.hotel_continent_id' => 0));
+        array_push($CityCon, array('TravelCity.continent_id' => 0));
+        array_push($CityMappingCon, array('TravelCitySuppliers.city_continent_id' => 0));
+        array_push($SuburbCon, array('TravelSuburb.continent_id' => 0));
+        array_push($AreaCon, array('TravelArea.continent_id' => 0));
 
 
         if (count($this->params['pass'])) {
@@ -281,6 +286,16 @@ class ReportsController extends AppController {
                     'className' => 'TravelCity',
                     'foreignKey' => 'continent_id',
                     'fields' => 'TravelCity.id',
+                    'conditions' => array(
+                        //'TravelCitySuppliers.city_country_id' => $country_id,
+                        //'TravelCitySuppliers.city_continent_id' => $continent_id,
+                        //'TravelCitySuppliers.province_id' => $province_id
+                )  // 1 for client table of  lookup_value_activity_levels
+                ),
+                'Province' => array(
+                    'className' => 'Province',
+                    'foreignKey' => 'continent_id',
+                    'fields' => 'Province.id',
                     'conditions' => array(
                         //'TravelCitySuppliers.city_country_id' => $country_id,
                         //'TravelCitySuppliers.city_continent_id' => $continent_id,
@@ -349,7 +364,11 @@ class ReportsController extends AppController {
             'order' => 'continent_name ASC'
         ));
 
+        $country_count = $this->TravelCountry->find('count',array('conditions' => $CountryCon));
+        $country_mapping_count = $this->TravelCountrySupplier->find('count',array('conditions' => $CountryMappingCon));
+        $province_count = $this->Province->find('count',array('conditions' => $ProvinceCon));
          $hotel_count = $this->TravelHotelLookup->find('count',array('conditions' => $HotelCon));
+         $city_count = $this->TravelCity->find('count',array('conditions' => $CityCon));
          $city_mapping_count = $this->TravelCitySuppliers->find('count',array('conditions' => $CityMappingCon));
          $hotel_mapping_count = $this->TravelHotelRoomSupplier->find('count',array('conditions' => $HotelMappingCon));
          $area_count = $this->TravelArea->find('count',array('conditions' => $AreaCon));
@@ -359,7 +378,7 @@ class ReportsController extends AppController {
 
         //$TravelCountries = $this->TravelCountry->find('list', array('fields' => 'id,country_name', 'order' => 'country_name ASC'));
 
-        $this->set(compact('TravelCities','hotel_count','city_mapping_count','hotel_mapping_count',
+        $this->set(compact('TravelCities','country_count','country_mapping_count','province_count','city_count','hotel_count','city_mapping_count','hotel_mapping_count',
                 'area_count','suburb_count', 'TravelCountries','Provinces','province_id', 'country_id','continent_id','TravelLookupContinents','wtb_status','active','city_status'));
     }
     
