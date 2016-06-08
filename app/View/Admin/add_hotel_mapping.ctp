@@ -131,7 +131,7 @@ echo $this->Form->text('active',array('value' => $TravelHotelLookups['TravelHote
                             <div class="col-sm-10">
                                 <?php
                                 $status = $TravelHotelLookups['TravelHotelLookup']['status'];
-                                echo ($status == '1'): 'OK' ? 'ERROR';
+                                echo ($status == '1') ? 'OK' : 'ERROR';
                                 ?></div>
                         </div>
                         <div class="form-group">
@@ -192,7 +192,7 @@ echo $this->Form->text('active',array('value' => $TravelHotelLookups['TravelHote
                             <div class="col-sm-10">
                                 <?php
                                 $wtb_status = $TravelHotelLookups['TravelHotelLookup']['wtb_status'];
-                                echo ($wtb_status == '1'): 'OK' ? 'ERROR';
+                                echo ($wtb_status == '1') ? 'OK' : 'ERROR';
                                 ?></div>
                         </div>
                         
