@@ -3,6 +3,7 @@ $this->Html->addCrumb('Add Hotel Mapping', 'javascript:void(0);', array('class' 
 echo $this->Form->create('SupplierHotel', array('method' => 'post',
     'id' => 'parsley_reg',
     'novalidate' => true,
+    'onsubmit' => 'return Validate()',
     'inputDefaults' => array(
         'label' => false,
         'div' => false,
@@ -23,7 +24,7 @@ echo $this->Form->hidden('hotel_id',array('value' => $TravelHotelLookups['Travel
                 
                 <div class="col-sm-12"  style="background-color: rgb(211, 233, 237);overflow:hidden;">
                     <div class="col-sm-6">
-                        <h4>Supplier Hotel</h4>
+                        <h4>Supplier Hotel : <?php echo strtoupper($SupplierHotels['SupplierHotel']['hotel_name']);?></h4>
                         <div class="form-group">
                             <label for="reg_input_name" class="bgr">Id</label>
                             <span class="colon">:</span>
@@ -33,13 +34,15 @@ echo $this->Form->hidden('hotel_id',array('value' => $TravelHotelLookups['Travel
                                 ?></div>
                         </div>
                         <div class="form-group">
-                            <label for="reg_input_name" class="req">Country</label>
+                            <label for="reg_input_name" class="req">Continent</label>
                             <span class="colon">:</span>
                             <div class="col-sm-10">
                                 <?php
-                                echo $SupplierHotels['SupplierHotel']['country_name'];
-                                ?></div>
+                                echo $SupplierHotels['SupplierHotel']['continent_name'];
+                                ?>
+                                </div>
                         </div>
+                        
                         <div class="form-group">
                             <label for="reg_input_name" class="req">Hotel</label>
                             <span class="colon">:</span>
@@ -53,14 +56,22 @@ echo $this->Form->hidden('hotel_id',array('value' => $TravelHotelLookups['Travel
                     <div class="col-sm-6">
                        <h4>&nbsp;</h4>
                        <div class="form-group">
-                            <label for="reg_input_name" class="req">Continent</label>
+                            <label for="reg_input_name" class="req">Code</label>
                             <span class="colon">:</span>
                             <div class="col-sm-10">
                                 <?php
-                                echo $SupplierHotels['SupplierHotel']['continent_name'];
-                                ?>
-                                </div>
+                                echo '<b>'.$SupplierHotels['SupplierHotel']['hotel_code'].'</b>';
+                                ?></div>
                         </div>
+                       <div class="form-group">
+                            <label for="reg_input_name" class="req">Country</label>
+                            <span class="colon">:</span>
+                            <div class="col-sm-10">
+                                <?php
+                                echo $SupplierHotels['SupplierHotel']['country_name'];
+                                ?></div>
+                        </div>
+                  
                        <div class="form-group">
                             <label for="reg_input_name" class="req">City</label>
                             <span class="colon">:</span>
@@ -70,19 +81,12 @@ echo $this->Form->hidden('hotel_id',array('value' => $TravelHotelLookups['Travel
                                 ?>
                                 </div>
                         </div>
-                        <div class="form-group">
-                            <label for="reg_input_name" class="req">Code</label>
-                            <span class="colon">:</span>
-                            <div class="col-sm-10">
-                                <?php
-                                echo '<b>'.$SupplierHotels['SupplierHotel']['hotel_code'].'</b>';
-                                ?></div>
-                        </div>
+                        
                     </div>
                 </div>
                 <div class="col-sm-12"  style="background-color: rgb(238, 221, 255);overflow:hidden;">
                     <div class="col-sm-6">
-                        <h4>Hotel</h4>
+                        <h4>WTB Hotel : <?php echo strtoupper($TravelHotelLookups['TravelHotelLookup']['hotel_name']);?></h4>
                         <div class="form-group">
                             <label for="reg_input_name" class="bgr">Id</label>
                             <span class="colon">:</span>
@@ -92,31 +96,55 @@ echo $this->Form->hidden('hotel_id',array('value' => $TravelHotelLookups['Travel
                                 ?></div>
                         </div>
                         <div class="form-group">
-                            <label for="reg_input_name" class="req">Country</label>
+                            <label for="reg_input_name" class="req">Continent</label>
                             <span class="colon">:</span>
                             <div class="col-sm-10">
                                 <?php
-                                echo $TravelHotelLookups['TravelHotelLookup']['country_name'];
+                                echo $TravelHotelLookups['TravelHotelLookup']['continent_name'];
                                 ?></div>
                         </div>
                         <div class="form-group">
-                            <label for="reg_input_name" class="req">Hotel</label>
+                            <label for="reg_input_name" class="req">Province</label>
                             <span class="colon">:</span>
                             <div class="col-sm-10">
                                 <?php
-                                echo $TravelHotelLookups['TravelHotelLookup']['hotel_name'];
+                                echo $TravelHotelLookups['TravelHotelLookup']['province_name'];
+                                ?></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="reg_input_name" class="req">Suburb</label>
+                            <span class="colon">:</span>
+                            <div class="col-sm-10">
+                                <?php
+                                echo $TravelHotelLookups['TravelHotelLookup']['suburb_name'];
+                                ?></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="reg_input_name" class="req">Chain</label>
+                            <span class="colon">:</span>
+                            <div class="col-sm-10">
+                                <?php
+                                echo $TravelHotelLookups['TravelHotelLookup']['chain_name'];
                                 ?></div>
                         </div>
                         
                     </div>
                     <div class="col-sm-6">
                         <h4>&nbsp;</h4>
-                       <div class="form-group">
-                            <label for="reg_input_name" class="req">Continent</label>
+                        <div class="form-group">
+                            <label for="reg_input_name" class="req">Code</label>
                             <span class="colon">:</span>
                             <div class="col-sm-10">
                                 <?php
-                                echo $TravelHotelLookups['TravelHotelLookup']['continent_name'];
+                                echo $TravelHotelLookups['TravelHotelLookup']['hotel_code'];
+                                ?></div>
+                        </div>
+                       <div class="form-group">
+                            <label for="reg_input_name" class="req">Country</label>
+                            <span class="colon">:</span>
+                            <div class="col-sm-10">
+                                <?php
+                                echo $TravelHotelLookups['TravelHotelLookup']['country_name'];
                                 ?></div>
                         </div>
                         <div class="form-group">
@@ -128,13 +156,22 @@ echo $this->Form->hidden('hotel_id',array('value' => $TravelHotelLookups['Travel
                                 ?></div>
                         </div>
                         <div class="form-group">
-                            <label for="reg_input_name" class="req">Code</label>
+                            <label for="reg_input_name" class="req">Area</label>
                             <span class="colon">:</span>
                             <div class="col-sm-10">
                                 <?php
-                                echo $TravelHotelLookups['TravelHotelLookup']['hotel_code'];
+                                echo $TravelHotelLookups['TravelHotelLookup']['area_name'];
                                 ?></div>
                         </div>
+                        <div class="form-group">
+                            <label for="reg_input_name" class="req">Brand</label>
+                            <span class="colon">:</span>
+                            <div class="col-sm-10">
+                                <?php
+                                echo $TravelHotelLookups['TravelHotelLookup']['brand_name'];
+                                ?></div>
+                        </div>
+                        
                     </div>
                 </div>   
                 <div class="clear" style="clear: both;"></div>
@@ -155,3 +192,8 @@ echo $this->Form->hidden('hotel_id',array('value' => $TravelHotelLookups['Travel
 <?php
 echo $this->Form->end();
 ?>
+<script>
+    function Validate(){
+        return false;
+    }
+    </script>
