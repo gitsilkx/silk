@@ -12,6 +12,11 @@ echo $this->Form->create('SupplierHotel', array('method' => 'post',
 ));
 echo $this->Form->hidden('supplier_hotel_id',array('value' => $SupplierHotels['SupplierHotel']['id'],'type' => 'text'));
 echo $this->Form->hidden('hotel_id',array('value' => $TravelHotelLookups['TravelHotelLookup']['id'],'type' => 'text'));
+echo $this->Form->text('province_id',array('value' => $TravelHotelLookups['TravelHotelLookup']['province_id'],'type' => 'text'));
+echo $this->Form->text('suburb_id',array('value' => $TravelHotelLookups['TravelHotelLookup']['suburb_id'],'type' => 'text'));
+echo $this->Form->text('chain_id',array('value' => $TravelHotelLookups['TravelHotelLookup']['chain_id'],'type' => 'text'));
+echo $this->Form->text('brand_id',array('value' => $TravelHotelLookups['TravelHotelLookup']['brand_id'],'type' => 'text'));
+
 ?>
 <div class="col-sm-12" id="mycl-det">
     <div class="panel panel-default">
@@ -34,7 +39,7 @@ echo $this->Form->hidden('hotel_id',array('value' => $TravelHotelLookups['Travel
                                 ?></div>
                         </div>
                         <div class="form-group">
-                            <label for="reg_input_name" class="req">Continent</label>
+                            <label for="reg_input_name">Continent</label>
                             <span class="colon">:</span>
                             <div class="col-sm-10">
                                 <?php
@@ -47,7 +52,7 @@ echo $this->Form->hidden('hotel_id',array('value' => $TravelHotelLookups['Travel
                     <div class="col-sm-6">
                        <h4>&nbsp;</h4>
                        <div class="form-group">
-                            <label for="reg_input_name" class="req">Code</label>
+                            <label for="reg_input_name">Code</label>
                             <span class="colon">:</span>
                             <div class="col-sm-10">
                                 <?php
@@ -55,7 +60,7 @@ echo $this->Form->hidden('hotel_id',array('value' => $TravelHotelLookups['Travel
                                 ?></div>
                         </div>
                        <div class="form-group">
-                            <label for="reg_input_name" class="req">Country</label>
+                            <label for="reg_input_name">Country</label>
                             <span class="colon">:</span>
                             <div class="col-sm-10">
                                 <?php
@@ -64,7 +69,7 @@ echo $this->Form->hidden('hotel_id',array('value' => $TravelHotelLookups['Travel
                         </div>
                   
                        <div class="form-group">
-                            <label for="reg_input_name" class="req">City</label>
+                            <label for="reg_input_name">City</label>
                             <span class="colon">:</span>
                             <div class="col-sm-10">
                                 <?php
@@ -87,7 +92,7 @@ echo $this->Form->hidden('hotel_id',array('value' => $TravelHotelLookups['Travel
                                 ?></div>
                         </div>
                         <div class="form-group">
-                            <label for="reg_input_name" class="req">Continent</label>
+                            <label for="reg_input_name">Continent</label>
                             <span class="colon">:</span>
                             <div class="col-sm-10">
                                 <?php
@@ -95,7 +100,7 @@ echo $this->Form->hidden('hotel_id',array('value' => $TravelHotelLookups['Travel
                                 ?></div>
                         </div>
                         <div class="form-group">
-                            <label for="reg_input_name" class="req">Province</label>
+                            <label for="reg_input_name">Province</label>
                             <span class="colon">:</span>
                             <div class="col-sm-10">
                                 <?php
@@ -103,7 +108,7 @@ echo $this->Form->hidden('hotel_id',array('value' => $TravelHotelLookups['Travel
                                 ?></div>
                         </div>
                         <div class="form-group">
-                            <label for="reg_input_name" class="req">Suburb</label>
+                            <label for="reg_input_name">Suburb</label>
                             <span class="colon">:</span>
                             <div class="col-sm-10">
                                 <?php
@@ -111,7 +116,7 @@ echo $this->Form->hidden('hotel_id',array('value' => $TravelHotelLookups['Travel
                                 ?></div>
                         </div>
                         <div class="form-group">
-                            <label for="reg_input_name" class="req">Chain</label>
+                            <label for="reg_input_name">Chain</label>
                             <span class="colon">:</span>
                             <div class="col-sm-10">
                                 <?php
@@ -123,7 +128,7 @@ echo $this->Form->hidden('hotel_id',array('value' => $TravelHotelLookups['Travel
                     <div class="col-sm-6">
                         <h4>&nbsp;</h4>
                         <div class="form-group">
-                            <label for="reg_input_name" class="req">Code</label>
+                            <label for="reg_input_name">Code</label>
                             <span class="colon">:</span>
                             <div class="col-sm-10">
                                 <?php
@@ -131,7 +136,7 @@ echo $this->Form->hidden('hotel_id',array('value' => $TravelHotelLookups['Travel
                                 ?></div>
                         </div>
                        <div class="form-group">
-                            <label for="reg_input_name" class="req">Country</label>
+                            <label for="reg_input_name">Country</label>
                             <span class="colon">:</span>
                             <div class="col-sm-10">
                                 <?php
@@ -139,7 +144,7 @@ echo $this->Form->hidden('hotel_id',array('value' => $TravelHotelLookups['Travel
                                 ?></div>
                         </div>
                         <div class="form-group">
-                            <label for="reg_input_name" class="req">City</label>
+                            <label for="reg_input_name">City</label>
                             <span class="colon">:</span>
                             <div class="col-sm-10">
                                 <?php
@@ -147,7 +152,7 @@ echo $this->Form->hidden('hotel_id',array('value' => $TravelHotelLookups['Travel
                                 ?></div>
                         </div>
                         <div class="form-group">
-                            <label for="reg_input_name" class="req">Area</label>
+                            <label for="reg_input_name">Area</label>
                             <span class="colon">:</span>
                             <div class="col-sm-10">
                                 <?php
@@ -155,7 +160,7 @@ echo $this->Form->hidden('hotel_id',array('value' => $TravelHotelLookups['Travel
                                 ?></div>
                         </div>
                         <div class="form-group">
-                            <label for="reg_input_name" class="req">Brand</label>
+                            <label for="reg_input_name">Brand</label>
                             <span class="colon">:</span>
                             <div class="col-sm-10">
                                 <?php
