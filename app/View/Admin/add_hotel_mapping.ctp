@@ -42,16 +42,7 @@ echo $this->Form->hidden('hotel_id',array('value' => $TravelHotelLookups['Travel
                                 ?>
                                 </div>
                         </div>
-                        
-                        <div class="form-group">
-                            <label for="reg_input_name" class="req">Hotel</label>
-                            <span class="colon">:</span>
-                            <div class="col-sm-10">
-                                <?php
-                                echo $SupplierHotels['SupplierHotel']['hotel_name'];
-                                ?>
-                                </div>
-                        </div>
+                  
                     </div>
                     <div class="col-sm-6">
                        <h4>&nbsp;</h4>
@@ -194,6 +185,7 @@ echo $this->Form->end();
 ?>
 <script>
     function Validate(){
+        alert('test');
         return false;
     }
     </script>
