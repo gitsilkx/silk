@@ -16,7 +16,9 @@ echo $this->Form->text('province_id',array('value' => $TravelHotelLookups['Trave
 echo $this->Form->text('suburb_id',array('value' => $TravelHotelLookups['TravelHotelLookup']['suburb_id'],'type' => 'text'));
 echo $this->Form->text('chain_id',array('value' => $TravelHotelLookups['TravelHotelLookup']['chain_id'],'type' => 'text'));
 echo $this->Form->text('brand_id',array('value' => $TravelHotelLookups['TravelHotelLookup']['brand_id'],'type' => 'text'));
-
+echo $this->Form->text('status',array('value' => $TravelHotelLookups['TravelHotelLookup']['status'],'type' => 'text'));
+echo $this->Form->text('wtb_status',array('value' => $TravelHotelLookups['TravelHotelLookup']['wtb_status'],'type' => 'text'));
+echo $this->Form->text('active',array('value' => $TravelHotelLookups['TravelHotelLookup']['active'],'type' => 'text'));
 ?>
 <div class="col-sm-12" id="mycl-det">
     <div class="panel panel-default">
@@ -123,6 +125,23 @@ echo $this->Form->text('brand_id',array('value' => $TravelHotelLookups['TravelHo
                                 echo $TravelHotelLookups['TravelHotelLookup']['chain_name'];
                                 ?></div>
                         </div>
+                        <div class="form-group">
+                            <label for="reg_input_name">Status</label>
+                            <span class="colon">:</span>
+                            <div class="col-sm-10">
+                                <?php
+                                $status = $TravelHotelLookups['TravelHotelLookup']['status'];
+                                echo ($status == '1'): 'OK' ? 'ERROR';
+                                ?></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="reg_input_name">Active</label>
+                            <span class="colon">:</span>
+                            <div class="col-sm-10">
+                                <?php
+                                echo $TravelHotelLookups['TravelHotelLookup']['active'];
+                                ?></div>
+                        </div>
                         
                     </div>
                     <div class="col-sm-6">
@@ -167,6 +186,15 @@ echo $this->Form->text('brand_id',array('value' => $TravelHotelLookups['TravelHo
                                 echo $TravelHotelLookups['TravelHotelLookup']['brand_name'];
                                 ?></div>
                         </div>
+                        <div class="form-group">
+                            <label for="reg_input_name">WTB Status</label>
+                            <span class="colon">:</span>
+                            <div class="col-sm-10">
+                                <?php
+                                $wtb_status = $TravelHotelLookups['TravelHotelLookup']['wtb_status'];
+                                echo ($wtb_status == '1'): 'OK' ? 'ERROR';
+                                ?></div>
+                        </div>
                         
                     </div>
                 </div>   
@@ -190,7 +218,40 @@ echo $this->Form->end();
 ?>
 <script>
     function Validate(){
-        alert('test');
-        return false;
+        if($('#SupplierHotelProvinceId').val() == '')
+        {
+            alert('Province did not blank');
+            return false;
+        }
+        if($('#SupplierHotelSuburbId').val() == '')
+        {
+            alert('Province did not blank');
+            return false;
+        }
+        if($('#SupplierHotelChainId').val() == '')
+        {
+            alert('Province did not blank');
+            return false;
+        }
+        if($('#SupplierHotelBrandId').val() == '')
+        {
+            alert('Province did not blank');
+            return false;
+        }
+        if($('#SupplierHotelStatus').val() != '1')
+        {
+            alert('Hotel Status Should be OK.');
+            return false;
+        }
+        if($('#SupplierHotelWtbStatus').val() != '1')
+        {
+            alert('WTB status should be OK.');
+            return false;
+        }
+        if($('#SupplierHotelActive').val() == 'FALSE')
+        {
+            alert('Active should be TRUE.');
+            return false;
+        }
     }
     </script>
