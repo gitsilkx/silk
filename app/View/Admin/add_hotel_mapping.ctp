@@ -1,4 +1,5 @@
 <?php
+
 $this->Html->addCrumb('Add Hotel Mapping', 'javascript:void(0);', array('class' => 'breadcrumblast'));
 echo $this->Form->create('SupplierHotel', array('method' => 'post',
     'id' => 'parsley_reg',
@@ -12,13 +13,13 @@ echo $this->Form->create('SupplierHotel', array('method' => 'post',
 ));
 echo $this->Form->hidden('supplier_hotel_id',array('value' => $SupplierHotels['SupplierHotel']['id'],'type' => 'text'));
 echo $this->Form->hidden('hotel_id',array('value' => $TravelHotelLookups['TravelHotelLookup']['id'],'type' => 'text'));
-echo $this->Form->text('province_id',array('value' => $TravelHotelLookups['TravelHotelLookup']['province_id'],'type' => 'text'));
-echo $this->Form->text('suburb_id',array('value' => $TravelHotelLookups['TravelHotelLookup']['suburb_id'],'type' => 'text'));
-echo $this->Form->text('chain_id',array('value' => $TravelHotelLookups['TravelHotelLookup']['chain_id'],'type' => 'text'));
-echo $this->Form->text('brand_id',array('value' => $TravelHotelLookups['TravelHotelLookup']['brand_id'],'type' => 'text'));
-echo $this->Form->text('status',array('value' => $TravelHotelLookups['TravelHotelLookup']['status'],'type' => 'text'));
-echo $this->Form->text('wtb_status',array('value' => $TravelHotelLookups['TravelHotelLookup']['wtb_status'],'type' => 'text'));
-echo $this->Form->text('active',array('value' => $TravelHotelLookups['TravelHotelLookup']['active'],'type' => 'text'));
+echo $this->Form->hidden('province_id',array('value' => $TravelHotelLookups['TravelHotelLookup']['province_id'],'type' => 'text'));
+echo $this->Form->hidden('suburb_id',array('value' => $TravelHotelLookups['TravelHotelLookup']['suburb_id'],'type' => 'text'));
+echo $this->Form->hidden('chain_id',array('value' => $TravelHotelLookups['TravelHotelLookup']['chain_id'],'type' => 'text'));
+echo $this->Form->hidden('brand_id',array('value' => $TravelHotelLookups['TravelHotelLookup']['brand_id'],'type' => 'text'));
+echo $this->Form->hidden('status',array('value' => $TravelHotelLookups['TravelHotelLookup']['status'],'type' => 'text'));
+echo $this->Form->hidden('wtb_status',array('value' => $TravelHotelLookups['TravelHotelLookup']['wtb_status'],'type' => 'text'));
+echo $this->Form->hidden('active',array('value' => $TravelHotelLookups['TravelHotelLookup']['active'],'type' => 'text'));
 ?>
 <div class="col-sm-12" id="mycl-det">
     <div class="panel panel-default">
@@ -26,9 +27,9 @@ echo $this->Form->text('active',array('value' => $TravelHotelLookups['TravelHote
             <h4 class="panel-title">Hotel Mapping</h4>
         </div>
         <div class="panel-body">
-           
+
             <div class="row">
-                
+
                 <div class="col-sm-12"  style="background-color: rgb(211, 233, 237);overflow:hidden;">
                     <div class="col-sm-6">
                         <h4>Supplier Hotel : <?php echo strtoupper($SupplierHotels['SupplierHotel']['hotel_name']);?></h4>
@@ -47,13 +48,21 @@ echo $this->Form->text('active',array('value' => $TravelHotelLookups['TravelHote
                                 <?php
                                 echo $SupplierHotels['SupplierHotel']['continent_name'];
                                 ?>
-                                </div>
+                            </div>
                         </div>
-                  
+                        <div class="form-group">
+                            <label for="reg_input_name">City</label>
+                            <span class="colon">:</span>
+                            <div class="col-sm-10">
+                                <?php
+                                echo $SupplierHotels['SupplierHotel']['city_name'];
+                                ?>
+                            </div>
+                        </div>
                     </div>
                     <div class="col-sm-6">
-                       <h4>&nbsp;</h4>
-                       <div class="form-group">
+                        <h4>&nbsp;</h4>
+                        <div class="form-group">
                             <label for="reg_input_name">Code</label>
                             <span class="colon">:</span>
                             <div class="col-sm-10">
@@ -61,7 +70,7 @@ echo $this->Form->text('active',array('value' => $TravelHotelLookups['TravelHote
                                 echo '<b>'.$SupplierHotels['SupplierHotel']['hotel_code'].'</b>';
                                 ?></div>
                         </div>
-                       <div class="form-group">
+                        <div class="form-group">
                             <label for="reg_input_name">Country</label>
                             <span class="colon">:</span>
                             <div class="col-sm-10">
@@ -69,17 +78,9 @@ echo $this->Form->text('active',array('value' => $TravelHotelLookups['TravelHote
                                 echo $SupplierHotels['SupplierHotel']['country_name'];
                                 ?></div>
                         </div>
-                  
-                       <div class="form-group">
-                            <label for="reg_input_name">City</label>
-                            <span class="colon">:</span>
-                            <div class="col-sm-10">
-                                <?php
-                                echo $SupplierHotels['SupplierHotel']['city_name'];
-                                ?>
-                                </div>
-                        </div>
-                        
+
+
+
                     </div>
                 </div>
                 <div class="col-sm-12"  style="background-color: rgb(238, 221, 255);overflow:hidden;">
@@ -142,7 +143,7 @@ echo $this->Form->text('active',array('value' => $TravelHotelLookups['TravelHote
                                 echo $TravelHotelLookups['TravelHotelLookup']['active'];
                                 ?></div>
                         </div>
-                        
+
                     </div>
                     <div class="col-sm-6">
                         <h4>&nbsp;</h4>
@@ -154,7 +155,7 @@ echo $this->Form->text('active',array('value' => $TravelHotelLookups['TravelHote
                                 echo $TravelHotelLookups['TravelHotelLookup']['hotel_code'];
                                 ?></div>
                         </div>
-                       <div class="form-group">
+                        <div class="form-group">
                             <label for="reg_input_name">Country</label>
                             <span class="colon">:</span>
                             <div class="col-sm-10">
@@ -195,13 +196,13 @@ echo $this->Form->text('active',array('value' => $TravelHotelLookups['TravelHote
                                 echo ($wtb_status == '1') ? 'OK' : 'ERROR';
                                 ?></div>
                         </div>
-                        
+
                     </div>
                 </div>   
                 <div class="clear" style="clear: both;"></div>
                 <div class="col-sm-12">
                     <div class="row">  
-                        
+
                         <div class="col-sm-2">
                             <?php
                             echo $this->Form->submit('Add', array('class' => 'btn btn-success sticky_success','name' => 'add','style' => 'width:100%;float:left'));                            
@@ -217,41 +218,41 @@ echo $this->Form->text('active',array('value' => $TravelHotelLookups['TravelHote
 echo $this->Form->end();
 ?>
 <script>
-    function Validate(){
-        if($('#SupplierHotelProvinceId').val() == '')
+    function Validate() {
+        if ($('#SupplierHotelProvinceId').val() == '')
         {
             alert('Province did not blank');
             return false;
         }
-        if($('#SupplierHotelSuburbId').val() == '')
+        if ($('#SupplierHotelSuburbId').val() == '')
         {
             alert('Province did not blank');
             return false;
         }
-        if($('#SupplierHotelChainId').val() == '')
+        if ($('#SupplierHotelChainId').val() == '')
         {
             alert('Province did not blank');
             return false;
         }
-        if($('#SupplierHotelBrandId').val() == '')
+        if ($('#SupplierHotelBrandId').val() == '')
         {
             alert('Province did not blank');
             return false;
         }
-        if($('#SupplierHotelStatus').val() != '1')
+        if ($('#SupplierHotelStatus').val() != '1')
         {
             alert('Hotel Status Should be OK.');
             return false;
         }
-        if($('#SupplierHotelWtbStatus').val() != '1')
+        if ($('#SupplierHotelWtbStatus').val() != '1')
         {
             alert('WTB status should be OK.');
             return false;
         }
-        if($('#SupplierHotelActive').val() == 'FALSE')
+        if ($('#SupplierHotelActive').val() == 'FALSE')
         {
             alert('Active should be TRUE.');
             return false;
         }
     }
-    </script>
+</script>
