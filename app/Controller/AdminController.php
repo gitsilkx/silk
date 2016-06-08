@@ -161,7 +161,7 @@ class AdminController extends AppController {
                                     'country_id' => $country_id,
                                     'country_name' => $country_name,
                                     'country_code' => $country_code,
-                                    'id' => $value['Id']['@'],
+                                    'hotel_code' => $value['Id']['@'],
                                     'hotel_name' => $value['Name']['@'],
                                     'supplier_id' => $supplier_id,
                                     'supplier_code' => $supplier_code,
