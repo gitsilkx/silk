@@ -174,9 +174,9 @@ echo $this->Html->link(count($value['TravelCountrySupplier']), array('controller
 
 echo $this->Html->link(count($value['TravelCity']), array('controller' => 'reports', 'action' => 'city_reports/continent_id:'.$continent_id), array('class' => 'act-ico', 'escape' => false,'target' => '_blank'));
 //echo count($value['TravelCitySuppliers']); ?></td>
-                                <td><?php $sum2 = $sum2 + count($value['TravelCitySuppliers']);  
+                                <td><?php $sum2 = $sum2 + count($value['TravelCitySupplier']);  
 
-echo $this->Html->link(count($value['TravelCitySuppliers']), array('controller' => 'reports', 'action' => 'city_mapping_list/city_continent_id:'.$continent_id), array('class' => 'act-ico', 'escape' => false,'target' => '_blank'));
+echo $this->Html->link(count($value['TravelCitySupplier']), array('controller' => 'reports', 'action' => 'city_mapping_list/city_continent_id:'.$continent_id), array('class' => 'act-ico', 'escape' => false,'target' => '_blank'));
 //echo count($value['TravelCitySuppliers']); ?></td>
                                  
                                  
