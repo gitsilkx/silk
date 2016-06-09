@@ -392,6 +392,44 @@ $cur_page = end($arr); // live
         <?php
             }
         }
+        else if ($this->Session->read('industry') == '6') {
+            ?>
+            <li <?php if ($cur_page == 'my-roles') { ?> class="active"<?php } ?>>  
+                <?php
+                echo $this->Html->link('<i class="icon-tasks"></i><span>My Roles</span>', '/my-roles', array('data-toggle' => 'tooltip', 'data-placement' => 'right', 'title' => 'My Roles', 'escape' => false));
+                ?>           
+
+            </li>
+            <li <?php if ($cur_page == 'my-groups') { ?> class="active"<?php } ?>>  
+                <?php
+                echo $this->Html->link('<i class="icon-tasks"></i><span>My Groups</span>', '/my-groups', array('data-toggle' => 'tooltip', 'data-placement' => 'right', 'title' => 'My Groups', 'escape' => false));
+                ?>           
+
+            </li>
+            
+            <li <?php if ($cur_page == 'my-channels') { ?> class="active"<?php } ?>>
+                <?php
+                echo $this->Html->link('<i class="icon-tasks"></i><span>My Channels</span>', '/my-channels', array('data-toggle' => 'tooltip', 'data-placement' => 'right', 'title' => 'My Channels', 'escape' => false));
+                ?>             
+
+            </li>
+            
+            <li <?php if ($cur_page == 'my-users') { ?> class="active"<?php } ?>>  
+                <?php
+                echo $this->Html->link('<i class="icon-tasks"></i><span>My Users</span>', '/my-users', array('data-toggle' => 'tooltip', 'data-placement' => 'right', 'title' => 'My Users', 'escape' => false));
+                ?>           
+
+            </li>
+            <li <?php if ($cur_page == 'my-permissions') { ?> class="active"<?php } ?>>  
+                <?php
+                echo $this->Html->link('<i class="icon-tasks"></i><span>My Permissions</span>', '/my-permissions', array('data-toggle' => 'tooltip', 'data-placement' => 'right', 'title' => 'My Permissions', 'escape' => false));
+                ?>           
+
+            </li>
+            
+            
+            <?php
+        }
         else {
             ?>
             <li <?php if ($cur_page == 'my-builders') { ?> class="active"<?php } ?>>   

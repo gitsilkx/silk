@@ -220,6 +220,16 @@
                 <div class="col-sm-8">
                     <h3 class="heading_a mrgno">Roles</h3>
                 </div>
+                <?php if($self_id == '1'){?>
+                <div class="col-sm-8 real-estate-blk">
+                    <h3>Administration</h3>
+                    <ul class="top_ico_nav clearfix">
+                        <li>
+                            <a href="/silk/users/dashboard/id:1/channel:214/industry:6"><img src="/silk/img/1.png" alt="Adminstration" title="Adminstration"><span class="menu_label">Adminstration</span><span>Global</span></a>
+                            <?php //echo $this->Html->link($this->Html->image('5.png', array('alt' => 'Distribution Global', 'title' => 'Distribution Global')) . '<span class="menu_label">Distribution</span><span>Global</span>', '#', array('escape' => false)); ?></li>
+                    </ul>
+                </div>
+                <?php }?>
                 <div class="col-sm-8 real-estate-blk">
                     <h3>Real Estate</h3>
 

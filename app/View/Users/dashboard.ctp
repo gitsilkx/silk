@@ -861,6 +861,91 @@
                         <?php
                     }
                 }
+                elseif ($industry == '6') {
+                    ?>
+<div class="row">
+     
+    <div class="col-md-4 active">
+
+                <div class="info-box  bg-info  text-white" id="initial-tour">
+                    <div class="info-icon bg-info-dark">
+                        <span aria-hidden="true" class="icon icon-layers"></span>
+                    </div>
+                    <div class="info-details">
+        <?php
+        echo $this->Html->link('<h4>My Roles<span class="pull-right"></span></h4>', '/my-roles', array('data-toggle' => 'tooltip', 'data-placement' => 'right', 'title' => 'My Roles', 'escape' => false));
+        //echo $this->Html->link('<p>Registered <span class="badge pull-right bg-white text-success">'.$agent_registered.'</span> </p>', '/my-builders/builder_approved:1', array('data-toggle' => 'tooltip', 'data-placement' => 'right', 'title' => 'My Builders', 'escape' => false));
+        // echo $this->Html->link('<p>Allocated <span class="badge pull-right bg-white text-success">'.$agent_allocated.'</span> </p>', '/my-builders/builder_approved:2', array('data-toggle' => 'tooltip', 'data-placement' => 'right', 'title' => 'My Builders', 'escape' => false));
+        ?>
+                    </div>
+                </div>
+            </div>
+    <div class="col-md-4 active">
+
+                <div class="info-box  bg-info  text-white" id="initial-tour">
+                    <div class="info-icon bg-info-dark">
+                        <span aria-hidden="true" class="icon icon-layers"></span>
+                    </div>
+                    <div class="info-details">
+        <?php
+        echo $this->Html->link('<h4>My Groups<span class="pull-right"></span></h4>', '/my-groups', array('data-toggle' => 'tooltip', 'data-placement' => 'right', 'title' => 'My Groups', 'escape' => false));
+        //echo $this->Html->link('<p>Registered <span class="badge pull-right bg-white text-success">'.$agent_registered.'</span> </p>', '/my-builders/builder_approved:1', array('data-toggle' => 'tooltip', 'data-placement' => 'right', 'title' => 'My Builders', 'escape' => false));
+        // echo $this->Html->link('<p>Allocated <span class="badge pull-right bg-white text-success">'.$agent_allocated.'</span> </p>', '/my-builders/builder_approved:2', array('data-toggle' => 'tooltip', 'data-placement' => 'right', 'title' => 'My Builders', 'escape' => false));
+        ?>
+                    </div>
+                </div>
+            </div>
+    <div class="col-md-4 active">
+
+                <div class="info-box  bg-info  text-white" id="initial-tour">
+                    <div class="info-icon bg-info-dark">
+                        <span aria-hidden="true" class="icon icon-layers"></span>
+                    </div>
+                    <div class="info-details">
+        <?php
+        echo $this->Html->link('<h4>My Channels<span class="pull-right"></span></h4>', '/my-channels', array('data-toggle' => 'tooltip', 'data-placement' => 'right', 'title' => 'My Channels', 'escape' => false));
+        //echo $this->Html->link('<p>Registered <span class="badge pull-right bg-white text-success">'.$agent_registered.'</span> </p>', '/my-builders/builder_approved:1', array('data-toggle' => 'tooltip', 'data-placement' => 'right', 'title' => 'My Builders', 'escape' => false));
+        // echo $this->Html->link('<p>Allocated <span class="badge pull-right bg-white text-success">'.$agent_allocated.'</span> </p>', '/my-builders/builder_approved:2', array('data-toggle' => 'tooltip', 'data-placement' => 'right', 'title' => 'My Builders', 'escape' => false));
+        ?>
+                    </div>
+                </div>
+            </div>
+    <div class="col-md-4 active">
+
+                <div class="info-box  bg-info  text-white" id="initial-tour">
+                    <div class="info-icon bg-info-dark">
+                        <span aria-hidden="true" class="icon icon-layers"></span>
+                    </div>
+                    <div class="info-details">
+        <?php
+        echo $this->Html->link('<h4>My Users<span class="pull-right"></span></h4>', '/my-users', array('data-toggle' => 'tooltip', 'data-placement' => 'right', 'title' => 'My Users', 'escape' => false));
+        //echo $this->Html->link('<p>Registered <span class="badge pull-right bg-white text-success">'.$agent_registered.'</span> </p>', '/my-builders/builder_approved:1', array('data-toggle' => 'tooltip', 'data-placement' => 'right', 'title' => 'My Builders', 'escape' => false));
+        // echo $this->Html->link('<p>Allocated <span class="badge pull-right bg-white text-success">'.$agent_allocated.'</span> </p>', '/my-builders/builder_approved:2', array('data-toggle' => 'tooltip', 'data-placement' => 'right', 'title' => 'My Builders', 'escape' => false));
+        ?>
+                    </div>
+                </div>
+            </div>
+
+<div class="col-md-4 active">
+
+                <div class="info-box  bg-info  text-white" id="initial-tour">
+                    <div class="info-icon bg-info-dark">
+                        <span aria-hidden="true" class="icon icon-layers"></span>
+                    </div>
+                    <div class="info-details">
+        <?php
+        echo $this->Html->link('<h4>My Permissions<span class="pull-right"></span></h4>', '/my-permissions', array('data-toggle' => 'tooltip', 'data-placement' => 'right', 'title' => 'My Permissions', 'escape' => false));
+        //echo $this->Html->link('<p>Registered <span class="badge pull-right bg-white text-success">'.$agent_registered.'</span> </p>', '/my-builders/builder_approved:1', array('data-toggle' => 'tooltip', 'data-placement' => 'right', 'title' => 'My Builders', 'escape' => false));
+        // echo $this->Html->link('<p>Allocated <span class="badge pull-right bg-white text-success">'.$agent_allocated.'</span> </p>', '/my-builders/builder_approved:2', array('data-toggle' => 'tooltip', 'data-placement' => 'right', 'title' => 'My Builders', 'escape' => false));
+        ?>
+                    </div>
+                </div>
+            </div>
+</div>
+
+<?php
+                    
+                }
 
 //pr($SupportTickets);
                 ?>
