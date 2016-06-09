@@ -453,18 +453,16 @@ class ReportsController extends AppController {
 
 
         if (count($this->params['pass'])) {
-
+            $search_condition = array();
            foreach ($this->params['pass'] as $key => $value) {
                 array_push($search_condition, array('TravelCity.' . $key => $value));
-                $conArry = array('TravelHotelLookup.'.$key => $value);
-                $conAreaArry = array('TravelArea.'.$key => $value);
+                
             }                
         } elseif (count($this->params['named'])) {
-            
+            $search_condition = array();
             foreach ($this->params['named'] as $key => $value) {
                 array_push($search_condition, array('TravelCity.' . $key => $value));
-                $conArry = array('TravelHotelLookup.'.$key => $value);
-                $conAreaArry = array('TravelArea.'.$key => $value);
+               
             }
         }
 
@@ -528,6 +526,9 @@ class ReportsController extends AppController {
             'conditions' => $search_condition,
             'order' => 'city_name ASC'
         ));
+        
+        //$log = $this->TravelCity->getDataSource()->getLog(false, false);       
+        //debug($log);
 
          $hotel_count = $this->TravelHotelLookup->find('count',array('conditions' => $HotelCon));
          $city_mapping_count = $this->TravelCitySuppliers->find('count',array('conditions' => $CityMappingCon));
