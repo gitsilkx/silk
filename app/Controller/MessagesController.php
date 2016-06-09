@@ -1,7 +1,5 @@
 <?php
 
-
-
 /**
 
  * Messages controller.
@@ -41,10 +39,7 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
 
  */
-
 App::uses('AppController', 'Controller');
-
-
 
 /**
 
@@ -59,42 +54,29 @@ App::uses('AppController', 'Controller');
  * @link http://book.cakephp.org/2.0/en/controllers/pages-controller.html
 
  */
-
 class MessagesController extends AppController {
 
+    function beforeFilter() {
+        parent::beforeFilter();
+        $this->Auth->allow('index', 'error', 'list_message');
+    }
+
+    public function index($controller, $action) {
 
 
-    public function index($controller,$action) {    
-    
+        $this->set('controller', $controller);
 
-      $this->set('controller',$controller);
+        $this->set('action', $action);
+    }
 
-      $this->set('action',$action);
-
-
-
+    public function error() {
         
+    }
 
-
-
-      
-
-    } 
-
-	public function error(){
-
-	
-
-	}
-
-	public function list_message(){
-		
-	}	
-
+    public function list_message() {
+        
+    }
 
 }
-
-
-
 ?>
 
