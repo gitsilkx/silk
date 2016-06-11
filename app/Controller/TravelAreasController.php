@@ -352,6 +352,9 @@ class TravelAreasController extends AppController {
                     $ContinentId = $this->data['TravelArea']['continent_id'];
                     $ContinentName = $this->Common->getContinentName($ContinentId);
                     $this->request->data['TravelArea']['continent_name'] = $ContinentName;
+                    $ProvinceId = $this->data['TravelArea']['province_id'];
+                    $ProvinceName = $this->Common->getProvinceName($ProvinceId);
+                    $this->request->data['TravelArea']['province_name'] = $ProvinceName;
                     
             $this->TravelArea->set($this->data);
             if ($this->TravelArea->validates() == true) {
@@ -364,8 +367,7 @@ class TravelAreasController extends AppController {
                     $TopArea = strtolower($this->data['TravelArea']['top_area']);
                     $CreatedDate = date('Y-m-d') . 'T' . date('h:i:s');
                     $Active = 'true';
-                    $ProvinceId = $this->data['TravelArea']['province_id'];
-                    $ProvinceName = $this->data['TravelArea']['province_name'];
+                    
                      $is_update = $TravelAreas['TravelArea']['is_update'];
                     
                     $AreaStatus = $TravelAreas['TravelArea']['area_status'];
