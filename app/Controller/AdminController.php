@@ -165,6 +165,7 @@ class AdminController extends AppController {
                                     'hotel_name' => $value['Name']['@'],
                                     'supplier_id' => $supplier_id,
                                     'supplier_code' => $supplier_code,
+                                    'status' => '1',
                                     'supplier_name' => $supplier_name
                             ));
                         }

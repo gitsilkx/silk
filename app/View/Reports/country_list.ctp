@@ -1,78 +1,75 @@
-<div class="col-sm-12" id="mycl-det">
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <h4 class="panel-title">Reports</h4>
+<?php
+$this->Html->addCrumb('My Countries', 'javascript:void(0);', array('class' => 'breadcrumblast'));
+?>    
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="table-heading">
+            <h4 class="table-heading-title"><span class="badge badge-circle badge-success"> <?php
+                    //echo $this->Paginator->counter(array('format' => '{:count}'));
+                    ?></span>My Countries</h4>
+            
+            <span class="search_panel_icon"><i class="icon-plus" id="toggle_search_panel"></i></span>
         </div>
-        <div class="panel-body">
+        
+        <div class="panel_controls hideform">
 
-            <div class="row">
-                <div class="col-sm-12">
-                    <?php
-$this->Html->addCrumb('Reports', 'javascript:void(0);', array('class' => 'breadcrumblast'));
-echo $this->Form->create('Report', array('method' => 'post',
-    'id' => 'parsley_reg',
-    'name' => 'fom',
-    'onSubmit' => 'return valiDate()',
-    'novalidate' => true,
-    'inputDefaults' => array(
-        'label' => false,
-        'div' => false,
-        'class' => 'form-control',
-    ),
-));
-
-
-
-?>
-                    <div class="col-sm-6">
+                <?php
+                echo $this->Form->create('Report', array('controller' => 'reports','action' => 'country_list','class' => 'quick_search', 'id' => 'SearchForm', 'type' => 'post', 'novalidate' => true, 'inputDefaults' => array(
+                        'label' => false,
+                        'div' => false,
+                        'class' => 'form-control',
+                )
+                   
+                    )
                         
-                       
-                        <div class="form-group">
-                            <label for="reg_input_name">Select Status (SilkRouters)</label>
-                            <span class="colon">:</span>
-                            <div class="col-sm-10">
-                                <?php                              
-                                echo $this->Form->input('city_status', array('options' => array('1' => 'OK','2' => 'ERROR'),'empty' => '--Select--','selected' => $city_status));
-                                ?></div>
-                        </div>
-                        <div class="form-group">
-                            <label for="reg_input_name">Active?</label>
-                            <span class="colon">:</span>
-                            <div class="col-sm-10">
-                                <?php                              
-                                echo $this->Form->input('active', array('options' => array('TRUE' => 'TRUE' , 'FALSE' => 'FALSE'),'empty' => '--Select--','selected' => $active));
-                                ?></div>
-                        </div>
-               
+                        );
+                ?> 
+
+                <div class="row spe-row">
+                    <div class="col-sm-4 col-xs-8">
+
+                        <?php echo $this->Form->input('TravelCountry.country_name', array('value' => $area_name, 'placeholder' => 'Type area name', 'error' => array('class' => 'formerror'))); ?>
                     </div>
-                    <div class="col-sm-6">
-                        
-                        <div class="form-group">
-                            <label for="reg_input_name">Select Status (WTB)</label>
-                            <span class="colon">:</span>
-                            <div class="col-sm-10">
-                                <?php                              
-                                echo $this->Form->input('wtb_status', array('options' => array('1' => 'OK','2' => 'ERROR'),'empty' => '--Select--','selected' => $wtb_status));
-                                ?></div>
-                        </div>
-                        
-                    </div>
-                    <div class="clear" style="clear: both;"></div>
-                        <div class="col-sm-12">
-                            <div class="row">
-                                <div class="col-sm-1">
-                                    <?php
-                                    echo $this->Form->submit('Go', array('class' => 'btn btn-success sticky_success'));
-                                    ?>
-                                </div>
-                            </div>
-                        </div> 
-                
-                    <div style="clear:both; margin-top: 15px;"></div>
-                    <?php
-echo $this->Form->end();
+                    <div class="col-sm-3 col-xs-4">
+                        <?php
+                        echo $this->Form->submit('Country Search', array('div' => false, 'class' => 'btn btn-default btn-sm"'));
+                        ?>
 
-                echo $this->Form->create('Report', array('controller' => 'reports','action' => 'city_delete','onsubmit' => 'return ChkCheckbox()','class' => 'quick_search', 'id' => 'SearchForm', 'type' => 'post', 'novalidate' => true, 'inputDefaults' => array(
+                    </div>
+                </div>
+               <div class="row" id="search_panel_controls">
+                    <div class="col-sm-3 col-xs-6">
+                        <label for="un_member">Continent:</label>
+                        <?php echo $this->Form->input('TravelCountry.continent_id', array('options' => $TravelLookupContinents, 'empty' => '--Select--', 'value' => $continent_id)); ?>
+                    </div>
+                   
+                    <div class="col-sm-3 col-xs-6">
+                        <label for="un_member">Status:</label>
+                        <?php echo $this->Form->input('TravelCountry.country_status', array('options' => array('1' => 'Active', '2' => 'Inactive'), 'empty' => '--Select--', 'value' => $country_status)); ?>
+                    </div>
+                    <div class="col-sm-3 col-xs-6">
+                        <label for="un_member">WTB Status:</label>
+                        <?php echo $this->Form->input('TravelCountry.wtb_status', array('options' => array('1' => 'Active', '2' => 'De-active'), 'empty' => '--Select--', 'value' => $wtb_status)); ?>
+                    </div>
+                    <div class="col-sm-3 col-xs-6">
+                        <label for="un_member">Active:</label>
+                        <?php echo $this->Form->input('TravelCountry.active', array('options' => array('TRUE' => 'TRUE', 'FALSE' => 'FALSE'), 'empty' => '--Select--', 'value' => $active)); ?>
+                    </div>
+                    
+                    <div class="col-sm-3 col-xs-6">
+                        <label>&nbsp;</label>
+                        <?php
+                        echo $this->Form->submit('Filter', array('div' => false, 'class' => 'btn btn-default btn-sm"'));
+                        ?>
+                    </div>
+                </div>
+                <?php echo $this->Form->end(); ?>
+            </div>
+      
+
+           <?php
+                echo $this->Form->create('Report', array('controller' => 'reports','action' => 'country_delete','onsubmit' => 'return ChkCheckbox()','class' => 'quick_search', 'id' => 'SearchForm', 'type' => 'post', 'novalidate' => true, 'inputDefaults' => array(
                         'label' => false,
                         'div' => false,
                         'class' => 'form-control',
@@ -82,124 +79,137 @@ echo $this->Form->end();
                         
                         );
               ?>
-                    <div class="row" style="padding: 10px;">
+            <div class="row" style="padding: 15px;">
         <div class="col-sm-12">
             <?php echo $this->Form->submit('Delete', array('class' => 'success btn', 'div' => false, 'id' => 'udate_unit')); ?><?php
 
 ?></div>
     </div> 
-                     <table id="resp_table" class="table toggle-square" data-filter="#table_search" data-page-size="2000">
-
+            
+           <table id="resp_table" class="table toggle-square" data-filter="#table_search" data-page-size="2000">
                 <thead>
-                     <tr class="footable-group-row">
-                        <th data-group="group1" colspan="7" class="nodis">Information</th>                        
-                        <th data-group="group2" colspan="3">Status</th> 
-                        <th data-group="group3" colspan="9">Counts</th>
+                    <tr class="footable-group-row">
+                        <th data-group="group1" colspan="3" class="nodis">Information</th>
+                        <th data-group="group2" colspan="3">Status</th>
+                        <th data-group="group3" colspan="8">Counts</th>
                         
-                    </tr>       
+                    </tr>
                     <tr>
-                        <th data-hide="phone" data-sort-ignore="true" data-group="group1"><input type="checkbox" class="mbox_select_all" name="msg_sel_all"></th>
+                        <th data-hide="phone" width="2%" data-sort-ignore="true" data-group="group1"><input type="checkbox" class="mbox_select_all" name="msg_sel_all"></th>
                         <th data-hide="phone" data-group="group1">Id</th>
-                        
                         <th data-hide="phone" data-group="group1">Continent</th>
-                        <th data-hide="phone" data-group="group1">Code</th>
+                        <th data-hide="phone" data-group="group1">Country</th>                        
+                        
+                        
                         <th data-hide="phone" data-sort-ignore="true" data-group="group2">Status</th>
-                        <th data-hide="phone" data-sort-ignore="true" data-group="group2">Active</th>
                         <th data-hide="phone" data-sort-ignore="true" data-group="group2">WTB Status</th>
-                        <th data-hide="phone" width="7%" data-group="group3">Country</th>
-                        <th data-hide="phone" width="7%" data-group="group3">Country Mapping</th>
-                        <th data-hide="phone" width="7%" data-group="group3">Hotel</th> 
-                        <th data-hide="phone" width="7%" data-group="group3">Hotel Mapping</th> 
-                        <th data-hide="phone" width="7%" data-group="group3">Province</th>
-                        <th data-hide="phone" width="7%" data-group="group3">City</th>
-                        <th data-hide="phone" width="7%" data-group="group3">City Mapping</th>
-                                             
-                        <th data-hide="phone" width="7%" data-group="group3">Suburb </th>
-                        <th data-hide="phone" width="7%" data-group="group3">Area</th>
-                      
+                        <th data-hide="phone" data-sort-ignore="true" data-group="group2">Active</th>
+                        
+                        <th data-hide="phone" data-sort-ignore="true" data-group="group3">Country Mapping</th>
+                        <th data-hide="phone" data-sort-ignore="true" data-group="group3">Hotel</th> 
+                        <th data-hide="phone" data-sort-ignore="true" data-group="group3">Hotel Mapping</th>
+                        
+                        <th data-hide="phone" data-sort-ignore="true" data-group="group3">Province</th>
+                        <th data-hide="phone" data-sort-ignore="true" data-group="group3">City</th>
+                        <th data-hide="phone" data-sort-ignore="true" data-group="group3">City Mapping</th>
+                        <th data-hide="phone" data-sort-ignore="true" data-group="group3">Suburb</th> 
+                        <th data-hide="phone" data-sort-ignore="true" data-group="group3">Area</th>
+
                     </tr>
                 </thead>
                 <tbody>
                     <?php
-                   // pr($TravelLookupContinents);
+                   //pr($TravelCountries);
+                    //die;
                     $i = 1;
-                    $sum = 0;
+                   $sum = 0;
                     $sum1 = 0;
                     $sum2 = 0;
                     $sum3 = 0;
                     $sum4 = 0;
-                    $sum5 = 0;
+                   
                     $sum6 = 0;
                     $sum7 = 0;
                     $sum8 = 0;
-                    if (isset($TravelLookupContinents) && count($TravelLookupContinents) > 0):
-                        foreach ($TravelLookupContinents as $value):                       
-                         $Status = $value['TravelLookupContinent']['continent_status'] ? 'OK' : 'ERROR';
-                         $WTBStatus = $value['TravelLookupContinent']['wtb_status'] ? 'OK' : 'ERROR';
-                         $continent_id = $value['TravelLookupContinent']['id'];
+                    if (isset($TravelCountries) && count($TravelCountries) > 0):
+                        foreach ($TravelCountries as $TravelCountry):
+                            $id = $TravelCountry['TravelCountry']['id'];
+                            if ($TravelCountry['TravelCountry']['country_status'] == '1') {
+                                $status = 'OK';
+                                $tb_class = 'active';
+                            } else {
+                                $status = 'ERROR';
+                                $tb_class = 'inactive';
+                            }
+
+                            if ($TravelCountry['TravelCountry']['wtb_status'] == '1') {
+                                $wtb_status = 'OK';
+                                $wtb_class = 'active';
+                            } else {
+                                $wtb_status = 'ERROR';
+                                $wtb_class = 'inactive';
+                            }
                             ?>
                             <tr>
                                 <td class="tablebody"><?php											
-                                echo $this->Form->checkbox('check', array('name' => 'data[TravelLookupContinent][check][]','class' => 'msg_select','readonly' => true,'hiddenField' => false,'value' => $value['TravelLookupContinent']['id']));
+                                echo $this->Form->checkbox('check', array('name' => 'data[TravelCountry][check][]','class' => 'msg_select','readonly' => true,'hiddenField' => false,'value' => $id));
                                 ?></td>
-                                <td><?php echo $continent_id;?></td> 
-                              
-                                <td><?php echo $value['TravelLookupContinent']['continent_name']; ?></td>
-                                <td><?php echo $value['TravelLookupContinent']['continent_code']; ?></td>
+                                <td><?php echo $id; ?></td>
+                                <td><?php echo $TravelCountry['TravelCountry']['continent_name']; ?></td>
+                                <td><?php echo $TravelCountry['TravelCountry']['country_name']; ?></td>
                                 
-                                <td><?php echo $Status; ?></td>
-                                <td><?php echo $value['TravelLookupContinent']['active']; ?></td>
-                                <td><?php echo $WTBStatus; ?></td>
-                                <td><?php $sum5 = $sum5 + count($value['TravelCountry']);  
-
-echo $this->Html->link(count($value['TravelCountry']), array('controller' => 'reports', 'action' => 'country_list/continent_id:'.$continent_id), array('class' => 'act-ico', 'escape' => false,'target' => '_blank'));
-//echo count($value['TravelCitySuppliers']); ?></td>
-                                <td><?php $sum6 = $sum6 + count($value['TravelCountrySupplier']);  
+                                
+                                <td class="<?php echo $tb_class; ?>"><?php echo $status; ?></td>
+                                <td class="<?php echo $wtb_class; ?>"><?php echo $wtb_status; ?></td>
+                                <td><?php echo $TravelCountry['TravelCountry']['active']; ?></td>
+                                <td width="7%"><?php $sum6 = $sum6 + count($value['TravelCountrySupplier']);  
 
 echo $this->Html->link(count($value['TravelCountrySupplier']), array('controller' => 'reports', 'action' => ''), array('class' => 'act-ico', 'escape' => false,'target' => '_blank'));
 //echo count($value['TravelCitySuppliers']); ?></td>
-                                <td><?php $sum = $sum + count($value['TravelHotelLookup']);  
+                                <td width="7%"><?php $sum = $sum + count($value['TravelHotelLookup']);  
                                  echo $this->Html->link(count($value['TravelHotelLookup']), array('controller' => 'reports', 'action' => 'hotel_summary/continent_id:'.$continent_id), array('class' => 'act-ico', 'escape' => false,'target' => '_blank'));
                                 
                                 //echo count($value['TravelHotelLookup']); ?></td> 
-                                <td><?php $sum1 = $sum1 + count($value['TravelHotelRoomSupplier']);  
+                                <td width="7%"><?php $sum1 = $sum1 + count($value['TravelHotelRoomSupplier']);  
 
                                 echo $this->Html->link(count($value['TravelHotelRoomSupplier']), array('controller' => 'reports', 'action' => 'hotel_mapping_list/hotel_continent_id:'.$continent_id), array('class' => 'act-ico', 'escape' => false,'target' => '_blank'));
 //echo count($value['TravelHotelRoomSupplier']); ?></td>
-                                <td><?php $sum8 = $sum8 + count($value['Province']);  
+                                <td width="7%"><?php $sum8 = $sum8 + count($value['Province']);  
 
                                 echo $this->Html->link(count($value['Province']), array('controller' => 'reports', 'action' => 'province_list/continent_id:'.$continent_id), array('class' => 'act-ico', 'escape' => false,'target' => '_blank'));
 //echo count($value['TravelHotelRoomSupplier']); ?></td>
-                                <td><?php $sum7 = $sum7 + count($value['TravelCity']);  
+                                <td width="7%"><?php $sum7 = $sum7 + count($value['TravelCity']);  
 
 echo $this->Html->link(count($value['TravelCity']), array('controller' => 'reports', 'action' => 'city_reports/continent_id:'.$continent_id), array('class' => 'act-ico', 'escape' => false,'target' => '_blank'));
 //echo count($value['TravelCitySuppliers']); ?></td>
-                                <td><?php $sum2 = $sum2 + count($value['TravelCitySupplier']);  
+                                <td width="7%"><?php $sum2 = $sum2 + count($value['TravelCitySupplier']);  
 
 echo $this->Html->link(count($value['TravelCitySupplier']), array('controller' => 'reports', 'action' => 'city_mapping_list/city_continent_id:'.$continent_id), array('class' => 'act-ico', 'escape' => false,'target' => '_blank'));
 //echo count($value['TravelCitySuppliers']); ?></td>
                                  
                                  
-                                <td><?php $sum3 = $sum3 + count($value['TravelSuburb']);  
+                                <td width="7%"><?php $sum3 = $sum3 + count($value['TravelSuburb']);  
 echo $this->Html->link(count($value['TravelSuburb']), array('controller' => 'reports', 'action' => 'suburb_list/continent_id:'.$continent_id), array('class' => 'act-ico', 'escape' => false,'target' => '_blank'));
 //echo count($value['TravelSuburb']); ?></td> 
-                                <td><?php $sum4 = $sum4 + count($value['TravelArea']);  //echo count($value['TravelArea']);
+                                <td width="7%"><?php $sum4 = $sum4 + count($value['TravelArea']);  //echo count($value['TravelArea']);
 echo $this->Html->link(count($value['TravelArea']), array('controller' => 'reports', 'action' => 'area_list/continent_id:'.$continent_id), array('class' => 'act-ico', 'escape' => false,'target' => '_blank'));
  ?></td> 
-                               
                             </tr>
-                        <?php 
-                        $i++;
-                        endforeach;
-endif; ?>
-                            </tbody>
-            </table>
+                        <?php endforeach; ?>
 
-<table class="table toggle-square" style="margin-top:-16px !important">
+                        <?php
+                        //echo $this->element('paginate');
+                    else:
+                        echo '<tr><td colspan="12" class="norecords">No Records Found</td></tr>';
+                    endif;
+                    ?>
+                </tbody>
+            </table>   
+        <table class="table toggle-square" style="margin-top:-16px !important">
 <tbody>
 <tr>
-                                <td  width="37%">Total</td>
-                                <td width="7%"><?php echo $sum5?></td>
+                                <td  width="44%">Total</td>
+                               
                                 <td width="7%"><?php echo $sum6?></td>
                                 
                                 <td width="7%"><?php echo $sum?></td>
@@ -216,12 +226,8 @@ endif; ?>
                                 
                             </tr>
 <tr>
-                                <td  width="37%">Blank Continent</td>
-                                <td width="7%"><?php 
-								
-								echo ($country_count) ? $this->Html->link($country_count, array('controller' => 'reports', 'action' => ''), array('class' => 'act-ico', 'escape' => false,'target' => '_blank')) : '0';
-								
-								//echo $city_mapping_count?></td>
+                                <td  width="44%">Blank Country</td>
+                               
                                 <td width="7%"><?php 
 								
 								echo ($country_mapping_count) ? $this->Html->link($country_mapping_count, array('controller' => 'reports', 'action' => ''), array('class' => 'act-ico', 'escape' => false,'target' => '_blank')) : '0';
@@ -265,8 +271,8 @@ endif; ?>
                                
                             </tr>
                             <tr>
-                                <td  width="37%">All Counts</td>
-                                <td width="7%"><?php echo $sum5 + $country_count;?></td>
+                                <td  width="44%">All Counts</td>
+                               
                                 <td width="7%"><?php echo $sum6 + $country_mapping_count;?></td>
                                 <td width="7%"><?php echo $sum + $hotel_count;?></td> 
                                 <td width="7%"><?php echo $sum1 + $hotel_mapping_count;?></td> 
@@ -281,17 +287,9 @@ endif; ?>
 
 </tbody>
             </table>
-                           
-                                        <?php
-echo $this->Form->end();
-
-?>
-                </div>
-                              
-            
-            </div>
-        </div>
-    </div>
+            <?php echo $this->Form->end(); ?>
+        </div> 
+    
 </div>
 
 <script>
@@ -319,7 +317,7 @@ echo $this->Form->end();
                     
                        var numberOfChecked = $('input:checkbox:checked').length;
                        //alert("WARNING! You are about to delete "+ numberOfChecked +" hotels. Are you sure?");
-                        var agree=confirm("WARNING! You are about to delete "+ numberOfChecked +" cities. Are you sure?");
+                        var agree=confirm("WARNING! You are about to delete "+ numberOfChecked +" areas. Are you sure?");
                          //bootbox.confirm("Are you sure?", function(result) {
                             if (agree)
                             return true ;

@@ -45,6 +45,10 @@ class TestsController extends AppController {
         $a =  date('m/d/Y H:i:s', strtotime('-1 hour'));
         $date = new DateTime($a, new DateTimeZone('Asia/Kolkata'));
         echo date("m/d/Y H:i:s", $date->format('U'));
+        
+        $this->Session->setFlash('Your new client record has been created. Waiting for allocation at the moment.', 'success');
+
+                    $this->redirect(array('controller' => 'messages', 'action' => 'index', 'leads', 'my-clients'));
          
     }
 

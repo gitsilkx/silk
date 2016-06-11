@@ -3600,6 +3600,126 @@ class ReportsController extends AppController {
         $this->set(compact('area_name'));
         $this->set(compact('suburb_id'));
     }
+    
+    public function country_list(){
+        
+        
+        $search_condition = array();
+        $active = '';
+        $country_status = '';
+        $wtb_status = '';
+        $hotel_count ='';
+        $city_mapping_count = '';
+        $hotel_mapping_count = '';      
+        $area_count = '';
+        $suburb_count = '';
+        $HotelCon = array();
+        $HotelMappingCon = array();
+        $CityMappingCon = array();
+        $SuburbCon = array();
+        $AreaCon = array();
+        $CityCon = array();
+        $CountryCon = array();
+        $CountryMappingCon = array();
+        $ProvinceCon = array();
+        
+          
+        array_push($CountryMappingCon, array('TravelCountrySupplier.country_id' => 0));       
+        array_push($ProvinceCon, array('Province.country_id' => 0));       
+        array_push($HotelCon, array('TravelHotelLookup.country_id' => 0));       
+        array_push($HotelMappingCon, array('TravelHotelRoomSupplier.hotel_country_id' => 0));
+        array_push($CityCon, array('TravelCity.country_id' => 0));
+        array_push($CityMappingCon, array('TravelCitySuppliers.city_country_id' => 0));
+        array_push($SuburbCon, array('TravelSuburb.country_id' => 0));
+        array_push($AreaCon, array('TravelArea.country_id' => 0));
+        
+        if (count($this->params['pass'])) {
+
+           foreach ($this->params['pass'] as $key => $value) {
+                array_push($search_condition, array('TravelCountry.' . $key => $value));
+                
+            }                
+        } elseif (count($this->params['named'])) {
+
+            foreach ($this->params['named'] as $key => $value) {
+                array_push($search_condition, array('TravelCountry.' . $key => $value));
+                
+            }
+        }
+        
+       
+        $this->TravelCountry->bindModel(array(
+            'hasMany' => array(
+                'Province' => array(
+                    'className' => 'Province',
+                    'foreignKey' => 'country_id',
+                    'fields' => 'Province.id',                    
+                ),
+                'TravelCity' => array(
+                    'className' => 'TravelCity',
+                    'foreignKey' => 'country_id',
+                    'fields' => 'TravelCity.id',                    
+                ),
+                'TravelCitySupplier' => array(
+                    'className' => 'TravelCitySupplier',
+                    'foreignKey' => 'city_country_id',
+                    'fields' => 'TravelCitySupplier.id',                    
+                ),
+                'TravelCountrySupplier' => array(
+                    'className' => 'TravelCountrySupplier',
+                    'foreignKey' => 'country_id',
+                    'fields' => 'TravelCountrySupplier.id',                    
+                ),
+                'TravelHotelLookup' => array(
+                    'className' => 'TravelHotelLookup',
+                    'foreignKey' => 'country_id',
+                    'fields' => 'TravelHotelLookup.id',                    
+                ),
+                'TravelHotelRoomSupplier' => array(
+                    'className' => 'TravelHotelRoomSupplier',
+                    'foreignKey' => 'hotel_country_id',
+                    'fields' => 'TravelHotelRoomSupplier.id',                    
+                ),
+                'TravelSuburb' => array(
+                    'className' => 'TravelSuburb',
+                    'foreignKey' => 'country_id',
+                    'fields' => 'TravelSuburb.id',                    
+                ),
+                 'TravelArea' => array(
+                    'className' => 'TravelArea',
+                    'foreignKey' => 'country_id',
+                    'fields' => 'TravelArea.id',                    
+                ),
+            ),
+        ));
+      
+        
+
+        $TravelCountries = $this->TravelCountry->find('all', array(
+            'conditions' => $search_condition,
+            'order' => 'country_name ASC'
+        ));
+        //$log = $this->TravelCountry->getDataSource()->getLog(false, false);       
+        //debug($log);
+        
+  
+        $country_mapping_count = $this->TravelCountrySupplier->find('count',array('conditions' => $CountryMappingCon));
+        $province_count = $this->Province->find('count',array('conditions' => $ProvinceCon));
+         $hotel_count = $this->TravelHotelLookup->find('count',array('conditions' => $HotelCon));
+         $city_count = $this->TravelCity->find('count',array('conditions' => $CityCon));
+         $city_mapping_count = $this->TravelCitySuppliers->find('count',array('conditions' => $CityMappingCon));
+         $hotel_mapping_count = $this->TravelHotelRoomSupplier->find('count',array('conditions' => $HotelMappingCon));
+         $area_count = $this->TravelArea->find('count',array('conditions' => $AreaCon));
+         $suburb_count = $this->TravelSuburb->find('count',array('conditions' => $SuburbCon));
+         
+        // pr($TravelCities);
+
+        //$TravelCountries = $this->TravelCountry->find('list', array('fields' => 'id,country_name', 'order' => 'country_name ASC'));
+
+        $this->set(compact('country_mapping_count','province_count','city_count','hotel_count','city_mapping_count','hotel_mapping_count',
+                'area_count','suburb_count', 'TravelCountries','wtb_status','active','country_status'));
+  
+    }
 
     function city_mapping_edit($id = null) {
 
