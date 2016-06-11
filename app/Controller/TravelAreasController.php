@@ -354,8 +354,8 @@ class TravelAreasController extends AppController {
                     $this->request->data['TravelArea']['continent_name'] = $ContinentName;
                     $ProvinceId = $this->data['TravelArea']['province_id'];
                    
-                    echo $ProvinceName = $this->Common->getProvinceName($ProvinceId);
-                    die;
+                    $ProvinceName = $this->Common->getProvinceName($ProvinceId);
+                    
                     $this->request->data['TravelArea']['province_name'] = $ProvinceName;
                     
             $this->TravelArea->set($this->data);
