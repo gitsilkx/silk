@@ -15,14 +15,24 @@ class Common extends AppModel {
         return $DataArray['TravelLookupContinent']['continent_name'];
     }
     
-   public function getCountryCode($continent_id){
-        $DataArray = ClassRegistry::init('TravelCountry')->find('first', array('fields' => array('country_code'), 'conditions' => array('TravelCountry.id' => $continent_id)));
+   public function getCountryCode($country_id){
+        $DataArray = ClassRegistry::init('TravelCountry')->find('first', array('fields' => array('country_code'), 'conditions' => array('TravelCountry.id' => $country_id)));
         return $DataArray['TravelCountry']['country_code'];
     }
     
-    public function getCountryName($continent_id){
-        $DataArray = ClassRegistry::init('TravelCountry')->find('first', array('fields' => array('country_name'), 'conditions' => array('TravelCountry.id' => $continent_id)));
+    public function getCountryName($country_id){
+        $DataArray = ClassRegistry::init('TravelCountry')->find('first', array('fields' => array('country_name'), 'conditions' => array('TravelCountry.id' => $country_id)));
         return $DataArray['TravelCountry']['country_name'];
+    }
+    
+    public function getCityName($city_id){
+        $DataArray = ClassRegistry::init('TravelCity')->find('first', array('fields' => array('city_name'), 'conditions' => array('TravelCity.id' => $city_id)));
+        return $DataArray['TravelCity']['city_name'];
+    }
+    
+    public function getSuburbName($suburb_id){
+        $DataArray = ClassRegistry::init('TravelSuburb')->find('first', array('fields' => array('name'), 'conditions' => array('TravelSuburb.id' => $suburb_id)));
+        return $DataArray['TravelSuburb']['name'];
     }
     
     public function getSupplierCountryCode($country_id){
