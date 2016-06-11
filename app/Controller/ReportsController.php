@@ -35,7 +35,7 @@ App::uses('AppController', 'Controller');
  */
 class ReportsController extends AppController {
 
-    public $uses = array('TravelHotelLookup', 'TravelCity', 'TravelCountry','TravelCountrySupplier', 'TravelLookupContinent', 'TravelLookupValueContractStatus', 'TravelChain',
+    public $uses = array('TravelHotelLookup','Common', 'TravelCity', 'TravelCountry','TravelCountrySupplier', 'TravelLookupContinent', 'TravelLookupValueContractStatus', 'TravelChain',
         'TravelSuburb', 'TravelArea', 'TravelBrand', 'Province', 'TravelHotelRoomSupplier', 'TravelCitySupplier', 'Mappinge', 'TravelSupplier', 'LogCall',
         'TravelActionItemType', 'User', 'DeleteTravelHotelLookup', 'DeleteLogTable', 'DeleteTravelHotelRoomSupplier', 'DeleteTravelCitySupplier', 'DeleteTravelCity',
         'DeleteTravelSuburb', 'DeleteTravelArea', 'DeleteProvince', 'TravelActionItem','TravelCitySuppliers');
@@ -4431,25 +4431,33 @@ class ReportsController extends AppController {
         }
 
         if ($this->request->is('post') || $this->request->is('put')) {
+            $AreaName = $this->data['TravelArea']['area_name'];
+                    $SuburbId = $this->data['TravelArea']['suburb_id'];
+                    $SuburbName = $this->Common->getSuburbName($SuburbId);
+                    $this->request->data['TravelArea']['suburb_name'] = $SuburbName;
+                    $CityId = $this->data['TravelArea']['city_id'];
+                    $CityName = $this->Common->getCityName($CityId);
+                    $this->request->data['TravelArea']['city_name'] = $CityName;
+                    $CountryId = $this->data['TravelArea']['country_id'];
+                    $CountryName = $this->Common->getCountryName($CountryId);
+                    $this->request->data['TravelArea']['country_name'] = $CountryName;
+                    $ContinentId = $this->data['TravelArea']['continent_id'];
+                    $ContinentName = $this->Common->getContinentName($ContinentId);
+                    $this->request->data['TravelArea']['continent_name'] = $ContinentName;
+                    $ProvinceId = $this->data['TravelArea']['province_id'];
+                    $ProvinceName = $this->Common->getProvinceName($ProvinceId);
+                    $this->request->data['TravelArea']['province_name'] = $ProvinceName;
+                    
             $this->TravelArea->set($this->data);
             if ($this->TravelArea->validates() == true) {
 
                 $this->TravelArea->id = $id;
                 if ($this->TravelArea->save($this->request->data)) {
                     $AreaId = $id;
-                    $AreaName = $this->data['TravelArea']['area_name'];
-                    $SuburbId = $this->data['TravelArea']['suburb_id'];
-                    $SuburbName = $this->data['TravelArea']['suburb_name'];
-                    $CityId = $this->data['TravelArea']['city_id'];
-                    $CityName = $this->data['TravelArea']['city_name'];
-                    $CountryId = $this->data['TravelArea']['country_id'];
-                    $CountryName = $this->data['TravelArea']['country_name'];
-                    $ContinentId = $this->data['TravelArea']['continent_id'];
-                    $ContinentName = $this->data['TravelArea']['continent_name'];
+                    
                     $AreaDescription = $this->data['TravelArea']['area_description'];
                     $TopArea = strtolower($this->data['TravelArea']['top_area']);
-                    $ProvinceId = $this->data['TravelArea']['province_id'];
-                    $ProvinceName = $this->data['TravelArea']['province_name'];
+                    
                     $CreatedDate = date('Y-m-d') . 'T' . date('h:i:s');
                     $Active = strtolower($this->data['TravelArea']['area_active']);
                     $is_update = $TravelAreas['TravelArea']['is_update'];
