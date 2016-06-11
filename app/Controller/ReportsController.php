@@ -4602,7 +4602,7 @@ class ReportsController extends AppController {
 
                         $Email->template('XML/xml', 'default')->emailFormat('html')->to($to)->cc($cc)->from('admin@silkrouters.com')->subject('XML Error [' . $log_call_screen . '] Open By [' . $this->User->Username($user_id) . '] Date [' . date("m/d/Y H:i:s", $date->format('U')) . ']')->send();
                     }
-                    $this->redirect(array('controller' => 'reports', 'action' => 'area_list/' . $CityId));
+                    $this->redirect(array('controller' => 'reports', 'action' => 'area_list?city_id:' . $CityId));
                 } else {
                     $this->Session->setFlash('Unable to update Area.', 'failure');
                 }
