@@ -25,6 +25,11 @@ class Common extends AppModel {
         return $DataArray['TravelCountry']['country_name'];
     }
     
+    public function getProvinceName($province_id){
+        $DataArray = ClassRegistry::init('Province')->find('first', array('fields' => array('name'), 'conditions' => array('Province.id' => $province_id)));
+        return $DataArray['Province']['name'];
+    }
+    
     public function getCityName($city_id){
         $DataArray = ClassRegistry::init('TravelCity')->find('first', array('fields' => array('city_name'), 'conditions' => array('TravelCity.id' => $city_id)));
         return $DataArray['TravelCity']['city_name'];
