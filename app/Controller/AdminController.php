@@ -33,8 +33,8 @@ App::uses('Xml', 'Utility');
  */
 class AdminController extends AppController {
 
-    var $uses = array('Common', 'SupplierCountry', 'TravelCountry', 'SupplierCity', 'SupplierHotel', 'TravelFetchTable', 'SupplierHotel', 'TravelSupplier', 'Common', 'SupplierHotel',
-        'TravelActionItem', 'TravelRemark', 'TravelCountrySupplier', 'Mappinge', 'TravelCity', 'TravelCitySupplier','TravelHotelLookup','TravelHotelRoomSupplier');
+    var $uses = array('SupplierCountry', 'TravelCountry', 'SupplierCity', 'SupplierHotel', 'TravelFetchTable', 'SupplierHotel', 'TravelSupplier', 'Common', 'SupplierHotel',
+        'TravelActionItem', 'TravelRemark', 'TravelCountrySupplier', 'Mappinge', 'TravelCity', 'TravelCitySupplier','TravelHotelLookup','TravelHotelRoomSupplier','SupportTicket');
 
     function index() {
         
@@ -1098,9 +1098,32 @@ class AdminController extends AppController {
                 $this->redirect(array('action' => 'supplier_hotels'));
             }
             elseif(isset($this->data['inserted'])){
-               echo 'Sup='.$supplier_hotel_id = $this->data['Common']['supplier_hotel_id'];
-               echo 'Hotel'.$hotel_id = $this->data['Common']['hotel_id'];
-               die;
+                
+               $screen = '4'; // fetch hotel table of  
+               $supplier_hotel_id = $this->data['Common']['supplier_hotel_id'];
+               $hotel_id = $this->data['Common']['hotel_id'];
+               $hotel_code = $this->Common->getHotelCode($hotel_id);
+               $hotel_name = $this->Common->getHotelName($hotel_id);
+               $about = $hotel_name.' | '.$hotel_code.' | '.$hotel_id;
+               $answer = '36'; // table of lookup_questions
+               $this->request->data['SupportTicket']['status'] = '1'; // 1 = open
+            $this->request->data['SupportTicket']['opend_by'] = 'SENDER';
+            $this->request->data['SupportTicket']['active'] = 'TRUE';
+            $this->request->data['SupportTicket']['ip_address'] = $_SERVER['REMOTE_ADDR'];
+            $this->request->data['SupportTicket']['question_id'] = 'What is the issue?';
+            $this->request->data['SupportTicket']['about'] = $about;
+            
+            $department_id = $this->SupportTicket->getDepartmentByQuestionId($answer);
+            $this->request->data['SupportTicket']['next_action_by'] = $this->SupportTicket->getNextActionByDepartmentId($department_id);
+            $this->request->data['SupportTicket']['department_id'] = $department_id;
+            $this->request->data['SupportTicket']['type'] = '1'; // Internal
+            $this->request->data['SupportTicket']['created_by'] = $user_id;
+            $this->request->data['SupportTicket']['last_action_by'] = $user_id;
+            $this->request->data['SupportTicket']['screen'] = $screen;
+            $this->request->data['SupportTicket']['response_issue_id'] = $answer;
+                 if ($this->SupportTicket->save($this->request->data['SupportTicket'])) {
+                     
+                 }
             }
         }
     }
