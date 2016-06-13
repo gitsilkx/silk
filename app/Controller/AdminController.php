@@ -950,23 +950,11 @@ class AdminController extends AppController {
             ));
 
             try {
-                $order_return = $client->__doRequest($xml_string, $location_URL, $action_URL, 1);
-                //$xmlparser = xml_parser_create();
-                //xml_parse_into_struct($xmlparser,$order_return,$values);
-                //xml_parser_free($xmlparser);;
-                //$xml_arr = xml_to_object($order_return);
-                //$xml_arr = $this->Common->xml2array($order_return);
-                //echo htmlentities($xml_string);
-                // echo '<br>-------------------';
-                // echo htmlentities($order_return);
-                //pr($xml_arr);
-                //$xmlObject = new Xml($xmlString);
-                //$xmlObject = new Xml();
-//$xmlArray = Xml::toArray($order_return);
+                $order_return = $client->__doRequest($xml_string, $location_URL, $action_URL, 1);               
                 $xmlArray = Xml::toArray(Xml::build($order_return));
-                PR($xmlArray);
-                 die;
-                $ValArr = $xmlArray['Envelope']['soap:Body']['ProcessXMLResponse']['ProcessXMLResult']['SupplierData_Hotel']['ResponseAuditInfo']['root']['LocalHotelList']['item'];
+                
+                echo $address = $xmlArray['Envelope']['soap:Body']['ProcessXMLResponse']['ProcessXMLResult']['SupplierData_HotelDetail']['ResponseAuditInfo']['root']['Address']['@'];
+                die;
               
             } catch (SoapFault $exception) {
                 var_dump(get_class($exception));
