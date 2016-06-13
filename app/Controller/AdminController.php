@@ -1104,7 +1104,8 @@ class AdminController extends AppController {
                $hotel_id = $this->data['Common']['hotel_id'];
                $hotel_code = $this->Common->getHotelCode($hotel_id);
                $hotel_name = $this->Common->getHotelName($hotel_id);
-               $about = $hotel_name.' | '.$hotel_code.' | '.$hotel_id;
+               echo $about = $hotel_name.' | '.$hotel_code.' | '.$hotel_id;
+               die;
                $answer = '36'; // table of lookup_questions
                $this->request->data['SupportTicket']['status'] = '1'; // 1 = open
             $this->request->data['SupportTicket']['opend_by'] = 'SENDER';
@@ -1112,6 +1113,7 @@ class AdminController extends AppController {
             $this->request->data['SupportTicket']['ip_address'] = $_SERVER['REMOTE_ADDR'];
             $this->request->data['SupportTicket']['question_id'] = 'What is the issue?';
             $this->request->data['SupportTicket']['about'] = $about;
+            $this->request->data['SupportTicket']['answer'] = $answer;
             
             $department_id = $this->SupportTicket->getDepartmentByQuestionId($answer);
             $this->request->data['SupportTicket']['next_action_by'] = $this->SupportTicket->getNextActionByDepartmentId($department_id);
