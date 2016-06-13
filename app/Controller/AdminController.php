@@ -1099,7 +1099,7 @@ class AdminController extends AppController {
             }
             elseif(isset($this->data['inserted'])){
                 
-                pr($this->data);
+               
                $screen = '4'; // fetch hotel table of  
                $supplier_hotel_id = $this->data['SupplierCountry']['supplier_hotel_id'];
                $hotel_id = $this->data['SupplierCountry']['hotel_id'];
@@ -1128,7 +1128,8 @@ class AdminController extends AppController {
             $this->request->data['SupportTicket']['screen'] = $screen;
             $this->request->data['SupportTicket']['response_issue_id'] = $answer;
                  if ($this->SupportTicket->save($this->request->data['SupportTicket'])) {
-                     
+                     $this->Session->setFlash('Your ticket has been successfully created.', 'success');
+                    $this->redirect(array('action' => 'hotel_mapping/'.$supplier_hotel_id));
                  }
             }
         }
