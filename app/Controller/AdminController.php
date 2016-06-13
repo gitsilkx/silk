@@ -1116,6 +1116,8 @@ class AdminController extends AppController {
             $this->request->data['SupportTicket']['question_id'] = 'What is the issue?';
             $this->request->data['SupportTicket']['about'] = $about;
             $this->request->data['SupportTicket']['answer'] = $answer;
+            $this->request->data['SupportTicket']['urgency'] = '2'; //Moderate
+            $this->request->data['SupportTicket']['description'] = 'Request for hotel creation';
             
             $department_id = $this->SupportTicket->getDepartmentByQuestionId($answer);
             $this->request->data['SupportTicket']['next_action_by'] = $this->SupportTicket->getNextActionByDepartmentId($department_id);
