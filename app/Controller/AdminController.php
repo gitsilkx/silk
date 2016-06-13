@@ -914,7 +914,64 @@ class AdminController extends AppController {
         //$mapped = $this->data['mapped'];
         $dummy_status = $this->Auth->user('dummy_status');
         $role_id = $this->Session->read("role_id");
+        $location_URL = 'http://dev.wtbnetworks.com/TravelXmlManagerv001/ProEngine.Asmx';
+        $action_URL = 'http://www.travel.domain/ProcessXML';
         $user_id = $this->Auth->user('id');
+        $CreatedDate = date('Y-m-d') . 'T' . date('h:i:s');
+        
+        $content_xml_str = '<soap:Body>
+        <ProcessXML xmlns="http://www.travel.domain/">
+            <RequestInfo>
+                <GetDirectSupplierStaticData>
+                    <RequestAuditInfo>
+                        <RequestType>PXML_DirectSupplier_GetStaticData_Prod</RequestType>
+                        <RequestTime>'.$CreatedDate.'</RequestTime>
+                        <RequestResource>Silkrouters</RequestResource>
+                    </RequestAuditInfo>
+                    <RequestParameters>
+                        <SupplierDataType>HotelDetail</SupplierDataType>
+                        <SupplierId>2</SupplierId>
+                        <CountryCode></CountryCode>
+                        <CityCode></CityCode>
+                        <HotelCode>9564</HotelCode>
+                    </RequestParameters>
+                </GetDirectSupplierStaticData>
+            </RequestInfo>
+        </ProcessXML>
+    </soap:Body>';
+        
+        $log_call_screen = 'Supplier - Add';
+
+            $xml_string = Configure::read('travel_start_xml_str') . $content_xml_str . Configure::read('travel_end_xml_str');
+            $client = new SoapClient(null, array(
+                'location' => $location_URL,
+                'uri' => '',
+                'trace' => 1,
+            ));
+
+            try {
+                $order_return = $client->__doRequest($xml_string, $location_URL, $action_URL, 1);
+                //$xmlparser = xml_parser_create();
+                //xml_parse_into_struct($xmlparser,$order_return,$values);
+                //xml_parser_free($xmlparser);;
+                //$xml_arr = xml_to_object($order_return);
+                //$xml_arr = $this->Common->xml2array($order_return);
+                //echo htmlentities($xml_string);
+                // echo '<br>-------------------';
+                // echo htmlentities($order_return);
+                //pr($xml_arr);
+                //$xmlObject = new Xml($xmlString);
+                //$xmlObject = new Xml();
+//$xmlArray = Xml::toArray($order_return);
+                $xmlArray = Xml::toArray(Xml::build($order_return));
+                PR($xmlArray);
+                 die;
+                $ValArr = $xmlArray['Envelope']['soap:Body']['ProcessXMLResponse']['ProcessXMLResult']['SupplierData_Hotel']['ResponseAuditInfo']['root']['LocalHotelList']['item'];
+              
+            } catch (SoapFault $exception) {
+                var_dump(get_class($exception));
+                var_dump($exception);
+            }
 
         if ($this->request->is('post') || $this->request->is('put')) {
 

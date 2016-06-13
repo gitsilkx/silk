@@ -82,6 +82,14 @@ echo $this->Form->hidden('active',array('value' => $TravelHotelLookups['TravelHo
 
 
                     </div>
+                    <div class="form-group">
+                            <label for="reg_input_name">Address</label>
+                            <span class="colon">:</span>
+                            <div class="col-sm-10">
+                                <?php
+                                //echo $SupplierHotels['SupplierHotel']['country_name'];
+                                ?></div>
+                        </div>
                 </div>
                 <div class="col-sm-12"  style="background-color: rgb(238, 221, 255);overflow:hidden;">
                     <div class="col-sm-6">
@@ -198,6 +206,14 @@ echo $this->Form->hidden('active',array('value' => $TravelHotelLookups['TravelHo
                         </div>
 
                     </div>
+                    <div class="form-group">
+                            <label for="reg_input_name">Address</label>
+                            <span class="colon">:</span>
+                            <div class="col-sm-10">
+                                <?php
+                                echo $TravelHotelLookups['TravelHotelLookup']['location'].$TravelHotelLookups['TravelHotelLookup']['address'];
+                                ?></div>
+                        </div>
                 </div>   
                 <div class="clear" style="clear: both;"></div>
                 <div class="col-sm-12">
