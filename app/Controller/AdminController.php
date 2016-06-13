@@ -1106,8 +1106,8 @@ class AdminController extends AppController {
               
                $hotel_code = $this->Common->getHotelCode($hotel_id);
                $hotel_name = $this->Common->getHotelName($hotel_id);
-               echo $about = $hotel_name.' | '.$hotel_code.' | '.$hotel_id;
-               die;
+               $about = $hotel_name.' | '.$hotel_code.' | '.$hotel_id;
+               
                $answer = '36'; // table of lookup_questions
                $this->request->data['SupportTicket']['status'] = '1'; // 1 = open
             $this->request->data['SupportTicket']['opend_by'] = 'SENDER';
