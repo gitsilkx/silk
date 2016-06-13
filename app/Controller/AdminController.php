@@ -166,6 +166,8 @@ class AdminController extends AppController {
                                     'supplier_id' => $supplier_id,
                                     'supplier_code' => $supplier_code,
                                     'status' => '1',
+                                    'wtb_status' => '1',
+                                    'active' => 'TRUE',
                                     'supplier_name' => $supplier_name
                             ));
                         }
@@ -1128,6 +1130,7 @@ class AdminController extends AppController {
             $this->request->data['SupportTicket']['screen'] = $screen;
             $this->request->data['SupportTicket']['response_issue_id'] = $answer;
                  if ($this->SupportTicket->save($this->request->data['SupportTicket'])) {
+                     $this->SupplierHotel->updateAll(array('SupplierHotel.status' => "'4'"), array('SupplierHotel.id' => $supplier_hotel_id));
                      $this->Session->setFlash('Your ticket has been successfully created.', 'success');
                     $this->redirect(array('action' => 'hotel_mapping/'.$supplier_hotel_id));
                  }

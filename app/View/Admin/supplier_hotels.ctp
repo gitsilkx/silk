@@ -20,7 +20,7 @@ echo $this->element('FetchAreas/top_menu');
                     <tr class="footable-group-row">
                         <th data-group="group1" colspan="5" class="nodis">Hotel Information</th>
                         <th data-group="group9" colspan="6">Hotel Location</th>
-                        <th data-group="group10" colspan="4">Hotel Status</th>
+                        <th data-group="group10" colspan="3">Hotel Status</th>
                         <th data-group="group2" colspan="8">Hotel Information</th>
                         <th data-group="group3" colspan="11">Hotel Facilities</th>
                         <th data-group="group4" colspan="1">Room Facilities</th>
@@ -57,7 +57,7 @@ echo $this->element('FetchAreas/top_menu');
                         <th data-hide="phone" data-group="group10" width="5%" data-sort-ignore="true">Silkrouters</th>
                         <th data-hide="phone" data-group="group10" width="2%" data-sort-ignore="true">WTB</th>
                         <th data-hide="phone" data-group="group10" width="5%" data-sort-ignore="true">Active?</th>
-                        <th data-hide="phone" data-group="group10" width="5%" data-sort-ignore="true">No. Of Mapping</th>
+                      
 
                         <th data-hide="all" data-group="group2" data-sort-ignore="true">Logo</th>
                         <th data-hide="all" data-group="group2" data-sort-ignore="true">Logo1</th>
@@ -111,22 +111,6 @@ echo $this->element('FetchAreas/top_menu');
                         foreach ($SupplierHotels as $SupplierHotel):
                             $id = $SupplierHotel['SupplierHotel']['id'];
 
-                            $status = $SupplierHotel['SupplierHotel']['status'];
-                            if ($status == '1')
-                                $status_txt = 'Submitted For Approval';
-                            elseif ($status == '2')
-                                $status_txt = 'Approved';
-                            elseif ($status == '3')
-                                $status_txt = 'Returned';
-                            elseif ($status == '4')
-                                $status_txt = 'Change Submitted';
-                            elseif ($status == '5')
-                                $status_txt = 'Rejected';
-                            elseif ($status == '7')
-                                $status_txt = 'Duplicated';
-                            else
-                                $status_txt = 'Allocation';
-
                             if ($SupplierHotel['SupplierHotel']['wtb_status'] == '1')
                                 $wtb_status = 'OK';
                             else
@@ -146,10 +130,10 @@ echo $this->element('FetchAreas/top_menu');
                                 <td class="sub-tablebody"><?php echo $SupplierHotel['SupplierHotel']['suburb_name']; ?></td>
                                 <td class="sub-tablebody"><?php echo $SupplierHotel['SupplierHotel']['area_name']; ?></td>
 
-                                <td class="sub-tablebody"><?php echo $status_txt; ?></td>
+                                <td class="sub-tablebody"><?php echo $SupplierHotel['TravelSupplierStatus']['value']; ?></td>
                                 <td class="sub-tablebody"><?php echo $wtb_status; ?></td>
                                 <td class="sub-tablebody"><?php echo $SupplierHotel['SupplierHotel']['active']; ?></td>   
-                                <td class="sub-tablebody"><?php if(count($SupplierHotel['TravelHotelRoomSupplier']) > 0) echo $this->Html->link(count($SupplierHotel['TravelHotelRoomSupplier']), array('controller' => 'travel_hotel_lookups', 'action' => 'view_mapping/' . $id), array('class' => 'act-ico open-popup-link add-btn', 'escape' => false)); else echo '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0'; ?></td>
+                                
 
 
                                 <td class="sub-tablebody"><?php echo $SupplierHotel['SupplierHotel']['logo']; ?></td>
