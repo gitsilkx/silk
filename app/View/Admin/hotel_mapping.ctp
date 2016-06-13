@@ -14,7 +14,7 @@ echo $this->Form->create('Test', array('/admin/add_country_mapping','method' => 
 ));
  * 
  */
-echo $this->Form->hidden('supplier_hotel_id',array('value' => $this->data['SupplierHotel']['id']));
+echo $this->Form->hidden('Common.supplier_hotel_id',array('value' => $this->data['SupplierHotel']['id']));
 ?>
 <style>
   .form-group{
@@ -129,7 +129,7 @@ if (isset($TravelHotelLookups) && count($TravelHotelLookups) > 0):
                                     <?php 
                                         $options=array($id=>'');
                                         $attributes=array('legend'=>false, 'hiddenField' => false,'label' => false,'div' => false,'class' => 'attrInputs');
-                                        echo $this->Form->radio('hotel_id',$options,$attributes);
+                                        echo $this->Form->radio('Common.hotel_id',$options,$attributes);
                                         ?>                                
                                 </td>
                             </tr>
