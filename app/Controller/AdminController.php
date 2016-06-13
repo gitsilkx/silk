@@ -922,7 +922,18 @@ class AdminController extends AppController {
         $CreatedDate = date('Y-m-d') . 'T' . date('h:i:s');
         $address = '';
         
-        $content_xml_str = '<soap:Body>
+        
+
+        if ($this->request->is('post') || $this->request->is('put')) {
+
+            if (isset($this->data['mapped'])) {
+                $supplier_hotel_id = $this->data['Common']['supplier_hotel_id'];
+                $hotel_id = $this->data['Common']['hotel_id'];
+                //die;
+                $SupplierHotels = $this->SupplierHotel->findById($supplier_hotel_id);
+                $TravelHotelLookups = $this->TravelHotelLookup->findById($hotel_id);
+                
+                $content_xml_str = '<soap:Body>
         <ProcessXML xmlns="http://www.travel.domain/">
             <RequestInfo>
                 <GetDirectSupplierStaticData>
@@ -933,10 +944,10 @@ class AdminController extends AppController {
                     </RequestAuditInfo>
                     <RequestParameters>
                         <SupplierDataType>HotelDetail</SupplierDataType>
-                        <SupplierId>2</SupplierId>
+                        <SupplierId>'.$SupplierHotels['SupplierHotel']['supplier_id'].'</SupplierId>
                         <CountryCode></CountryCode>
                         <CityCode></CityCode>
-                        <HotelCode>9564</HotelCode>
+                        <HotelCode>'.$SupplierHotels['SupplierHotel']['hotel_code'].'</HotelCode>
                     </RequestParameters>
                 </GetDirectSupplierStaticData>
             </RequestInfo>
@@ -963,19 +974,9 @@ class AdminController extends AppController {
                 var_dump(get_class($exception));
                 var_dump($exception);
             }
-            
-            $this->set(compact('address'));
 
-        if ($this->request->is('post') || $this->request->is('put')) {
 
-            if (isset($this->data['mapped'])) {
-                $supplier_hotel_id = $this->data['Common']['supplier_hotel_id'];
-                $hotel_id = $this->data['Common']['hotel_id'];
-                //die;
-                $SupplierHotels = $this->SupplierHotel->findById($supplier_hotel_id);
-                $TravelHotelLookups = $this->TravelHotelLookup->findById($hotel_id);
-
-                $this->set(compact('TravelHotelLookups', 'SupplierHotels'));
+                $this->set(compact('address','TravelHotelLookups', 'SupplierHotels'));
             }
             elseif (isset($this->data['add'])) {
                 $supplier_hotel_id = $this->data['SupplierHotel']['supplier_hotel_id'];
@@ -1136,6 +1137,60 @@ class AdminController extends AppController {
                  }
             }
         }
+    }
+    
+    public function hotel_add($supplier_hotel_id = null){
+        
+         $SupplierHotels = $this->SupplierHotel->findById($supplier_hotel_id);
+         
+         $location_URL = 'http://dev.wtbnetworks.com/TravelXmlManagerv001/ProEngine.Asmx';
+        $action_URL = 'http://www.travel.domain/ProcessXML';
+        $user_id = $this->Auth->user('id');
+        $CreatedDate = date('Y-m-d') . 'T' . date('h:i:s');
+        $address = '';
+        
+        $content_xml_str = '<soap:Body>
+        <ProcessXML xmlns="http://www.travel.domain/">
+            <RequestInfo>
+                <GetDirectSupplierStaticData>
+                    <RequestAuditInfo>
+                        <RequestType>PXML_DirectSupplier_GetStaticData_Prod</RequestType>
+                        <RequestTime>'.$CreatedDate.'</RequestTime>
+                        <RequestResource>Silkrouters</RequestResource>
+                    </RequestAuditInfo>
+                    <RequestParameters>
+                        <SupplierDataType>HotelDetail</SupplierDataType>
+                        <SupplierId>'.$SupplierHotels['SupplierHotel']['supplier_id'].'</SupplierId>
+                        <CountryCode></CountryCode>
+                        <CityCode></CityCode>
+                        <HotelCode>'.$SupplierHotels['SupplierHotel']['hotel_code'].'</HotelCode>
+                    </RequestParameters>
+                </GetDirectSupplierStaticData>
+            </RequestInfo>
+        </ProcessXML>
+    </soap:Body>';
+        
+        $log_call_screen = 'Supplier - Add';
+
+            $xml_string = Configure::read('travel_start_xml_str') . $content_xml_str . Configure::read('travel_end_xml_str');
+            $client = new SoapClient(null, array(
+                'location' => $location_URL,
+                'uri' => '',
+                'trace' => 1,
+            ));
+
+            try {
+                $order_return = $client->__doRequest($xml_string, $location_URL, $action_URL, 1);               
+                $xmlArray = Xml::toArray(Xml::build($order_return));
+                pr($xmlArray);
+                //die;
+                 $address = $xmlArray['Envelope']['soap:Body']['ProcessXMLResponse']['ProcessXMLResult']['SupplierData_HotelDetail']['ResponseAuditInfo']['root']['Address']['@'];
+                
+              
+            } catch (SoapFault $exception) {
+                var_dump(get_class($exception));
+                var_dump($exception);
+            }
     }
 
 }
