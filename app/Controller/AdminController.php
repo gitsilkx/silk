@@ -1098,8 +1098,9 @@ class AdminController extends AppController {
                 $this->redirect(array('action' => 'supplier_hotels'));
             }
             elseif(isset($this->data['inserted'])){
-               echo $supplier_hotel_id = $this->data['Common']['supplier_hotel_id'];
-               echo $hotel_id = $this->data['Common']['hotel_id'];
+               echo 'Sup='.$supplier_hotel_id = $this->data['Common']['supplier_hotel_id'];
+               echo 'Hotel'.$hotel_id = $this->data['Common']['hotel_id'];
+               die;
             }
         }
     }
