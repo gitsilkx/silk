@@ -975,10 +975,7 @@ class AdminController extends AppController {
 
                 $this->set(compact('TravelHotelLookups', 'SupplierHotels'));
             }
-
-
-
-            if (isset($this->data['add'])) {
+            elseif (isset($this->data['add'])) {
                 $supplier_hotel_id = $this->data['SupplierHotel']['supplier_hotel_id'];
                 $hotel_id = $this->data['SupplierHotel']['hotel_id'];
 
@@ -1099,6 +1096,10 @@ class AdminController extends AppController {
 
                 $this->Session->setFlash('Your changes have been submitted. Waiting for approval at the moment...', 'success');
                 $this->redirect(array('action' => 'supplier_hotels'));
+            }
+            elseif(isset($this->data['inserted'])){
+               echo $supplier_hotel_id = $this->data['Common']['supplier_hotel_id'];
+               echo $hotel_id = $this->data['Common']['hotel_id'];
             }
         }
     }
