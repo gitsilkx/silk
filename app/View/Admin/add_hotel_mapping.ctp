@@ -87,7 +87,7 @@ echo $this->Form->hidden('active',array('value' => $TravelHotelLookups['TravelHo
                             <span class="colon">:</span>
                             <div class="col-sm-10">
                                 <?php
-                                //echo $SupplierHotels['SupplierHotel']['country_name'];
+                                echo $address;
                                 ?></div>
                         </div>
                 </div>
