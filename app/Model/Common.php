@@ -40,6 +40,16 @@ class Common extends AppModel {
         return $DataArray['TravelSuburb']['name'];
     }
     
+    public function getHotelName($hotel_id){
+        $DataArray = ClassRegistry::init('TravelHotelLookup')->find('first', array('fields' => array('hotel_name'), 'conditions' => array('TravelHotelLookup.id' => $hotel_id)));
+        return $DataArray['TravelHotelLookup']['hotel_name'];
+    }
+    
+    public function getHotelCode($hotel_id){
+        $DataArray = ClassRegistry::init('TravelHotelLookup')->find('first', array('fields' => array('hotel_code'), 'conditions' => array('TravelHotelLookup.id' => $hotel_id)));
+        return $DataArray['TravelHotelLookup']['hotel_code'];
+    }
+    
     public function getSupplierCountryCode($country_id){
         $DataArray = ClassRegistry::init('SupplierCountry')->find('first', array('fields' => array('code'), 'conditions' => array('SupplierCountry.id' => $country_id)));
         return $DataArray['SupplierCountry']['code'];
@@ -68,6 +78,18 @@ class Common extends AppModel {
     public function getSupplierName($supplier_id){
         $DataArray = ClassRegistry::init('TravelSupplier')->find('first', array('fields' => array('supplier_name'), 'conditions' => array('TravelSupplier.id' => $supplier_id)));
         return $DataArray['TravelSupplier']['supplier_name'];
+    }
+    
+    public function getDepartmentByQuestionId($answer_id){
+        
+        $Data = ClassRegistry::init('LookupQuestion')->find('first', array('fields' => array( 'LookupQuestion.department_id'), 'conditions' => array('LookupQuestion.id' => $answer_id)));
+        return $Data['LookupQuestion']['department_id'];
+    }
+    
+    public function getNextActionByDepartmentId($department_id){
+        
+        $Data = ClassRegistry::init('LookupDepartment')->find('first', array('fields' => array( 'LookupDepartment.next_action_by'), 'conditions' => array('LookupDepartment.id' => $department_id)));
+        return $Data['LookupDepartment']['next_action_by'];
     }
 }
 ?>
