@@ -1099,6 +1099,7 @@ class AdminController extends AppController {
             }
             elseif(isset($this->data['inserted'])){
                 
+                pr($this->data);
                $screen = '4'; // fetch hotel table of  
                $supplier_hotel_id = $this->data['Common']['supplier_hotel_id'];
                echo $hotel_id = $this->data['Common']['hotel_id'];
