@@ -1102,6 +1102,7 @@ class AdminController extends AppController {
                $screen = '4'; // fetch hotel table of  
                $supplier_hotel_id = $this->data['Common']['supplier_hotel_id'];
                echo $hotel_id = $this->data['Common']['hotel_id'];
+               die;
                $hotel_code = $this->Common->getHotelCode($hotel_id);
                $hotel_name = $this->Common->getHotelName($hotel_id);
                echo $about = $hotel_name.' | '.$hotel_code.' | '.$hotel_id;
