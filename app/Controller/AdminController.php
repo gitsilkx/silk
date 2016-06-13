@@ -1182,15 +1182,29 @@ class AdminController extends AppController {
             try {
                 $order_return = $client->__doRequest($xml_string, $location_URL, $action_URL, 1);               
                 $xmlArray = Xml::toArray(Xml::build($order_return));
-                pr($xmlArray);
+               // pr($xmlArray);
                 //die;
-                 $address = $xmlArray['Envelope']['soap:Body']['ProcessXMLResponse']['ProcessXMLResult']['SupplierData_HotelDetail']['ResponseAuditInfo']['root']['Address']['@'];
+                $hotel_name = $xmlArray['Envelope']['soap:Body']['ProcessXMLResponse']['ProcessXMLResult']['SupplierData_HotelDetail']['ResponseAuditInfo']['root']['Name']['@'];
+                $star = $xmlArray['Envelope']['soap:Body']['ProcessXMLResponse']['ProcessXMLResult']['SupplierData_HotelDetail']['ResponseAuditInfo']['root']['Rating']['@'];
+                $gps_prm_1 = $xmlArray['Envelope']['soap:Body']['ProcessXMLResponse']['ProcessXMLResult']['SupplierData_HotelDetail']['ResponseAuditInfo']['root']['Latitude']['@'];
+                $gps_prm_2 = $xmlArray['Envelope']['soap:Body']['ProcessXMLResponse']['ProcessXMLResult']['SupplierData_HotelDetail']['ResponseAuditInfo']['root']['Longitude']['@'];
+                $reservation_contact = $xmlArray['Envelope']['soap:Body']['ProcessXMLResponse']['ProcessXMLResult']['SupplierData_HotelDetail']['ResponseAuditInfo']['root']['Phone']['@'];
+                $address = $xmlArray['Envelope']['soap:Body']['ProcessXMLResponse']['ProcessXMLResult']['SupplierData_HotelDetail']['ResponseAuditInfo']['root']['Address']['@'];
+                $location = $xmlArray['Envelope']['soap:Body']['ProcessXMLResponse']['ProcessXMLResult']['SupplierData_HotelDetail']['ResponseAuditInfo']['root']['Address']['@'];
+                $fax = $xmlArray['Envelope']['soap:Body']['ProcessXMLResponse']['ProcessXMLResult']['SupplierData_HotelDetail']['ResponseAuditInfo']['root']['Fax']['@'];
+                $hotel_comment = $xmlArray['Envelope']['soap:Body']['ProcessXMLResponse']['ProcessXMLResult']['SupplierData_HotelDetail']['ResponseAuditInfo']['root']['Short_desc']['@'];
+                $url_hotel = $xmlArray['Envelope']['soap:Body']['ProcessXMLResponse']['ProcessXMLResult']['SupplierData_HotelDetail']['ResponseAuditInfo']['root']['Website']['@'];
+                $reservation_email = $xmlArray['Envelope']['soap:Body']['ProcessXMLResponse']['ProcessXMLResult']['SupplierData_HotelDetail']['ResponseAuditInfo']['root']['Email']['@'];
+                
                 
               
             } catch (SoapFault $exception) {
                 var_dump(get_class($exception));
                 var_dump($exception);
             }
+            
+            $this->set(compact('hotel_name','star','gps_prm_1','gps_prm_2','reservation_contact',
+                    'address','location','hotel_comment','url_hotel','reservation_email'));
     }
 
 }

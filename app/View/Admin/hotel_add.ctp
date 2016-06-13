@@ -41,7 +41,7 @@ $this->Html->addCrumb('Add Hotel', 'javascript:void(0);', array('class' => 'brea
                                         <span class="colon">:</span>
                                         <div class="col-sm-10">
                                             <?php
-                                            echo $this->Form->input('hotel_name', array('data-required' => 'true'));
+                                            echo $this->Form->input('hotel_name', array('data-required' => 'true','value' => $hotel_name));
                                             ?></div>
                                     </div>
                                     <div class="form-group">
@@ -89,7 +89,7 @@ $this->Html->addCrumb('Add Hotel', 'javascript:void(0);', array('class' => 'brea
                                         <span class="colon">:</span>
                                         <div class="col-sm-10">
                                             <?php
-                                            echo $this->Form->input('url_hotel', array());
+                                            echo $this->Form->input('url_hotel', array('value' => $url_hotel));
                                             ?></div>
                                     </div> 
                                     <div class="form-group">
@@ -164,7 +164,7 @@ $this->Html->addCrumb('Add Hotel', 'javascript:void(0);', array('class' => 'brea
                                         <div class="col-sm-10">
                                             <?php
                                             $options = array('1' => '1', '2' => '2', '3' => '3', '4' => '4', '5' => '5', '6' => '6', '7' => '7');
-                                            $attributes = array('legend' => false, 'hiddenField' => false, 'label' => false, 'div' => false, 'class' => 'attrInputs');
+                                            $attributes = array('legend' => false,'value' => $star, 'hiddenField' => false, 'label' => false, 'div' => false, 'class' => 'attrInputs');
                                             echo $this->Form->radio('star', $options, $attributes);
                                             //  echo $this->Form->input('star');
                                             ?></div>
@@ -173,8 +173,8 @@ $this->Html->addCrumb('Add Hotel', 'javascript:void(0);', array('class' => 'brea
                                         <label>Location</label>
                                         <span class="colon">:</span>
                                         <div class="col-sm-10">  <?php
-                                            echo $this->Form->input('gps_prm_1', array('class' => 'form-control decimal','placeholder' => 'GPS Parameter 1','style' => 'width:47%'));
-                                            echo $this->Form->input('gps_prm_2', array('class' => 'form-control decimal','placeholder' => 'GPS Parameter 2','style' => 'width:47%'));
+                                            echo $this->Form->input('gps_prm_1', array('class' => 'form-control decimal','value' => $gps_prm_1,'placeholder' => 'GPS Parameter 1','style' => 'width:47%'));
+                                            echo $this->Form->input('gps_prm_2', array('class' => 'form-control decimal','value' => $gps_prm_2,'placeholder' => 'GPS Parameter 2','style' => 'width:47%'));
                                             ?></div>
                                     </div>
                                     <div class="form-group">
@@ -205,7 +205,7 @@ $this->Html->addCrumb('Add Hotel', 'javascript:void(0);', array('class' => 'brea
                                         <span class="colon">:</span>
                                         <div class="col-sm-10 editable txtbox">
                                             <?php
-                                            echo $this->Form->input('address', array('type' => 'textarea'));
+                                            echo $this->Form->input('address', array('type' => 'textarea','value' =>  $address));
                                             ?>
                                         </div>
                                     </div>
@@ -214,7 +214,7 @@ $this->Html->addCrumb('Add Hotel', 'javascript:void(0);', array('class' => 'brea
                                         <span class="colon">:</span>
                                         <div class="col-sm-10 editable txtbox">
                                             <?php
-                                            echo $this->Form->input('hotel_comment', array('type' => 'textarea','style' => 'width:100%;height:100px'));
+                                            echo $this->Form->input('hotel_comment', array('type' => 'textarea','value' => $hotel_comment,'style' => 'width:100%;height:100px'));
                                             ?>
                                         </div>
                                     </div>
@@ -387,7 +387,7 @@ $this->Html->addCrumb('Add Hotel', 'javascript:void(0);', array('class' => 'brea
                                         <span class="colon">:</span>
                                         <div class="col-sm-10">
                                             <?php
-                                            echo $this->Form->input('reservation_contact');
+                                            echo $this->Form->input('reservation_contact',array('value' => $reservation_contact));
                                             ?></div>
                                     </div>
                                     <div class="form-group ">
@@ -395,7 +395,7 @@ $this->Html->addCrumb('Add Hotel', 'javascript:void(0);', array('class' => 'brea
                                         <span class="colon">:</span>
                                         <div class="col-sm-10">
                                             <?php
-                                            echo $this->Form->input('reservation_email');
+                                            echo $this->Form->input('reservation_email',array('value' => $reservation_email));
                                             ?>
                                         </div>
                                     </div>
