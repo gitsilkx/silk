@@ -655,8 +655,7 @@ class BuildersController extends AppController {
                      */
                     /* End Phone */
 
-                    echo 'hhh';
-                    die;
+                  
                        
                     $this->Session->setFlash('Builder has been saved.', 'success');
                     $this->redirect(array('controller' => 'messages', 'action' => 'index', 'builders', 'my-builders'));
