@@ -56,10 +56,7 @@ App::uses('AppController', 'Controller');
  */
 class MessagesController extends AppController {
 
-    function beforeFilter() {
-        parent::beforeFilter();
-        $this->Auth->allow('index', 'error', 'list_message');
-    }
+
 
     public function index($controller, $action) {
 
