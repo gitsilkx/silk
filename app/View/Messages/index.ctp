@@ -7,7 +7,7 @@
             <div class="panel-body">
                 <div class="alert alert-success">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                   <?php echo $this->Session->flash(); ?>
+                   <?php //echo $this->Session->flash(); ?>
                 </div>
                 <div class="form_sep">
                 
