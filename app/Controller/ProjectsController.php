@@ -405,7 +405,7 @@ class ProjectsController extends AppController {
         if ($this->request->is('post')) {
 
             $this->request->data['Project']['dummy_status'] = $dummy_status;
-            $this->request->data['Project']['proj_approved'] = '2';
+            $this->request->data['Project']['proj_approved'] = '1';
             $this->request->data['Project']['created_by'] = $user_id;
             $this->request->data['Project']['proj_status'] = '1'; // 1 for Yes of lookup_value_statuses
 
@@ -468,6 +468,7 @@ class ProjectsController extends AppController {
 
 
                     /*                     * *************************Project Action ********************** */
+                    /*
                     $action_item['ActionItem']['project_id'] = $project_id;
                     $action_item['ActionItem']['action_item_level_id'] = '3'; //  for Project 
                     $action_item['ActionItem']['type_id'] = '7'; // 10 for Submission For Approval
@@ -486,6 +487,7 @@ class ProjectsController extends AppController {
                     $this->ActionItem->saveField('parent_action_item_id', $ActionId);
 
                     /*                     * ********************Project Remarks ******************************** */
+                    /*
                     $remarks['Remark']['project_id'] = $project_id;
                     $remarks['Remark']['remarks'] = 'New Project Record Created';
                     $remarks['Remark']['remarks_by'] = $user_id;

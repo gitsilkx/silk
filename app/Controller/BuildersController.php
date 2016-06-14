@@ -531,7 +531,7 @@ class BuildersController extends AppController {
 
 
             $this->request->data['Builder']['dummy_status'] = $dummy_status;
-            $this->request->data['Builder']['builder_approved'] = '2';
+            $this->request->data['Builder']['builder_approved'] = '1';
             $this->request->data['Builder']['builder_status'] = '1';  // 1 for Yes of lookup_value_statuses
             $this->request->data['Builder']['created_by'] = $user_id;
             if ($this->data['Builder']['builder_boardnumber'] == '')
@@ -544,7 +544,10 @@ class BuildersController extends AppController {
                 $builder_id = $this->Builder->getLastInsertId();
                 if ($builder_id) {
 
+                    
                     /**********************Builder Remarks ******************************** */
+                    
+                    /*
                     $remarks['Remark']['builder_id'] = $builder_id;
                     $remarks['Remark']['remarks'] = 'New Builder Record Created';
                     $remarks['Remark']['remarks_by'] = $user_id;
@@ -555,6 +558,7 @@ class BuildersController extends AppController {
                     $this->Remark->save($remarks);
 
                     /********************Builder Contacts************************ */
+                    
                     if ($this->data['Builder']['is_contact']) {
 
                        
@@ -572,10 +576,11 @@ class BuildersController extends AppController {
                         $this->request->data['BuilderContact']['dummy_status'] = $dummy_status;
                         $this->request->data['BuilderContact']['contact_type'] = '2'; // for builder
                         $this->request->data['BuilderContact']['builder_contact_builder_id'] = $builder_id;
-                       
+                        $this->request->data['BuilderContact']['builder_contact_approved'] = '1'; 
+                        
                         if ($this->BuilderContact->save($this->request->data['BuilderContact'])) {
                             $builder_contact_id = $this->BuilderContact->getLastInsertId();
-
+                            /*
                             $this->ActionItem->query("INSERT INTO `action_items` (`action_item_level_id`, `type_id`, `builder_contact_id`, `action_item_status`, `action_item_source`, `created_by_id`, `action_item_active`,  `description`, `next_action_by`,  `created_by`,`dummy_status`,`created`) VALUES ('" . $contact_action_item['ActionItem']['action_item_level_id'] . "', '" . $contact_action_item['ActionItem']['type_id'] . "', '" . $builder_contact_id . "', '" . $contact_action_item['ActionItem']['action_item_status'] . "', '" . $contact_action_item['ActionItem']['action_item_source'] . "', '" . $contact_action_item['ActionItem']['created_by_id'] . "', '" . $contact_action_item['ActionItem']['action_item_active'] . "', '" . $contact_action_item['ActionItem']['description'] . "', '" . $contact_action_item['ActionItem']['next_action_by'] . "', '" . $contact_action_item['ActionItem']['created_by'] . "', '" . $contact_action_item['ActionItem']['dummy_status'] . "','" . date('Y-m-d h:i:s') . "')");
 
 
@@ -583,11 +588,13 @@ class BuildersController extends AppController {
                             $last_id = $ActionId1[0][0]['LAST_INSERT_ID()'];
 
                             $this->ActionItem->updateAll(array('ActionItem.parent_action_item_id' => $last_id), array('ActionItem.id' => $last_id));
+                            
+                             */
                         }
                     }
 
                     /*                     * ************************Next Action By logic********************** */
-
+                    /*
                     $action_user_id = '';
                     $oversing_user = array();
 
@@ -600,6 +607,7 @@ class BuildersController extends AppController {
                         $action_user_id = $oversing_user['User']['id'];
 
                     /*                     * ************************Builder Action ********************** */
+                   /*
                     $action_item['ActionItem']['builder_id'] = $builder_id;
                     $action_item['ActionItem']['action_item_level_id'] = '2'; //  for Builder 
                     $action_item['ActionItem']['type_id'] = '7'; // 7 for Submission For Approval
