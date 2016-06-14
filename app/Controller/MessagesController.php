@@ -56,12 +56,14 @@ App::uses('AppController', 'Controller');
  */
 class MessagesController extends AppController {
 
-
+    function beforeFilter() {
+        parent::beforeFilter();
+        $this->Auth->allow('index', 'error', 'list_message');
+    }
 
     public function index($controller, $action) {
-
-          echo 'sdf';
-          die;
+        echo 'asd';
+        die;
         $this->Session->setFlash('fgh','success');
         $this->set('controller', $controller);
 
