@@ -317,7 +317,7 @@ class BuilderContactsController extends AppController {
 
 
             $this->request->data['BuilderContact']['dummy_status'] = $dummy_status;
-            $this->request->data['BuilderContact']['builder_contact_approved'] = '2';
+            $this->request->data['BuilderContact']['builder_contact_approved'] = '1'; // because off permission action.
             $this->request->data['BuilderContact']['builder_contact_status'] = '2'; // 2= No, table of lookup value status
             $this->request->data['BuilderContact']['created_by'] = $user_id;
             $this->request->data['BuilderContact']['builder_contact_industry'] = '1'; // for realestate of lookup_value_activity_industry
@@ -346,9 +346,11 @@ class BuilderContactsController extends AppController {
             if ($this->BuilderContact->save($this->request->data)) {
 
                 $builder_contact_id = $this->BuilderContact->getLastInsertId();
+                /*
                 if ($builder_contact_id) {
 
                     /**********************Builder Remarks ******************************** */
+                /*
                     $remarks['Remark']['builder_contact_id'] = $builder_contact_id;
                     $remarks['Remark']['remarks'] = 'New Builder Contact Record Created';
                     $remarks['Remark']['remarks_by'] = $user_id;
@@ -360,7 +362,7 @@ class BuilderContactsController extends AppController {
 
                     /********************Builder Contacts************************ */
 
-
+                /*
                     $contact_action_item['ActionItem']['builder_contact_id'] = $builder_contact_id;
                     $contact_action_item['ActionItem']['action_item_level_id'] = '5'; //  for Builder Contact
                     $contact_action_item['ActionItem']['type_id'] = '7'; // 7 for Submission For Approval
@@ -402,6 +404,7 @@ class BuilderContactsController extends AppController {
                         $Email->template('BuilderContacts/Approve', 'default')->emailFormat('html')->to($to)->from('admin@silkrouters.com')->subject('CONTACT SUBMITTED BY - ' . strtoupper($actionArry['CreatedBy']['fname'] . ' ' . $actionArry['CreatedBy']['lname']))->send();
                     }
                 }
+                */
                 $this->Session->setFlash('Builder Contact has been saved.', 'success');
                 //$this->redirect(array('controller' => 'messages','action' => 'index','builder_contacts','my-builder-contacts'));
             } else {
