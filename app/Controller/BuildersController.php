@@ -542,7 +542,7 @@ class BuildersController extends AppController {
 
                 $builder_id = $this->Builder->getLastInsertId();
                 if ($builder_id) {
-
+                   
                     
                     /**********************Builder Remarks ******************************** */
                     
@@ -559,8 +559,8 @@ class BuildersController extends AppController {
                     /********************Builder Contacts************************ */
                     
                     if ($this->data['Builder']['is_contact']) {
-
-                       
+                        
+                        
                         $contact_action_item['ActionItem']['action_item_level_id'] = '5'; //  for Builder Contact
                         $contact_action_item['ActionItem']['type_id'] = '7'; // 7 for Submission For Approval
                         $contact_action_item['ActionItem']['next_action_by'] = '148'; // system desk
@@ -655,7 +655,8 @@ class BuildersController extends AppController {
                      */
                     /* End Phone */
 
-
+                    
+                       
                     $this->Session->setFlash('Builder has been saved.', 'success');
                     $this->redirect(array('controller' => 'messages', 'action' => 'index', 'builders', 'my-builders'));
                 }
