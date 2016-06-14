@@ -25,12 +25,7 @@ $cur_page = end($arr); // live
                 ?>          
 
             </li>
-            <li <?php if ($cur_page == 'my-builder-contacts') { ?> class="active"<?php } ?>>   
-                <?php
-                echo $this->Html->link('<i class="icon-tasks"></i><span>My Network</span>', '/my-builder-contacts', array('data-toggle' => 'tooltip', 'data-placement' => 'right', 'title' => 'My Network', 'escape' => false));
-                ?>          
-
-            </li>
+         
             <li <?php if ($cur_page == 'my-projects') { ?> class="active"<?php } ?>>  
                 <?php
                 echo $this->Html->link('<i class="icon-tasks"></i><span>My Projects</span>', '/my-projects', array('data-toggle' => 'tooltip', 'data-placement' => 'right', 'title' => 'My Projects', 'escape' => false));
