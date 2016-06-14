@@ -525,7 +525,6 @@ class BuildersController extends AppController {
         $dummy_status = $this->Auth->user('dummy_status');
         $condition_dummy_status = array('dummy_status =' . $dummy_status, 'id != 1');
 
-        $this->Session->setFlash('Builder has been saved.', 'success');
 
         if ($this->request->is('post')) {
 
