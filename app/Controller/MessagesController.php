@@ -75,7 +75,7 @@ class MessagesController extends AppController {
     }
 
     public function list_message() {
-        
+        $this->Session->setFlash('fgh','success');
     }
 
 }
