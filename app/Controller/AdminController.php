@@ -34,7 +34,8 @@ App::uses('Xml', 'Utility');
 class AdminController extends AppController {
 
     var $uses = array('SupplierCountry', 'TravelCountry','Province', 'SupplierCity', 'SupplierHotel', 'TravelFetchTable', 'SupplierHotel', 'TravelSupplier', 'Common', 'SupplierHotel',
-        'TravelActionItem','TravelSuburb','TravelArea','TravelBrand','TravelChain', 'TravelRemark', 'TravelCountrySupplier','TravelLookupContinent', 'Mappinge', 'TravelCity', 'TravelCitySupplier', 'TravelHotelLookup', 'TravelHotelRoomSupplier', 'SupportTicket');
+        'TravelActionItem','TravelSuburb','TravelArea','TravelBrand','TravelChain','TravelLookupPropertyType',
+        'TravelLookupRateType','TravelHotelRoomSupplier', 'TravelRemark', 'TravelCountrySupplier','TravelLookupContinent', 'Mappinge', 'TravelCity', 'TravelCitySupplier', 'TravelHotelLookup', 'TravelHotelRoomSupplier', 'SupportTicket');
 
     function index() {
         
