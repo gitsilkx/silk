@@ -426,7 +426,7 @@ class UsersController extends AppController {
             $googlepl_validate_cnt = $this->DigAccount->find('count', array('conditions' => array('DigAccount.account_usage_status' => '9', 'DigAccount.account_base_id' => '1')));
             $googlepl_currently_cnt = $this->DigAccount->find('count', array('conditions' => array('DigAccount.account_usage_status' => '1', 'DigAccount.account_base_id' => '1')));
         }
-        $this->paginate['order'] = array('SupportTicket.created' => 'asc');
+        $this->paginate['order'] = array('SupportTicket.created' => 'desc');
         $this->set('SupportTickets', $this->paginate("SupportTicket",array('OR' => array('SupportTicket.last_action_by' => $user_id,'SupportTicket.approved_by' => $user_id,'SupportTicket.next_action_by' => $user_id,'SupportTicket.created_by' => $user_id),'SupportTicket.active' => 'TRUE')));
 
         $this->set(compact('digital_media_task_cnt', 'duplicate_hotel_cnt', 'duplicate_city_cnt', 'duplicate_cnt', 'supplier_approved', 'supplier_pending', 'supplier_all_count', 'validate_cnt', 'currently_cnt', 'person_validate_cnt', 'person_currently_cnt'));

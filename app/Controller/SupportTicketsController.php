@@ -48,7 +48,7 @@ class SupportTicketsController extends AppController {
         
         
         array_push($search_condition, array('OR' => array('SupportTicket.created_by' => $user_id,'SupportTicket.next_action_by' => $user_id,'SupportTicket.approved_by' => $user_id,'SupportTicket.last_action_by' => $user_id),'SupportTicket.active' => 'TRUE'));
-        $this->paginate['order'] = array('SupportTicket.created' => 'asc');
+        $this->paginate['order'] = array('SupportTicket.created' => 'desc');
         $this->set('SupportTickets', $this->paginate("SupportTicket", $search_condition));
          
     }
