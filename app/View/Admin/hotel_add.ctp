@@ -21,13 +21,24 @@ $this->Html->addCrumb('Add Hotel', 'javascript:void(0);', array('class' => 'brea
                             'class' => 'form-control',
                         )
                     ));
+                    echo $this->Form->hidden('hotel_img1', array('value' => $this->data['TravelHotelLookup']['hotel_img1']));
+                    echo $this->Form->hidden('hotel_img2', array('value' => $this->data['TravelHotelLookup']['hotel_img2']));
+                    echo $this->Form->hidden('hotel_img3', array('value' => $this->data['TravelHotelLookup']['hotel_img3']));
+                    echo $this->Form->hidden('hotel_img4', array('value' => $this->data['TravelHotelLookup']['hotel_img4']));
+                    echo $this->Form->hidden('hotel_img5', array('value' => $this->data['TravelHotelLookup']['hotel_img5']));
+                    echo $this->Form->hidden('hotel_img6', array('value' => $this->data['TravelHotelLookup']['hotel_img6']));
+                    echo $this->Form->hidden('logo', array('value' => $this->data['TravelHotelLookup']['logo']));
+                    echo $this->Form->hidden('logo1', array('value' => $this->data['TravelHotelLookup']['logo1']));
                     echo $this->Form->hidden('continent_name');
+                    echo $this->Form->hidden('continent_code');
+                    echo $this->Form->hidden('country_code');
                     echo $this->Form->hidden('country_name');
                     echo $this->Form->hidden('city_name');
                     echo $this->Form->hidden('suburb_name');
                     echo $this->Form->hidden('area_name');
                     echo $this->Form->hidden('chain_name');
                     echo $this->Form->hidden('brand_name');
+                    echo $this->Form->hidden('city_code');
                     ?>
 
                     <h4>Primary Information</h4>
@@ -690,9 +701,9 @@ $this->Js->get('#TravelHotelLookupContinentId')->event('change', $this->Js->requ
         ))
 );
 
-$this->Js->get('#TravelHotelLookupCountryId')->event('change', $this->Js->request(array(
+$this->Js->get('#TravelHotelLookupProvinceId')->event('change', $this->Js->request(array(
             'controller' => 'all_functions',
-            'action' => 'get_travel_city1_by_country_id/TravelHotelLookup/continent_id/country_id'
+            'action' => 'get_travel_city_by_province/TravelHotelLookup/province_id'
                 ), array(
             'update' => '#TravelHotelLookupCityId',
             'async' => true,
@@ -745,6 +756,20 @@ $this->Js->get('#TravelHotelLookupChainId')->event('change', $this->Js->request(
             'data' => $data
         ))
 );
+
+$this->Js->get('#TravelHotelLookupCountryId')->event('change', $this->Js->request(array(
+            'controller' => 'all_functions',
+            'action' => 'get_province_by_continent_country/TravelHotelLookup/continent_id/country_id'
+                ), array(
+            'update' => '#TravelHotelLookupProvinceId',
+            'async' => true,
+            'before' => 'loading("TravelHotelLookupProvinceId")',
+            'complete' => 'loaded("TravelHotelLookupProvinceId")',
+            'method' => 'post',
+            'dataExpression' => true,
+            'data' => $data
+        ))
+);
 ?>
 <script>
     $(document).ready(function() {
@@ -755,11 +780,7 @@ $this->Js->get('#TravelHotelLookupChainId')->event('change', $this->Js->request(
         $('#TravelHotelLookupCountryId').change(function() {
             $('#TravelHotelLookupCountryName').val($('#TravelHotelLookupCountryId option:selected').text());
         });
-        
-        $('#TravelHotelLookupCityId').change(function() {
-            $('#TravelHotelLookupCityName').val($('#TravelHotelLookupCityId option:selected').text());
-        });
-        
+          
         $('#TravelHotelLookupSuburbId').change(function() {
             $('#TravelHotelLookupSuburbName').val($('#TravelHotelLookupSuburbId option:selected').text());
         });
@@ -776,10 +797,36 @@ $this->Js->get('#TravelHotelLookupChainId')->event('change', $this->Js->request(
             $('#TravelHotelLookupBrandName').val($('#TravelHotelLookupBrandId option:selected').text());
         });
         
+        $('#TravelHotelLookupProvinceId').change(function() {
+            $('#TravelHotelLookupProvinceName').val($('#TravelHotelLookupProvinceId option:selected').text());
+        });
+        
         $('.decimal').change(function(event) {        
         this.value = parseFloat(this.value).toFixed(7);
        
-    })
+    });
+    
+    $('#TravelHotelLookupCityId').change(function() {
+            var str = $('#TravelHotelLookupCityId option:selected').text();
+            var res = str.split("-");          
+            $('#TravelHotelLookupCityCode').val(res[0]);
+            $('#TravelHotelLookupCityName').val(res[1]);
+        });
+        
+        $('#TravelHotelLookupCountryId').change(function() {
+            var str = $('#TravelHotelLookupCountryId option:selected').text();
+            var res = str.split("-");          
+            $('#TravelHotelLookupCountryCode').val(res[0]);
+            $('#TravelHotelLookupCountryName').val(res[1]);
+        });
+        
+        $('#TravelHotelLookupContinentId').change(function() {
+            var str = $('#TravelHotelLookupContinentId option:selected').text();
+            var res = str.split("-");          
+            $('#TravelHotelLookupContinentCode').val(res[0]);
+            $('#TravelHotelLookupContinentName').val(res[1]);
+        });
+    
     
   
     });
