@@ -49,7 +49,7 @@ class TestsController extends AppController {
         $this->Session->setFlash('Your new client record has been created. Waiting for allocation at the moment.', 'success');
          
         
-                    //$this->redirect(array('controller' => 'messages', 'action' => 'index', 'leads', 'my-clients'));
+                    $this->redirect(array('controller' => 'admin', 'action' => 'add_hotel/3'));
          
     }
 
