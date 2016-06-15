@@ -860,6 +860,8 @@ class AdminController extends AppController {
         if (count($SupplierHotels)) {
 
             $hotel_name = $SupplierHotels['SupplierHotel']['hotel_name'];
+            $country_name = $SupplierHotels['SupplierHotel']['country_name'];
+            $city_name = $SupplierHotels['SupplierHotel']['city_name'];
 
 
             for ($indexOfFirstLetter = 0; $indexOfFirstLetter <= strlen($hotel_name); $indexOfFirstLetter++) {
@@ -880,7 +882,7 @@ class AdminController extends AppController {
                 }
             }
             //pr($condition);
-            array_push($search_condition, array('OR' => $condition));
+            array_push($search_condition, array('OR' => $condition,'TravelHotelLookup.country_name' => $country_name,'TravelHotelLookup.city_name' => $city_name));
             // pr($search_condition);
             // die;
             /*
@@ -1162,6 +1164,152 @@ class AdminController extends AppController {
         $TravelAreas = array();
         $TravelBrands = array();
         $Provinces=array();
+        $user_id = $this->Auth->user('id');
+        $role_id = $this->Session->read("role_id");
+        $dummy_status = $this->Auth->user('dummy_status');
+        $actio_itme_id = '';
+        $flag = 0;
+        
+        
+        $continent_id = $TravelHotelLookups['TravelHotelLookup']['continent_id'];
+            $country_id = $TravelHotelLookups['TravelHotelLookup']['country_id'];
+            $province_id = $TravelHotelLookups['TravelHotelLookup']['province_id'];
+            
+        $permissionArray = $this->ProvincePermission->find('first',array('conditions' => array('continent_id' => $continent_id,'country_id' => $country_id,'province_id' => $province_id,'user_id' => $user_id)));  
+        if(isset($permissionArray['ProvincePermission']['approval_id']))
+            $next_action_by = $permissionArray['ProvincePermission']['approval_id'];
+        else
+            $next_action_by = '165';
+        
+        
+        if (count($arr) > 1) {
+            $actio_itme_id = $arr[1];
+            $flag = 1;
+            $TravelActionItems = $this->TravelActionItem->findById($actio_itme_id);
+            $next_action_by = $TravelActionItems['TravelActionItem']['next_action_by'];
+        }
+        
+        if ($this->request->is('post') || $this->request->is('put')) {
+
+            
+            //$continent_id = $this->data->request['TravelHotelLookup']['continent_id'];
+            //$continent_id = $this->data->request['TravelHotelLookup']['continent_id'];
+            
+              //overseer 136 44 is sarika 152 - ojas
+            
+     
+
+            $image1 = '';
+            $image2 = '';
+            $image3 = '';
+            $image4 = '';
+
+
+            if (is_uploaded_file($this->request->data['TravelHotelLookup']['image1']['tmp_name'])) {
+                $image1 = $this->Image->upload($TravelHotelLookups['TravelHotelLookup']['hotel_img1'], $this->request->data['TravelHotelLookup']['image1'], $this->uploadDir, 'image1');
+                $this->request->data['TravelHotelLookup']['hotel_img1'] = $image1;
+            } else {
+                unset($this->request->data['TravelHotelLookup']['image1']);
+            }
+
+            if (is_uploaded_file($this->request->data['TravelHotelLookup']['image2']['tmp_name'])) {
+                $image2 = $this->Image->upload($TravelHotelLookups['TravelHotelLookup']['hotel_img2'], $this->request->data['TravelHotelLookup']['image2'], $this->uploadDir, 'image2');
+                $this->request->data['TravelHotelLookup']['hotel_img2'] = $image2;
+            } else {
+                unset($this->request->data['TravelHotelLookup']['image2']);
+            }
+
+            if (is_uploaded_file($this->request->data['TravelHotelLookup']['image3']['tmp_name'])) {
+                $image2 = $this->Image->upload($TravelHotelLookups['TravelHotelLookup']['hotel_img3'], $this->request->data['TravelHotelLookup']['image3'], $this->uploadDir, 'image3');
+                $this->request->data['TravelHotelLookup']['hotel_img3'] = $image2;
+            } else {
+                unset($this->request->data['TravelHotelLookup']['image3']);
+            }
+
+            if (is_uploaded_file($this->request->data['TravelHotelLookup']['image4']['tmp_name'])) {
+                $image2 = $this->Image->upload($TravelHotelLookups['TravelHotelLookup']['hotel_img4'], $this->request->data['TravelHotelLookup']['image4'], $this->uploadDir, 'image4');
+                $this->request->data['TravelHotelLookup']['hotel_img4'] = $image2;
+            } else {
+                unset($this->request->data['TravelHotelLookup']['image4']);
+            }
+
+            if (is_uploaded_file($this->request->data['TravelHotelLookup']['image5']['tmp_name'])) {
+                $image2 = $this->Image->upload($TravelHotelLookups['TravelHotelLookup']['hotel_img5'], $this->request->data['TravelHotelLookup']['image5'], $this->uploadDir, 'image5');
+                $this->request->data['TravelHotelLookup']['hotel_img5'] = $image2;
+            } else {
+                unset($this->request->data['TravelHotelLookup']['image5']);
+            }
+
+            if (is_uploaded_file($this->request->data['TravelHotelLookup']['image6']['tmp_name'])) {
+                $image2 = $this->Image->upload($TravelHotelLookups['TravelHotelLookup']['hotel_img6'], $this->request->data['TravelHotelLookup']['image6'], $this->uploadDir, 'image6');
+                $this->request->data['TravelHotelLookup']['hotel_img6'] = $image2;
+            } else {
+                unset($this->request->data['TravelHotelLookup']['image6']);
+            }
+
+            if (is_uploaded_file($this->request->data['TravelHotelLookup']['logo_image1']['tmp_name'])) {
+                $image3 = $this->Image->upload($TravelHotelLookups['TravelHotelLookup']['logo'], $this->request->data['TravelHotelLookup']['logo_image2'], $this->uploadDir . '/logo', 'logo');
+                $this->request->data['TravelHotelLookup']['logo'] = $image3;
+            } else {
+                unset($this->request->data['TravelHotelLookup']['image3']);
+            }
+
+            if (is_uploaded_file($this->request->data['TravelHotelLookup']['logo_image2']['tmp_name'])) {
+                $image4 = $this->Image->upload($TravelHotelLookups['TravelHotelLookup']['logo1'], $this->request->data['TravelHotelLookup']['logo_image2'], $this->uploadDir . '/logo', 'logo1');
+                $this->request->data['TravelHotelLookup']['logo1'] = $image4;
+            } else {
+                unset($this->request->data['TravelHotelLookup']['image4']);
+            }
+
+
+            $this->request->data['TravelHotelLookup']['active'] = 'FALSE';
+            $this->request->data['TravelHotelLookup']['created_by'] = $user_id;
+            $this->request->data['TravelHotelLookup']['status'] = '4';
+
+            /*             * ************************TravelHotelLookup Action ********************** */
+            $travel_action_item['TravelActionItem']['hotel_id'] = $id;
+            $travel_action_item['TravelActionItem']['level_id'] = '7';  // for hotel travel_action_remark_levels 
+            $travel_action_item['TravelActionItem']['type_id'] = '4'; // for Change Submitted of travel_action_item_types
+            $travel_action_item['TravelActionItem']['next_action_by'] = $next_action_by;
+            $travel_action_item['TravelActionItem']['action_item_active'] = 'Yes';
+            $travel_action_item['TravelActionItem']['description'] = 'Hotel Record Updated - Re-Submission For Approval';
+            $travel_action_item['TravelActionItem']['action_item_source'] = $role_id;
+            $travel_action_item['TravelActionItem']['created_by_id'] = $user_id;
+            $travel_action_item['TravelActionItem']['created_by'] = $user_id;
+            $travel_action_item['TravelActionItem']['dummy_status'] = $dummy_status;
+            $travel_action_item['TravelActionItem']['parent_action_item_id'] = $actio_itme_id;
+
+
+            /*             * ********************TravelHotelLookup Remarks ******************************** */
+            $travel_remarks['TravelRemark']['hotel_id'] = $id;
+            $travel_remarks['TravelRemark']['remarks'] = 'Edit Hotel Record';
+            $travel_remarks['TravelRemark']['created_by'] = $user_id;
+            $travel_remarks['TravelRemark']['remarks_time'] = date('g:i A');
+            $travel_remarks['TravelRemark']['remarks_level'] = '7';  // for hotel country travel_action_remark_levels 
+            $travel_remarks['TravelRemark']['dummy_status'] = $dummy_status;
+
+
+            //$this->TravelHotelLookup->id = $id;
+            if ($this->TravelHotelLookup->save($this->request->data['TravelHotelLookup'])) {
+                $this->TravelActionItem->save($travel_action_item);
+                $ActionId = $this->TravelActionItem->getLastInsertId();
+                $this->TravelActionItem->id = $ActionId;
+                $this->TravelActionItem->saveField('parent_action_item_id', $ActionId);
+                $this->TravelRemark->save($travel_remarks);
+
+                if ($actio_itme_id) {
+                    $this->TravelActionItem->saveField('parent_action_item_id', $actio_itme_id);
+                    $this->TravelActionItem->updateAll(array('TravelActionItem.action_item_active' => "'No'"), array('TravelActionItem.id' => $actio_itme_id));
+                }
+                $this->Session->setFlash('Your changes have been submitted. Waiting for approval at the moment...', 'success');
+            }
+
+            if ($flag == 1)
+                $this->redirect(array('controller' => 'travel_action_items', 'action' => 'index'));
+            else
+                $this->redirect(array('controller' => 'travel_hotel_lookups', 'action' => 'index'));
+            // $this->redirect(array('controller' => 'messages','action' => 'index','properties','my-properties'));
+        }
 
         $content_xml_str = '<soap:Body>
         <ProcessXML xmlns="http://www.travel.domain/">
