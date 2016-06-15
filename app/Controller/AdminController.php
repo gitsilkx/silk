@@ -1142,7 +1142,7 @@ class AdminController extends AppController {
     public function hotel_add($supplier_hotel_id = null){
         
          $SupplierHotels = $this->SupplierHotel->findById($supplier_hotel_id);
-         
+         $TravelHotelLookups = $this->TravelHotelLookup->findById($SupplierHotels['SupplierHotel']['wtb_hotel_id']);
          $location_URL = 'http://dev.wtbnetworks.com/TravelXmlManagerv001/ProEngine.Asmx';
         $action_URL = 'http://www.travel.domain/ProcessXML';
         $user_id = $this->Auth->user('id');
@@ -1182,8 +1182,7 @@ class AdminController extends AppController {
             try {
                 $order_return = $client->__doRequest($xml_string, $location_URL, $action_URL, 1);               
                 $xmlArray = Xml::toArray(Xml::build($order_return));
-                pr($xmlArray);
-                die;
+                
                 $hotel_name = $xmlArray['Envelope']['soap:Body']['ProcessXMLResponse']['ProcessXMLResult']['SupplierData_HotelDetail']['ResponseAuditInfo']['root']['Name']['@'];
                 $star = $xmlArray['Envelope']['soap:Body']['ProcessXMLResponse']['ProcessXMLResult']['SupplierData_HotelDetail']['ResponseAuditInfo']['root']['Rating']['@'];
                 $gps_prm_1 = $xmlArray['Envelope']['soap:Body']['ProcessXMLResponse']['ProcessXMLResult']['SupplierData_HotelDetail']['ResponseAuditInfo']['root']['Latitude']['@'];
@@ -1192,7 +1191,7 @@ class AdminController extends AppController {
                 $address = $xmlArray['Envelope']['soap:Body']['ProcessXMLResponse']['ProcessXMLResult']['SupplierData_HotelDetail']['ResponseAuditInfo']['root']['Address']['@'];
                 $location = $xmlArray['Envelope']['soap:Body']['ProcessXMLResponse']['ProcessXMLResult']['SupplierData_HotelDetail']['ResponseAuditInfo']['root']['Address']['@'];
                 $fax = $xmlArray['Envelope']['soap:Body']['ProcessXMLResponse']['ProcessXMLResult']['SupplierData_HotelDetail']['ResponseAuditInfo']['root']['Fax']['@'];
-                $hotel_comment = $xmlArray['Envelope']['soap:Body']['ProcessXMLResponse']['ProcessXMLResult']['SupplierData_HotelDetail']['ResponseAuditInfo']['root']['Short_desc']['@'];
+                $hotel_comment = $xmlArray['Envelope']['soap:Body']['ProcessXMLResponse']['ProcessXMLResult']['SupplierData_HotelDetail']['ResponseAuditInfo']['root']['LongDesc']['@'];
                 $url_hotel = $xmlArray['Envelope']['soap:Body']['ProcessXMLResponse']['ProcessXMLResult']['SupplierData_HotelDetail']['ResponseAuditInfo']['root']['Website']['@'];
                 $reservation_email = $xmlArray['Envelope']['soap:Body']['ProcessXMLResponse']['ProcessXMLResult']['SupplierData_HotelDetail']['ResponseAuditInfo']['root']['Email']['@'];
                 
@@ -1205,6 +1204,8 @@ class AdminController extends AppController {
             
             $this->set(compact('hotel_name','star','gps_prm_1','gps_prm_2','reservation_contact',
                     'address','location','hotel_comment','url_hotel','reservation_email'));
+            
+            $this->request->data = $TravelHotelLookups;
     }
 
 }
