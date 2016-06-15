@@ -1182,8 +1182,8 @@ class AdminController extends AppController {
             try {
                 $order_return = $client->__doRequest($xml_string, $location_URL, $action_URL, 1);               
                 $xmlArray = Xml::toArray(Xml::build($order_return));
-               // pr($xmlArray);
-                //die;
+                pr($xmlArray);
+                die;
                 $hotel_name = $xmlArray['Envelope']['soap:Body']['ProcessXMLResponse']['ProcessXMLResult']['SupplierData_HotelDetail']['ResponseAuditInfo']['root']['Name']['@'];
                 $star = $xmlArray['Envelope']['soap:Body']['ProcessXMLResponse']['ProcessXMLResult']['SupplierData_HotelDetail']['ResponseAuditInfo']['root']['Rating']['@'];
                 $gps_prm_1 = $xmlArray['Envelope']['soap:Body']['ProcessXMLResponse']['ProcessXMLResult']['SupplierData_HotelDetail']['ResponseAuditInfo']['root']['Latitude']['@'];
