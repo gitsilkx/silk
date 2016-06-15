@@ -469,8 +469,8 @@ class AdminController extends AppController {
                 $xmlArray = Xml::toArray(Xml::build($order_return));
 
                 $ValArr = $xmlArray['Envelope']['soap:Body']['ProcessXMLResponse']['ProcessXMLResult']['SupplierData_Hotel']['ResponseAuditInfo']['root']['LocalHotelList']['item'];
-                PR($ValArr);
-                die;
+               // PR($ValArr);
+                //die;
                 foreach ($ValArr as $value) {
                     //echo  $value['Code']['@'];
                     $save[] = array('SupplierHotel' => array(
