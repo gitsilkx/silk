@@ -145,7 +145,7 @@ $this->Html->addCrumb('Add Hotel', 'javascript:void(0);', array('class' => 'brea
                                         <span class="colon">:</span>
                                         <div class="col-sm-10">
                                             <?php
-                                            echo $this->Form->input('hotel_code', array('readonly' => true));
+                                            echo $this->Form->input('hotel_code', array(''));
                                             ?></div>
                                     </div>
                                     <div class="form-group">

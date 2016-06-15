@@ -1181,14 +1181,7 @@ class AdminController extends AppController {
         else
             $next_action_by = '165';
         
-        
-        if (count($arr) > 1) {
-            $actio_itme_id = $arr[1];
-            $flag = 1;
-            $TravelActionItems = $this->TravelActionItem->findById($actio_itme_id);
-            $next_action_by = $TravelActionItems['TravelActionItem']['next_action_by'];
-        }
-        
+          
         if ($this->request->is('post') || $this->request->is('put')) {
 
             
@@ -1344,8 +1337,8 @@ class AdminController extends AppController {
         try {
             $order_return = $client->__doRequest($xml_string, $location_URL, $action_URL, 1);
             $xmlArray = Xml::toArray(Xml::build($order_return));
-            pr($xmlArray);
-            die;
+            //pr($xmlArray);
+            //die;
             $hotel_name = $xmlArray['Envelope']['soap:Body']['ProcessXMLResponse']['ProcessXMLResult']['SupplierData_HotelDetail']['ResponseAuditInfo']['root']['Name']['@'];
             $star = $xmlArray['Envelope']['soap:Body']['ProcessXMLResponse']['ProcessXMLResult']['SupplierData_HotelDetail']['ResponseAuditInfo']['root']['Rating']['@'];
             $gps_prm_1 = $xmlArray['Envelope']['soap:Body']['ProcessXMLResponse']['ProcessXMLResult']['SupplierData_HotelDetail']['ResponseAuditInfo']['root']['Latitude']['@'];
