@@ -1143,7 +1143,23 @@ class AdminController extends AppController {
         $action_URL = 'http://www.travel.domain/ProcessXML';
         $user_id = $this->Auth->user('id');
         $CreatedDate = date('Y-m-d') . 'T' . date('h:i:s');
+        $hotel_name = '';
+        $star = '';
+        $gps_prm_1 = '';
+        $gps_prm_2 = '';
+        $reservation_contact = '';
         $address = '';
+        $location = '';
+        $fax = '';
+        $hotel_comment = '';
+        $url_hotel = '';
+        $reservation_email = '';
+        $TravelCountries = array();
+        $TravelCities = array();
+        $TravelSuburbs = array();
+        $TravelAreas = array();
+        $TravelBrands = array();
+        $Provinces=array();
 
         $content_xml_str = '<soap:Body>
         <ProcessXML xmlns="http://www.travel.domain/">
