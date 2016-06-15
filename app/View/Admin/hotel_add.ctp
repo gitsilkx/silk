@@ -49,7 +49,7 @@ $this->Html->addCrumb('Add Hotel', 'javascript:void(0);', array('class' => 'brea
                                         <span class="colon">:</span>
                                         <div class="col-sm-10">
                                             <?php
-                                            echo $this->Form->input('continent_id', array('options' => $TravelLookupContinents, 'empty' => '--Select--', 'data-required' => 'true','disabled'));
+                                            echo $this->Form->input('continent_id', array('options' => $TravelLookupContinents, 'empty' => '--Select--', 'data-required' => 'true'));
                                             ?></div>
                                     </div>
                                     <div class="form-group">
@@ -57,7 +57,7 @@ $this->Html->addCrumb('Add Hotel', 'javascript:void(0);', array('class' => 'brea
                                         <span class="colon">:</span>
                                         <div class="col-sm-10">
                                             <?php
-                                            echo $this->Form->input('province_id', array('options' => $Provinces, 'empty' => '--Select--', 'data-required' => 'true','disabled'));
+                                            echo $this->Form->input('province_id', array('options' => $Provinces, 'empty' => '--Select--', 'data-required' => 'true'));
                                             ?></div>
                                     </div>
                                     <div class="form-group">
@@ -142,7 +142,7 @@ $this->Html->addCrumb('Add Hotel', 'javascript:void(0);', array('class' => 'brea
                                         <span class="colon">:</span>
                                         <div class="col-sm-10">
                                             <?php
-                                            echo $this->Form->input('country_id', array('options' => $TravelCountries, 'empty' => '--Select--', 'data-required' => 'true','disabled'));
+                                            echo $this->Form->input('country_id', array('options' => $TravelCountries, 'empty' => '--Select--', 'data-required' => 'true'));
                                             ?></div>
                                     </div>
                                     <div class="form-group">
@@ -174,7 +174,7 @@ $this->Html->addCrumb('Add Hotel', 'javascript:void(0);', array('class' => 'brea
                                         <span class="colon">:</span>
                                         <div class="col-sm-10">
                                             <?php
-                                            echo $this->Form->input('rate_type', array('options' => $TravelLookupRateTypes, 'empty' => '--Select--','disabled'));
+                                            echo $this->Form->input('rate_type', array('options' => $TravelLookupRateTypes, 'empty' => '--Select--'));
                                             ?></div>
                                     </div>                                                                       
                                     <div class="form-group">
