@@ -33,7 +33,7 @@ $this->Html->addCrumb('Add Hotel', 'javascript:void(0);', array('class' => 'brea
                     <h4>Primary Information</h4>
                     <fieldset class="nopdng">
                         <div class="row">
-                            <div class="col-sm-12">
+                              <div class="col-sm-12">
                                 <div class="col-sm-6">
                                     <h4>Hotel Basic Information</h4>
                                     <div class="form-group">
@@ -49,41 +49,43 @@ $this->Html->addCrumb('Add Hotel', 'javascript:void(0);', array('class' => 'brea
                                         <span class="colon">:</span>
                                         <div class="col-sm-10">
                                             <?php
-                                            echo $this->Form->input('continent_id', array('options' => $TravelLookupContinents, 'empty' => '--Select--', 'data-required' => 'true'));
+                                            echo $this->Form->input('continent_id', array('options' => $TravelLookupContinents, 'empty' => '--Select--', 'data-required' => 'true','disabled'));
                                             ?></div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="reg_input_name" class="req">City</label>
+                                        <label for="reg_input_name" class="req">Province</label>
                                         <span class="colon">:</span>
                                         <div class="col-sm-10">
                                             <?php
-                                            echo $this->Form->input('city_id', array('options' => array(), 'empty' => '--Select--', 'data-required' => 'true'));
+                                            echo $this->Form->input('province_id', array('options' => $Provinces, 'empty' => '--Select--', 'data-required' => 'true','disabled'));
                                             ?></div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="reg_input_name" class="req">Area</label>
+                                        <label for="reg_input_name" class="req">Suburb</label>
                                         <span class="colon">:</span>
                                         <div class="col-sm-10">
                                             <?php
-                                            echo $this->Form->input('area_id', array('options' => array(), 'empty' => '--Select--', 'data-required' => 'true'));
+                                            echo $this->Form->input('suburb_id', array('options' => $TravelSuburbs, 'empty' => '--Select--', 'data-required' => 'true'));
                                             ?></div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="reg_input_name" class="req">Brand</label>
+                                        <label for="reg_input_name" class="req">Chain</label>
                                         <span class="colon">:</span>
                                         <div class="col-sm-10">
                                             <?php
-                                            echo $this->Form->input('brand_id', array('options' => array(), 'empty' => '--Select--', 'data-required' => 'true'));
+                                            echo $this->Form->input('chain_id', array('options' => $TravelChains, 'empty' => '--Select--', 'data-required' => 'true'));
                                             ?></div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="reg_input_name">Rate Type </label>
+                                        <label for="reg_input_name" class="req">Property Type</label>
                                         <span class="colon">:</span>
                                         <div class="col-sm-10">
                                             <?php
-                                            echo $this->Form->input('rate_type', array('options' => $TravelLookupRateTypes, 'empty' => '--Select--','disabled'));
+                                            echo $this->Form->input('property_type', array('options' => $TravelLookupPropertyTypes, 'empty' => '--Select--', 'data-required' => 'true'));
                                             ?></div>
                                     </div>
+                                    
+
                                     <div class="form-group">
                                         <label for="input_name">Hotel Url</label>
                                         <span class="colon">:</span>
@@ -108,7 +110,17 @@ $this->Html->addCrumb('Add Hotel', 'javascript:void(0);', array('class' => 'brea
                                             echo $this->Form->input('hotel_group', array());
                                             ?></div>
                                     </div>                                  
-
+                                    <div class="form-group">
+                                        <label for="input_name">Top Hotel</label>
+                                        <span class="colon">:</span>
+                                        <div class="col-sm-10">
+                                            <?php
+                                            $options = array('TRUE' => 'True', 'FALSE' => 'False');
+                                            $attributes = array('legend' => false, 'hiddenField' => false, 'label' => false, 'div' => false, 'class' => 'attrInputs');
+                                            echo $this->Form->radio('top_hotel', $options, $attributes);
+                                            ?>
+                                        </div>
+                                    </div> 
 
                                 </div>
 
@@ -122,7 +134,7 @@ $this->Html->addCrumb('Add Hotel', 'javascript:void(0);', array('class' => 'brea
                                         <span class="colon">:</span>
                                         <div class="col-sm-10">
                                             <?php
-                                            echo $this->Form->input('hotel_code');
+                                            echo $this->Form->input('hotel_code', array('readonly' => true));
                                             ?></div>
                                     </div>
                                     <div class="form-group">
@@ -130,41 +142,48 @@ $this->Html->addCrumb('Add Hotel', 'javascript:void(0);', array('class' => 'brea
                                         <span class="colon">:</span>
                                         <div class="col-sm-10">
                                             <?php
-                                            echo $this->Form->input('country_id', array('options' => array(), 'empty' => '--Select--', 'data-required' => 'true'));
+                                            echo $this->Form->input('country_id', array('options' => $TravelCountries, 'empty' => '--Select--', 'data-required' => 'true','disabled'));
                                             ?></div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="reg_input_name" class="req">Suburb</label>
+                                        <label for="reg_input_name" class="req">City</label>
                                         <span class="colon">:</span>
                                         <div class="col-sm-10">
                                             <?php
-                                            echo $this->Form->input('suburb_id', array('options' => array(), 'empty' => '--Select--', 'data-required' => 'true'));
+                                            echo $this->Form->input('city_id', array('options' => $TravelCities, 'empty' => '--Select--', 'data-required' => 'true'));
                                             ?></div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="reg_input_name" class="req">Chain</label>
+                                        <label for="reg_input_name" class="req">Area</label>
                                         <span class="colon">:</span>
                                         <div class="col-sm-10">
                                             <?php
-                                            echo $this->Form->input('chain_id', array('options' => $TravelChains, 'empty' => '--Select--', 'data-required' => 'true'));
-                                            ?></div>
-                                    </div> 
-                                    <div class="form-group">
-                                        <label for="reg_input_name" class="req">Property Type</label>
-                                        <span class="colon">:</span>
-                                        <div class="col-sm-10">
-                                            <?php
-                                            echo $this->Form->input('property_type', array('options' => $TravelLookupPropertyTypes, 'empty' => '--Select--', 'data-required' => 'true'));
+                                            echo $this->Form->input('area_id', array('options' => $TravelAreas, 'empty' => '--Select--', 'data-required' => 'true'));
                                             ?></div>
                                     </div>
-
+                                    <div class="form-group">
+                                        <label for="reg_input_name" class="req">Brand</label>
+                                        <span class="colon">:</span>
+                                        <div class="col-sm-10">
+                                            <?php
+                                            echo $this->Form->input('brand_id', array('options' => $TravelBrands, 'empty' => '--Select--', 'data-required' => 'true'));
+                                            ?></div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="reg_input_name">Rate Type </label>
+                                        <span class="colon">:</span>
+                                        <div class="col-sm-10">
+                                            <?php
+                                            echo $this->Form->input('rate_type', array('options' => $TravelLookupRateTypes, 'empty' => '--Select--','disabled'));
+                                            ?></div>
+                                    </div>                                                                       
                                     <div class="form-group">
                                         <label for="reg_input_name">Star</label>
                                         <span class="colon">:</span>
                                         <div class="col-sm-10">
                                             <?php
                                             $options = array('1' => '1', '2' => '2', '3' => '3', '4' => '4', '5' => '5', '6' => '6', '7' => '7');
-                                            $attributes = array('legend' => false,'value' => $star, 'hiddenField' => false, 'label' => false, 'div' => false, 'class' => 'attrInputs');
+                                            $attributes = array('legend' => false, 'hiddenField' => false,'value' => $star, 'label' => false, 'div' => false, 'class' => 'attrInputs');
                                             echo $this->Form->radio('star', $options, $attributes);
                                             //  echo $this->Form->input('star');
                                             ?></div>
@@ -185,17 +204,7 @@ $this->Html->addCrumb('Add Hotel', 'javascript:void(0);', array('class' => 'brea
                                             echo $this->Form->input('no_room', array());
                                             ?></div>
                                     </div>
-                                    <div class="form-group">
-                                        <label for="input_name">Top Hotel</label>
-                                        <span class="colon">:</span>
-                                        <div class="col-sm-10">
-                                            <?php
-                                            $options = array('TRUE' => 'True', 'FALSE' => 'False');
-                                            $attributes = array('legend' => false, 'hiddenField' => false, 'label' => false, 'div' => false, 'class' => 'attrInputs');
-                                            echo $this->Form->radio('top_hotel', $options, $attributes);
-                                            ?>
-                                        </div>
-                                    </div>                                                             
+                                                                                                
 
                                 </div>
                                 <br class="spacer" />
@@ -205,7 +214,7 @@ $this->Html->addCrumb('Add Hotel', 'javascript:void(0);', array('class' => 'brea
                                         <span class="colon">:</span>
                                         <div class="col-sm-10 editable txtbox">
                                             <?php
-                                            echo $this->Form->input('address', array('type' => 'textarea','value' =>  $address));
+                                            echo $this->Form->input('address', array('type' => 'textarea','value' => $address));
                                             ?>
                                         </div>
                                     </div>
@@ -220,6 +229,7 @@ $this->Html->addCrumb('Add Hotel', 'javascript:void(0);', array('class' => 'brea
                                     </div>
                                 </div>
                             </div>
+                        
                         </div>
                     </fieldset>
 
