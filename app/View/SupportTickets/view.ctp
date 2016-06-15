@@ -111,10 +111,10 @@ echo $this->Form->create('SupportTicket', array('method' => 'post', 'enctype' =>
                                     <?php
                                      $id =   end(explode(" | ", $this->data['SupportTicket']['about']));
                                      if($this->data['SupportTicket']['screen'] == '1')
-                                        echo $this->Html->link($this->data['SupportTicket']['about'], array('controller' => 'reports', 'action' => 'hotel_summary/id:'.$id), array('class' => 'act-ico', 'escape' => false,'target' => '_blank'));
+                                        $about_link = $this->Html->link($this->data['SupportTicket']['about'], array('controller' => 'reports', 'action' => 'hotel_summary/id:'.$id), array('class' => 'act-ico', 'escape' => false,'target' => '_blank'));
                                      elseif($this->data['SupportTicket']['screen'] == '4')
-                                         echo $this->Html->link($this->data['SupportTicket']['about'], array('controller' => 'admin', 'action' => 'hotel_add/'.$id), array('class' => 'act-ico', 'escape' => false,'target' => '_blank'));
-                                    //echo $this->data['SupportTicket']['about'];
+                                         $about_link = $this->Html->link($this->data['SupportTicket']['about'], array('controller' => 'admin', 'action' => 'hotel_add/'.$id), array('class' => 'act-ico', 'escape' => false,'target' => '_blank'));
+                                   echo $about_link;
                                     ?></div>
                             </div>
                         
@@ -242,9 +242,7 @@ echo $this->Form->create('SupportTicket', array('method' => 'post', 'enctype' =>
                                 <span class="colon">:</span>
                                 <div class="col-sm-10">
                                     <?php
-                                     $hotel_id =   end(explode("|", $this->data['SupportTicket']['about']));
-                                     echo $this->Html->link($this->data['SupportTicket']['about'], array('controller' => 'reports', 'action' => 'hotel_summary/id:'.$hotel_id), array('class' => 'act-ico', 'escape' => false,'target' => '_blank'));
-                                    //echo $this->data['SupportTicket']['about'];
+                                      echo $about_link;
                                     ?></div>
                             </div>
                             <div class="form-group">
