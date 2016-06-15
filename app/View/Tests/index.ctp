@@ -9,6 +9,7 @@ echo $this->Form->create('Test', array('enctype' => 'multipart/form-data', 'meth
         'class' => 'form-control',
     )
 ));
+echo $this->Html->link('<span class="icon-list"></span>', array('controller' => 'messages', 'action' => 'index/leads/my-clients'), array('class' => 'act-ico', 'escape' => false));
 ?>
 
 <div class="col-sm-12" id="mycl-det">

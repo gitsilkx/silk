@@ -47,7 +47,7 @@ class TestsController extends AppController {
         echo date("m/d/Y H:i:s", $date->format('U'));
         
         $this->Session->setFlash('Your new client record has been created. Waiting for allocation at the moment.', 'success');
-         echo $this->Html->link('<span class="icon-list"></span>', array('controller' => 'messages', 'action' => 'index/leads/my-clients'), array('class' => 'act-ico', 'escape' => false));
+         
                     //$this->redirect(array('controller' => 'messages', 'action' => 'index', 'leads', 'my-clients'));
          
     }
