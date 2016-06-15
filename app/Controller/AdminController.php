@@ -1140,6 +1140,7 @@ class AdminController extends AppController {
 
         $SupplierHotels = $this->SupplierHotel->findById($supplier_hotel_id);
         $TravelHotelLookups = $this->TravelHotelLookup->findById($SupplierHotels['SupplierHotel']['wtb_hotel_id']);
+        $id = $TravelHotelLookups['TravelHotelLookup']['id'];
         $location_URL = 'http://dev.wtbnetworks.com/TravelXmlManagerv001/ProEngine.Asmx';
         $action_URL = 'http://www.travel.domain/ProcessXML';
         $user_id = $this->Auth->user('id');
