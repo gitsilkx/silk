@@ -1,6 +1,6 @@
 <?php
 $this->Html->addCrumb('Country Mapping', 'javascript:void(0);', array('class' => 'breadcrumblast'));
-echo $this->Form->create(null, array(
+echo $this->Form->create('Common', array(
     'url' => array('controller' => 'admin', 'action' => 'add_country_mapping'),'method' => 'get'
 ));
 /*
