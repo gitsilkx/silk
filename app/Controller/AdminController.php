@@ -728,8 +728,8 @@ class AdminController extends AppController {
 
                 $screen = '4'; // fetch hotel table of  
                 $supplier_country_id = $this->data['Common']['supplier_country_id'];
-                $supplier_country_name = $this->data['Common']['name'];
-                $supplier_country_code = $this->data['Common']['code'];
+                $supplier_country_name = $this->data['Common']['supplier_country_name'];
+                $supplier_country_code = $this->data['Common']['supplier_country_code'];
              
        
                 $about = $supplier_country_name . ' | ' . $supplier_country_code . ' | ' .$supplier_country_id;
@@ -754,7 +754,7 @@ class AdminController extends AppController {
                 $this->request->data['SupportTicket']['screen'] = $screen;
                 $this->request->data['SupportTicket']['response_issue_id'] = $answer;
                 if ($this->SupportTicket->save($this->request->data['SupportTicket'])) {
-                    $this->SupplierCountry->updateAll(array('SupplierHotel.status' => "'4'"), array('SupplierCountry.id' => $supplier_country_id));
+                    $this->SupplierCountry->updateAll(array('SupplierCountry.status' => "'4'"), array('SupplierCountry.id' => $supplier_country_id));
                     $this->Session->setFlash('Your ticket has been successfully created.', 'success');
                     $this->redirect(array('action' => 'supplier_country'));
                 }
