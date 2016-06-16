@@ -42,6 +42,21 @@ class CustomHelper extends Helper {
      public function alreadyExists($data, $table, $field){
         return ClassRegistry::init($table)->find('count', array('fields' => $table.'.id','conditions' => array($table.'.'.$field => $data)));
     }
+    
+    public function getSupplierName($supplier_id){
+        $DataArray = ClassRegistry::init('TravelSupplier')->find('first', array('fields' => array('supplier_name'), 'conditions' => array('TravelSupplier.id' => $supplier_id)));
+        return $DataArray['TravelSupplier']['supplier_name'];
+    }
+    public function getSupplierCountryName($country_id){
+        $DataArray = ClassRegistry::init('SupplierCountry')->find('first', array('fields' => array('name'), 'conditions' => array('SupplierCountry.id' => $country_id)));
+        return $DataArray['SupplierCountry']['name'];
+    }
+    
+    public function getSupplierCityName($city_id){
+        $DataArray = ClassRegistry::init('SupplierCity')->find('first', array('fields' => array('name'), 'conditions' => array('SupplierCity.id' => $city_id)));
+        return $DataArray['SupplierCity']['name'];
+    }
+    
     public function Hello(){
         return 'Hello';
     }

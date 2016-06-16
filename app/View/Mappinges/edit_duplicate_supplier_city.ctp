@@ -156,11 +156,8 @@ if (isset($Mappinges) && count($Mappinges) > 0):
                                         $options=array($id=>'');
                                         $attributes=array('legend'=>false, 'hiddenField' => false,'label' => false,'div' => false);
                                         echo $this->Form->radio('duplicate_id',$options,$attributes);
-                                        ?>
-                                 
-
+                                        ?>                       
                                 </td>
-
                             </tr>
         <?php endforeach; ?>
 
@@ -280,10 +277,10 @@ $this->Js->get('#city_country_code')->event('change', $this->Js->request(array(
 );
  * 
  */
-?>   
+?>
+
 <script>
     var FULL_BASE_URL = $('#hidden_site_baseurl').val();
-       // $('.search_result').css('display','none');
         $('#MappingMappingType').change(function(){
         var value = $(this).val();
         if(value == '1'){

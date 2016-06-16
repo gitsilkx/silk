@@ -141,8 +141,6 @@ if (isset($TravelFetchTables) && count($TravelFetchTables) > 0):
                         <td><?php echo $TravelFetchTable['TravelFetchTable']['total_volume']; ?></td>
                         <td><?php echo $TravelFetchTable['TravelFetchTable']['inserted_volume']; ?></td>
                         <td><?php echo $TravelFetchTable['TravelFetchTable']['status']; ?></td>
-                    
-
                     </tr>
         <?php endforeach; ?>
 
