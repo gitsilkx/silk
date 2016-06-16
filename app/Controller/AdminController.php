@@ -637,10 +637,7 @@ class AdminController extends AppController {
 
                 $this->set(compact('SupplierCountries', 'TravelCountries'));
             }
-
-
-
-            if (isset($this->data['add'])) {
+            elseif (isset($this->data['add'])) {
                 $supplier_country_id = $this->data['SupplierCountry']['supplier_country_id'];
                 $country_id = $this->data['SupplierCountry']['country_id'];
                 //die;
@@ -724,6 +721,43 @@ class AdminController extends AppController {
 
                 $this->Session->setFlash('Your changes have been submitted. Waiting for approval at the moment...', 'success');
                 $this->redirect(array('action' => 'supplier_country'));
+            }
+            
+            elseif (isset($this->data['inserted'])) {
+
+
+                $screen = '4'; // fetch hotel table of  
+                $supplier_country_id = $this->data['Common']['supplier_country_id'];
+                $country_id = $this->data['Common']['country_id'];
+
+                $country_code = $this->Common->getCountryCode($country_id);
+                $country_name = $this->Common->getCountryName($country_id);
+                $about = $country_name . ' | ' . $country_code . ' | ' . $country_id.' | '.$supplier_country_id;
+
+                $answer = '37'; // table of lookup_questions
+                $this->request->data['SupportTicket']['status'] = '1'; // 1 = open
+                $this->request->data['SupportTicket']['opend_by'] = 'SENDER';
+                $this->request->data['SupportTicket']['active'] = 'TRUE';
+                $this->request->data['SupportTicket']['ip_address'] = $_SERVER['REMOTE_ADDR'];
+                $this->request->data['SupportTicket']['question_id'] = 'What is the issue?';
+                $this->request->data['SupportTicket']['about'] = $about;
+                $this->request->data['SupportTicket']['answer'] = $answer;
+                $this->request->data['SupportTicket']['urgency'] = '2'; //Moderate
+                $this->request->data['SupportTicket']['description'] = 'Request for country creation';
+
+                $department_id = $this->SupportTicket->getDepartmentByQuestionId($answer);
+                $this->request->data['SupportTicket']['next_action_by'] = $this->SupportTicket->getNextActionByDepartmentId($department_id);
+                $this->request->data['SupportTicket']['department_id'] = $department_id;
+                $this->request->data['SupportTicket']['type'] = '1'; // Internal
+                $this->request->data['SupportTicket']['created_by'] = $user_id;
+                $this->request->data['SupportTicket']['last_action_by'] = $user_id;
+                $this->request->data['SupportTicket']['screen'] = $screen;
+                $this->request->data['SupportTicket']['response_issue_id'] = $answer;
+                if ($this->SupportTicket->save($this->request->data['SupportTicket'])) {
+                    $this->SupplierCountry->updateAll(array('SupplierHotel.status' => "'4'"), array('SupplierCountry.id' => $supplier_country_id));
+                    $this->Session->setFlash('Your ticket has been successfully created.', 'success');
+                    $this->redirect(array('action' => 'supplier_country'));
+                }
             }
         }
     }

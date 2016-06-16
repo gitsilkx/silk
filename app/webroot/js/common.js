@@ -151,6 +151,19 @@ var pointer = function(){
     $('.pointer').bind('click',pointer);
     $('.del_perm').bind('click',del_perm);
     
+    /**
+     * Radio validation
+     * 
+     */
+    
+    $('#ClickRadioMandatory').click(function(){
+        if($('.attrInputs:checked').length<=0)
+            {
+                bootbox.alert('No radio checked');
+                return false;
+            }
+    });
+    
      /**
      * Ajax call to role permission deactive mode from database.
      * 
