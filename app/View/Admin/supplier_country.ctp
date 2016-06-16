@@ -23,6 +23,7 @@ echo $this->element('FetchAreas/top_menu');
                 echo ($sort == 'name') ? ($direction == 'asc') ? " <i class='icon-caret-up'></i>" : " <i class='icon-caret-down'></i>"  : " <i class='icon-sort'></i>"; ?></th>
                         <th data-toggle="phone" data-group="group1" width="3%" data-sort-ignore="true"><?php echo $this->Paginator->sort('hotel_code', 'Supplier Country Code');
                 echo ($sort == 'code') ? ($direction == 'asc') ? " <i class='icon-caret-up'></i>" : " <i class='icon-caret-down'></i>"  : " <i class='icon-sort'></i>"; ?></th>                    
+                        <th data-toggle="phone" data-group="group1" width="3%" data-sort-ignore="true">Status</th>
                         <th data-hide="phone" data-sort-ignore="true">Action</th>
                      
                         
@@ -43,8 +44,10 @@ echo $this->element('FetchAreas/top_menu');
                                 <td class="tablebody"><?php echo $id; ?></td>
                                 <td class="tablebody"><?php echo $SupplierCountry['SupplierCountry']['name']; ?></td>               
                                 <td class="tablebody"><?php echo $SupplierCountry['SupplierCountry']['code']; ?></td>
+                                <td class="tablebody"><?php echo $SupplierCountry['TravelSupplierStatus']['value']; ?></td>
                                 <td width="10%" valign="middle" align="center"><?php
-                                echo $this->Html->link('<span class="icon-list"></span>', array('controller' => 'admin', 'action' => 'country_mapping/' . $id), array('class' => 'act-ico','target' => '_blank', 'escape' => false));
+                                if($SupplierCountry['SupplierCountry']['status'] == '1' || $SupplierCountry['SupplierCountry']['status'] == '5')
+                                    echo $this->Html->link('<span class="icon-list"></span>', array('controller' => 'admin', 'action' => 'country_mapping/' . $id), array('class' => 'act-ico','target' => '_blank', 'escape' => false));
                                 ?></td>
                             </tr>
                         <?php endforeach; ?>

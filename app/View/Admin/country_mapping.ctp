@@ -15,6 +15,8 @@ echo $this->Form->create('Test', array('/admin/add_country_mapping','method' => 
  * 
  */
 echo $this->Form->hidden('supplier_country_id',array('value' => $this->data['SupplierCountry']['id']));
+echo $this->Form->hidden('supplier_country_name',array('value' => $this->data['SupplierCountry']['name']));
+echo $this->Form->hidden('supplier_country_code',array('value' => $this->data['SupplierCountry']['code']));
 ?>
 <style>
   .form-group{
@@ -139,7 +141,7 @@ if (isset($TravelCountries) && count($TravelCountries) > 0):
                         <div class="col-sm-2">
                             <?php
                             //echo $this->Form->submit('Proceed to Mapped', array('class' => 'btn btn-success sticky_success','name' => 'add','style' => 'width:100%;float:left'));
-                            echo $this->Form->submit('Submit Insert', array('class' => 'btn btn-success sticky_success','name' => 'inserted','style' => 'width:100%;float:left;'));
+                            echo $this->Form->submit('Submit Insert', array('class' => 'btn btn-success sticky_success','name' => 'inserted','style' => 'width:100%;float:left;','onclick' => "return confirm('Are you sure you want to create support ticket?')"));
                             ?>
                         </div>
                     </div>

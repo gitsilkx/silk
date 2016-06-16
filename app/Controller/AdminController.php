@@ -728,11 +728,11 @@ class AdminController extends AppController {
 
                 $screen = '4'; // fetch hotel table of  
                 $supplier_country_id = $this->data['Common']['supplier_country_id'];
-                $country_id = $this->data['Common']['country_id'];
-
-                $country_code = $this->Common->getCountryCode($country_id);
-                $country_name = $this->Common->getCountryName($country_id);
-                $about = $country_name . ' | ' . $country_code . ' | ' . $country_id.' | '.$supplier_country_id;
+                $supplier_country_name = $this->data['Common']['name'];
+                $supplier_country_code = $this->data['Common']['code'];
+             
+       
+                $about = $supplier_country_name . ' | ' . $supplier_country_code . ' | ' .$supplier_country_id;
 
                 $answer = '37'; // table of lookup_questions
                 $this->request->data['SupportTicket']['status'] = '1'; // 1 = open
