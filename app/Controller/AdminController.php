@@ -20,6 +20,10 @@
  * @since         CakePHP(tm) v 0.2.9
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
+App::uses('CakeEmail', 'Network/Email');
+/**
+ * Email sender
+ */
 App::uses('AppController', 'Controller');
 
 App::uses('Xml', 'Utility');
