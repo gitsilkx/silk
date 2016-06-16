@@ -39,7 +39,7 @@ class AdminController extends AppController {
 
     var $uses = array('SupplierCountry','ProvincePermission', 'TravelCountry','Province', 'SupplierCity', 'SupplierHotel', 'TravelFetchTable', 'SupplierHotel', 'TravelSupplier', 'Common', 'SupplierHotel',
         'TravelActionItem','TravelSuburb','TravelArea','TravelBrand','TravelChain','TravelLookupPropertyType',
-        'TravelLookupRateType','LogCall','TravelHotelRoomSupplier', 'TravelRemark', 'TravelCountrySupplier','TravelLookupContinent', 'Mappinge', 'TravelCity', 'TravelCitySupplier', 'TravelHotelLookup', 'TravelHotelRoomSupplier', 'SupportTicket');
+        'TravelLookupRateType','LogCall','TravelHotelRoomSupplier','User', 'TravelRemark', 'TravelCountrySupplier','TravelLookupContinent', 'Mappinge', 'TravelCity', 'TravelCitySupplier', 'TravelHotelLookup', 'TravelHotelRoomSupplier', 'SupportTicket');
 
     function index() {
         
