@@ -19,11 +19,13 @@ echo $this->element('FetchAreas/top_menu');
                     <tr>
                         <th data-toggle="true" data-sort-ignore="true" width="3%" data-group="group1"><?php echo $this->Paginator->sort('id', 'Id');
                 echo ($sort == 'id') ? ($direction == 'asc') ? " <i class='icon-caret-up'></i>" : " <i class='icon-caret-down'></i>"  : " <i class='icon-sort'></i>"; ?></th>
-                        <th data-toggle="phone" data-sort-ignore="true" width="10%" data-group="group1"><?php echo $this->Paginator->sort('name', 'Suppler Country Name');
+                        <th data-toggle="phone" data-sort-ignore="true" width="20%" data-group="group1"><?php echo $this->Paginator->sort('name', 'Suppler Country Name');
                 echo ($sort == 'name') ? ($direction == 'asc') ? " <i class='icon-caret-up'></i>" : " <i class='icon-caret-down'></i>"  : " <i class='icon-sort'></i>"; ?></th>
-                        <th data-toggle="phone" data-group="group1" width="3%" data-sort-ignore="true"><?php echo $this->Paginator->sort('hotel_code', 'Supplier Country Code');
+                         <th data-toggle="phone" data-sort-ignore="true" width="10%" data-group="group1"><?php echo $this->Paginator->sort('item', 'Suppler Country ID');
+                echo ($sort == 'item') ? ($direction == 'asc') ? " <i class='icon-caret-up'></i>" : " <i class='icon-caret-down'></i>"  : " <i class='icon-sort'></i>"; ?></th>
+                        <th data-toggle="phone" data-group="group1" width="10%" data-sort-ignore="true"><?php echo $this->Paginator->sort('hotel_code', 'Supplier Country Code');
                 echo ($sort == 'code') ? ($direction == 'asc') ? " <i class='icon-caret-up'></i>" : " <i class='icon-caret-down'></i>"  : " <i class='icon-sort'></i>"; ?></th>                    
-                        <th data-toggle="phone" data-group="group1" width="3%" data-sort-ignore="true">Status</th>
+                        <th data-toggle="phone" data-group="group1" width="15%" data-sort-ignore="true">Status</th>
                         <th data-hide="phone" data-sort-ignore="true">Action</th>
                      
                         
@@ -42,8 +44,10 @@ echo $this->element('FetchAreas/top_menu');
                             ?>
                             <tr>
                                 <td class="tablebody"><?php echo $id; ?></td>
-                                <td class="tablebody"><?php echo $SupplierCountry['SupplierCountry']['name']; ?></td>               
+                                <td class="tablebody"><?php echo $SupplierCountry['SupplierCountry']['name']; ?></td>
+                                <td class="tablebody"><?php echo $SupplierCountry['SupplierCountry']['item']; ?></td>
                                 <td class="tablebody"><?php echo $SupplierCountry['SupplierCountry']['code']; ?></td>
+                                
                                 <td class="tablebody"><?php echo $SupplierCountry['TravelSupplierStatus']['value']; ?></td>
                                 <td width="10%" valign="middle" align="center"><?php
                                 if($SupplierCountry['SupplierCountry']['status'] == '1' || $SupplierCountry['SupplierCountry']['status'] == '5')
