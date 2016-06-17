@@ -50,7 +50,7 @@ echo $this->element('FetchAreas/top_menu');
                                 <td class="tablebody"><?php echo $SupplierCountry['SupplierCountry']['code']; ?></td>
                                 
                                 <td class="tablebody"><?php echo $SupplierCountry['TravelSupplierStatus']['value']; ?></td>
-                                <td class="tablebody"><?php echo count($SupplierCountry['SupplierCountry']['TravelCountrySupplier']);?></td>
+                                <td class="tablebody"><?php echo count($SupplierCountry['TravelCountrySupplier']);?></td>
                                 <td width="10%" valign="middle" align="center"><?php
                                 if($SupplierCountry['SupplierCountry']['status'] == '1' || $SupplierCountry['SupplierCountry']['status'] == '5')
                                     echo $this->Html->link('<span class="icon-list"></span>', array('controller' => 'admin', 'action' => 'country_mapping/' . $id), array('class' => 'act-ico','target' => '_blank', 'escape' => false));
