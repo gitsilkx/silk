@@ -793,7 +793,7 @@ class AdminController extends AppController {
                     $tr_remarks['TravelRemark']['country_supplier_id'] = $country_supplier_id;
                     $tr_action_item['TravelActionItem']['country_supplier_id'] = $country_supplier_id;
                     $flag = 1;
-                }
+                
 
                 $this->request->data['Mappinge']['created_by'] = $user_id;
                 $this->request->data['Mappinge']['status'] = '1'; // 1 for Submission For Approval [None] of the travel_action_item_types
@@ -823,9 +823,10 @@ class AdminController extends AppController {
                 $ActionId = $this->TravelActionItem->getLastInsertId();
                 $ActionUpdateArr['TravelActionItem']['parent_action_item_id'] = "'" . $ActionId . "'";
                 $this->TravelActionItem->updateAll($ActionUpdateArr['TravelActionItem'], array('TravelActionItem.id' => $ActionId));
-                $this->SupplierCountry->updateAll(array('SupplierCountry.status' => "'4'"), array('SupplierCountry.id' => $country_supplier_id));
+                $this->SupplierCountry->updateAll(array('SupplierCountry.status' => "'4'"), array('SupplierCountry.id' => $SupplierCountries['SupplierCountry']['id']));
                 $this->Session->setFlash('Your changes have been submitted. Waiting for approval at the moment...', 'success');
                 $this->redirect(array('action' => 'supplier_country'));
+            }
             }
             
             elseif (isset($this->data['inserted'])) {
