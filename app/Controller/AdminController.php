@@ -630,16 +630,13 @@ class AdminController extends AppController {
                 
                 for ($indexOfLastLetter = $indexOfFirstLetter + 1; $indexOfLastLetter <= strlen($country_name); $indexOfLastLetter++) {
                     $arr[] = substr($country_name, $indexOfFirstLetter, 4);
-                    $j=0;
+                   
                     if(strlen($arr[$indexOfFirstLetter]) == '4'){
                         array_push($search_condition, array("TravelCountry.country_name LIKE '%$arr[$indexOfFirstLetter]%'"));
-                        $condition .= "(country_name LIKE '%" . $arr[$indexOfFirstLetter] . "%')";
-                        
-                    if ($j <= $j)
-                        $condition .= 'OR';
+            
                     }
                     $indexOfFirstLetter++;
-                    $j++;
+                  
                 }
             }
            
@@ -672,7 +669,7 @@ class AdminController extends AppController {
 
         $condition = array();
         $search_condition = array();
-
+        $condition = array();
         if (!$id) {
             throw new NotFoundException(__('Invalid City'));
         }
@@ -689,9 +686,14 @@ class AdminController extends AppController {
             for ($indexOfFirstLetter = 0; $indexOfFirstLetter <= strlen($city_name); $indexOfFirstLetter++) {
                 for ($indexOfLastLetter = $indexOfFirstLetter + 1; $indexOfLastLetter <= strlen($city_name); $indexOfLastLetter++) {
                     $new_arr[] = substr($city_name, $indexOfFirstLetter, 4);
+                    
+                    if(strlen($new_arr[$indexOfFirstLetter]) == '4'){
+                        array_push($condition, array("TravelCity.city_name LIKE '%$new_arr[$indexOfFirstLetter]%'"));
+            
+                    }
                     //pr($new_arr);
                     //array_push($search_condition, ARRAY('OR'));
-                    $condition[] = array("TravelCity.city_name LIKE '%$new_arr[$indexOfFirstLetter]%'");
+                    //$condition[] = array("TravelCity.city_name LIKE '%$new_arr[$indexOfFirstLetter]%'");
                     //array_push($search_condition,  array("TravelCity.city_name LIKE '%$new_arr[$indexOfFirstLetter]%'"));
                     /*
                       $condition .= "(TravelCity.city_name LIKE '%" . $new_arr[$indexOfFirstLetter] . "%')";

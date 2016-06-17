@@ -45,7 +45,15 @@ echo $this->Form->hidden('supplier_city_id',array('value' => $this->data['Suppli
                                 ?></div>
                         </div>
                         <div class="form-group">
-                            <label for="reg_input_name" class="req">Country</label>
+                            <label for="reg_input_name" class="bgr">Country</label>
+                            <span class="colon">:</span>
+                            <div class="col-sm-10">
+                                <?php
+                                echo $this->data['SupplierCity']['country_name'];
+                                ?></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="reg_input_name" class="req">City</label>
                             <span class="colon">:</span>
                             <div class="col-sm-10">
                                 <?php
@@ -59,6 +67,14 @@ echo $this->Form->hidden('supplier_city_id',array('value' => $this->data['Suppli
                             <span class="colon">:</span>
                             <div class="col-sm-10">
                                 </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="reg_input_name" class="bgr">Country Code</label>
+                            <span class="colon">:</span>
+                            <div class="col-sm-10">
+                                <?php
+                                echo $this->data['SupplierCity']['country_code'];
+                                ?></div>
                         </div>
                         <div class="form-group">
                             <label for="reg_input_name" class="req">Code</label>
