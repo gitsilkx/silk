@@ -19,7 +19,7 @@ class MessagesController extends AppController {
 
     public function index($controller, $action) {
 
-        $this->Session->setFlash('fgh','success');
+        //$this->Session->setFlash('fgh','success');
         $this->set('controller', $controller);
 
         $this->set('action', $action);
