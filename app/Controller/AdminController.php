@@ -294,7 +294,7 @@ class AdminController extends AppController {
                 var_dump($exception);
             }
         }
-        $TravelSuppliers = $this->TravelSupplier->find('list', array('fields' => 'id,supplier_name', 'order' => 'supplier_name ASC'));
+        $TravelSuppliers = $this->TravelSupplier->find('list', array('fields' => 'id,supplier_code', 'order' => 'supplier_code ASC'));
         $SupplierCountries = $this->SupplierCountry->find('list', array('fields' => 'id,name', 'order' => 'name ASC'));
         $this->set(compact('SupplierCountries', 'TravelSuppliers'));
     }
@@ -372,6 +372,7 @@ class AdminController extends AppController {
                                 'supplier_id' => $supplier_id,
                                 'supplier_code' => $supplier_code,
                                 'supplier_name' => $supplier_name,
+                                'status' => '1',
                                 'fetch_id' => $fetch_id,
                         ));
                     }
@@ -392,7 +393,7 @@ class AdminController extends AppController {
             }
         }
 
-        $TravelSuppliers = $this->TravelSupplier->find('list', array('fields' => 'id,supplier_name', 'order' => 'supplier_name ASC'));
+        $TravelSuppliers = $this->TravelSupplier->find('list', array('fields' => 'id,supplier_code', 'order' => 'supplier_code ASC'));
         $this->set(compact('TravelSuppliers'));
     }
 
@@ -459,6 +460,7 @@ class AdminController extends AppController {
                 $order_return = $client->__doRequest($xml_string, $location_URL, $action_URL, 1);
 
                 $xmlArray = Xml::toArray(Xml::build($order_return));
+                 
                 $ValArr = $xmlArray['Envelope']['soap:Body']['ProcessXMLResponse']['ProcessXMLResult']['SupplierData_City']['ResponseAuditInfo']['root']['CityInfo']['item'];
                 $total_volume = count($ValArr);
 
@@ -483,6 +485,7 @@ class AdminController extends AppController {
                                 'name' => $value['Name']['@'],
                                 'supplier_id' => $supplier_id,
                                 'supplier_code' => $supplier_code,
+                                'status' => '1',
                                 'supplier_name' => $supplier_name
                         ));
                     }
@@ -499,7 +502,7 @@ class AdminController extends AppController {
             }
         }
 
-        $TravelSuppliers = $this->TravelSupplier->find('list', array('fields' => 'id,supplier_name', 'order' => 'supplier_name ASC'));
+        $TravelSuppliers = $this->TravelSupplier->find('list', array('fields' => 'id,supplier_code', 'order' => 'supplier_code ASC'));
         $SupplierCountries = $this->SupplierCountry->find('list', array('fields' => 'id,name', 'order' => 'name ASC'));
         $this->set(compact('SupplierCountries', 'TravelSuppliers'));
     }
@@ -616,31 +619,40 @@ class AdminController extends AppController {
         }
 
         $SupplierCountries = $this->SupplierCountry->findById($id);
-
+        $search_condition = ARRAY();
 
 
         if (count($SupplierCountries)) {
             $country_name = $SupplierCountries['SupplierCountry']['name'];
+//array_push($search_condition, array("TravelCountry.country_name LIKE '%$arr[$indexOfFirstLetter]%'"));
 
-
-            for ($indexOfFirstLetter = 0; $indexOfFirstLetter <= 4; $indexOfFirstLetter++) {
-                for ($indexOfLastLetter = $indexOfFirstLetter + 1; $indexOfLastLetter <= 4; $indexOfLastLetter++) {
+            for ($indexOfFirstLetter = 0; $indexOfFirstLetter <= strlen($country_name); $indexOfFirstLetter++) {
+                
+                for ($indexOfLastLetter = $indexOfFirstLetter + 1; $indexOfLastLetter <= strlen($country_name); $indexOfLastLetter++) {
                     $arr[] = substr($country_name, $indexOfFirstLetter, 4);
-                    $condition .= "(country_name LIKE '%" . $arr[$indexOfFirstLetter] . "%')";
-                    if ($indexOfFirstLetter < 4 - 1)
+                    $j=0;
+                    if(strlen($arr[$indexOfFirstLetter]) == '4'){
+                        array_push($search_condition, array("TravelCountry.country_name LIKE '%$arr[$indexOfFirstLetter]%'"));
+                        $condition .= "(country_name LIKE '%" . $arr[$indexOfFirstLetter] . "%')";
+                        
+                    if ($j <= $j)
                         $condition .= 'OR';
+                    }
                     $indexOfFirstLetter++;
+                    $j++;
                 }
             }
            
+           //pr($search_condition);
+           //die;
 
             $TravelCountries = $this->TravelCountry->find
                     (
                     'all', array
                 (
                 'conditions' => array
-                    (
-                    $condition
+                    ('OR' => 
+                    $search_condition
                 ),
                 'order' => 'TravelCountry.country_name ASC',
                     )
@@ -823,7 +835,7 @@ class AdminController extends AppController {
                 $ActionId = $this->TravelActionItem->getLastInsertId();
                 $ActionUpdateArr['TravelActionItem']['parent_action_item_id'] = "'" . $ActionId . "'";
                 $this->TravelActionItem->updateAll($ActionUpdateArr['TravelActionItem'], array('TravelActionItem.id' => $ActionId));
-                $this->SupplierCountry->updateAll(array('SupplierCountry.status' => "'4'"), array('SupplierCountry.id' => $SupplierCountries['SupplierCountry']['id']));
+                $this->SupplierCountry->updateAll(array('SupplierCountry.status' => "'2'"), array('SupplierCountry.id' => $SupplierCountries['SupplierCountry']['id']));
                 $this->Session->setFlash('Your changes have been submitted. Waiting for approval at the moment...', 'success');
                 $this->redirect(array('action' => 'supplier_country'));
             }

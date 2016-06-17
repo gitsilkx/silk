@@ -19,11 +19,17 @@ echo $this->element('FetchAreas/top_menu');
                 echo ($sort == 'id') ? ($direction == 'asc') ? " <i class='icon-caret-up'></i>" : " <i class='icon-caret-down'></i>"  : " <i class='icon-sort'></i>"; ?></th>
                         <th data-toggle="phone" data-sort-ignore="true" width="10%" data-group="group1"><?php echo $this->Paginator->sort('name', 'Suppler City Name');
                 echo ($sort == 'name') ? ($direction == 'asc') ? " <i class='icon-caret-up'></i>" : " <i class='icon-caret-down'></i>"  : " <i class='icon-sort'></i>"; ?></th>
-                        <th data-toggle="phone" data-group="group1" width="3%" data-sort-ignore="true"><?php echo $this->Paginator->sort('hotel_code', 'Supplier City Code');
+                        <th data-toggle="phone" data-group="group1" width="3%" data-sort-ignore="true"><?php echo $this->Paginator->sort('city_id', 'Supplier City ID');
+                echo ($sort == 'city_id') ? ($direction == 'asc') ? " <i class='icon-caret-up'></i>" : " <i class='icon-caret-down'></i>"  : " <i class='icon-sort'></i>"; ?></th>                    
+                        <th data-toggle="phone" data-group="group1" width="10%" data-sort-ignore="true"><?php echo $this->Paginator->sort('code', 'Supplier City Code');
                 echo ($sort == 'code') ? ($direction == 'asc') ? " <i class='icon-caret-up'></i>" : " <i class='icon-caret-down'></i>"  : " <i class='icon-sort'></i>"; ?></th>                    
-                        <th data-hide="phone" data-group="group1" width="10%" data-sort-ignore="true"><?php echo $this->Paginator->sort('brand_name', 'Supplier Country Code');
+                        <th data-hide="phone" data-group="group1" width="10%" data-sort-ignore="true"><?php echo $this->Paginator->sort('country_code', 'Supplier Country Code');
                 echo ($sort == 'country_code') ? ($direction == 'asc') ? " <i class='icon-caret-up'></i>" : " <i class='icon-caret-down'></i>"  : " <i class='icon-sort'></i>"; ?></th>
-                     <th data-hide="phone" data-sort-ignore="true">Action</th>                        
+                        <th data-hide="phone" data-group="group1" width="10%" data-sort-ignore="true"><?php echo $this->Paginator->sort('country_name', 'Supplier Country Name');
+                echo ($sort == 'country_name') ? ($direction == 'asc') ? " <i class='icon-caret-up'></i>" : " <i class='icon-caret-down'></i>"  : " <i class='icon-sort'></i>"; ?></th>
+                     <th data-toggle="phone" data-group="group1" width="10%" data-sort-ignore="true">Status</th>
+                        <th data-toggle="phone" data-group="group1" width="7%" data-sort-ignore="true">No. Of Mapping</th>
+                        <th data-hide="phone" data-sort-ignore="true">Action</th>                        
                     </tr>
                 </thead>
                 <tbody>
@@ -41,9 +47,13 @@ echo $this->element('FetchAreas/top_menu');
                             ?>
                             <tr>
                                 <td class="tablebody"><?php echo $id; ?></td>
-                                <td class="tablebody"><?php echo $SupplierCity['SupplierCity']['name']; ?></td>               
+                                <td class="tablebody"><?php echo $SupplierCity['SupplierCity']['name']; ?></td> 
+                                <td class="tablebody"><?php echo $SupplierCity['SupplierCity']['city_id']; ?></td>
                                 <td class="tablebody"><?php echo $SupplierCity['SupplierCity']['code']; ?></td>                                                               
-                                <td class="tablebody"><?php echo $SupplierCity['SupplierCity']['country_code']; ?></td>                                                   
+                                <td class="tablebody"><?php echo $SupplierCity['SupplierCity']['country_code']; ?></td> 
+                                <td class="tablebody"><?php echo $SupplierCity['SupplierCity']['country_name']; ?></td>
+                                <td class="tablebody"><?php echo $SupplierCity['TravelSupplierStatus']['value']; ?></td>
+                                <td class="tablebody"><?php echo count($SupplierCity['TravelCitySupplier']);?></td>
                                 <td width="10%" valign="middle" align="center"><?php
                                 echo $this->Html->link('<span class="icon-list"></span>', array('controller' => 'admin', 'action' => 'city_mapping/' . $id), array('class' => 'act-ico','target' => '_blank', 'escape' => false));
                                 ?></td>
