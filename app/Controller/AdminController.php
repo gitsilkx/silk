@@ -623,15 +623,16 @@ class AdminController extends AppController {
             $country_name = $SupplierCountries['SupplierCountry']['name'];
 
 
-            for ($indexOfFirstLetter = 0; $indexOfFirstLetter <= strlen($country_name); $indexOfFirstLetter++) {
-                for ($indexOfLastLetter = $indexOfFirstLetter + 1; $indexOfLastLetter <= strlen($country_name); $indexOfLastLetter++) {
-                    $arr[] = substr($country_name, $indexOfFirstLetter, 3);
+            for ($indexOfFirstLetter = 0; $indexOfFirstLetter <= 4; $indexOfFirstLetter++) {
+                for ($indexOfLastLetter = $indexOfFirstLetter + 1; $indexOfLastLetter <= 4; $indexOfLastLetter++) {
+                    $arr[] = substr($country_name, $indexOfFirstLetter, 4);
                     $condition .= "(country_name LIKE '%" . $arr[$indexOfFirstLetter] . "%')";
-                    if ($indexOfFirstLetter < strlen($country_name) - 1)
+                    if ($indexOfFirstLetter < 4 - 1)
                         $condition .= 'OR';
                     $indexOfFirstLetter++;
                 }
             }
+           
 
             $TravelCountries = $this->TravelCountry->find
                     (
@@ -748,7 +749,7 @@ class AdminController extends AppController {
                 $SupplierCountries = $this->SupplierCountry->findById($supplier_country_id);
                 $TravelCountries = $this->TravelCountry->findById($country_id);
 
-                $next_action_by = '166';  //overseer 136 44 is sarika 152 - ojas
+                $next_action_by = '169';  //overseer 136 44 is sarika 152 - ojas
                 $flag = 0;
                 $search_condition = array();
                 $condition = '';

@@ -12,6 +12,13 @@ class SupplierCountry extends AppModel {
             'foreignKey' => 'status',
         ),
     );
+    
+    public $hasMany = array(
+        'TravelCountrySupplier' => array(
+            'className' => 'TravelCountrySupplier',
+            'foreignKey' => 'country_supplier_id',
+        ),
+        );
 
 }
 
