@@ -60,13 +60,113 @@ class AdminController extends AppController {
     public function fetch_hotels() {
 
         $search_condition = array();
+        $supplier_id = '';
+        $type_id = '';
+        $user_id = '';
+        $country_id = '';
+        $city_id = '';
+        $status = '';
+        $SupplierCities = array();
+        
+        if ($this->request->is('post') || $this->request->is('put')) {
+           
+            if (!empty($this->data['TravelFetchTable']['supplier_id'])) {
+                $supplier_id = $this->data['TravelFetchTable']['supplier_id'];
+                array_push($search_condition, array('TravelFetchTable.supplier_id' => $supplier_id));
+                
+            }
+            if (!empty($this->data['TravelFetchTable']['type_id'])) {
+                $type_id = $this->data['TravelFetchTable']['type_id'];
+                array_push($search_condition, array('TravelFetchTable.type_id' => $type_id));
+                
+            }
+            if (!empty($this->data['TravelFetchTable']['user_id'])) {
+                $user_id = $this->data['TravelFetchTable']['user_id'];
+                array_push($search_condition, array('TravelFetchTable.user_id' => $user_id));
+                
+            }
+
+            if (!empty($this->data['TravelFetchTable']['country_id'])) {
+                $country_id = $this->data['TravelFetchTable']['country_id'];
+                $country_code = $this->Common->getSupplierCountryCode($country_id);
+                array_push($search_condition, array('TravelFetchTable.country_id' => $country_id));
+                $SupplierCities= $this->SupplierCity->find('list', array(
+                'conditions' => array(
+                    'SupplierCity.country_code' => $country_code,
+                    
+                ),
+                'fields' => 'SupplierCity.id, SupplierCity.name',
+                'order' => 'SupplierCity.name ASC'
+            ));
+               
+            }
+
+            if (!empty($this->data['TravelFetchTable']['status'])) {
+                $status = $this->data['TravelFetchTable']['status'];
+                array_push($search_condition, array('TravelFetchTable.status' => $status));
+                
+            }
+      
+        } elseif ($this->request->is('get')) {
+
+
+            if (!empty($this->request->params['TravelFetchTable']['supplier_id'])) {
+                $supplier_id = $this->request->params['TravelFetchTable']['supplier_id'];
+                array_push($search_condition, array('TravelFetchTable.supplier_id' => $supplier_id));
+               
+            }
+            if (!empty($this->request->params['TravelFetchTable']['type_id'])) {
+                $type_id = $this->request->params['TravelFetchTable']['type_id'];
+                array_push($search_condition, array('TravelFetchTable.type_id' => $type_id));
+               
+            }
+            if (!empty($this->request->params['TravelFetchTable']['user_id'])) {
+                $user_id = $this->request->params['TravelFetchTable']['user_id'];
+                array_push($search_condition, array('TravelFetchTable.user_id' => $user_id));
+               
+            }
+
+            if (!empty($this->request->params['named']['country_id'])) {
+                $country_id = $this->request->params['named']['country_id'];
+                $country_code = $this->Common->getSupplierCountryCode($country_id);
+                array_push($search_condition, array('TravelFetchTable.country_id' => $country_id));
+                $SupplierCities= $this->SupplierCity->find('list', array(
+                'conditions' => array(
+                    'SupplierCity.country_code' => $country_code,
+                    
+                ),
+                'fields' => 'SupplierCity.id, SupplierCity.name',
+                'order' => 'SupplierCity.name ASC'
+            ));
+                
+            }
+
+            if (!empty($this->request->params['named']['city_id'])) {
+                $city_id = $this->request->params['named']['city_id'];
+                array_push($search_condition, array('TravelFetchTable.city_id' => $city_id));
+                
+            }
+            if (!empty($this->request->params['named']['status'])) {
+                $status = $this->request->params['named']['status'];
+                array_push($search_condition, array('TravelFetchTable.status' => $status));
+            }
+        }
+        
         $this->paginate['order'] = array('TravelFetchTable.id' => 'asc');
         $this->set('TravelFetchTables', $this->paginate("TravelFetchTable", $search_condition));
 
         $SupplierCityCount = $this->SupplierCity->find('count');
         $SupplierCountryCount = $this->SupplierCountry->find('count');
         $SupplierHotelCount = $this->SupplierHotel->find('count');
-        $this->set(compact('SupplierCityCount', 'SupplierCountryCount', 'SupplierHotelCount'));
+        $TravelSuppliers = $this->TravelSupplier->find('list', array('fields' => 'id,supplier_code', 'order' => 'supplier_code ASC'));
+        $SupplierCountries = $this->SupplierCountry->find('list', array('fields' => 'id,name', 'order' => 'name ASC'));
+        $users = $this->User->find('all', array('fields' => array('User.id', 'User.fname', 'User.lname'),
+            'conditions' => array('User.id' => array('1','169')), 'order' => 'User.fname asc'));
+        $users = Set::combine($users, '{n}.User.id', array('%s %s', '{n}.User.fname', '{n}.User.lname'));
+
+        $this->set(compact('SupplierCityCount','users',
+                'SupplierCountryCount', 'SupplierHotelCount',
+                'SupplierCountries', 'TravelSuppliers','supplier_id','type_id','user_id','country_id','city_id','status','SupplierCities'));
     }
 
     public function add_hotel() {
@@ -149,7 +249,7 @@ class AdminController extends AppController {
                     $this->request->data['TravelFetchTable']['country_id'] = $country_id;
                     $this->request->data['TravelFetchTable']['city_id'] = $city_id;
                     $this->request->data['TravelFetchTable']['total_volume'] = $total_volume;
-                    $this->request->data['TravelFetchTable']['status'] = 'Success';
+                    $this->request->data['TravelFetchTable']['status'] = '1';
                     $this->request->data['TravelFetchTable']['type_id'] = '1';
 
                     $this->TravelFetchTable->save($this->data['TravelFetchTable']);
@@ -258,7 +358,7 @@ class AdminController extends AppController {
                 $this->request->data['TravelFetchTable']['country_id'] = '';
                 $this->request->data['TravelFetchTable']['city_id'] = '';
                 $this->request->data['TravelFetchTable']['total_volume'] = $total_volume;
-                $this->request->data['TravelFetchTable']['status'] = 'Success';
+                $this->request->data['TravelFetchTable']['status'] = '1';
                 $this->request->data['TravelFetchTable']['type_id'] = '2';
 
                 $this->TravelFetchTable->save($this->data['TravelFetchTable']);
@@ -367,7 +467,7 @@ class AdminController extends AppController {
                 $this->request->data['TravelFetchTable']['country_id'] = $country_id;
                 $this->request->data['TravelFetchTable']['city_id'] = '';
                 $this->request->data['TravelFetchTable']['total_volume'] = $total_volume;
-                $this->request->data['TravelFetchTable']['status'] = 'Success';
+                $this->request->data['TravelFetchTable']['status'] = '1';
                 $this->request->data['TravelFetchTable']['type_id'] = '3';
                 $this->TravelFetchTable->save($this->data['TravelFetchTable']);
                 $fetch_id = $this->TravelFetchTable->getLastInsertId();
@@ -1174,6 +1274,8 @@ class AdminController extends AppController {
                 }
             }
         }
+        
+        
     }
 
     public function hotel_add($supplier_hotel_id = null) {

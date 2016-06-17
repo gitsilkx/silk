@@ -47,6 +47,10 @@ class CustomHelper extends Helper {
         $DataArray = ClassRegistry::init('TravelSupplier')->find('first', array('fields' => array('supplier_name'), 'conditions' => array('TravelSupplier.id' => $supplier_id)));
         return $DataArray['TravelSupplier']['supplier_name'];
     }
+    public function getSupplierCode($supplier_id){
+        $DataArray = ClassRegistry::init('TravelSupplier')->find('first', array('fields' => array('supplier_code'), 'conditions' => array('TravelSupplier.id' => $supplier_id)));
+        return $DataArray['TravelSupplier']['supplier_code'];
+    }
     public function getSupplierCountryName($country_id){
         $DataArray = ClassRegistry::init('SupplierCountry')->find('first', array('fields' => array('name'), 'conditions' => array('SupplierCountry.id' => $country_id)));
         return $DataArray['SupplierCountry']['name'];

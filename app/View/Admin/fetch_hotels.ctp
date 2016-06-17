@@ -14,76 +14,49 @@ echo $this->element('FetchAreas/top_menu');
             <span class="search_panel_icon"><i class="icon-plus" id="toggle_search_panel"></i></span>
         </div>
         <div class="panel panel-default">
-<!--
+
             <div class="panel_controls hideform">
 
                 <?php
-                echo $this->Form->create('Project', array('controller' => 'projects', 'action' => 'index', 'class' => 'quick_search', 'id' => 'SearchForm', 'novalidate' => true, 'inputDefaults' => array(
+                echo $this->Form->create('TravelFetchTable', array( 'class' => 'quick_search', 'id' => 'SearchForm', 'novalidate' => true, 'inputDefaults' => array(
                         'label' => false,
                         'div' => false,
                         'class' => 'form-control',
-                )));
-                echo $this->Form->hidden('model_name', array('id' => 'model_name', 'value' => 'Project'));
+                )
+                    ),ARRAY('controller' => 'admin', 'action' => 'fetch_hotels')
+                        );
+           
                 ?> 
-                <div class="row spe-row">
-                    <div class="col-sm-4 col-xs-8">
-
-                        <?php echo $this->Form->input('global_search', array('value' => $global_search, 'placeholder' => 'Type project name', 'error' => array('class' => 'formerror'))); ?>
-                    </div>
-                    <div class="col-sm-3 col-xs-4">
-                        <?php
-                        echo $this->Form->submit('Project Search', array('div' => false, 'class' => 'btn btn-default btn-sm"'));
-                        ?>
-
-                    </div>
-                    <div class="col-sm-5 col-xs-5">
-                        <label for="un_member">Phase:</label>
-                        <?php echo $this->Form->input('phase_id', array('value' => $phase_id, 'options' => $phase, 'empty' => '--Select--', 'onchange' => 'this.form.submit()', 'error' => array('class' => 'formerror'))); ?>
-                    </div>
-                </div>
+             
                 <div class="row" id="search_panel_controls">
 
                     <div class="col-sm-3 col-xs-6">
-                        <label for="un_member">City:</label>
-                        <?php echo $this->Form->input('city_id', array('id' => 'city_id', 'type' => 'select', 'options' => $cities, 'empty' => '--Select--', 'value' => $city_id)); ?>
+                        <label for="un_member">Supplier:</label>
+                        <?php echo $this->Form->input('supplier_id', array('type' => 'select', 'options' => $TravelSuppliers, 'empty' => '--Select--', 'value' => $supplier_id)); ?>
                     </div>
                     <div class="col-sm-3 col-xs-6">
-                        <label for="un_member">Suburb:</label>
-                        <?php echo $this->Form->input('suburb_id', array('type' => 'select', 'options' => $suburbs, 'empty' => '--Select--', 'value' => $suburb_id)); ?>
+                        <label for="un_member">Fetch Type:</label>
+                        <?php echo $this->Form->input('type_id', array('type' => 'select', 'options' => array('1' => 'Hotel','2' => 'Country','3' => 'City'), 'empty' => '--Select--', 'value' => $type_id)); ?>
                     </div>
                     <div class="col-sm-3 col-xs-6">
-                        <label for="un_member">Area:</label>
-                        <?php echo $this->Form->input('area_id', array('options' => $areas, 'empty' => '--Select--', 'value' => $area_id)); ?>
+                        <label for="un_member">Fetch By:</label>
+                        <?php echo $this->Form->input('user_id', array('options' => $users, 'empty' => '--Select--', 'value' => $user_id)); ?>
                     </div>
                     <div class="col-sm-3 col-xs-6">
-                        <label for="un_member">Builder:</label>
-                        <?php echo $this->Form->input('builder_id', array('div' => array('id' => 'builder_id'), 'options' => $builders, 'empty' => '--Select--', 'value' => $builder_id)); ?>
+                        <label for="un_member">Country:</label>
+                        <?php echo $this->Form->input('country_id', array('options' => $SupplierCountries, 'empty' => '--Select--', 'value' => $country_id)); ?>
                     </div>
 
                     <div class="col-sm-3 col-xs-6">
-                        <label for="un_member">Residential:</label>
-                        <?php echo $this->Form->input('proj_residential', array('options' => array('1' => 'Yes', '2' => 'No'), 'empty' => '--Select--', 'value' => $proj_residential)); ?>
+                        <label for="un_member">City:</label>
+                        <?php echo $this->Form->input('city_id', array('options' => $SupplierCities, 'empty' => '--Select--', 'value' => $city_id)); ?>
                     </div>
                     <div class="col-sm-3 col-xs-6">
-                        <label for="un_member">High End:</label>
-                        <?php echo $this->Form->input('proj_highendresidential', array('options' => array('1' => 'Yes', '2' => 'No'), 'empty' => '--Select--', 'value' => $proj_highendresidential)); ?>
+                        <label for="un_member">Status</label>
+                        <?php echo $this->Form->input('status', array('options' => array('1' => 'OK', '2' => 'ERROR'), 'empty' => '--Select--', 'value' => $status)); ?>
                     </div>
-                    <div class="col-sm-3 col-xs-6">
-                        <label for="un_member">Commercial:</label>
-                        <?php echo $this->Form->input('proj_commercial', array('options' => array('1' => 'Yes', '2' => 'No'), 'empty' => '--Select--', 'value' => $proj_commercial)); ?>
-                    </div>
-                    <div class="col-sm-3 col-xs-6">
-                        <label for="un_member">Secondary Builder:</label>
-                        <?php echo $this->Form->input('secondary_builder_id', array('options' => $builders, 'empty' => '--Select--', 'value' => $secondary_builder_id)); ?>
-                    </div>
-                    <div class="col-sm-3 col-xs-6">
-                        <label for="un_member">Marketing Status:</label>
-                        <?php echo $this->Form->input('proj_marketing_status', array('options' => $marketing_status, 'empty' => '--Select--', 'value' => $proj_marketing_status)) ?>
-                    </div>
-                    <div class="col-sm-3 col-xs-6">
-                        <label for="un_member">Marketing Partner:</label>
-                        <?php echo $this->Form->input('proj_marketing_partner', array('options' => $marketing_partners, 'empty' => '--Select--', 'value' => $proj_marketing_partner)); ?>
-                    </div>
+                   
+                    
 
                     <div class="col-sm-3 col-xs-6">
                         <label>&nbsp;</label>
@@ -96,7 +69,7 @@ echo $this->element('FetchAreas/top_menu');
                 </div>
 <?php echo $this->Form->end(); ?>
             </div>
-            -->
+          
             <table id="resp_table" class="table toggle-square" data-filter="#table_search" data-page-size="100">
                 <thead>
                     <tr>
@@ -105,7 +78,7 @@ echo $this->element('FetchAreas/top_menu');
                         <th data-hide="phone">Date</th>
                         <th data-hide="phone">Fetched Type</th>
                         <th data-hide="phone">Fetched By</th>
-                        <th data-hide="phone">Continent</th>
+                       
                         <th data-hide="phone">Country</th>
                         <th data-hide="phone">City</th>
                         <th data-hide="phone">Total Volume</th>
@@ -128,19 +101,20 @@ if (isset($TravelFetchTables) && count($TravelFetchTables) > 0):
             $type = 'Country';
         elseif($type == '3')
             $type = 'City';
+         $status = ($TravelFetchTable['TravelFetchTable']['status'] == '1') ? 'OK' : 'ERROR';
         ?>
                     <tr>
                         <td><?php echo $id;?></td>
-                        <td><?php echo $this->Custom->getSupplierName($TravelFetchTable['TravelFetchTable']['supplier_id']); ?></td>
+                        <td><?php echo $this->Custom->getSupplierCode($TravelFetchTable['TravelFetchTable']['supplier_id']); ?></td>
                         <td><?php echo $TravelFetchTable['TravelFetchTable']['created']; ?></td>
                         <td><?php echo $type; ?></td>
                         <td><?php echo $this->Custom->Username($TravelFetchTable['TravelFetchTable']['user_id']); ?></td>
-                        <td><?php echo $TravelFetchTable['TravelFetchTable']['continent_id']; ?></td>
+                        
                         <td><?php echo $this->Custom->getSupplierCountryName($TravelFetchTable['TravelFetchTable']['country_id']); ?></td>
                         <td><?php echo $this->Custom->getSupplierCityName($TravelFetchTable['TravelFetchTable']['city_id']);?></td>
                         <td><?php echo $TravelFetchTable['TravelFetchTable']['total_volume']; ?></td>
                         <td><?php echo $TravelFetchTable['TravelFetchTable']['inserted_volume']; ?></td>
-                        <td><?php echo $TravelFetchTable['TravelFetchTable']['status']; ?></td>
+                        <td><?php echo $status; ?></td>
                     </tr>
         <?php endforeach; ?>
 
@@ -158,3 +132,21 @@ if (isset($TravelFetchTables) && count($TravelFetchTables) > 0):
         </div>
     </div>
 </div>
+<?php
+$this->Js->get('#TravelFetchTableCountryId')->event('change', $this->Js->request(array(
+            'controller' => 'all_functions',
+            'action' => 'get_supplier_city_by_country_id/TravelFetchTable/country_id'
+                ), array(
+            'update' => '#TravelFetchTableCityId',
+            'async' => true,
+            'before' => 'loading("TravelFetchTableCityId")',
+            'complete' => 'loaded("TravelFetchTableCityId")',
+            'method' => 'post',
+            'dataExpression' => true,
+            'data' => $this->Js->serializeForm(array(
+                'isForm' => true,
+                'inline' => true
+            ))
+        ))
+);
+?>
