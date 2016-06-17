@@ -823,7 +823,7 @@ class AdminController extends AppController {
                 $ActionId = $this->TravelActionItem->getLastInsertId();
                 $ActionUpdateArr['TravelActionItem']['parent_action_item_id'] = "'" . $ActionId . "'";
                 $this->TravelActionItem->updateAll($ActionUpdateArr['TravelActionItem'], array('TravelActionItem.id' => $ActionId));
-
+                $this->SupplierCountry->updateAll(array('SupplierCountry.status' => "'4'"), array('SupplierCountry.id' => $country_supplier_id));
                 $this->Session->setFlash('Your changes have been submitted. Waiting for approval at the moment...', 'success');
                 $this->redirect(array('action' => 'supplier_country'));
             }
