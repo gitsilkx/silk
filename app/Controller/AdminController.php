@@ -1037,7 +1037,10 @@ class AdminController extends AppController {
                     $new_arr[] = substr($hotel_name, $indexOfFirstLetter, 4);
                     //pr($new_arr);
                     //array_push($search_condition, ARRAY('OR'));
-                    $condition[] = array("TravelHotelLookup.hotel_name LIKE '%$new_arr[$indexOfFirstLetter]%'");
+                    if (strlen($new_arr[$indexOfFirstLetter]) == '4') {
+                        array_push($condition, array("TravelHotelLookup.hotel_name LIKE '%$new_arr[$indexOfFirstLetter]%'"));
+                    }
+                    //$condition[] = array("TravelHotelLookup.hotel_name LIKE '%$new_arr[$indexOfFirstLetter]%'");
                     //array_push($search_condition,  array("TravelCity.city_name LIKE '%$new_arr[$indexOfFirstLetter]%'"));
                     /*
                       $condition .= "(TravelCity.city_name LIKE '%" . $new_arr[$indexOfFirstLetter] . "%')";
@@ -1075,9 +1078,9 @@ class AdminController extends AppController {
         }
 
         // pr($condition);
-        // $log = $this->TravelHotelLookup->getDataSource()->getLog(false, false);       
-        //debug($log);
-        //die;
+         $log = $this->TravelHotelLookup->getDataSource()->getLog(false, false);       
+        debug($log);
+        die;
 
         $this->request->data = $SupplierHotels;
     }
