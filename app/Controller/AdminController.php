@@ -1644,6 +1644,7 @@ class AdminController extends AppController {
             $this->request->data['TravelCountry']['wtb_status'] = '1';
             $this->TravelCountry->create();
             if ($this->TravelCountry->save($this->request->data)) {
+                $this->SupplierCountry->updateAll(array('SupplierCountry.status' => "'5'"), array('SupplierCountry.id' => $supplier_country_id));
                 $CountryId = $this->TravelCountry->getLastInsertId();
                 $CountryName = $this->data['TravelCountry']['country_name'];
                 $CountryCode = $this->data['TravelCountry']['country_code'];
@@ -1815,6 +1816,7 @@ class AdminController extends AppController {
             $this->request->data['TravelCity']['active'] = 'TRUE';
             $this->TravelCity->create();
             if ($this->TravelCity->save($this->request->data)) {
+                $this->SupplierCity->updateAll(array('SupplierCity.status' => "'5'"), array('SupplierCity.id' => $supplier_city_id));
                 $CityId = $this->TravelCity->getLastInsertId();
                 $CityName = $this->data['TravelCity']['city_name'];
                 $CityCode = $this->data['TravelCity']['city_code'];               
