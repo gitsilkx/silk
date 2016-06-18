@@ -691,9 +691,7 @@ class AdminController extends AppController {
                         array_push($condition, array("TravelCity.city_name LIKE '%$new_arr[$indexOfFirstLetter]%'"));
             
                     }
-                    else {
-                        array_push($condition, array("TravelCity.city_name LIKE '%$new_arr[$indexOfFirstLetter]%'"));
-                    }
+                    
                     //pr($new_arr);
                     //array_push($search_condition, ARRAY('OR'));
                     //$condition[] = array("TravelCity.city_name LIKE '%$new_arr[$indexOfFirstLetter]%'");
@@ -709,7 +707,7 @@ class AdminController extends AppController {
                 }
             }
             //pr($condition);
-            ///die;
+            //die;
             array_push($search_condition, array('OR' => $condition));
             //pr($search_condition);
             // die;
