@@ -117,6 +117,8 @@ echo $this->Form->create('SupportTicket', array('method' => 'post', 'enctype' =>
                                          $about_link = $this->Html->link($this->data['SupportTicket']['about'], array('controller' => 'admin', 'action' => 'hotel_add/'.$id), array('class' => 'act-ico', 'escape' => false,'target' => '_blank'));
                                      elseif($this->data['SupportTicket']['screen'] == '5')
                                          $about_link = $this->Html->link($this->data['SupportTicket']['about'], array('controller' => 'admin', 'action' => 'country_add/'.$id), array('class' => 'act-ico', 'escape' => false,'target' => '_blank'));
+                                     elseif($this->data['SupportTicket']['screen'] == '6')
+                                         $about_link = $this->Html->link($this->data['SupportTicket']['about'], array('controller' => 'admin', 'action' => 'city_add/'.$id), array('class' => 'act-ico', 'escape' => false,'target' => '_blank'));
                                    echo $about_link;
                                     ?></div>
                             </div>

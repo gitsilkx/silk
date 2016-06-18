@@ -37,9 +37,9 @@ App::uses('Xml', 'Utility');
  */
 class AdminController extends AppController {
 
-    var $uses = array('SupplierCountry','ProvincePermission', 'TravelCountry','Province', 'SupplierCity', 'SupplierHotel', 'TravelFetchTable', 'SupplierHotel', 'TravelSupplier', 'Common', 'SupplierHotel',
-        'TravelActionItem','TravelSuburb','TravelArea','TravelBrand','TravelChain','TravelLookupPropertyType',
-        'TravelLookupRateType','LogCall','TravelHotelRoomSupplier','User', 'TravelRemark', 'TravelCountrySupplier','TravelLookupContinent', 'Mappinge', 'TravelCity', 'TravelCitySupplier', 'TravelHotelLookup', 'TravelHotelRoomSupplier', 'SupportTicket');
+    var $uses = array('SupplierCountry', 'ProvincePermission', 'TravelCountry', 'Province', 'SupplierCity', 'SupplierHotel', 'TravelFetchTable', 'SupplierHotel', 'TravelSupplier', 'Common', 'SupplierHotel',
+        'TravelActionItem', 'TravelSuburb', 'TravelArea', 'TravelBrand', 'TravelChain', 'TravelLookupPropertyType',
+        'TravelLookupRateType', 'LogCall', 'TravelHotelRoomSupplier', 'User', 'TravelRemark', 'TravelCountrySupplier', 'TravelLookupContinent', 'Mappinge', 'TravelCity', 'TravelCitySupplier', 'TravelHotelLookup', 'TravelHotelRoomSupplier', 'SupportTicket');
 
     function index() {
         
@@ -67,91 +67,78 @@ class AdminController extends AppController {
         $city_id = '';
         $status = '';
         $SupplierCities = array();
-        
+
         if ($this->request->is('post') || $this->request->is('put')) {
-           
+
             if (!empty($this->data['TravelFetchTable']['supplier_id'])) {
                 $supplier_id = $this->data['TravelFetchTable']['supplier_id'];
                 array_push($search_condition, array('TravelFetchTable.supplier_id' => $supplier_id));
-                
             }
             if (!empty($this->data['TravelFetchTable']['type_id'])) {
                 $type_id = $this->data['TravelFetchTable']['type_id'];
                 array_push($search_condition, array('TravelFetchTable.type_id' => $type_id));
-                
             }
             if (!empty($this->data['TravelFetchTable']['user_id'])) {
                 $user_id = $this->data['TravelFetchTable']['user_id'];
                 array_push($search_condition, array('TravelFetchTable.user_id' => $user_id));
-                
             }
 
             if (!empty($this->data['TravelFetchTable']['country_id'])) {
                 $country_id = $this->data['TravelFetchTable']['country_id'];
                 $country_code = $this->Common->getSupplierCountryCode($country_id);
                 array_push($search_condition, array('TravelFetchTable.country_id' => $country_id));
-                $SupplierCities= $this->SupplierCity->find('list', array(
-                'conditions' => array(
-                    'SupplierCity.country_code' => $country_code,
-                    
-                ),
-                'fields' => 'SupplierCity.id, SupplierCity.name',
-                'order' => 'SupplierCity.name ASC'
-            ));
-               
+                $SupplierCities = $this->SupplierCity->find('list', array(
+                    'conditions' => array(
+                        'SupplierCity.country_code' => $country_code,
+                    ),
+                    'fields' => 'SupplierCity.id, SupplierCity.name',
+                    'order' => 'SupplierCity.name ASC'
+                ));
             }
 
             if (!empty($this->data['TravelFetchTable']['status'])) {
                 $status = $this->data['TravelFetchTable']['status'];
                 array_push($search_condition, array('TravelFetchTable.status' => $status));
-                
             }
-      
         } elseif ($this->request->is('get')) {
 
 
             if (!empty($this->request->params['TravelFetchTable']['supplier_id'])) {
                 $supplier_id = $this->request->params['TravelFetchTable']['supplier_id'];
                 array_push($search_condition, array('TravelFetchTable.supplier_id' => $supplier_id));
-               
             }
             if (!empty($this->request->params['TravelFetchTable']['type_id'])) {
                 $type_id = $this->request->params['TravelFetchTable']['type_id'];
                 array_push($search_condition, array('TravelFetchTable.type_id' => $type_id));
-               
             }
             if (!empty($this->request->params['TravelFetchTable']['user_id'])) {
                 $user_id = $this->request->params['TravelFetchTable']['user_id'];
                 array_push($search_condition, array('TravelFetchTable.user_id' => $user_id));
-               
             }
 
             if (!empty($this->request->params['named']['country_id'])) {
                 $country_id = $this->request->params['named']['country_id'];
                 $country_code = $this->Common->getSupplierCountryCode($country_id);
                 array_push($search_condition, array('TravelFetchTable.country_id' => $country_id));
-                $SupplierCities= $this->SupplierCity->find('list', array(
-                'conditions' => array(
-                    'SupplierCity.country_code' => $country_code,
-                    
-                ),
-                'fields' => 'SupplierCity.id, SupplierCity.name',
-                'order' => 'SupplierCity.name ASC'
-            ));
-                
+                $SupplierCities = $this->SupplierCity->find('list', array(
+                    'conditions' => array(
+                        'SupplierCity.country_code' => $country_code,
+                    ),
+                    'fields' => 'SupplierCity.id, SupplierCity.name',
+                    'order' => 'SupplierCity.name ASC'
+                ));
             }
 
             if (!empty($this->request->params['named']['city_id'])) {
                 $city_id = $this->request->params['named']['city_id'];
                 array_push($search_condition, array('TravelFetchTable.city_id' => $city_id));
-                
             }
             if (!empty($this->request->params['named']['status'])) {
                 $status = $this->request->params['named']['status'];
                 array_push($search_condition, array('TravelFetchTable.status' => $status));
             }
         }
-        
+
         $this->paginate['order'] = array('TravelFetchTable.id' => 'asc');
         $this->set('TravelFetchTables', $this->paginate("TravelFetchTable", $search_condition));
 
@@ -161,12 +148,10 @@ class AdminController extends AppController {
         $TravelSuppliers = $this->TravelSupplier->find('list', array('fields' => 'id,supplier_code', 'order' => 'supplier_code ASC'));
         $SupplierCountries = $this->SupplierCountry->find('list', array('fields' => 'id,name', 'order' => 'name ASC'));
         $users = $this->User->find('all', array('fields' => array('User.id', 'User.fname', 'User.lname'),
-            'conditions' => array('User.id' => array('1','169')), 'order' => 'User.fname asc'));
+            'conditions' => array('User.id' => array('1', '169')), 'order' => 'User.fname asc'));
         $users = Set::combine($users, '{n}.User.id', array('%s %s', '{n}.User.fname', '{n}.User.lname'));
 
-        $this->set(compact('SupplierCityCount','users',
-                'SupplierCountryCount', 'SupplierHotelCount',
-                'SupplierCountries', 'TravelSuppliers','supplier_id','type_id','user_id','country_id','city_id','status','SupplierCities'));
+        $this->set(compact('SupplierCityCount', 'users', 'SupplierCountryCount', 'SupplierHotelCount', 'SupplierCountries', 'TravelSuppliers', 'supplier_id', 'type_id', 'user_id', 'country_id', 'city_id', 'status', 'SupplierCities'));
     }
 
     public function add_hotel() {
@@ -460,7 +445,7 @@ class AdminController extends AppController {
                 $order_return = $client->__doRequest($xml_string, $location_URL, $action_URL, 1);
 
                 $xmlArray = Xml::toArray(Xml::build($order_return));
-                 
+
                 $ValArr = $xmlArray['Envelope']['soap:Body']['ProcessXMLResponse']['ProcessXMLResult']['SupplierData_City']['ResponseAuditInfo']['root']['CityInfo']['item'];
                 $total_volume = count($ValArr);
 
@@ -576,7 +561,7 @@ class AdminController extends AppController {
                 $xmlArray = Xml::toArray(Xml::build($order_return));
 
                 $ValArr = $xmlArray['Envelope']['soap:Body']['ProcessXMLResponse']['ProcessXMLResult']['SupplierData_Hotel']['ResponseAuditInfo']['root']['LocalHotelList']['item'];
-               // PR($ValArr);
+                // PR($ValArr);
                 //die;
                 foreach ($ValArr as $value) {
                     //echo  $value['Code']['@'];
@@ -627,28 +612,26 @@ class AdminController extends AppController {
 //array_push($search_condition, array("TravelCountry.country_name LIKE '%$arr[$indexOfFirstLetter]%'"));
 
             for ($indexOfFirstLetter = 0; $indexOfFirstLetter <= strlen($country_name); $indexOfFirstLetter++) {
-                
+
                 for ($indexOfLastLetter = $indexOfFirstLetter + 1; $indexOfLastLetter <= strlen($country_name); $indexOfLastLetter++) {
                     $arr[] = substr($country_name, $indexOfFirstLetter, 4);
-                   
-                    if(strlen($arr[$indexOfFirstLetter]) == '4'){
+
+                    if (strlen($arr[$indexOfFirstLetter]) == '4') {
                         array_push($search_condition, array("TravelCountry.country_name LIKE '%$arr[$indexOfFirstLetter]%'"));
-            
                     }
                     $indexOfFirstLetter++;
-                  
                 }
             }
-           
-           //pr($search_condition);
-           //die;
+
+            //pr($search_condition);
+            //die;
 
             $TravelCountries = $this->TravelCountry->find
                     (
                     'all', array
                 (
                 'conditions' => array
-                    ('OR' => 
+                    ('OR' =>
                     $search_condition
                 ),
                 'order' => 'TravelCountry.country_name ASC',
@@ -686,12 +669,11 @@ class AdminController extends AppController {
             for ($indexOfFirstLetter = 0; $indexOfFirstLetter <= strlen($city_name); $indexOfFirstLetter++) {
                 for ($indexOfLastLetter = $indexOfFirstLetter + 1; $indexOfLastLetter <= strlen($city_name); $indexOfLastLetter++) {
                     $new_arr[] = substr($city_name, $indexOfFirstLetter, 4);
-                    
-                    if(strlen($new_arr[$indexOfFirstLetter]) == '4'){
+
+                    if (strlen($new_arr[$indexOfFirstLetter]) == '4') {
                         array_push($condition, array("TravelCity.city_name LIKE '%$new_arr[$indexOfFirstLetter]%'"));
-            
                     }
-                    
+
                     //pr($new_arr);
                     //array_push($search_condition, ARRAY('OR'));
                     //$condition[] = array("TravelCity.city_name LIKE '%$new_arr[$indexOfFirstLetter]%'");
@@ -757,8 +739,7 @@ class AdminController extends AppController {
                 $TravelCountries = $this->TravelCountry->findById($country_id);
 
                 $this->set(compact('SupplierCountries', 'TravelCountries'));
-            }
-            elseif (isset($this->data['add'])) {
+            } elseif (isset($this->data['add'])) {
                 $supplier_country_id = $this->data['SupplierCountry']['supplier_country_id'];
                 $country_id = $this->data['SupplierCountry']['country_id'];
                 //die;
@@ -809,52 +790,50 @@ class AdminController extends AppController {
                     $tr_remarks['TravelRemark']['country_supplier_id'] = $country_supplier_id;
                     $tr_action_item['TravelActionItem']['country_supplier_id'] = $country_supplier_id;
                     $flag = 1;
-                
 
-                $this->request->data['Mappinge']['created_by'] = $user_id;
-                $this->request->data['Mappinge']['status'] = '1'; // 1 for Submission For Approval [None] of the travel_action_item_types
-                $this->request->data['Mappinge']['exclude'] = '2'; // 2 for No of lookup_value_statuses
-                $this->request->data['Mappinge']['dummy_status'] = $dummy_status;
-                $this->Mappinge->save($this->request->data['Mappinge']);
 
-                $tr_remarks['TravelRemark']['created_by'] = $user_id;
-                $tr_remarks['TravelRemark']['remarks_time'] = date('g:i A');
+                    $this->request->data['Mappinge']['created_by'] = $user_id;
+                    $this->request->data['Mappinge']['status'] = '1'; // 1 for Submission For Approval [None] of the travel_action_item_types
+                    $this->request->data['Mappinge']['exclude'] = '2'; // 2 for No of lookup_value_statuses
+                    $this->request->data['Mappinge']['dummy_status'] = $dummy_status;
+                    $this->Mappinge->save($this->request->data['Mappinge']);
 
-                $tr_remarks['TravelRemark']['dummy_status'] = $dummy_status;
-                $this->TravelRemark->save($tr_remarks);
+                    $tr_remarks['TravelRemark']['created_by'] = $user_id;
+                    $tr_remarks['TravelRemark']['remarks_time'] = date('g:i A');
 
-                /*
-                 * ********************** Action *********************
-                 */
+                    $tr_remarks['TravelRemark']['dummy_status'] = $dummy_status;
+                    $this->TravelRemark->save($tr_remarks);
 
-                $tr_action_item['TravelActionItem']['type_id'] = '1'; // 1 for Submission For Approval [None] of the travel_action_item_types
-                $tr_action_item['TravelActionItem']['action_item_active'] = 'Yes';
-                $tr_action_item['TravelActionItem']['action_item_source'] = $role_id;
-                $tr_action_item['TravelActionItem']['created_by_id'] = $user_id;
-                $tr_action_item['TravelActionItem']['created_by'] = $user_id;
-                $tr_action_item['TravelActionItem']['dummy_status'] = $dummy_status;
-                $tr_action_item['TravelActionItem']['next_action_by'] = $next_action_by;
-                $tr_action_item['TravelActionItem']['parent_action_item_id'] = '';
-                $this->TravelActionItem->save($tr_action_item);
-                $ActionId = $this->TravelActionItem->getLastInsertId();
-                $ActionUpdateArr['TravelActionItem']['parent_action_item_id'] = "'" . $ActionId . "'";
-                $this->TravelActionItem->updateAll($ActionUpdateArr['TravelActionItem'], array('TravelActionItem.id' => $ActionId));
-                $this->SupplierCountry->updateAll(array('SupplierCountry.status' => "'2'"), array('SupplierCountry.id' => $SupplierCountries['SupplierCountry']['id']));
-                $this->Session->setFlash('Your changes have been submitted. Waiting for approval at the moment...', 'success');
-                $this->redirect(array('action' => 'supplier_country'));
-            }
-            }
-            
-            elseif (isset($this->data['inserted'])) {
+                    /*
+                     * ********************** Action *********************
+                     */
+
+                    $tr_action_item['TravelActionItem']['type_id'] = '1'; // 1 for Submission For Approval [None] of the travel_action_item_types
+                    $tr_action_item['TravelActionItem']['action_item_active'] = 'Yes';
+                    $tr_action_item['TravelActionItem']['action_item_source'] = $role_id;
+                    $tr_action_item['TravelActionItem']['created_by_id'] = $user_id;
+                    $tr_action_item['TravelActionItem']['created_by'] = $user_id;
+                    $tr_action_item['TravelActionItem']['dummy_status'] = $dummy_status;
+                    $tr_action_item['TravelActionItem']['next_action_by'] = $next_action_by;
+                    $tr_action_item['TravelActionItem']['parent_action_item_id'] = '';
+                    $this->TravelActionItem->save($tr_action_item);
+                    $ActionId = $this->TravelActionItem->getLastInsertId();
+                    $ActionUpdateArr['TravelActionItem']['parent_action_item_id'] = "'" . $ActionId . "'";
+                    $this->TravelActionItem->updateAll($ActionUpdateArr['TravelActionItem'], array('TravelActionItem.id' => $ActionId));
+                    $this->SupplierCountry->updateAll(array('SupplierCountry.status' => "'2'"), array('SupplierCountry.id' => $SupplierCountries['SupplierCountry']['id']));
+                    $this->Session->setFlash('Your changes have been submitted. Waiting for approval at the moment...', 'success');
+                    $this->redirect(array('action' => 'supplier_country'));
+                }
+            } elseif (isset($this->data['inserted'])) {
 
 
                 $screen = '5'; // fetch hotel table of  
                 $supplier_country_id = $this->data['Common']['supplier_country_id'];
                 $supplier_country_name = $this->data['Common']['supplier_country_name'];
                 $supplier_country_code = $this->data['Common']['supplier_country_code'];
-             
-       
-                $about = $supplier_country_name . ' | ' . $supplier_country_code . ' | ' .$supplier_country_id;
+
+
+                $about = $supplier_country_name . ' | ' . $supplier_country_code . ' | ' . $supplier_country_id;
 
                 $answer = '37'; // table of lookup_questions
                 $this->request->data['SupportTicket']['status'] = '1'; // 1 = open
@@ -893,7 +872,7 @@ class AdminController extends AppController {
 
         if ($this->request->is('post') || $this->request->is('put')) {
             //pr($this->data);
-           // die;
+            // die;
             if (isset($this->data['mapped'])) {
                 $supplier_city_id = $this->data['Common']['supplier_city_id'];
                 $city_id = $this->data['Common']['city_id'];
@@ -902,18 +881,14 @@ class AdminController extends AppController {
                 $TravelCities = $this->TravelCity->findById($city_id);
 
                 $this->set(compact('SupplierCities', 'TravelCities'));
-            }
-
-
-
-            if (isset($this->data['add'])) {
+            } elseif (isset($this->data['add'])) {
                 $supplier_city_id = $this->data['SupplierCity']['supplier_city_id'];
                 $city_id = $this->data['SupplierCity']['city_id'];
 
                 $SupplierCities = $this->SupplierCity->findById($supplier_city_id);
                 $TravelCities = $this->TravelCity->findById($city_id);
 
-                $next_action_by = '166';  //overseer 136 44 is sarika 152 - ojas
+                $next_action_by = '169';  //overseer 136 44 is sarika 152 - ojas
                 $flag = 0;
                 $search_condition = array();
                 $condition = '';
@@ -964,39 +939,74 @@ class AdminController extends AppController {
                     $tr_remarks['TravelRemark']['city_supplier_id'] = $city_supplier_id;
                     $tr_action_item['TravelActionItem']['city_supplier_id'] = $city_supplier_id;
                     $flag = 1;
-                
 
-                $this->request->data['Mappinge']['created_by'] = $user_id;
-                $this->request->data['Mappinge']['status'] = '1'; // 1 for Submission For Approval [None] of the travel_action_item_types
-                $this->request->data['Mappinge']['exclude'] = '2'; // 2 for No of lookup_value_statuses
-                $this->request->data['Mappinge']['dummy_status'] = $dummy_status;
-                $this->Mappinge->save($this->request->data['Mappinge']);
 
-                $tr_remarks['TravelRemark']['created_by'] = $user_id;
-                $tr_remarks['TravelRemark']['remarks_time'] = date('g:i A');
+                    $this->request->data['Mappinge']['created_by'] = $user_id;
+                    $this->request->data['Mappinge']['status'] = '1'; // 1 for Submission For Approval [None] of the travel_action_item_types
+                    $this->request->data['Mappinge']['exclude'] = '2'; // 2 for No of lookup_value_statuses
+                    $this->request->data['Mappinge']['dummy_status'] = $dummy_status;
+                    $this->Mappinge->save($this->request->data['Mappinge']);
 
-                $tr_remarks['TravelRemark']['dummy_status'] = $dummy_status;
-                $this->TravelRemark->save($tr_remarks);
+                    $tr_remarks['TravelRemark']['created_by'] = $user_id;
+                    $tr_remarks['TravelRemark']['remarks_time'] = date('g:i A');
 
-                /*
-                 * ********************** Action *********************
-                 */
+                    $tr_remarks['TravelRemark']['dummy_status'] = $dummy_status;
+                    $this->TravelRemark->save($tr_remarks);
 
-                $tr_action_item['TravelActionItem']['type_id'] = '1'; // 1 for Submission For Approval [None] of the travel_action_item_types
-                $tr_action_item['TravelActionItem']['action_item_active'] = 'Yes';
-                $tr_action_item['TravelActionItem']['action_item_source'] = $role_id;
-                $tr_action_item['TravelActionItem']['created_by_id'] = $user_id;
-                $tr_action_item['TravelActionItem']['created_by'] = $user_id;
-                $tr_action_item['TravelActionItem']['dummy_status'] = $dummy_status;
-                $tr_action_item['TravelActionItem']['next_action_by'] = $next_action_by;
-                $tr_action_item['TravelActionItem']['parent_action_item_id'] = '';
-                $this->TravelActionItem->save($tr_action_item);
-                $ActionId = $this->TravelActionItem->getLastInsertId();
-                $ActionUpdateArr['TravelActionItem']['parent_action_item_id'] = "'" . $ActionId . "'";
-                $this->TravelActionItem->updateAll($ActionUpdateArr['TravelActionItem'], array('TravelActionItem.id' => $ActionId));
-                $this->SupplierCity->updateAll(array('SupplierCity.status' => "'2'"), array('SupplierCity.id' => $SupplierCities['SupplierCity']['id']));
-                $this->Session->setFlash('Your changes have been submitted. Waiting for approval at the moment...', 'success');
-                $this->redirect(array('action' => 'supplier_city'));
+                    /*
+                     * ********************** Action *********************
+                     */
+
+                    $tr_action_item['TravelActionItem']['type_id'] = '1'; // 1 for Submission For Approval [None] of the travel_action_item_types
+                    $tr_action_item['TravelActionItem']['action_item_active'] = 'Yes';
+                    $tr_action_item['TravelActionItem']['action_item_source'] = $role_id;
+                    $tr_action_item['TravelActionItem']['created_by_id'] = $user_id;
+                    $tr_action_item['TravelActionItem']['created_by'] = $user_id;
+                    $tr_action_item['TravelActionItem']['dummy_status'] = $dummy_status;
+                    $tr_action_item['TravelActionItem']['next_action_by'] = $next_action_by;
+                    $tr_action_item['TravelActionItem']['parent_action_item_id'] = '';
+                    $this->TravelActionItem->save($tr_action_item);
+                    $ActionId = $this->TravelActionItem->getLastInsertId();
+                    $ActionUpdateArr['TravelActionItem']['parent_action_item_id'] = "'" . $ActionId . "'";
+                    $this->TravelActionItem->updateAll($ActionUpdateArr['TravelActionItem'], array('TravelActionItem.id' => $ActionId));
+                    $this->SupplierCity->updateAll(array('SupplierCity.status' => "'2'"), array('SupplierCity.id' => $SupplierCities['SupplierCity']['id']));
+                    $this->Session->setFlash('Your changes have been submitted. Waiting for approval at the moment...', 'success');
+                    $this->redirect(array('action' => 'supplier_city'));
+                }
+            } elseif (isset($this->data['inserted'])) {
+
+
+                $screen = '6'; // fetch city table of  lookup_screens
+                $supplier_city_id = $this->data['Common']['supplier_city_id'];
+                $supplier_city_name = $this->data['Common']['supplier_city_name'];
+                $supplier_city_code = $this->data['Common']['supplier_city_code'];
+                //$supplier_country_code = $this->data['Common']['supplier_country_code'];
+
+                $about = $supplier_city_name . ' | ' . $supplier_city_code . ' | ' . $supplier_city_id;
+
+                $answer = '38'; // table of lookup_questions
+                $this->request->data['SupportTicket']['status'] = '1'; // 1 = open
+                $this->request->data['SupportTicket']['opend_by'] = 'SENDER';
+                $this->request->data['SupportTicket']['active'] = 'TRUE';
+                $this->request->data['SupportTicket']['ip_address'] = $_SERVER['REMOTE_ADDR'];
+                $this->request->data['SupportTicket']['question_id'] = 'What is the issue?';
+                $this->request->data['SupportTicket']['about'] = $about;
+                $this->request->data['SupportTicket']['answer'] = $answer;
+                $this->request->data['SupportTicket']['urgency'] = '2'; //Moderate
+                $this->request->data['SupportTicket']['description'] = 'Request for country creation';
+
+                $department_id = $this->SupportTicket->getDepartmentByQuestionId($answer);
+                $this->request->data['SupportTicket']['next_action_by'] = $this->SupportTicket->getNextActionByDepartmentId($department_id);
+                $this->request->data['SupportTicket']['department_id'] = $department_id;
+                $this->request->data['SupportTicket']['type'] = '1'; // Internal
+                $this->request->data['SupportTicket']['created_by'] = $user_id;
+                $this->request->data['SupportTicket']['last_action_by'] = $user_id;
+                $this->request->data['SupportTicket']['screen'] = $screen;
+                $this->request->data['SupportTicket']['response_issue_id'] = $answer;
+                if ($this->SupportTicket->save($this->request->data['SupportTicket'])) {
+                    $this->SupplierCity->updateAll(array('SupplierCity.status' => "'4'"), array('SupplierCity.id' => $supplier_city_id));
+                    $this->Session->setFlash('Your ticket has been successfully created.', 'success');
+                    $this->redirect(array('action' => 'supplier_city'));
                 }
             }
         }
@@ -1040,7 +1050,7 @@ class AdminController extends AppController {
                 }
             }
             //pr($condition);
-            array_push($search_condition, array('OR' => $condition,'TravelHotelLookup.country_name' => $country_name,'TravelHotelLookup.city_name' => $city_name));
+            array_push($search_condition, array('OR' => $condition, 'TravelHotelLookup.country_name' => $country_name, 'TravelHotelLookup.city_name' => $city_name));
             // pr($search_condition);
             // die;
             /*
@@ -1266,7 +1276,7 @@ class AdminController extends AppController {
 
                 $hotel_code = $this->Common->getHotelCode($hotel_id);
                 $hotel_name = $this->Common->getHotelName($hotel_id);
-                $about = $hotel_name . ' | ' . $hotel_code . ' | ' . $hotel_id.' | '.$supplier_hotel_id;
+                $about = $hotel_name . ' | ' . $hotel_code . ' | ' . $hotel_id . ' | ' . $supplier_hotel_id;
 
                 $answer = '36'; // table of lookup_questions
                 $this->request->data['SupportTicket']['status'] = '1'; // 1 = open
@@ -1294,8 +1304,6 @@ class AdminController extends AppController {
                 }
             }
         }
-        
-        
     }
 
     public function hotel_add($supplier_hotel_id = null) {
@@ -1323,34 +1331,33 @@ class AdminController extends AppController {
         $TravelSuburbs = array();
         $TravelAreas = array();
         $TravelBrands = array();
-        $Provinces=array();
+        $Provinces = array();
         $user_id = $this->Auth->user('id');
         $role_id = $this->Session->read("role_id");
         $dummy_status = $this->Auth->user('dummy_status');
         $actio_itme_id = '';
         $flag = 0;
-        
-        
+
+
         $continent_id = $TravelHotelLookups['TravelHotelLookup']['continent_id'];
-            $country_id = $TravelHotelLookups['TravelHotelLookup']['country_id'];
-            $province_id = $TravelHotelLookups['TravelHotelLookup']['province_id'];
-            
-        $permissionArray = $this->ProvincePermission->find('first',array('conditions' => array('continent_id' => $continent_id,'country_id' => $country_id,'province_id' => $province_id,'user_id' => $user_id)));  
-        if(isset($permissionArray['ProvincePermission']['approval_id']))
+        $country_id = $TravelHotelLookups['TravelHotelLookup']['country_id'];
+        $province_id = $TravelHotelLookups['TravelHotelLookup']['province_id'];
+
+        $permissionArray = $this->ProvincePermission->find('first', array('conditions' => array('continent_id' => $continent_id, 'country_id' => $country_id, 'province_id' => $province_id, 'user_id' => $user_id)));
+        if (isset($permissionArray['ProvincePermission']['approval_id']))
             $next_action_by = $permissionArray['ProvincePermission']['approval_id'];
         else
             $next_action_by = '165';
-        
-          
+
+
         if ($this->request->is('post') || $this->request->is('put')) {
 
-            
+
             //$continent_id = $this->data->request['TravelHotelLookup']['continent_id'];
             //$continent_id = $this->data->request['TravelHotelLookup']['continent_id'];
-            
-              //overseer 136 44 is sarika 152 - ojas
-            
-     
+            //overseer 136 44 is sarika 152 - ojas
+
+
 
             $image1 = '';
             $image2 = '';
@@ -1493,7 +1500,7 @@ class AdminController extends AppController {
             'uri' => '',
             'trace' => 1,
         ));
-        
+
         try {
             $order_return = $client->__doRequest($xml_string, $location_URL, $action_URL, 1);
             $xmlArray = Xml::toArray(Xml::build($order_return));
@@ -1617,14 +1624,14 @@ class AdminController extends AppController {
 
         $this->request->data = $TravelHotelLookups;
     }
-    
-    public function country_add($supplier_country_id = null){
-        
-         $location_URL = 'http://dev.wtbnetworks.com/TravelXmlManagerv001/ProEngine.Asmx';
+
+    public function country_add($supplier_country_id = null) {
+
+        $location_URL = 'http://dev.wtbnetworks.com/TravelXmlManagerv001/ProEngine.Asmx';
         $action_URL = 'http://www.travel.domain/ProcessXML';
         $user_id = $this->Auth->user('id');
         $xml_error = 'FALSE';
-        
+
         $SupplierCountries = $this->SupplierCountry->findById($supplier_country_id);
         $country_name = $SupplierCountries['SupplierCountry']['name'];
         $country_code = $SupplierCountries['SupplierCountry']['code'];
@@ -1760,7 +1767,7 @@ class AdminController extends AppController {
                 $this->request->data['LogCall']['log_call_by'] = $user_id;
                 $this->LogCall->save($this->request->data['LogCall']);
                 $message = 'Local record has been successfully created.<br />' . $xml_msg;
-                $a =  date('m/d/Y H:i:s', strtotime('-1 hour'));
+                $a = date('m/d/Y H:i:s', strtotime('-1 hour'));
                 $date = new DateTime($a, new DateTimeZone('Asia/Calcutta'));
                 if ($xml_error == 'TRUE') {
                     $Email = new CakeEmail();
@@ -1777,15 +1784,195 @@ class AdminController extends AppController {
                     $Email->template('XML/xml', 'default')->emailFormat('html')->to($to)->cc($cc)->from('admin@silkrouters.com')->subject('XML Error [' . $log_call_screen . '] Open By [' . $this->User->Username($user_id) . '] Date [' . date("m/d/Y H:i:s", $date->format('U')) . ']')->send();
                 }
                 $this->Session->setFlash($message, 'success');
-                $this->redirect(array('controller' => 'support_tickets','action' => 'index'));
+                $this->redirect(array('controller' => 'support_tickets', 'action' => 'index'));
             } else {
                 $this->Session->setFlash('Unable to add Country.', 'failure');
             }
         }
 
         $TravelLookupContinents = $this->TravelLookupContinent->find('list', array('fields' => 'id,continent_name', 'conditions' => array('continent_status' => 1, 'wtb_status' => 1, 'active' => 'TRUE'), 'order' => 'continent_name ASC'));
-        $this->set(compact('TravelLookupContinents','country_name','country_code'));
+        $this->set(compact('TravelLookupContinents', 'country_name', 'country_code'));
+    }
+    
+    public function city_add($supplier_city_id = null) {
+
+        $location_URL = 'http://dev.wtbnetworks.com/TravelXmlManagerv001/ProEngine.Asmx';
+        $action_URL = 'http://www.travel.domain/ProcessXML';
+        $user_id = $this->Auth->user('id');
+        $xml_error = 'FALSE';
+        $SupplierCities = $this->SupplierCity>findById($supplier_city_id);
+        $city_name = $SupplierCities['SupplierCity']['name'];
+        $city_code = $SupplierCities['SupplierCity']['code'];
+
+        if ($this->request->is('post')) {
+
+            $this->request->data['TravelCity']['created_by'] = $user_id;
+            $this->request->data['TravelCity']['city_status'] = '1';
+            $this->request->data['TravelCity']['wtb_status'] = '1';
+            $this->request->data['TravelCity']['active'] = 'TRUE';
+            $this->TravelCity->create();
+            if ($this->TravelCity->save($this->request->data)) {
+                $CityId = $this->TravelCity->getLastInsertId();
+                $CityName = $this->data['TravelCity']['city_name'];
+                $CityCode = $this->data['TravelCity']['city_code'];               
+                $CountryId = $this->data['TravelCity']['country_id'];
+                $CountryCode = $this->data['TravelCity']['country_code'];
+                $CountryName = $this->data['TravelCity']['country_name'];
+                $ContinentId = $this->data['TravelCity']['continent_id'];
+                $ContinentName = $this->data['TravelCity']['continent_name'];
+                $ProvinceId = $this->data['TravelCity']['province_id'];
+                $ProvinceName = $this->data['TravelCity']['province_name'];
+                $CityDescription = $this->data['TravelCity']['city_description'];
+                $TopCity = strtolower($this->data['TravelCity']['top_city']);
+                $Active = 'true';
+
+                $CreatedDate = date('Y-m-d') . 'T' . date('h:i:s');
+
+                $content_xml_str = '<soap:Body>
+                                        <ProcessXML xmlns="http://www.travel.domain/">
+                                            <RequestInfo>
+                                                <ResourceDataRequest>
+                                                    <RequestAuditInfo>
+                                                        <RequestType>PXML_WData_City</RequestType>
+                                                        <RequestTime>' . $CreatedDate . '</RequestTime>
+                                                        <RequestResource>Silkrouters</RequestResource>
+                                                    </RequestAuditInfo>
+                                                    <RequestParameters>                        
+                                                        <ResourceData>
+                                                            <ResourceDetailsData srno="1" actiontype="AddNew">
+                                                                <CityId>' . $CityId . '</CityId>
+                                                                <CityCode><![CDATA[' . $CityCode . ']]></CityCode>
+                                                                <CityName><![CDATA[' . $CityName . ']]></CityName>
+                                                                <CountryId>' . $CountryId . '</CountryId>
+                                                                <CountryCode><![CDATA['.$CountryCode.']]></CountryCode>
+                                                                <CountryName><![CDATA[' . $CountryName . ']]></CountryName>
+                                                                <ContinentId>' . $ContinentId . '</ContinentId>
+                                                                <ContinentCode>NA</ContinentCode>
+                                                                <ContinentName><![CDATA[' . $ContinentName . ']]></ContinentName>
+                                                                <ProvinceId>'.$ProvinceId.'</ProvinceId>
+                                                                <ProvinceName><![CDATA['.$ProvinceName.']]></ProvinceName>
+                                                                <RegionId></RegionId>
+                                                                <CityNameJP></CityNameJP>
+                                                                <CityNameFR></CityNameFR>
+                                                                <CityNameDE>NA</CityNameDE>
+                                                                <CityNameCN>NA</CityNameCN>
+                                                                <CityNameCNT>NA</CityNameCNT>
+                                                                <CityNameIT>NA</CityNameIT>
+                                                                <CityNameES>NA</CityNameES>
+                                                                <CityNameKR>NA</CityNameKR>
+                                                                <CityNameTEMP1>NA</CityNameTEMP1>
+                                                                <CityNameTEMP2>NA</CityNameTEMP2>
+                                                                <CityNameTEMP3>NA</CityNameTEMP3>
+                                                                <City_Keyword>NA</City_Keyword>
+                                                                <CityURL>NA</CityURL>
+                                                                <CityNameURL>NA</CityNameURL>
+                                                                <CityURLTEMP1>NA</CityURLTEMP1>
+                                                                <CityURLTEMP2>NA</CityURLTEMP2>
+                                                                <CityURLTEMP3>NA</CityURLTEMP3>
+                                                                <CityDomainName>NA</CityDomainName>
+                                                                <CityTitle>NA</CityTitle>
+                                                                <CityDescription><![CDATA['.$CityDescription.']]></CityDescription>
+                                                                <CityKeyword>NA</CityKeyword>
+                                                                <ActiveMap>false</ActiveMap>
+                                                                <ActiveGuide>false</ActiveGuide>
+                                                                <IsUpdated>0</IsUpdated>
+                                                                <PFTActive>1</PFTActive>
+                                                                <SSActive>true</SSActive>
+                                                                <TopDestination>true</TopDestination>
+                                                                <StateCode>NA</StateCode>
+                                                                <IsXML>true</IsXML>
+                                                                <Active>' . $Active . '</Active>
+                                                                <TopCity>NA</TopCity>
+                                                                <Status>true</Status>
+                                                                <WtbStatus>true</WtbStatus>                                                                
+                                                                <ApprovedBy>0</ApprovedBy>
+                                                                <ApprovedDate>1111-01-01T00:00:00</ApprovedDate>
+                                                                <CreatedBy>' . $user_id . '</CreatedBy>
+                                                                <CreatedDate>' . $CreatedDate . '</CreatedDate>
+                                                            </ResourceDetailsData>
+                         
+                                                    </ResourceData>
+                                                    </RequestParameters>
+                                                </ResourceDataRequest>
+                                            </RequestInfo>
+                                        </ProcessXML>
+                                    </soap:Body>';
+
+
+                $log_call_screen = 'City - Add';
+
+                $xml_string = Configure::read('travel_start_xml_str') . $content_xml_str . Configure::read('travel_end_xml_str');
+                $client = new SoapClient(null, array(
+                    'location' => $location_URL,
+                    'uri' => '',
+                    'trace' => 1,
+                ));
+
+                try {
+                    $order_return = $client->__doRequest($xml_string, $location_URL, $action_URL, 1);
+
+                    $xml_arr = $this->xml2array($order_return);
+                    //echo htmlentities($xml_string);
+                    // pr($xml_arr);
+                    // die;
+
+                    if ($xml_arr['SOAP:ENVELOPE']['SOAP:BODY']['PROCESSXMLRESPONSE']['PROCESSXMLRESULT']['RESOURCEDATA_CITY']['RESPONSEAUDITINFO']['RESPONSEINFO']['RESPONSEID'][0] == '201') {
+                        $log_call_status_code = $xml_arr['SOAP:ENVELOPE']['SOAP:BODY']['PROCESSXMLRESPONSE']['PROCESSXMLRESULT']['RESOURCEDATA_CITY']['RESPONSEAUDITINFO']['RESPONSEINFO']['RESPONSEID'][0];
+                        $log_call_status_message = $xml_arr['SOAP:ENVELOPE']['SOAP:BODY']['PROCESSXMLRESPONSE']['PROCESSXMLRESULT']['RESOURCEDATA_CITY']['RESPONSEAUDITINFO']['UPDATEINFO']['STATUS'][0];
+                        $xml_msg = "Foreign record has been successfully created [Code:$log_call_status_code]";
+                        $this->TravelCity->updateAll(array('TravelCity.wtb_status' => "'1'", 'TravelCity.is_update' => "'Y'"), array('TravelCity.id' => $CityId));
+                    } else {
+
+                        $log_call_status_message = $xml_arr['SOAP:ENVELOPE']['SOAP:BODY']['PROCESSXMLRESPONSE']['PROCESSXMLRESULT']['RESOURCEDATA_CITY']['RESPONSEAUDITINFO']['ERRORINFO']['ERROR'][0];
+                        $log_call_status_code = $xml_arr['SOAP:ENVELOPE']['SOAP:BODY']['PROCESSXMLRESPONSE']['PROCESSXMLRESULT']['RESOURCEDATA_CITY']['RESPONSEAUDITINFO']['RESPONSEINFO']['RESPONSEID'][0]; // RESPONSEID
+                        $xml_msg = "There was a problem with foreign record creation [Code:$log_call_status_code]";
+                        $this->TravelCity->updateAll(array('TravelCity.wtb_status' => "'2'"), array('TravelCity.id' => $CityId));
+                        $xml_error = 'TRUE';
+                    }
+                } catch (SoapFault $exception) {
+                    var_dump(get_class($exception));
+                    var_dump($exception);
+                }
+
+
+                $this->request->data['LogCall']['log_call_nature'] = 'Production';
+                $this->request->data['LogCall']['log_call_type'] = 'Outbound';
+                $this->request->data['LogCall']['log_call_parms'] = trim($xml_string);
+                $this->request->data['LogCall']['log_call_status_code'] = $log_call_status_code;
+                $this->request->data['LogCall']['log_call_status_message'] = $log_call_status_message;
+                $this->request->data['LogCall']['log_call_screen'] = $log_call_screen;
+                $this->request->data['LogCall']['log_call_counterparty'] = 'WTBNETWORKS';
+                $this->request->data['LogCall']['log_call_by'] = $user_id;
+
+                $this->LogCall->save($this->request->data['LogCall']);
+                if ($xml_error == 'TRUE') {
+                    $Email = new CakeEmail();
+
+                    $Email->viewVars(array(
+                        'request_xml' => trim($xml_string),
+                        'respon_message' => $log_call_status_message,
+                        'respon_code' => $log_call_status_code,
+                    ));
+
+                    $to = 'biswajit@wtbglobal.com';
+                    $cc = 'infra@sumanus.com';
+
+                    $Email->template('XML/xml', 'default')->emailFormat('html')->to($to)->cc($cc)->from('admin@silkrouters.com')->subject('XML Error [' . $log_call_screen . '] Open By [' . $this->User->Username($user_id) . '] Date [' . date('d/m/y H:i:s') . ']')->send();
+                }
+
+
+                $message = 'Local record has been successfully added.<br />' . $xml_msg;
+                $this->Session->setFlash($message, 'success');
+                $this->redirect(array('action' => 'index'));
+            } else {
+                $this->Session->setFlash('Unable to add City.', 'failure');
+            }
+        }
         
+        
+
+        $TravelLookupContinents = $this->TravelLookupContinent->find('list', array('fields' => 'id,continent_name', 'conditions' => array('continent_status' => 1, 'wtb_status' => 1, 'active' => 'TRUE'), 'order' => 'continent_name ASC'));
+        $this->set(compact('TravelLookupContinents'));
     }
 
 }

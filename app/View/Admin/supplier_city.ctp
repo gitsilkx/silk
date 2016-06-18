@@ -55,7 +55,8 @@ echo $this->element('FetchAreas/top_menu');
                                 <td class="tablebody"><?php echo $SupplierCity['TravelSupplierStatus']['value']; ?></td>
                                 <td class="tablebody"><?php echo count($SupplierCity['TravelCitySupplier']);?></td>
                                 <td width="10%" valign="middle" align="center"><?php
-                                echo $this->Html->link('<span class="icon-list"></span>', array('controller' => 'admin', 'action' => 'city_mapping/' . $id), array('class' => 'act-ico','target' => '_blank', 'escape' => false));
+                                if($SupplierCity['SupplierCity']['status'] == '1' || $SupplierCity['SupplierCity']['status'] == '5')
+                                    echo $this->Html->link('<span class="icon-list"></span>', array('controller' => 'admin', 'action' => 'city_mapping/' . $id), array('class' => 'act-ico','target' => '_blank', 'escape' => false));
                                 ?></td>
                             </tr>
                         <?php endforeach; ?>
