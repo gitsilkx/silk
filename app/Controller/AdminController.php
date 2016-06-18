@@ -641,9 +641,9 @@ class AdminController extends AppController {
             $this->set(compact('TravelCountries'));
         }
 
-        $log = $this->TravelCountry->getDataSource()->getLog(false, false);       
-       debug($log);
-        die;
+        //$log = $this->TravelCountry->getDataSource()->getLog(false, false);       
+        //debug($log);
+        //die;
 
         $this->request->data = $SupplierCountries;
     }
