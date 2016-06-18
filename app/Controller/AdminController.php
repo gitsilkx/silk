@@ -718,7 +718,7 @@ class AdminController extends AppController {
         // pr($condition);
         $log = $this->TravelCity->getDataSource()->getLog(false, false);       
         debug($log);
-        //die;
+        die;
 
         $this->request->data = $SupplierCities;
     }
