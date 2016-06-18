@@ -1053,7 +1053,7 @@ class AdminController extends AppController {
                 }
             }
             //pr($condition);
-            array_push($search_condition, array('OR' => $condition, 'TravelHotelLookup.country_name' => $country_name, 'TravelHotelLookup.city_name' => $city_name));
+            array_push($search_condition, array('OR' => $condition, 'TravelHotelLookup.country_name like' => $country_name, 'TravelHotelLookup.city_name like' => $city_name));
             // pr($search_condition);
             // die;
             /*
