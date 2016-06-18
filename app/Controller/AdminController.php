@@ -1153,7 +1153,7 @@ class AdminController extends AppController {
                 $SupplierHotels = $this->SupplierHotel->findById($supplier_hotel_id);
                 $TravelHotelLookups = $this->TravelHotelLookup->findById($hotel_id);
 
-                $next_action_by = '166';  //overseer 136 44 is sarika 152 - ojas
+                $next_action_by = '169';  //overseer 136 44 is sarika 152 - ojas
                 $flag = 0;
                 $search_condition = array();
                 $condition = '';
@@ -1264,7 +1264,7 @@ class AdminController extends AppController {
                 $ActionId = $this->TravelActionItem->getLastInsertId();
                 $ActionUpdateArr['TravelActionItem']['parent_action_item_id'] = "'" . $ActionId . "'";
                 $this->TravelActionItem->updateAll($ActionUpdateArr['TravelActionItem'], array('TravelActionItem.id' => $ActionId));
-
+                $this->SupplierHotel->updateAll(array('SupplierHotel.status' => "'2'"), array('SupplierHotel.id' => $SupplierHotels['SupplierHotel']['id']));
                 $this->Session->setFlash('Your changes have been submitted. Waiting for approval at the moment...', 'success');
                 $this->redirect(array('action' => 'supplier_hotels'));
             } elseif (isset($this->data['inserted'])) {
@@ -1298,7 +1298,7 @@ class AdminController extends AppController {
                 $this->request->data['SupportTicket']['screen'] = $screen;
                 $this->request->data['SupportTicket']['response_issue_id'] = $answer;
                 if ($this->SupportTicket->save($this->request->data['SupportTicket'])) {
-                    $this->SupplierHotel->updateAll(array('SupplierHotel.status' => "'4'", 'SupplierHotel.wtb_hotel_id' => $hotel_id), array('SupplierHotel.id' => $supplier_hotel_id));
+                    $this->SupplierHotel->updateAll(array('SupplierHotel.status' => "'4'"), array('SupplierHotel.id' => $supplier_hotel_id));
                     $this->Session->setFlash('Your ticket has been successfully created.', 'success');
                     $this->redirect(array('action' => 'supplier_hotels'));
                 }
@@ -1309,8 +1309,8 @@ class AdminController extends AppController {
     public function hotel_add($supplier_hotel_id = null) {
 
         $SupplierHotels = $this->SupplierHotel->findById($supplier_hotel_id);
-        $TravelHotelLookups = $this->TravelHotelLookup->findById($SupplierHotels['SupplierHotel']['wtb_hotel_id']);
-        $id = $TravelHotelLookups['TravelHotelLookup']['id'];
+        
+    
         $location_URL = 'http://dev.wtbnetworks.com/TravelXmlManagerv001/ProEngine.Asmx';
         $action_URL = 'http://www.travel.domain/ProcessXML';
         $user_id = $this->Auth->user('id');
@@ -1338,16 +1338,18 @@ class AdminController extends AppController {
         $actio_itme_id = '';
         $flag = 0;
 
-
+/*
         $continent_id = $TravelHotelLookups['TravelHotelLookup']['continent_id'];
         $country_id = $TravelHotelLookups['TravelHotelLookup']['country_id'];
         $province_id = $TravelHotelLookups['TravelHotelLookup']['province_id'];
+ * 
+ */
 
-        $permissionArray = $this->ProvincePermission->find('first', array('conditions' => array('continent_id' => $continent_id, 'country_id' => $country_id, 'province_id' => $province_id, 'user_id' => $user_id)));
-        if (isset($permissionArray['ProvincePermission']['approval_id']))
-            $next_action_by = $permissionArray['ProvincePermission']['approval_id'];
-        else
-            $next_action_by = '165';
+        //$permissionArray = $this->ProvincePermission->find('first', array('conditions' => array('continent_id' => $continent_id, 'country_id' => $country_id, 'province_id' => $province_id, 'user_id' => $user_id)));
+        //if (isset($permissionArray['ProvincePermission']['approval_id']))
+            //$next_action_by = $permissionArray['ProvincePermission']['approval_id'];
+        //else
+            $next_action_by = '169';
 
 
         if ($this->request->is('post') || $this->request->is('put')) {
@@ -1451,6 +1453,7 @@ class AdminController extends AppController {
 
             //$this->TravelHotelLookup->id = $id;
             if ($this->TravelHotelLookup->save($this->request->data['TravelHotelLookup'])) {
+                $this->SupplierHotel->updateAll(array('SupplierHotel.status' => "'5'"), array('SupplierHotel.id' => $supplier_hotel_id));
                 $this->TravelActionItem->save($travel_action_item);
                 $ActionId = $this->TravelActionItem->getLastInsertId();
                 $this->TravelActionItem->id = $ActionId;
@@ -1622,7 +1625,7 @@ class AdminController extends AppController {
 
         $this->set(compact('TravelLookupContinents', 'TravelChains', 'TravelCountries', 'TravelCities', 'TravelSuburbs', 'TravelAreas', 'TravelBrands', 'TravelHotelRoomSuppliers', 'Provinces', 'TravelLookupPropertyTypes', 'TravelLookupRateTypes', 'hotel_name', 'star', 'gps_prm_1', 'gps_prm_2', 'reservation_contact', 'address', 'location', 'hotel_comment', 'url_hotel', 'reservation_email'));
 
-        $this->request->data = $TravelHotelLookups;
+      
     }
 
     public function country_add($supplier_country_id = null) {
