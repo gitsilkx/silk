@@ -1,6 +1,6 @@
 <?php
 $this->Html->addCrumb('City Mapping', 'javascript:void(0);', array('class' => 'breadcrumblast'));
-echo $this->Form->create(null, array(
+echo $this->Form->create('Common', array(
     'url' => array('controller' => 'admin', 'action' => 'add_city_mapping'),'method' => 'get'
 ));
 /*

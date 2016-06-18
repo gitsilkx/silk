@@ -691,6 +691,9 @@ class AdminController extends AppController {
                         array_push($condition, array("TravelCity.city_name LIKE '%$new_arr[$indexOfFirstLetter]%'"));
             
                     }
+                    else {
+                        array_push($condition, array("TravelCity.city_name LIKE '%$new_arr[$indexOfFirstLetter]%'"));
+                    }
                     //pr($new_arr);
                     //array_push($search_condition, ARRAY('OR'));
                     //$condition[] = array("TravelCity.city_name LIKE '%$new_arr[$indexOfFirstLetter]%'");
@@ -706,6 +709,7 @@ class AdminController extends AppController {
                 }
             }
             //pr($condition);
+            ///die;
             array_push($search_condition, array('OR' => $condition));
             //pr($search_condition);
             // die;
@@ -890,7 +894,8 @@ class AdminController extends AppController {
         $user_id = $this->Auth->user('id');
 
         if ($this->request->is('post') || $this->request->is('put')) {
-
+            //pr($this->data);
+           // die;
             if (isset($this->data['mapped'])) {
                 $supplier_city_id = $this->data['Common']['supplier_city_id'];
                 $city_id = $this->data['Common']['city_id'];
@@ -961,7 +966,7 @@ class AdminController extends AppController {
                     $tr_remarks['TravelRemark']['city_supplier_id'] = $city_supplier_id;
                     $tr_action_item['TravelActionItem']['city_supplier_id'] = $city_supplier_id;
                     $flag = 1;
-                }
+                
 
                 $this->request->data['Mappinge']['created_by'] = $user_id;
                 $this->request->data['Mappinge']['status'] = '1'; // 1 for Submission For Approval [None] of the travel_action_item_types
@@ -991,9 +996,10 @@ class AdminController extends AppController {
                 $ActionId = $this->TravelActionItem->getLastInsertId();
                 $ActionUpdateArr['TravelActionItem']['parent_action_item_id'] = "'" . $ActionId . "'";
                 $this->TravelActionItem->updateAll($ActionUpdateArr['TravelActionItem'], array('TravelActionItem.id' => $ActionId));
-
+                $this->SupplierCity->updateAll(array('SupplierCity.status' => "'2'"), array('SupplierCity.id' => $SupplierCities['SupplierCity']['id']));
                 $this->Session->setFlash('Your changes have been submitted. Waiting for approval at the moment...', 'success');
                 $this->redirect(array('action' => 'supplier_city'));
+                }
             }
         }
     }

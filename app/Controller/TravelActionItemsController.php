@@ -472,7 +472,8 @@ class TravelActionItemsController extends AppController {
                 $agents['TravelCountrySupplier']['approved_date'] = "'" . date('Y-m-d h:i:s') . "'";
 
                 $mapping['Mappinge']['status'] = '2';  // 2 for approve of travel_action_item_types
-                $this->SupplierCountry->updateAll(array('SupplierCountry.status' => "'3'"), array('SupplierCountry.id' => $TravelCountrySuppliers['TravelCountrySupplier']['country_supplier_id']));
+                if($TravelCountrySuppliers['TravelCountrySupplier']['country_supplier_id'])
+                    $this->SupplierCountry->updateAll(array('SupplierCountry.status' => "'3'"), array('SupplierCountry.id' => $TravelCountrySuppliers['TravelCountrySupplier']['country_supplier_id']));
                 $this->request->data['TravelRemark']['country_supplier_id'] = $travel_actionitems['TravelActionItem']['country_supplier_id'];
                 $this->request->data['TravelRemark']['remarks'] = 'Approve Mapping Country';
                 $this->request->data['TravelActionItem']['description'] = 'Approve Mapping Country';
@@ -488,7 +489,8 @@ class TravelActionItemsController extends AppController {
                 $agents['TravelCitySupplier']['approved_by'] = "'" . $user_id . "'";
                 $agents['TravelCitySupplier']['approved_date'] = "'" . date('Y-m-d h:i:s') . "'";
                 $mapping['Mappinge']['status'] = '2';  // 2 for approve of travel_action_item_types
-
+                if($TravelCitySuppliers['TravelCitySupplier']['city_supplier_id'])
+                    $this->SupplierCountry->updateAll(array('SupplierCountry.status' => "'3'"), array('SupplierCountry.id' => $TravelCitySuppliers['TravelCitySupplier']['city_supplier_id']));
                 $this->request->data['TravelRemark']['city_supplier_id'] = $travel_actionitems['TravelActionItem']['city_supplier_id'];
                 $this->request->data['TravelRemark']['remarks'] = 'Approve Mapping City';
                 $this->request->data['TravelActionItem']['description'] = 'Approve Mapping City';
