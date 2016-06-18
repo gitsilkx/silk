@@ -664,6 +664,7 @@ class AdminController extends AppController {
         if (count($SupplierCities)) {
 
             $city_name = $SupplierCities['SupplierCity']['name'];
+            $country_name = $SupplierCities['SupplierCity']['country_name'];
 
 
             for ($indexOfFirstLetter = 0; $indexOfFirstLetter <= strlen($city_name); $indexOfFirstLetter++) {
@@ -690,7 +691,7 @@ class AdminController extends AppController {
             }
             //pr($condition);
             //die;
-            array_push($search_condition, array('OR' => $condition));
+            array_push($search_condition, array('OR' => $condition, 'TravelCity.country_name like' => $country_name));
             //pr($search_condition);
             // die;
             /*
@@ -715,8 +716,8 @@ class AdminController extends AppController {
         }
 
         // pr($condition);
-        //$log = $this->TravelCity->getDataSource()->getLog(false, false);       
-        //debug($log);
+        $log = $this->TravelCity->getDataSource()->getLog(false, false);       
+        debug($log);
         //die;
 
         $this->request->data = $SupplierCities;
@@ -1078,9 +1079,9 @@ class AdminController extends AppController {
         }
 
         // pr($condition);
-         $log = $this->TravelHotelLookup->getDataSource()->getLog(false, false);       
-        debug($log);
-        die;
+         //$log = $this->TravelHotelLookup->getDataSource()->getLog(false, false);       
+        //debug($log);
+        //die;
 
         $this->request->data = $SupplierHotels;
     }
