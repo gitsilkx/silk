@@ -1800,7 +1800,10 @@ class AdminController extends AppController {
         $action_URL = 'http://www.travel.domain/ProcessXML';
         $user_id = $this->Auth->user('id');
         $xml_error = 'FALSE';
-        $SupplierCities = $this->SupplierCity>findById($supplier_city_id);
+       
+        $SupplierCities = $this->SupplierCity->findById($supplier_city_id);
+        $TravelCountrySuppliers = $this->TravelCountrySupplier->findByCountrySupplierId($SupplierCities['SupplierCity']['country_id']);
+        $country_id = $TravelCountrySuppliers['TravelCountrySupplier']['country_id'];
         $city_name = $SupplierCities['SupplierCity']['name'];
         $city_code = $SupplierCities['SupplierCity']['code'];
 
@@ -1963,7 +1966,7 @@ class AdminController extends AppController {
 
                 $message = 'Local record has been successfully added.<br />' . $xml_msg;
                 $this->Session->setFlash($message, 'success');
-                $this->redirect(array('action' => 'index'));
+                $this->redirect(array('controller' => 'support_tickets', 'action' => 'index'));
             } else {
                 $this->Session->setFlash('Unable to add City.', 'failure');
             }
@@ -1972,7 +1975,7 @@ class AdminController extends AppController {
         
 
         $TravelLookupContinents = $this->TravelLookupContinent->find('list', array('fields' => 'id,continent_name', 'conditions' => array('continent_status' => 1, 'wtb_status' => 1, 'active' => 'TRUE'), 'order' => 'continent_name ASC'));
-        $this->set(compact('TravelLookupContinents'));
+        $this->set(compact('TravelLookupContinents','country_id','city_name','city_code'));
     }
 
 }

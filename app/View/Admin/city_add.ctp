@@ -32,7 +32,7 @@ echo $this->Form->hidden('province_name');
                             <span class="colon">:</span>
                             <div class="col-sm-10">
                                 <?php
-                                echo $this->Form->input('city_name', array('data-required' => 'true'));
+                                echo $this->Form->input('city_name', array('data-required' => 'true','value' => $city_name));
                                 ?></div>
                         </div>
                         <div class="form-group">
@@ -59,7 +59,7 @@ echo $this->Form->hidden('province_name');
                             <span class="colon">:</span>
                             <div class="col-sm-10">
                                 <?php
-                                echo $this->Form->input('city_code', array('data-required' => 'true'));
+                                echo $this->Form->input('city_code', array('data-required' => 'true','value' => $city_code));
                                 ?></div>
                         </div>
                       <div class="form-group">
