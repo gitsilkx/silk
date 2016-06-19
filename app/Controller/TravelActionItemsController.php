@@ -364,7 +364,7 @@ class TravelActionItemsController extends AppController {
                 (
                 'conditions' => array
                     (
-                    'TravelHotelRoomSupplier.hotel_id IN (SELECT id FROM travel_hotel_lookups WHERE country_id = "' . $TravelHotelRoomSuppliers['TravelHotelRoomSupplier']['hotel_country_id'] . '" AND city_id = "' . $TravelHotelRoomSuppliers['TravelHotelRoomSupplier']['hotel_city_id'] . ')',
+                    'TravelHotelRoomSupplier.hotel_id IN (SELECT id FROM travel_hotel_lookups WHERE country_id = "' . $TravelHotelRoomSuppliers['TravelHotelRoomSupplier']['hotel_country_id'] . '" AND city_id = "' . $TravelHotelRoomSuppliers['TravelHotelRoomSupplier']['hotel_city_id'] . '")',
                     'TravelHotelRoomSupplier.hotel_city_id' => $TravelHotelRoomSuppliers['TravelHotelRoomSupplier']['hotel_city_id'], 'TravelHotelRoomSupplier.hotel_country_id' => $TravelHotelRoomSuppliers['TravelHotelRoomSupplier']['hotel_country_id'], 'TravelHotelRoomSupplier.id <> ' . $travel_actionitems['TravelActionItem']['hotel_supplier_id']
                 ),
                 'order' => 'TravelHotelRoomSupplier.hotel_city_code ASC',
