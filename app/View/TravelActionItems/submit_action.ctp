@@ -72,7 +72,7 @@ if ($mapping_type == '1') { //country
                 <span class="colon">:</span>
                 <div class="col-sm-10">
                     <?php
-                    echo $this->Form->input('TravelCitySupplier.supplier_city_code', array('readonly' => true,'value' => $TravelCitySuppliers['TravelCitySupplier']['supplier_country_code']));
+                    echo $this->Form->input('TravelCitySupplier.supplier_country_code', array('readonly' => true,'value' => $TravelCitySuppliers['TravelCitySupplier']['country_code']));
                     ?></div>
             </div>
         
