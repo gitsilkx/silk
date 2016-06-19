@@ -120,7 +120,7 @@
             </div>
             <div class="info-details">
                 <?php
-                echo $this->Html->link('<h4>Country Mapping<span class="pull-right"></span></h4>', '#', array('data-toggle' => 'tooltip', 'data-placement' => 'right', 'title' => 'Country Mapping', 'escape' => false));
+                echo $this->Html->link('<h4>Country Mapping<span class="pull-right"></span></h4>', '/my-travel-countries', array('data-toggle' => 'tooltip', 'data-placement' => 'right', 'title' => 'Country Mapping', 'escape' => false));
                 ?>
             </div>
         </div>

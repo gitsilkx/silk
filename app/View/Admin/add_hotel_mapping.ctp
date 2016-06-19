@@ -140,7 +140,21 @@ echo $this->Form->hidden('active',array('value' => $TravelHotelLookups['TravelHo
                             <div class="col-sm-10">
                                 <?php
                                 $status = $TravelHotelLookups['TravelHotelLookup']['status'];
-                                echo ($status == '1') ? 'OK' : 'ERROR';
+                                if ($status == '1')
+                                $status_txt = 'Submitted For Approval';
+                            elseif ($status == '2')
+                                $status_txt = 'Approved';
+                            elseif ($status == '3')
+                                $status_txt = 'Returned';
+                            elseif ($status == '4')
+                                $status_txt = 'Change Submitted';
+                            elseif ($status == '5')
+                                $status_txt = 'Rejected';
+                            elseif ($status == '7')
+                                $status_txt = 'Duplicated';
+                            else
+                                $status_txt = 'Allocation';
+                            echo $status_txt;
                                 ?></div>
                         </div>
                         <div class="form-group">
@@ -255,9 +269,9 @@ echo $this->Form->end();
             alert('Province did not blank');
             return false;
         }
-        if ($('#SupplierHotelStatus').val() != '1')
+        if ($('#SupplierHotelStatus').val() != '2')
         {
-            alert('Hotel Status Should be OK.');
+            alert('Hotel Status Should be Approved.');
             return false;
         }
         if ($('#SupplierHotelWtbStatus').val() != '1')
