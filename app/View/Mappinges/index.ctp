@@ -125,8 +125,8 @@ echo $this->element('Mapping/top_menu');
                 </thead>
                 <tbody>
                     <?php
-                    pr($Mappinges);
-                    die;
+                    //pr($Mappinges);
+                    //die;
                     $target = '';
                     $id = '';
                     $province_id = '';
