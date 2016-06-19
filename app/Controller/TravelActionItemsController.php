@@ -291,9 +291,9 @@ class TravelActionItemsController extends AppController {
             $this->set(compact('TravelCitySuppliers','SupplierCities','TravelCities'));
             $this->set('Mappinges', $Mappinges);
 
-             //$log = $this->TravelCitySupplier->getDataSource()->getLog(false, false);       
-             //debug($log);
-             //die;
+             $log = $this->TravelCitySupplier->getDataSource()->getLog(false, false);       
+             debug($log);
+             die;
 
             $TravelSuppliers = $this->TravelSupplier->find('all', array('fields' => 'supplier_code, supplier_name', 'conditions' => array('active' => 'TRUE'), 'order' => 'supplier_name ASC'));
             $TravelSuppliers = Set::combine($TravelSuppliers, '{n}.TravelSupplier.supplier_code', array('%s - %s', '{n}.TravelSupplier.supplier_code', '{n}.TravelSupplier.supplier_name'));
