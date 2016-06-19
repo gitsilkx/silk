@@ -364,13 +364,16 @@ class TravelActionItemsController extends AppController {
                 (
                 'conditions' => array
                     (
-                    'TravelHotelRoomSupplier.hotel_code IN (SELECT hotel_code FROM travel_hotel_lookups WHERE country_code = "' . $TravelHotelRoomSuppliers['TravelHotelRoomSupplier']['hotel_country_code'] . '" AND city_code = "' . $TravelHotelRoomSuppliers['TravelHotelRoomSupplier']['hotel_city_code'] . '" AND (' . $condition . '))',
-                    'TravelHotelRoomSupplier.hotel_city_code' => $TravelHotelRoomSuppliers['TravelHotelRoomSupplier']['hotel_city_code'], 'TravelHotelRoomSupplier.hotel_country_code' => $TravelHotelRoomSuppliers['TravelHotelRoomSupplier']['hotel_country_code'], 'TravelHotelRoomSupplier.supplier_code' => $TravelHotelRoomSuppliers['TravelHotelRoomSupplier']['supplier_code'], 'TravelHotelRoomSupplier.id <> ' . $travel_actionitems['TravelActionItem']['hotel_supplier_id']
+                    'TravelHotelRoomSupplier.hotel_id IN (SELECT id FROM travel_hotel_lookups WHERE country_id = "' . $TravelHotelRoomSuppliers['TravelHotelRoomSupplier']['hotel_country_id'] . '" AND city_id = "' . $TravelHotelRoomSuppliers['TravelHotelRoomSupplier']['hotel_city_id'] . ')',
+                    'TravelHotelRoomSupplier.hotel_city_id' => $TravelHotelRoomSuppliers['TravelHotelRoomSupplier']['hotel_city_id'], 'TravelHotelRoomSupplier.hotel_country_id' => $TravelHotelRoomSuppliers['TravelHotelRoomSupplier']['hotel_country_id'], 'TravelHotelRoomSupplier.id <> ' . $travel_actionitems['TravelActionItem']['hotel_supplier_id']
                 ),
                 'order' => 'TravelHotelRoomSupplier.hotel_city_code ASC',
                     )
             );
 
+             $log = $this->TravelHotelRoomSupplier->getDataSource()->getLog(false, false);       
+             debug($log);
+             die;
             $this->set('Mappinges', $Mappinges);
 
             $TravelSuppliers = $this->TravelSupplier->find('all', array('fields' => 'supplier_code, supplier_name', 'conditions' => array('active' => 'TRUE'), 'order' => 'supplier_name ASC'));
