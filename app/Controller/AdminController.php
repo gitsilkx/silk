@@ -1068,7 +1068,8 @@ class AdminController extends AppController {
                     var_dump($exception);
                 }
 
-            $this->SupplierHotel->updateAll(array('SupplierHotel.address' => $address,'SupplierHotel.location' => $address), array('SupplierHotel.id' => $id));
+            $this->SupplierHotel->updateAll(array('SupplierHotel.address' => "'".$address."'"), array('SupplierHotel.id' => $id));
+            
 
         if (count($SupplierHotels)) {
 
