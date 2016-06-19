@@ -1023,8 +1023,48 @@ class AdminController extends AppController {
         }
 
         $SupplierHotels = $this->SupplierHotel->findById($id);
+        
+        $content_xml_str = '<soap:Body>
+        <ProcessXML xmlns="http://www.travel.domain/">
+            <RequestInfo>
+                <GetDirectSupplierStaticData>
+                    <RequestAuditInfo>
+                        <RequestType>PXML_DirectSupplier_GetStaticData_Prod</RequestType>
+                        <RequestTime>' . $CreatedDate . '</RequestTime>
+                        <RequestResource>Silkrouters</RequestResource>
+                    </RequestAuditInfo>
+                    <RequestParameters>
+                        <SupplierDataType>HotelDetail</SupplierDataType>
+                        <SupplierId>' . $SupplierHotels['SupplierHotel']['supplier_id'] . '</SupplierId>
+                        <CountryCode></CountryCode>
+                        <CityCode></CityCode>
+                        <HotelCode>' . $SupplierHotels['SupplierHotel']['hotel_code'] . '</HotelCode>
+                    </RequestParameters>
+                </GetDirectSupplierStaticData>
+            </RequestInfo>
+        </ProcessXML>
+    </soap:Body>';
 
+                $log_call_screen = 'Supplier - Add';
 
+                $xml_string = Configure::read('travel_start_xml_str') . $content_xml_str . Configure::read('travel_end_xml_str');
+                $client = new SoapClient(null, array(
+                    'location' => $location_URL,
+                    'uri' => '',
+                    'trace' => 1,
+                ));
+
+                try {
+                    $order_return = $client->__doRequest($xml_string, $location_URL, $action_URL, 1);
+                    $xmlArray = Xml::toArray(Xml::build($order_return));
+
+                    $address = $xmlArray['Envelope']['soap:Body']['ProcessXMLResponse']['ProcessXMLResult']['SupplierData_HotelDetail']['ResponseAuditInfo']['root']['Address']['@'];
+                } catch (SoapFault $exception) {
+                    var_dump(get_class($exception));
+                    var_dump($exception);
+                }
+
+            $this->SupplierHotel->updateAll(array('SupplierHotel.address' => $address,'SupplierHotel.location' => $address), array('SupplierHotel.id' => $id));
 
         if (count($SupplierHotels)) {
 
@@ -1077,6 +1117,7 @@ class AdminController extends AppController {
             $this->set('TravelHotelLookups', $this->paginate("TravelHotelLookup", $search_condition));
             // $this->set(compact('TravelCities'));
         }
+        $this->set(compact('address'));
 
         // pr($condition);
          //$log = $this->TravelHotelLookup->getDataSource()->getLog(false, false);       
@@ -1157,7 +1198,7 @@ class AdminController extends AppController {
                 $SupplierHotels = $this->SupplierHotel->findById($supplier_hotel_id);
                 $TravelHotelLookups = $this->TravelHotelLookup->findById($hotel_id);
 
-                $next_action_by = '169';  //overseer 136 44 is sarika 152 - ojas
+                //$next_action_by = '169';  //overseer 136 44 is sarika 152 - ojas
                 $flag = 0;
                 $search_condition = array();
                 $condition = '';

@@ -107,6 +107,14 @@ echo $this->Form->hidden('Common.supplier_hotel_id',array('value' => $this->data
                                 ?></div>
                         </div>
                     </div>
+                    <div class="form-group">
+                            <label for="reg_input_name">Address</label>
+                            <span class="colon">:</span>
+                            <div class="col-sm-10">
+                                <?php
+                                echo $address;
+                                ?></div>
+                        </div>
                 </div>      
 
 
