@@ -23,6 +23,13 @@ class SupplierHotel extends AppModel {
             'foreignKey' => 'status',
         ),
     );
+    
+    public $hasMany = array(
+        'TravelHotelRoomSupplier' => array(
+            'className' => 'TravelHotelRoomSupplier',
+            'foreignKey' => 'hotel_supplier_id',
+        ),
+        );
 
 }
 

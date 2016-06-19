@@ -39,7 +39,7 @@ echo $this->element('FetchAreas/top_menu');
 
 
                         <th data-hide="phone" data-group="group10" width="5%" data-sort-ignore="true">Status</th>
-                        
+                        <th data-hide="phone" data-group="group10" width="5%" data-sort-ignore="true">No. Of Mapping</th>
                    
                         <th data-group="group8" data-hide="phone" data-sort-ignore="true" width="7%">Action</th> 
 
@@ -69,7 +69,7 @@ echo $this->element('FetchAreas/top_menu');
                                 <td class="sub-tablebody"><?php echo $SupplierHotel['SupplierHotel']['city_code']; ?></td>
                                 
                                 <td class="sub-tablebody"><?php echo $SupplierHotel['TravelSupplierStatus']['value']; ?></td>
-                                
+                                <td class="tablebody"><?php echo count($SupplierHotel['TravelHotelRoomSupplier']);?></td>
 
                                 <td valign="middle" align="center">
 
