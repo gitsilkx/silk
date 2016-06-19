@@ -922,7 +922,7 @@ class AdminController extends AppController {
                 $this->request->data['TravelCitySupplier']['city_country_id'] = $TravelCities['TravelCity']['country_id'];
                 $this->request->data['TravelCitySupplier']['city_continent_id'] = $TravelCities['TravelCity']['continent_id'];
                 $this->request->data['TravelCitySupplier']['city_continent_name'] = $TravelCities['TravelCity']['continent_name'];
-                $this->request->data['TravelCitySupplier']['supplier_coutry_code'] = $TravelCities['TravelCity']['country_code'];
+                $this->request->data['TravelCitySupplier']['supplier_coutry_code'] = $SupplierCities['SupplierCity']['country_code'];
                 $this->request->data['Mappinge']['country_supplier_code'] = $TravelCities['TravelCity']['country_code'];
 
                 $tr_remarks['TravelRemark']['remarks_level'] = '3'; // for Mapping City from travel_action_remark_levels
