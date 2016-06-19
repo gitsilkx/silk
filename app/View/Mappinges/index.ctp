@@ -161,7 +161,7 @@ echo $this->element('Mapping/top_menu');
                                 $id = $Mappinge['TravelHotelRoomSupplier']['id'];
                                 $mapping_name = $Mappinge['TravelHotelRoomSupplier']['hotel_mapping_name'];
                             }
-
+                            echo $mapping_name;
                             if ($mapping_name <> '') {
                                 $arr = explode('-', $mapping_name);
                                 $target = end($arr);
