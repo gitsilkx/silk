@@ -1015,6 +1015,10 @@ class AdminController extends AppController {
 
     public function hotel_mapping($id = null) {
 
+        $location_URL = 'http://dev.wtbnetworks.com/TravelXmlManagerv001/ProEngine.Asmx';
+        $action_URL = 'http://www.travel.domain/ProcessXML';
+        $user_id = $this->Auth->user('id');
+        $CreatedDate = date('Y-m-d') . 'T' . date('h:i:s');
         $condition = array();
         $search_condition = array();
 
