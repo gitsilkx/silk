@@ -119,6 +119,8 @@ if ($mapping_type == '1') { //country
     </div>
         <div style="clear:both"></div>
         <div class="col-sm-12" style="margin-top:10px;display: <?php echo $style_hotel;?>">
+            <div style="background-color: rgb(100, 233, 300);overflow:hidden;">
+                <h4>Supplier Hotel: <?php echo $TravelHotelRoomSuppliers['TravelHotelRoomSupplier']['hotel_name'];?></h4>
          <div class="col-sm-6">
                       
                         <div class="form-group">
@@ -187,8 +189,11 @@ if ($mapping_type == '1') { //country
                         
                         
                     </div>
+            </div>
+            <div style="padding:10px"></div>
             <div class="clear" style="clear: both;"></div>
                     <div style="background-color: rgb(211, 233, 237);overflow:hidden;">
+                        <h4>WTB Hotel: <?php echo $HotelUrl['TravelHotelLookup']['hotel_name'];?></h4>
                 <div class="col-sm-6" style="margin-top:10px">
                     <div class="form-group">
                             <label for="reg_input_name">Hotel Id</label>
