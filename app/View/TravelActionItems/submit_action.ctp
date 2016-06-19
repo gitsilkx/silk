@@ -193,7 +193,7 @@ if ($mapping_type == '1') { //country
             <div style="padding:10px"></div>
             <div class="clear" style="clear: both;"></div>
                     <div style="background-color: rgb(211, 233, 237);overflow:hidden;">
-                        <h4>WTB Hotel: <?php echo $HotelUrl['TravelHotelLookup']['hotel_name'];?></h4>
+                        <h4>WTB Hotel: <?php echo $TravelHotelRoomSuppliers['TravelHotelRoomSupplier']['hotel_name'];?></h4>
                 <div class="col-sm-6" style="margin-top:10px">
                     <div class="form-group">
                             <label for="reg_input_name">Hotel Id</label>
