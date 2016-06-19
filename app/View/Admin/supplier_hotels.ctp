@@ -38,9 +38,8 @@ echo $this->element('FetchAreas/top_menu');
                         
 
 
-                        <th data-hide="phone" data-group="group10" width="5%" data-sort-ignore="true">Silkrouters</th>
-                        <th data-hide="phone" data-group="group10" width="2%" data-sort-ignore="true">WTB</th>
-                        <th data-hide="phone" data-group="group10" width="5%" data-sort-ignore="true">Active?</th>
+                        <th data-hide="phone" data-group="group10" width="5%" data-sort-ignore="true">Status</th>
+                        
                    
                         <th data-group="group8" data-hide="phone" data-sort-ignore="true" width="7%">Action</th> 
 
@@ -56,10 +55,7 @@ echo $this->element('FetchAreas/top_menu');
                         foreach ($SupplierHotels as $SupplierHotel):
                             $id = $SupplierHotel['SupplierHotel']['id'];
 
-                            if ($SupplierHotel['SupplierHotel']['wtb_status'] == '1')
-                                $wtb_status = 'OK';
-                            else
-                                $wtb_status = 'ERROR';
+                           
                             ?>
                             <tr>
                                 <td class="tablebody"><?php echo $id; ?></td>
@@ -73,18 +69,14 @@ echo $this->element('FetchAreas/top_menu');
                                 <td class="sub-tablebody"><?php echo $SupplierHotel['SupplierHotel']['city_code']; ?></td>
                                 
                                 <td class="sub-tablebody"><?php echo $SupplierHotel['TravelSupplierStatus']['value']; ?></td>
-                                <td class="sub-tablebody"><?php echo $wtb_status; ?></td>
-                                <td class="sub-tablebody"><?php echo $SupplierHotel['SupplierHotel']['active']; ?></td>   
+                                
 
                                 <td valign="middle" align="center">
 
                                     <?php
                                     if($SupplierHotel['SupplierHotel']['status'] == '1' || $SupplierHotel['SupplierHotel']['status'] == '5')
                                         echo $this->Html->link('<span class="icon-list"></span>', array('controller' => 'admin', 'action' => 'hotel_mapping/' . $id), array('class' => 'act-ico','target' => '_blank', 'escape' => false));
-                                    //elseif($SupplierHotel['SupplierHotel']['status'] == '4')
-                                        //echo $this->Html->link('<span class="icon-list"></span>', array('controller' => 'admin', 'action' => 'hotel_add/' . $id), array('class' => 'act-ico','target' => '_blank', 'escape' => false));
-                                    //echo $this->Html->link('<span class="icon-pencil"></span>', array('controller' => 'travel_hotel_lookups', 'action' => 'hotel_edit/' . $id,), array('class' => 'act-ico', 'escape' => false));
-                                    //echo $this->Html->link('<span class="icon-remove"></span>', array('controller' => 'travel_hotel_lookups', 'action' => 'delete', $id), array('class' => 'act-ico', 'escape' => false), "Are you sure you wish to delete this hotel?");
+                                    
                                     ?>
                                 </td>
 
