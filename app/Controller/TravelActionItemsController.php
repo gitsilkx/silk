@@ -371,9 +371,9 @@ class TravelActionItemsController extends AppController {
                     )
             );
 
-             $log = $this->TravelHotelRoomSupplier->getDataSource()->getLog(false, false);       
-             debug($log);
-             die;
+             //$log = $this->TravelHotelRoomSupplier->getDataSource()->getLog(false, false);       
+             //debug($log);
+             //die;
             $this->set('Mappinges', $Mappinges);
 
             $TravelSuppliers = $this->TravelSupplier->find('all', array('fields' => 'supplier_code, supplier_name', 'conditions' => array('active' => 'TRUE'), 'order' => 'supplier_name ASC'));
