@@ -269,6 +269,7 @@ class TravelActionItemsController extends AppController {
                 for ($indexOfLastLetter = $indexOfFirstLetter + 1; $indexOfLastLetter <= strlen($city_name); $indexOfLastLetter++) {
                     $new_arr[] = substr($city_name, $indexOfFirstLetter, 3);
                     //  echo $arr[$indexOfFirstLetter];
+                    
                     $condition .= "(city_name LIKE '%" . $new_arr[$indexOfFirstLetter] . "%')";
                     if ($indexOfFirstLetter < strlen($city_name) - 1)
                         $condition .= 'OR';
@@ -281,8 +282,8 @@ class TravelActionItemsController extends AppController {
                 (
                 'conditions' => array
                     (
-                    'TravelCitySupplier.pf_city_code IN (SELECT city_code FROM travel_cities WHERE country_code = "' . $TravelCitySuppliers['TravelCitySupplier']['city_country_code'] . '" AND (' . $condition . '))',
-                    'TravelCitySupplier.city_country_code' => $TravelCitySuppliers['TravelCitySupplier']['city_country_code'], 'TravelCitySupplier.supplier_code' => $TravelCitySuppliers['TravelCitySupplier']['supplier_code'], 'TravelCitySupplier.id <>' . $travel_actionitems['TravelActionItem']['city_supplier_id']
+                    'TravelCitySupplier.city_id IN (SELECT id FROM travel_cities WHERE country_id = "' . $TravelCitySuppliers['TravelCitySupplier']['city_country_id'] . '")',
+                    'TravelCitySupplier.city_country_id' => $TravelCitySuppliers['TravelCitySupplier']['city_country_id'], 'TravelCitySupplier.id <>' . $travel_actionitems['TravelActionItem']['city_supplier_id']
                 ),
                 'order' => 'TravelCitySupplier.city_country_code ASC',
             ));
