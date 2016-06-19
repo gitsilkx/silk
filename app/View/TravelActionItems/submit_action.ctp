@@ -42,6 +42,7 @@ if ($mapping_type == '1') { //country
     $table_head = 'Existing Mappings for this WTB HOTEL';
 }
 //pr($TravelCitySuppliers);
+pr($SupplierHotels);
 ?>
 
 <div class="col-sm-12" id="mycl-det">
