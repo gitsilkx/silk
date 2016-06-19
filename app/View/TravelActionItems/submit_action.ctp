@@ -149,7 +149,8 @@ if ($mapping_type == '1') { //country
                             <span class="colon">:</span>
                             <div class="col-sm-10">
                                 <?php
-                                echo $this->Form->input('TravelHotelRoomSupplier.supplier_item_code1',array('readonly' => true,'value' => $TravelHotelRoomSuppliers['TravelHotelRoomSupplier']['supplier_item_code1']));
+                                echo $SupplierHotels['SupplierHotel']['hotel_code']
+                                //echo $this->Form->input('TravelHotelRoomSupplier.supplier_item_code1',array('readonly' => true,'value' => $TravelHotelRoomSuppliers['TravelHotelRoomSupplier']['supplier_item_code1']));
                                 ?></div>
                         </div>
            
