@@ -143,16 +143,7 @@ if ($mapping_type == '1') { //country
                                 //echo $this->Form->input('TravelHotelRoomSupplier.hotel_city_code', array('id' => 'hotel_city_code','options' => $TravelCities,'value' => $TravelHotelRoomSuppliers['TravelHotelRoomSupplier']['hotel_city_code'], 'empty' => '--Select--','disabled' => true));
                                 ?></div>
                         </div>
-                        
-                      <div class="form-group">
-                            <label for="reg_input_name">Supplier Hotel Code</label>
-                            <span class="colon">:</span>
-                            <div class="col-sm-10">
-                                <?php
-                                echo $SupplierHotels['SupplierHotel']['hotel_code']
-                                //echo $this->Form->input('TravelHotelRoomSupplier.supplier_item_code1',array('readonly' => true,'value' => $TravelHotelRoomSuppliers['TravelHotelRoomSupplier']['supplier_item_code1']));
-                                ?></div>
-                        </div>
+                  
            
 
                     </div>
