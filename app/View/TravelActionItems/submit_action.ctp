@@ -266,7 +266,7 @@ if ($mapping_type == '1') { //country
      
     </div>
 
-        <div class="col-sm-12" style="display:<?php echo $search_result ?>; margin-top:10px;">
+        <div class="col-sm-12" style="display:<?php echo $search_result ?>; margin-top:30px;">
             <h4><?php echo $table_head;?></h4>
             <table border="0" cellpadding="0" cellspacing="0" id="resp_table" class="table toggle-square myclitb" data-filter="#table_search" data-page-size="3000">
                 <thead>
