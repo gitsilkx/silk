@@ -283,7 +283,7 @@ class TravelActionItemsController extends AppController {
                 'conditions' => array
                     (
                     'TravelCitySupplier.city_id IN (SELECT id FROM travel_cities WHERE country_id = "' . $TravelCitySuppliers['TravelCitySupplier']['city_country_id'] . '")',
-                    'TravelCitySupplier.city_country_id' => $TravelCitySuppliers['TravelCitySupplier']['city_country_id'], 'TravelCitySupplier.id <>' . $travel_actionitems['TravelActionItem']['city_supplier_id']
+                    'TravelCitySupplier.city_country_id' => $TravelCitySuppliers['TravelCitySupplier']['city_country_id'],'TravelCitySupplier.city_id' => $TravelCitySuppliers['TravelCitySupplier']['city_id'], 'TravelCitySupplier.id <>' . $travel_actionitems['TravelActionItem']['city_supplier_id']
                 ),
                 'order' => 'TravelCitySupplier.city_country_code ASC',
             ));
