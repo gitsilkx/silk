@@ -923,7 +923,7 @@ class AdminController extends AppController {
                 $this->request->data['TravelCitySupplier']['city_continent_id'] = $TravelCities['TravelCity']['continent_id'];
                 $this->request->data['TravelCitySupplier']['city_continent_name'] = $TravelCities['TravelCity']['continent_name'];
                 $this->request->data['TravelCitySupplier']['supplier_coutry_code'] = $SupplierCities['SupplierCity']['country_code'];
-                $this->request->data['Mappinge']['country_supplier_code'] = $TravelCities['TravelCity']['country_code'];
+                $this->request->data['Mappinge']['country_supplier_code'] = $SupplierCities['SupplierCity']['country_code'];
 
                 $tr_remarks['TravelRemark']['remarks_level'] = '3'; // for Mapping City from travel_action_remark_levels
                 $tr_remarks['TravelRemark']['remarks'] = 'New Supplier City Record Created';
@@ -1181,7 +1181,7 @@ class AdminController extends AppController {
                 $this->request->data['TravelHotelRoomSupplier']['hotel_name'] = $TravelHotelLookups['TravelHotelLookup']['hotel_name'];
                 $this->request->data['TravelHotelRoomSupplier']['hotel_id'] = $TravelHotelLookups['TravelHotelLookup']['id'];
                 $this->request->data['TravelHotelRoomSupplier']['hotel_country_code'] = $TravelHotelLookups['TravelHotelLookup']['country_code'];
-                $this->request->data['TravelHotelRoomSupplier']['supplier_item_code1'] = $TravelHotelLookups['TravelHotelLookup']['hotel_code'];
+                $this->request->data['TravelHotelRoomSupplier']['supplier_item_code1'] = $SupplierHotels['SupplierHotel']['supplier_code'];
                 $this->request->data['TravelHotelRoomSupplier']['hotel_country_code'] = $TravelHotelLookups['TravelHotelLookup']['country_code'];
                 $this->request->data['TravelHotelRoomSupplier']['hotel_city_code'] = $TravelHotelLookups['TravelHotelLookup']['city_code'];
                 //$TravelAreas = $this->TravelArea->find('first', array('fields' => array('area_name'), 'conditions' => array('id' => $this->data['Mapping']['hotel_area_id'])));
