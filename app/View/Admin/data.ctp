@@ -132,7 +132,7 @@
             </div>
             <div class="info-details">
                 <?php
-                echo $this->Html->link('<h4>City Mapping<span class="pull-right"></span></h4>', '#', array('data-toggle' => 'tooltip', 'data-placement' => 'right', 'title' => 'City Mapping', 'escape' => false));
+                echo $this->Html->link('<h4>City Mapping<span class="pull-right"></span></h4>', '/reports/city_mapping_list', array('data-toggle' => 'tooltip', 'data-placement' => 'right', 'title' => 'City Mapping', 'escape' => false));
                 ?>
             </div>
         </div>
@@ -144,7 +144,7 @@
             </div>
             <div class="info-details">
                 <?php
-                echo $this->Html->link('<h4>Hotel Mapping<span class="pull-right"></span></h4>', '#', array('data-toggle' => 'tooltip', 'data-placement' => 'right', 'title' => 'Hotel Mapping', 'escape' => false));
+                echo $this->Html->link('<h4>Hotel Mapping<span class="pull-right"></span></h4>', 'reports/hotel_mapping_list', array('data-toggle' => 'tooltip', 'data-placement' => 'right', 'title' => 'Hotel Mapping', 'escape' => false));
                 ?>
             </div>
         </div>
