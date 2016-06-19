@@ -35,7 +35,7 @@ echo $this->Form->hidden('Common.supplier_hotel_id',array('value' => $this->data
         </div>
         <div class="panel-body">           
             <div class="row">                
-                <div class="col-sm-12">
+                <div class="col-sm-12"  style="background-color: rgb(211, 233, 237);overflow:hidden;">
                     <div class="col-sm-6">                        
                         <div class="form-group">
                             <label for="reg_input_name" class="bgr">Id</label>
@@ -119,7 +119,7 @@ echo $this->Form->hidden('Common.supplier_hotel_id',array('value' => $this->data
 
 
                 <div class="clear" style="clear: both; margin-bottom: 10px;"></div>
-                <div class="col-sm-12">
+                <div class="col-sm-12" style="background-color: rgb(100, 233, 300);overflow:hidden;">
                     <table border="0" cellpadding="0" cellspacing="0" id="resp_table" class="table toggle-square myclitb" data-filter="#table_search" data-page-size="3000">
                         <thead>         
                             <tr class="footable-group-row">
