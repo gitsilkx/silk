@@ -100,6 +100,7 @@ echo $this->Form->hidden('supplier_country_code',array('value' => $this->data['S
                         <th data-hide="phone" data-group="group1" width="10%"  data-sort-ignore="true">Continent Name</th> 
                         <th data-hide="phone" data-group="group1" width="10%">Country Name</th>
                         <th data-hide="phone" data-group="group1" width="10%" data-sort-ignore="true">Country Code</th>
+                        <th data-hide="phone" data-group="group1" width="10%" data-sort-ignore="true">Province Name</th>
                         <th data-hide="phone" data-group="group1" width="10%" data-sort-ignore="true">City Name</th>
                         <th data-hide="phone" data-group="group1" width="10%" data-sort-ignore="true">City Code</th>
                         <th data-group="group4" data-hide="phone" data-sort-ignore="true" width="3%">Action</th>        
@@ -122,6 +123,7 @@ if (isset($TravelCities) && count($TravelCities) > 0):
                                 <td class="tablebody"><?php echo $TravelCity['TravelCity']['continent_name']; ?></td> 
                                 <td class="tablebody"><?php echo $TravelCity['TravelCity']['country_name']; ?></td>                                                              
                                 <td class="tablebody"><?php echo $TravelCity['TravelCity']['country_code']; ?></td>
+                                <td class="tablebody"><?php echo $TravelCity['TravelCity']['province_name']; ?></td>
                                 <td class="tablebody"><?php echo $TravelCity['TravelCity']['city_name']; ?></td>
                                 <td class="tablebody"><?php echo $TravelCity['TravelCity']['city_code']; ?></td>
                                 <td width="10%" valign="middle" align="center">
