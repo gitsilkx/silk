@@ -256,8 +256,6 @@ class AdminController extends AppController {
                                     'supplier_id' => $supplier_id,
                                     'supplier_code' => $supplier_code,
                                     'status' => '1',
-                                    'wtb_status' => '1',
-                                    'active' => 'TRUE',
                                     'supplier_name' => $supplier_name
                             ));
                         }
