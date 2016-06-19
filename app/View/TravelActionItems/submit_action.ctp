@@ -16,17 +16,19 @@ echo $this->Form->create('TravelActionItem', array('method' => 'post', 'id' => '
 echo $this->Form->hidden('mapping_type',array('value' => $mapping_type));
 App::import('Model', 'User');
 $attr = new User();
-
+$table_head = '';
 if ($mapping_type == '1') { //country
     $style_country = 'block';
     $style_city = 'none';
     $style_hotel = 'none';
     $search_result = 'none';
+    $table_head = 'Existing Mappings for this WTB COUNTRY';
 } elseif ($mapping_type == '2') { //city
     $style_city = 'block';
     $style_country = 'none';
     $style_hotel = 'none';
     $search_result = 'block';
+    $table_head = 'Existing Mappings for this WTB CITY';
 } elseif ($mapping_type == '3') { //hotel
     $style_hotel = 'block';
     $search_result = 'block';
@@ -37,6 +39,7 @@ if ($mapping_type == '1') { //country
     $style_country = 'none';
     $style_hotel = 'none';
     $search_result = 'none';
+    $table_head = 'Existing Mappings for this WTB HOTEL';
 }
 //pr($TravelCitySuppliers);
 ?>
@@ -264,6 +267,7 @@ if ($mapping_type == '1') { //country
     </div>
 
         <div class="col-sm-12" style="display:<?php echo $search_result ?>; margin-top:10px;">
+            <h4><?php echo $table_head;?></h4>
             <table border="0" cellpadding="0" cellspacing="0" id="resp_table" class="table toggle-square myclitb" data-filter="#table_search" data-page-size="3000">
                 <thead>
                     <tr class="footable-group-row">
