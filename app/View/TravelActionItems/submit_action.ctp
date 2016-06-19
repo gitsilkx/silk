@@ -60,19 +60,19 @@ if ($mapping_type == '1') { //country
                     ?></div>
             </div>
             <div class="form-group">
-                <label for="reg_input_name">Province</label>
+                <label for="reg_input_name">WTB Province</label>
                 <span class="colon">:</span>
                 <div class="col-sm-10">
                     <?php
                     echo $this->Form->input('TravelCitySupplier.province_id', array('options' => $Provinces, 'empty' => '--Select--','disabled' => true,'value' => $TravelCitySuppliers['TravelCitySupplier']['province_id']));
                     ?></div>
             </div>
-            <div class="form-group">
-                <label for="reg_input_name">WTB City</label>
+           <div class="form-group">
+                <label for="reg_input_name">Supplier Country Code</label>
                 <span class="colon">:</span>
                 <div class="col-sm-10">
                     <?php
-                    echo $this->Form->input('TravelCitySupplier.pf_city_code', array('id' => 'pf_city_code', 'options' => $TravelCities, 'empty' => '--Select--','disabled' => true,'value' => $TravelCitySuppliers['TravelCitySupplier']['pf_city_code']));
+                    echo $this->Form->input('TravelCitySupplier.supplier_city_code', array('readonly' => true,'value' => $TravelCitySuppliers['TravelCitySupplier']['supplier_country_code']));
                     ?></div>
             </div>
         
@@ -86,6 +86,14 @@ if ($mapping_type == '1') { //country
                 <div class="col-sm-10">
                     <?php
                     echo $this->Form->input('TravelCitySupplier.city_country_code', array('id' => 'city_country_code', 'options' => $TravelCountries, 'empty' => '--Select--','disabled' => true,'value' => $TravelCitySuppliers['TravelCitySupplier']['city_country_code']));
+                    ?></div>
+            </div>
+             <div class="form-group">
+                <label for="reg_input_name">WTB City</label>
+                <span class="colon">:</span>
+                <div class="col-sm-10">
+                    <?php
+                    echo $this->Form->input('TravelCitySupplier.pf_city_code', array('id' => 'pf_city_code', 'options' => $TravelCities, 'empty' => '--Select--','disabled' => true,'value' => $TravelCitySuppliers['TravelCitySupplier']['pf_city_code']));
                     ?></div>
             </div>
             <div class="form-group">
