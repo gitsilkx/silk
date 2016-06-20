@@ -1140,60 +1140,22 @@ class AdminController extends AppController {
         $user_id = $this->Auth->user('id');
         $CreatedDate = date('Y-m-d') . 'T' . date('h:i:s');
         $address = '';
-
-
+        $TravelHotelLookups = array();
+        $SupplierHotels = array();
+        $submit = '';
+        
 
         if ($this->request->is('post') || $this->request->is('put')) {
 
             if (isset($this->data['mapped'])) {
                 $supplier_hotel_id = $this->data['Common']['supplier_hotel_id'];
                 $hotel_id = $this->data['Common']['hotel_id'];
-                //die;
+                $submit = 'TRUE';
                 $SupplierHotels = $this->SupplierHotel->findById($supplier_hotel_id);
-                $TravelHotelLookups = $this->TravelHotelLookup->findById($hotel_id);
-
-                $content_xml_str = '<soap:Body>
-        <ProcessXML xmlns="http://www.travel.domain/">
-            <RequestInfo>
-                <GetDirectSupplierStaticData>
-                    <RequestAuditInfo>
-                        <RequestType>PXML_DirectSupplier_GetStaticData_Prod</RequestType>
-                        <RequestTime>' . $CreatedDate . '</RequestTime>
-                        <RequestResource>Silkrouters</RequestResource>
-                    </RequestAuditInfo>
-                    <RequestParameters>
-                        <SupplierDataType>HotelDetail</SupplierDataType>
-                        <SupplierId>' . $SupplierHotels['SupplierHotel']['supplier_id'] . '</SupplierId>
-                        <CountryCode></CountryCode>
-                        <CityCode></CityCode>
-                        <HotelCode>' . $SupplierHotels['SupplierHotel']['hotel_code'] . '</HotelCode>
-                    </RequestParameters>
-                </GetDirectSupplierStaticData>
-            </RequestInfo>
-        </ProcessXML>
-    </soap:Body>';
-
-                $log_call_screen = 'Supplier - Add';
-
-                $xml_string = Configure::read('travel_start_xml_str') . $content_xml_str . Configure::read('travel_end_xml_str');
-                $client = new SoapClient(null, array(
-                    'location' => $location_URL,
-                    'uri' => '',
-                    'trace' => 1,
-                ));
-
-                try {
-                    $order_return = $client->__doRequest($xml_string, $location_URL, $action_URL, 1);
-                    $xmlArray = Xml::toArray(Xml::build($order_return));
-
-                    $address = $xmlArray['Envelope']['soap:Body']['ProcessXMLResponse']['ProcessXMLResult']['SupplierData_HotelDetail']['ResponseAuditInfo']['root']['Address']['@'];
-                } catch (SoapFault $exception) {
-                    var_dump(get_class($exception));
-                    var_dump($exception);
-                }
+                $TravelHotelLookups = $this->TravelHotelLookup->findById($hotel_id);           
 
 
-                $this->set(compact('address', 'TravelHotelLookups', 'SupplierHotels'));
+                $this->set(compact('TravelHotelLookups', 'SupplierHotels','submit'));
             } elseif (isset($this->data['add'])) {
                 $supplier_hotel_id = $this->data['SupplierHotel']['supplier_hotel_id'];
                 $hotel_id = $this->data['SupplierHotel']['hotel_id'];
@@ -1315,7 +1277,8 @@ class AdminController extends AppController {
                 $this->SupplierHotel->updateAll(array('SupplierHotel.status' => "'2'"), array('SupplierHotel.id' => $SupplierHotels['SupplierHotel']['id']));
                 $this->Session->setFlash('Your changes have been submitted. Waiting for approval at the moment...', 'success');
                 $this->redirect(array('action' => 'supplier_hotels'));
-            } elseif (isset($this->data['inserted'])) {
+            } 
+            elseif (isset($this->data['inserted'])) {
 
 
                 $screen = '4'; // fetch hotel table of  
@@ -1351,7 +1314,54 @@ class AdminController extends AppController {
                     $this->redirect(array('action' => 'supplier_hotels'));
                 }
             }
+            elseif (isset($this->data['review'])) {
+                $supplier_hotel_id = $this->data['Common']['supplier_hotel_id'];
+                $hotel_id = $this->data['Common']['hotel_id'];
+                $submit = 'FALSE';
+                $SupplierHotels = $this->SupplierHotel->findById($supplier_hotel_id);
+                
+                $TravelHotelLookups = $this->TravelHotelLookup->findById($hotel_id);
+                
+                $this->set(compact('SupplierHotels','TravelHotelLookups','submit'));
+            }
         }
+    }
+    
+    public function hotel_review($supplier_hotel_id = null){
+        
+                $screen = '4'; // fetch hotel table of  
+                $supplier_hotel_id = $this->data['Common']['supplier_hotel_id'];
+                //$hotel_id = $this->data['Common']['hotel_id'];
+
+                $hotel_code = $this->Common->getSupplierHotelCode($supplier_hotel_id);
+                $hotel_name = $this->Common->getSupplierHotelName($supplier_hotel_id);
+                $about = $hotel_name . ' | ' . $hotel_code . ' | ' . $supplier_hotel_id;
+
+                $answer = '36'; // table of lookup_questions
+                $this->request->data['SupportTicket']['status'] = '1'; // 1 = open
+                $this->request->data['SupportTicket']['opend_by'] = 'SENDER';
+                $this->request->data['SupportTicket']['active'] = 'TRUE';
+                $this->request->data['SupportTicket']['ip_address'] = $_SERVER['REMOTE_ADDR'];
+                $this->request->data['SupportTicket']['question_id'] = 'What is the issue?';
+                $this->request->data['SupportTicket']['about'] = $about;
+                $this->request->data['SupportTicket']['answer'] = $answer;
+                $this->request->data['SupportTicket']['urgency'] = '2'; //Moderate
+                $this->request->data['SupportTicket']['description'] = 'Request for hotel creation';
+
+                $department_id = $this->SupportTicket->getDepartmentByQuestionId($answer);
+                $this->request->data['SupportTicket']['next_action_by'] = $this->SupportTicket->getNextActionByDepartmentId($department_id);
+                $this->request->data['SupportTicket']['department_id'] = $department_id;
+                $this->request->data['SupportTicket']['type'] = '1'; // Internal
+                $this->request->data['SupportTicket']['created_by'] = $user_id;
+                $this->request->data['SupportTicket']['last_action_by'] = $user_id;
+                $this->request->data['SupportTicket']['screen'] = $screen;
+                $this->request->data['SupportTicket']['response_issue_id'] = $answer;
+                if ($this->SupportTicket->save($this->request->data['SupportTicket'])) {
+                    $this->SupplierHotel->updateAll(array('SupplierHotel.status' => "'6'"), array('SupplierHotel.id' => $supplier_hotel_id));
+                    $this->Session->setFlash('Your ticket has been successfully created.', 'success');
+                    $this->redirect(array('action' => 'supplier_hotels'));
+                }
+
     }
 
     public function hotel_add($supplier_hotel_id = null) {

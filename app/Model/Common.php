@@ -91,5 +91,15 @@ class Common extends AppModel {
         $Data = ClassRegistry::init('LookupDepartment')->find('first', array('fields' => array( 'LookupDepartment.next_action_by'), 'conditions' => array('LookupDepartment.id' => $department_id)));
         return $Data['LookupDepartment']['next_action_by'];
     }
+    
+    public function getSupplierHotelName($supplier_hotel_id){
+        $DataArray = ClassRegistry::init('SupplierHotel')->find('first', array('fields' => array('hotel_name'), 'conditions' => array('SupplierHotel.id' => $supplier_hotel_id)));
+        return $DataArray['SupplierHotel']['hotel_name'];
+    }
+    
+    public function getSupplierHotelCode($supplier_hotel_id){
+        $DataArray = ClassRegistry::init('SupplierHotel')->find('first', array('fields' => array('hotel_code'), 'conditions' => array('SupplierHotel.id' => $supplier_hotel_id)));
+        return $DataArray['SupplierHotel']['hotel_code'];
+    }
 }
 ?>

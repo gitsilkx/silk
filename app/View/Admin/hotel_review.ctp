@@ -87,11 +87,10 @@ echo $this->Form->hidden('active',array('value' => $TravelHotelLookups['TravelHo
                             <span class="colon">:</span>
                             <div class="col-sm-10">
                                 <?php
-                               echo $SupplierHotels['SupplierHotel']['address'];
+                                echo $address;
                                 ?></div>
                         </div>
                 </div>
-                <?php if(count($TravelHotelLookups)){ ?>
                 <div class="col-sm-12"  style="background-color: rgb(238, 221, 255);overflow:hidden;">
                     <div class="col-sm-6">
                         <h4>WTB Hotel : <?php echo strtoupper($TravelHotelLookups['TravelHotelLookup']['hotel_name']);?></h4>
@@ -229,18 +228,14 @@ echo $this->Form->hidden('active',array('value' => $TravelHotelLookups['TravelHo
                                 echo $TravelHotelLookups['TravelHotelLookup']['location'].$TravelHotelLookups['TravelHotelLookup']['address'];
                                 ?></div>
                         </div>
-                </div> 
-                <?php }?>
+                </div>   
                 <div class="clear" style="clear: both;"></div>
                 <div class="col-sm-12">
                     <div class="row">  
 
                         <div class="col-sm-2">
                             <?php
-                            if($submit == 'TRUE')
-                                echo $this->Form->submit('Add', array('class' => 'btn btn-success sticky_success','name' => 'add','style' => 'width:100%;float:left'));                            
-                            else 
-                                echo $this->Html->link('Submit For Review', array('controller' => 'admin','action' => 'hotel_review/'.$SupplierHotels['SupplierHotel']['id']),array('class' => 'btn btn-success sticky_success','style' => 'width:100%;float:left','onclick' => "return confirm('Are you sure you want to create support ticket?')"));
+                            echo $this->Form->submit('Add', array('class' => 'btn btn-success sticky_success','name' => 'add','style' => 'width:100%;float:left'));                            
                             ?>
                         </div>
                     </div>

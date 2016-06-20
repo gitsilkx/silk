@@ -210,6 +210,14 @@ if (isset($TravelHotelLookups) && count($TravelHotelLookups) > 0):
                             echo $this->Form->submit('Submit Insert', array('class' => 'btn btn-success sticky_success','name' => 'inserted','style' => 'width:100%;float:left;','onclick' => "return confirm('Are you sure you want to create support ticket?')"));
                             ?>
                         </div>
+                        <div class="col-sm-2">
+                            <?php
+                            echo $this->Form->submit('Submit For Review', array('class' => 'btn btn-success sticky_success','name' => 'review','style' => 'width:100%;float:left'));
+                            //echo $this->Html->link('Submit For Review', array('controller' => 'admin','action' => 'hotel_review'),array('class' => 'btn btn-success sticky_success','style' => 'width:100%;float:left'));
+                            //echo $this->Form->submit('Proceed to Mapped', array('class' => 'btn btn-success sticky_success','name' => 'add','style' => 'width:100%;float:left'));
+                            //echo $this->Form->submit('Submit For Review', array('class' => 'btn btn-success sticky_success','name' => 'review','style' => 'width:100%;float:left;'));
+                            ?>
+                        </div>
                     </div>
                 </div>
             </div>
