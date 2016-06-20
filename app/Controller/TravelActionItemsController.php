@@ -331,7 +331,7 @@ class TravelActionItemsController extends AppController {
             $rejection_cond = array('type' => array('0', '5')); // 0=other 4=mapping
             $headding = 'Mapping Hotel';
             $this->set('mapping_type', '3');
-            $type = $this->TravelActionItemType->find('list', array('fields' => array('id', 'value'), 'conditions' => 'id = 2 OR id = 3 OR id = 5'));
+            $type = $this->TravelActionItemType->find('list', array('fields' => array('id', 'value'), 'conditions' => 'id = 2 OR id = 9'));
             $condition = '';
             $TravelHotelRoomSuppliers = $this->TravelHotelRoomSupplier->findById($travel_actionitems['TravelActionItem']['hotel_supplier_id']);
             $SupplierHotels = $this->SupplierHotel->findById($TravelHotelRoomSuppliers['TravelHotelRoomSupplier']['hotel_supplier_id']);
