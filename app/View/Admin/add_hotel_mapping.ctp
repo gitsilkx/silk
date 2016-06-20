@@ -90,6 +90,16 @@ echo $this->Form->hidden('active',array('value' => $TravelHotelLookups['TravelHo
                                echo $SupplierHotels['SupplierHotel']['address'];
                                 ?></div>
                         </div>
+                    <?php if($submit == 'FALSE'){?>
+                    <div class="form-group">
+                        <label for="reg_input_name">Comment</label>
+                        <span class="colon">:</span>
+                        <div class="col-sm-10">
+                            <?php
+                            echo $this->Form->input('comment', array('type' => 'textarea','style' => 'width:122%;height:100px'));
+                            ?></div>
+                    </div>
+                    <?php }?>
                 </div>
                 <?php if(count($TravelHotelLookups)){ ?>
                 <div class="col-sm-12"  style="background-color: rgb(238, 221, 255);overflow:hidden;">
@@ -240,7 +250,8 @@ echo $this->Form->hidden('active',array('value' => $TravelHotelLookups['TravelHo
                             if($submit == 'TRUE')
                                 echo $this->Form->submit('Add', array('class' => 'btn btn-success sticky_success','name' => 'add','style' => 'width:100%;float:left'));                            
                             else 
-                                echo $this->Html->link('Submit For Review', array('controller' => 'admin','action' => 'hotel_review/'.$SupplierHotels['SupplierHotel']['id']),array('class' => 'btn btn-success sticky_success','style' => 'width:100%;float:left','onclick' => "return confirm('Are you sure you want to create support ticket?')"));
+                                echo $this->Form->submit('Submit For Review', array('class' => 'btn btn-success sticky_success','name' => 'review_add','style' => 'width:100%;float:left'));                            
+                                //echo $this->Html->link('Submit For Review', array('controller' => 'admin','action' => 'hotel_review/'.$SupplierHotels['SupplierHotel']['id']),array('class' => 'btn btn-success sticky_success','style' => 'width:100%;float:left','onclick' => "return confirm('Are you sure you want to create support ticket?')"));
                             ?>
                         </div>
                     </div>
