@@ -845,6 +845,10 @@ class TravelActionItemsController extends AppController {
                         $Email->template('XML/xml', 'default')->emailFormat('html')->to($to)->cc($cc)->from('admin@silkrouters.com')->subject('XML Error [' . $log_call_screen . '] Log Id [' . $LogId . '] Open By [' . $this->User->Username($user_id) . '] Date [' . date("m/d/Y H:i:s", $date->format('U')) . ']')->send();
                     }
             }
+            elseif($type_id == '9'){ //Submit For Review for Hotel Mapping
+                pr($this->data);
+                die;
+            }
 
 
             $this->TravelActionItem->create();
