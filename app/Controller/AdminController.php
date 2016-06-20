@@ -1326,16 +1326,16 @@ class AdminController extends AppController {
             }
             elseif (isset($this->data['review_add'])) {
                 
-                pr($this->data);
-                die;
+                //pr($this->data);
+                //die;
                 $screen = '4'; // fetch hotel table of  
                 $supplier_hotel_id = $this->data['SupplierHotel']['supplier_hotel_id'];
                 //$hotel_id = $this->data['Common']['hotel_id'];
 
                 $hotel_code = $this->Common->getSupplierHotelCode($supplier_hotel_id);
                 $hotel_name = $this->Common->getSupplierHotelName($supplier_hotel_id);
-                $about = $hotel_name . ' | ' . $hotel_code . ' | ' . $supplier_hotel_id;
-
+                echo $about = $hotel_name . ' | ' . $hotel_code . ' | ' . $supplier_hotel_id;
+                die;
                 $answer = '36'; // table of lookup_questions
                 $this->request->data['SupportTicket']['status'] = '1'; // 1 = open
                 $this->request->data['SupportTicket']['opend_by'] = 'SENDER';
