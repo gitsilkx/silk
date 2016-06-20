@@ -4,7 +4,7 @@ $this->Html->addCrumb('Add Hotel Mapping', 'javascript:void(0);', array('class' 
 echo $this->Form->create('SupplierHotel', array('method' => 'post',
     'id' => 'parsley_reg',
     'novalidate' => true,
-    'onsubmit' => 'return Validate()',
+    
     'inputDefaults' => array(
         'label' => false,
         'div' => false,
@@ -248,9 +248,9 @@ echo $this->Form->hidden('active',array('value' => $TravelHotelLookups['TravelHo
                         <div class="col-sm-2">
                             <?php
                             if($submit == 'TRUE')
-                                echo $this->Form->submit('Add', array('class' => 'btn btn-success sticky_success','name' => 'add','style' => 'width:100%;float:left'));                            
+                                echo $this->Form->submit('Add', array('class' => 'btn btn-success sticky_success','name' => 'add','style' => 'width:100%;float:left','onsubmit' => 'return Validate()'));                            
                             else 
-                                echo $this->Form->submit('Submit For Review', array('class' => 'btn btn-success sticky_success','name' => 'review_add','style' => 'width:100%;float:left'));                            
+                                echo $this->Form->submit('Submit For Review', array('class' => 'btn btn-success sticky_success','name' => 'review_add','style' => 'width:100%;float:left','onclick' => "return confirm('Are you sure you want to create support ticket?')"));                            
                                 //echo $this->Html->link('Submit For Review', array('controller' => 'admin','action' => 'hotel_review/'.$SupplierHotels['SupplierHotel']['id']),array('class' => 'btn btn-success sticky_success','style' => 'width:100%;float:left','onclick' => "return confirm('Are you sure you want to create support ticket?')"));
                             ?>
                         </div>
