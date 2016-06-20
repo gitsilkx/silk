@@ -519,6 +519,7 @@ echo $this->Form->input('other_rejection', array('div' => array('id' => 'other_r
             }
         }
         //alert($('#TravelHotelRoomSupplierHotelBrandId').val());
+       /*
         if(mapping_type == '3'){
             if($('#hotel_continent_id').val() == '' || $('#hotel_continent_id').val() == null){
                 alert('Please select continent');
@@ -557,6 +558,7 @@ echo $this->Form->input('other_rejection', array('div' => array('id' => 'other_r
                 return false;
             }
         }
+        */
 
     }
 </script>
