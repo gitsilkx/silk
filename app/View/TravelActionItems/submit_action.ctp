@@ -122,7 +122,9 @@ if ($mapping_type == '1') { //country
         <div class="col-sm-12" style="margin-top:10px;display: <?php echo $style_hotel;?>">
             <div style="background-color: rgb(100, 233, 300);overflow:hidden;">
                 <h4>Supplier Hotel: <?php echo $SupplierHotels['SupplierHotel']['hotel_name'];?></h4>
-                <?php $this->Form->hidden('TravelActionItem.supplier_hotel_id',array('value' => $SupplierHotels['SupplierHotel']['id'],'type' => 'text')); ?>
+                <?php 
+                echo $this->Form->input('TravelActionItem.supplier_hotel_id', array('value' => $SupplierHotels['SupplierHotel']['id'],'type' => 'text'));
+                //$this->Form->hidden('TravelActionItem.supplier_hotel_id',array('value' => $SupplierHotels['SupplierHotel']['id'],'type' => 'text')); ?>
          <div class="col-sm-6">
                       
                         <div class="form-group">
