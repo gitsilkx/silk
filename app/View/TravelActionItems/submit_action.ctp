@@ -176,14 +176,6 @@ echo $this->Form->hidden('SupplierHotel.supplier_hotel_id', array('value' => $Su
                         
                     </div>
                 <div class="form-group">
-                        <label for="reg_input_name">Comment</label>
-                        <span class="colon">:</span>
-                        <div class="col-sm-10">
-                            <?php
-                            echo $this->Form->input('SupplierHotel.comment', array('type' => 'textarea','style' => 'width:122%;height:100px'));
-                            ?></div>
-                    </div>
-                <div class="form-group">
                             <label for="reg_input_name">Hotel Address</label>
                             <span class="colon">:</span>
                             <div class="col-sm-10">
@@ -192,6 +184,15 @@ echo $this->Form->hidden('SupplierHotel.supplier_hotel_id', array('value' => $Su
                                 //echo $this->Form->input('TravelHotelRoomSupplier.hotel_code', array('id' => 'hotel_code','options' => $TravelHotelLookups, 'empty' => '--Select--','value' => $TravelHotelRoomSuppliers['TravelHotelRoomSupplier']['hotel_code'],'disabled' => true));
                                 ?></div>
                         </div>
+                <div class="form-group">
+                        <label for="reg_input_name">Comment</label>
+                        <span class="colon">:</span>
+                        <div class="col-sm-10">
+                            <?php
+                            echo $this->Form->input('SupplierHotel.comment', array('type' => 'textarea','style' => 'width:122%;height:100px'));
+                            ?></div>
+                    </div>
+                
             </div>
             <div style="padding:10px"></div>
             <div class="clear" style="clear: both;"></div>
