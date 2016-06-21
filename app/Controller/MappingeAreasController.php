@@ -105,7 +105,7 @@ class MappingeAreasController extends AppController {
             }
             
             $TravelHotelRoomSuppliers = $this->TravelHotelRoomSupplier->find('list',ARRAY('fields' => 'supplier_item_code3,supplier_item_code3','conditions' => 
-             array('hotel_supplier_id' => $supplier_id,'hotel_continent_id' => $continent_id,'hotel_country_id' => $country_id,'province_id' => $province_id,'hotel_city_id' => $city_id)));
+             array('supplier_id' => $supplier_id,'hotel_continent_id' => $continent_id,'hotel_country_id' => $country_id,'province_id' => $province_id,'hotel_city_id' => $city_id)));
             pr($TravelHotelRoomSuppliers);
             
             $this->paginate['order'] = array('SupplierHotel.id' => 'asc');
