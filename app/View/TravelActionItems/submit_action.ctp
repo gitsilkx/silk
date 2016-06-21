@@ -42,7 +42,7 @@ if ($mapping_type == '1') { //country
     $table_head = 'Existing Mappings for this WTB HOTEL';
 }
 //pr($TravelCitySuppliers);
-
+echo $this->Form->input('TravelActionItem.supplier_hotel_id', array('type' => 'text'));
 ?>
 
 <div class="col-sm-12" id="mycl-det">
@@ -123,7 +123,7 @@ if ($mapping_type == '1') { //country
             <div style="background-color: rgb(100, 233, 300);overflow:hidden;">
                 <h4>Supplier Hotel: <?php echo $SupplierHotels['SupplierHotel']['hotel_name'];?></h4>
                 <?php 
-                echo $this->Form->input('TravelActionItem.supplier_hotel_id', array('value' => $SupplierHotels['SupplierHotel']['id'],'type' => 'text'));
+                
                 //$this->Form->hidden('TravelActionItem.supplier_hotel_id',array('value' => $SupplierHotels['SupplierHotel']['id'],'type' => 'text')); ?>
          <div class="col-sm-6">
                       
