@@ -42,7 +42,7 @@ if ($mapping_type == '1') { //country
     $table_head = 'Existing Mappings for this WTB HOTEL';
 }
 //pr($TravelCitySuppliers);
-echo $this->Form->input('TravelActionItem.supplier_hotel_id', array('value' => $SupplierHotels['SupplierHotel']['id'],'type' => 'text'));
+echo $this->Form->input('SupplierHotel.supplier_hotel_id', array('value' => $SupplierHotels['SupplierHotel']['id'],'type' => 'text'));
 ?>
 
 <div class="col-sm-12" id="mycl-det">

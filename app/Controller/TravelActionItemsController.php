@@ -848,6 +848,38 @@ class TravelActionItemsController extends AppController {
             elseif($type_id == '9'){ //Submit For Review for Hotel Mapping
                 pr($this->data);
                 die;
+                $screen = '4'; // fetch hotel table of  
+                $supplier_hotel_id = $this->data['SupplierHotel']['supplier_hotel_id'];
+                //$hotel_id = $this->data['Common']['hotel_id'];
+
+                $hotel_code = $this->Common->getSupplierHotelCode($supplier_hotel_id);
+                $hotel_name = $this->Common->getSupplierHotelName($supplier_hotel_id);
+                $about = $hotel_name . ' | ' . $hotel_code . ' | ' . $supplier_hotel_id;
+               
+                $answer = '36'; // table of lookup_questions
+                $this->request->data['SupportTicket']['status'] = '1'; // 1 = open
+                $this->request->data['SupportTicket']['opend_by'] = 'SENDER';
+                $this->request->data['SupportTicket']['active'] = 'TRUE';
+                $this->request->data['SupportTicket']['ip_address'] = $_SERVER['REMOTE_ADDR'];
+                $this->request->data['SupportTicket']['question_id'] = 'What is the issue?';
+                $this->request->data['SupportTicket']['about'] = $about;
+                $this->request->data['SupportTicket']['answer'] = $answer;
+                $this->request->data['SupportTicket']['urgency'] = '2'; //Moderate
+                $this->request->data['SupportTicket']['description'] = $this->data['SupplierHotel']['comment'];
+
+                $department_id = $this->SupportTicket->getDepartmentByQuestionId($answer);
+                $this->request->data['SupportTicket']['next_action_by'] = $this->SupportTicket->getNextActionByDepartmentId($department_id);
+                $this->request->data['SupportTicket']['department_id'] = $department_id;
+                $this->request->data['SupportTicket']['type'] = '1'; // Internal
+                $this->request->data['SupportTicket']['created_by'] = $user_id;
+                $this->request->data['SupportTicket']['last_action_by'] = $user_id;
+                $this->request->data['SupportTicket']['screen'] = $screen;
+                $this->request->data['SupportTicket']['response_issue_id'] = $answer;
+                if ($this->SupportTicket->save($this->request->data['SupportTicket'])) {
+                    $this->SupplierHotel->updateAll(array('SupplierHotel.status' => "'6'"), array('SupplierHotel.id' => $supplier_hotel_id));
+                    $this->Session->setFlash('Your ticket has been successfully created.', 'success');
+                    $this->redirect(array('action' => 'index'));
+                }
             }
 
 
