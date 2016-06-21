@@ -39,7 +39,7 @@ class TravelActionItemsController extends AppController {
     var $uses = array('TravelActionItem', 'User', 'TravelSupplier', 'TravelCountry', 'TravelActionItemType', 'DuplicateMappinge', 'Agent', 'TravelRemark', 'LookupValueActionItemRejection', 'LookupValueActionItemReturn',
         'TravelCountrySupplier', 'TravelCitySupplier', 'TravelHotelRoomSupplier', 'LogCall', 'Mappinge', 'TravelCity',
         'TravelHotelLookup', 'TravelBrand', 'TravelChain', 'TravelSuburb', 'TravelArea','Province','TravelLookupContinent','SupplierCountry',
-        'SupplierCity','SupplierHotel');
+        'SupplierCity','SupplierHotel','Common','SupportTicket');
 
     public function index() {
 
@@ -846,8 +846,7 @@ class TravelActionItemsController extends AppController {
                     }
             }
             elseif($type_id == '9'){ //Submit For Review for Hotel Mapping
-                pr($this->data);
-                die;
+              
                 $screen = '4'; // fetch hotel table of  
                 $supplier_hotel_id = $this->data['SupplierHotel']['supplier_hotel_id'];
                 //$hotel_id = $this->data['Common']['hotel_id'];
