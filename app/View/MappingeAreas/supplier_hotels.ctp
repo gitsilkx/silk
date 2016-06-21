@@ -8,7 +8,7 @@ $this->Html->addCrumb('My Supplier Hotels', 'javascript:void(0);', array('class'
     <div class="col-sm-12">
         <div class="table-heading">
             <h4 class="table-heading-title"><span class="badge badge-circle badge-success"> <?php
-                    //echo $this->Paginator->counter(array('format' => '{:count}'));
+                    echo $this->Paginator->counter(array('format' => '{:count}')));
                     ?></span> My Fetch Area</h4>
           
            
