@@ -1182,6 +1182,7 @@ class AdminController extends AppController {
                 $this->request->data['TravelHotelRoomSupplier']['wtb_status'] = '1'; // 1 = true
                 $this->request->data['TravelHotelRoomSupplier']['hotel_code'] = $TravelHotelLookups['TravelHotelLookup']['hotel_code'];
                 $this->request->data['TravelHotelRoomSupplier']['supplier_code'] = $SupplierHotels['SupplierHotel']['supplier_code'];
+                $this->request->data['TravelHotelRoomSupplier']['supplier_id'] = $SupplierHotels['SupplierHotel']['supplier_id'];
                 //$hotel_name_arr = $this->TravelHotelLookup->findByHotelCode($this->data['Mapping']['hotel_code'], array('fields' => 'hotel_name', 'id'));
                 $this->request->data['TravelHotelRoomSupplier']['hotel_mapping_name'] = strtoupper('[SUPP/HOTEL] | ' . $SupplierHotels['SupplierHotel']['supplier_code'] . ' | ' . $TravelHotelLookups['TravelHotelLookup']['country_code'] . ' | ' . $TravelHotelLookups['TravelHotelLookup']['city_code'] . ' | ' . $TravelHotelLookups['TravelHotelLookup']['hotel_code'] . ' - ' . $TravelHotelLookups['TravelHotelLookup']['hotel_name']);
                 $this->request->data['TravelHotelRoomSupplier']['hotel_name'] = $TravelHotelLookups['TravelHotelLookup']['hotel_name'];
