@@ -278,17 +278,15 @@ class AdminController extends AppController {
 
                                 $this->Session->setFlash('Data inserted successfully', 'success');
                                 $this->redirect(array('action' => 'fetch_hotels'));
-                            } 
+                            }
+                        } else {
+                            $this->Session->setFlash('Unable to insert data.', 'failure');
+                            $this->redirect(array('action' => 'fetch_hotels'));
                         }
-                        else {
-                                $this->Session->setFlash('Unable to insert data.', 'failure');
-                                $this->redirect(array('action' => 'fetch_hotels'));
-                            }
+                    } else {
+                        $this->Session->setFlash('Unable to insert data.', 'failure');
+                        $this->redirect(array('action' => 'fetch_hotels'));
                     }
-                    else {
-                                $this->Session->setFlash('Unable to insert data.', 'failure');
-                                $this->redirect(array('action' => 'fetch_hotels'));
-                            }
                 }
             } catch (SoapFault $exception) {
                 var_dump(get_class($exception));
@@ -351,9 +349,11 @@ class AdminController extends AppController {
                 $xmlArray = Xml::toArray(Xml::build($order_return));
 
                 $ValArr = $xmlArray['Envelope']['soap:Body']['ProcessXMLResponse']['ProcessXMLResult']['SupplierData_Country']['ResponseAuditInfo']['root']['a:item'];
-                $total_volume = count($ValArr);
+                //$total_volume = count($ValArr);
                 //if($total_volume){
-
+                //pr($ValArr);
+                //die;
+                $total_volume = $this->SupplierCountry->find('count');
                 $this->request->data['TravelFetchTable']['supplier_id'] = $supplier_id;
                 $this->request->data['TravelFetchTable']['user_id'] = $user_id;
                 $this->request->data['TravelFetchTable']['country_id'] = '';
@@ -366,22 +366,37 @@ class AdminController extends AppController {
                 $fetch_id = $this->TravelFetchTable->getLastInsertId();
                 if ($fetch_id) {
                     foreach ($ValArr as $value) {
-                        $save[] = array('SupplierCountry' => array(
-                                'item' => $value['@item'],
-                                'code' => $value['Code']['@'],
-                                'name' => $value['Name']['@'],
-                                'supplier_id' => $supplier_id,
-                                'supplier_code' => $supplier_code,
-                                'supplier_name' => $supplier_name,
-                                'status' => '1',
-                                'fetch_id' => $fetch_id,
-                        ));
+                        if ($this->SupplierCountry->find('count', array('conditions' => array(
+                                        'supplier_id' => $supplier_id,
+                                        'code' => $value['Code']['@'],
+                            ))) == 0) {
+                            $save[] = array('SupplierCountry' => array(
+                                    'item' => $value['@item'],
+                                    'code' => $value['Code']['@'],
+                                    'name' => $value['Name']['@'],
+                                    'supplier_id' => $supplier_id,
+                                    'supplier_code' => $supplier_code,
+                                    'supplier_name' => $supplier_name,
+                                    'status' => '1',
+                                    'fetch_id' => $fetch_id,
+                            ));
+                        }
                     }
-                    $this->SupplierCountry->create();
-                    if ($this->SupplierCountry->saveMany($save)) {
-                        $this->Session->setFlash('Data inserted successfully', 'success');
+                    $inserted_volume = count($save);
+                    $this->TravelFetchTable->updateAll(array('TravelFetchTable.inserted_volume' => "'" . $inserted_volume . "'"), array('TravelFetchTable.id' => $fetch_id));
+                    if ($inserted_volume) {
+                        $this->SupplierCountry->create();
+                        if ($this->SupplierCountry->saveMany($save)) {
+                            $this->Session->setFlash('Data inserted successfully', 'success');
+                            $this->redirect(array('action' => 'fetch_hotels'));
+                        }
+                    } else {
+                        $this->Session->setFlash('Unable to insert data.', 'failure');
                         $this->redirect(array('action' => 'fetch_hotels'));
                     }
+                } else {
+                    $this->Session->setFlash('Unable to insert data.', 'failure');
+                    $this->redirect(array('action' => 'fetch_hotels'));
                 }
 
 
@@ -463,8 +478,9 @@ class AdminController extends AppController {
                 $xmlArray = Xml::toArray(Xml::build($order_return));
 
                 $ValArr = $xmlArray['Envelope']['soap:Body']['ProcessXMLResponse']['ProcessXMLResult']['SupplierData_City']['ResponseAuditInfo']['root']['CityInfo']['item'];
-                $total_volume = count($ValArr);
+                //$total_volume = count($ValArr);
 
+                $total_volume = $this->SupplierCity->find('count');
                 $this->request->data['TravelFetchTable']['supplier_id'] = $supplier_id;
                 $this->request->data['TravelFetchTable']['user_id'] = $user_id;
                 $this->request->data['TravelFetchTable']['country_id'] = $country_id;
@@ -476,26 +492,41 @@ class AdminController extends AppController {
                 $fetch_id = $this->TravelFetchTable->getLastInsertId();
                 if ($fetch_id) {
                     foreach ($ValArr as $value) {
-
-                        $save[] = array('SupplierCity' => array(
-                                'fetch_id' => $fetch_id,
-                                'country_code' => $country_code,
-                                'country_id' => $country_id,
-                                'country_name' => $country_name,
-                                'code' => $value['CityCode']['@'],
-                                'name' => $value['Name']['@'],
-                                'supplier_id' => $supplier_id,
-                                'supplier_code' => $supplier_code,
-                                'status' => '1',
-                                'supplier_name' => $supplier_name
-                        ));
+                        if ($this->SupplierCity->find('count', array('conditions' => array(
+                                        'supplier_id' => $supplier_id,
+                                        'code' => $value['CityCode']['@'],
+                                        'country_id' => $country_id,
+                            ))) == 0) {
+                            $save[] = array('SupplierCity' => array(
+                                    'fetch_id' => $fetch_id,
+                                    'country_code' => $country_code,
+                                    'country_id' => $country_id,
+                                    'country_name' => $country_name,
+                                    'code' => $value['CityCode']['@'],
+                                    'name' => $value['Name']['@'],
+                                    'supplier_id' => $supplier_id,
+                                    'supplier_code' => $supplier_code,
+                                    'status' => '1',
+                                    'supplier_name' => $supplier_name
+                            ));
+                        }
                     }
+                    $inserted_volume = count($save);
+                    $this->TravelFetchTable->updateAll(array('TravelFetchTable.inserted_volume' => "'" . $inserted_volume . "'"), array('TravelFetchTable.id' => $fetch_id));
 
-                    $this->SupplierCity->create();
-                    if ($this->SupplierCity->saveMany($save)) {
-                        $this->Session->setFlash('Data inserted successfully', 'success');
+                    if ($inserted_volume) {
+                        $this->SupplierCity->create();
+                        if ($this->SupplierCity->saveMany($save)) {
+                            $this->Session->setFlash('Data inserted successfully', 'success');
+                            $this->redirect(array('action' => 'fetch_hotels'));
+                        }
+                    } else {
+                        $this->Session->setFlash('Unable to insert data.', 'failure');
                         $this->redirect(array('action' => 'fetch_hotels'));
                     }
+                } else {
+                    $this->Session->setFlash('Unable to insert data.', 'failure');
+                    $this->redirect(array('action' => 'fetch_hotels'));
                 }
             } catch (SoapFault $exception) {
                 var_dump(get_class($exception));

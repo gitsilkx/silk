@@ -110,8 +110,8 @@ if (isset($TravelFetchTables) && count($TravelFetchTables) > 0):
                         <td><?php echo $type; ?></td>
                         <td><?php echo $this->Custom->Username($TravelFetchTable['TravelFetchTable']['user_id']); ?></td>
                         
-                        <td><?php echo $this->Custom->getSupplierCountryName($TravelFetchTable['TravelFetchTable']['country_id']); ?></td>
-                        <td><?php echo $this->Custom->getSupplierCityName($TravelFetchTable['TravelFetchTable']['city_id']);?></td>
+                        <td><?php if($TravelFetchTable['TravelFetchTable']['country_id']) echo $this->Custom->getSupplierCountryName($TravelFetchTable['TravelFetchTable']['country_id']); ?></td>
+                        <td><?php if($TravelFetchTable['TravelFetchTable']['city_id']) echo $this->Custom->getSupplierCityName($TravelFetchTable['TravelFetchTable']['city_id']);?></td>
                         <td><?php echo $TravelFetchTable['TravelFetchTable']['total_volume']; ?></td>
                         <td><?php echo $TravelFetchTable['TravelFetchTable']['inserted_volume']; ?></td>
                         <td><?php echo $status; ?></td>
