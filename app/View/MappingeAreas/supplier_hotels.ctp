@@ -17,7 +17,7 @@ $this->Html->addCrumb('My Supplier Hotels', 'javascript:void(0);', array('class'
             <div class="panel_controls">
 
                 <?php
-                echo $this->Form->create('TravelHotelLookup', array('class' => 'quick_search', 'id' => 'SearchForm', 'novalidate' => true, 'inputDefaults' => array(
+                echo $this->Form->create('TravelHotelLookup', array('class' => 'quick_search', 'id' => 'parsley_reg', 'novalidate' => true, 'inputDefaults' => array(
                         'label' => false,
                         'div' => false,
                         'class' => 'form-control',
@@ -157,7 +157,7 @@ $this->Html->addCrumb('My Supplier Hotels', 'javascript:void(0);', array('class'
 /*
  * Get sates by country code
  */
-$data = $this->Js->get('#SearchForm')->serializeForm(array('isForm' => true, 'inline' => true));
+$data = $this->Js->get('#parsley_reg')->serializeForm(array('isForm' => true, 'inline' => true));
 
 $this->Js->get('#TravelHotelLookupContinentId')->event('change', $this->Js->request(array(
             'controller' => 'all_functions',
