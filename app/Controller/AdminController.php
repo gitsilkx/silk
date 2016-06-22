@@ -139,7 +139,7 @@ class AdminController extends AppController {
             }
         }
 
-        $this->paginate['order'] = array('TravelFetchTable.id' => 'asc');
+        $this->paginate['order'] = array('TravelFetchTable.id' => 'desc');
         $this->set('TravelFetchTables', $this->paginate("TravelFetchTable", $search_condition));
 
         $SupplierCityCount = $this->SupplierCity->find('count');
