@@ -224,10 +224,24 @@ class AdminController extends AppController {
                 // die;
                 $ValArr = $xmlArray['Envelope']['soap:Body']['ProcessXMLResponse']['ProcessXMLResult']['SupplierData_Hotel']['ResponseAuditInfo']['root']['LocalHotelList']['item'];
                 //$total_volume = count($ValArr);
-                
+
+
                 if (count($ValArr)) {
 
-                    foreach ($ValArr as $value) {
+                    $total_volume = $this->SupplierHotel->find('count');
+                    $this->request->data['TravelFetchTable']['supplier_id'] = $supplier_id;
+                    $this->request->data['TravelFetchTable']['user_id'] = $user_id;
+                    $this->request->data['TravelFetchTable']['country_id'] = $country_id;
+                    $this->request->data['TravelFetchTable']['city_id'] = $city_id;
+                    $this->request->data['TravelFetchTable']['total_volume'] = $total_volume;
+                    $this->request->data['TravelFetchTable']['status'] = '1';
+                    $this->request->data['TravelFetchTable']['type_id'] = '1';
+
+                    $this->TravelFetchTable->save($this->data['TravelFetchTable']);
+                    $fetch_id = $this->TravelFetchTable->getLastInsertId();
+
+                    if ($fetch_id) {
+                        foreach ($ValArr as $value) {
                             //echo  $value['Code']['@'];
                             if ($this->SupplierHotel->find('count', array('conditions' => array(
                                             'supplier_id' => $supplier_id,
@@ -252,23 +266,8 @@ class AdminController extends AppController {
                                 ));
                             }
                         }
-                        
-                   $inserted_volume = count($save);   
-                   
-                   $total_volume = $this->SupplierHotel->find('count');
-                    $this->request->data['TravelFetchTable']['supplier_id'] = $supplier_id;
-                    $this->request->data['TravelFetchTable']['user_id'] = $user_id;
-                    $this->request->data['TravelFetchTable']['country_id'] = $country_id;
-                    $this->request->data['TravelFetchTable']['city_id'] = $city_id;
-                    $this->request->data['TravelFetchTable']['total_volume'] = $total_volume;
-                    $this->request->data['TravelFetchTable']['inserted_volume'] = $inserted_volume;
-                    $this->request->data['TravelFetchTable']['status'] = '1';
-                    $this->request->data['TravelFetchTable']['type_id'] = '1';
-
-                    $this->TravelFetchTable->save($this->data['TravelFetchTable']);
-                    $fetch_id = $this->TravelFetchTable->getLastInsertId();
-
-                    if ($fetch_id) {
+                        $inserted_volume = count($save);
+                        $this->TravelFetchTable->updateAll(array('TravelFetchTable.inserted_volume' => "'".$inserted_volume."'"), array('TravelFetchTable.id' => $fetch_id));
                         
 
 
