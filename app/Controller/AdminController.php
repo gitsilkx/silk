@@ -267,18 +267,21 @@ class AdminController extends AppController {
                             }
                         }
                         $inserted_volume = count($save);
-                        $this->TravelFetchTable->updateAll(array('TravelFetchTable.inserted_volume' => "'".$inserted_volume."'"), array('TravelFetchTable.id' => $fetch_id));
-                        
+                        $this->TravelFetchTable->updateAll(array('TravelFetchTable.inserted_volume' => "'" . $inserted_volume . "'"), array('TravelFetchTable.id' => $fetch_id));
+
 
 
 
                         if ($inserted_volume) {
-                        if ($this->SupplierHotel->saveAll($save, array('validate' => true))) {
-                            //if ($this->SupplierHotel->saveMany($save)) {
+                            if ($this->SupplierHotel->saveAll($save, array('validate' => true))) {
+                                //if ($this->SupplierHotel->saveMany($save)) {
 
-                            $this->Session->setFlash('Data inserted successfully', 'success');
-                            $this->redirect(array('action' => 'fetch_hotels'));
-                        }
+                                $this->Session->setFlash('Data inserted successfully', 'success');
+                                $this->redirect(array('action' => 'fetch_hotels'));
+                            } else {
+                                $this->Session->setFlash('Unable to insert data.', 'failure');
+                                $this->redirect(array('action' => 'fetch_hotels'));
+                            }
                         }
                     }
                 }
