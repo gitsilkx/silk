@@ -272,14 +272,14 @@ class AdminController extends AppController {
 
 
 
-                        //if ($this->SupplierHotel->validates() == true) {
+                        if ($inserted_volume) {
                         if ($this->SupplierHotel->saveAll($save, array('validate' => true))) {
                             //if ($this->SupplierHotel->saveMany($save)) {
 
                             $this->Session->setFlash('Data inserted successfully', 'success');
                             $this->redirect(array('action' => 'fetch_hotels'));
                         }
-                        //}
+                        }
                     }
                 }
             } catch (SoapFault $exception) {
