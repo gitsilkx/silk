@@ -92,10 +92,10 @@ class CustomHelper extends Helper {
         return $timestamp;
     }
     
-    public function after_last($this, $inthat)
+    public function after_last($pattern, $inthat)
     {
-        if (!is_bool(strrevpos($inthat, $this)))
-        return substr($inthat, strrevpos($inthat, $this)+strlen($this));
+        if (!is_bool(strrevpos($inthat, $pattern)))
+        return substr($inthat, strrevpos($inthat, $pattern)+strlen($pattern));
     }
     public function strrevpos($instr, $needle)
     {
