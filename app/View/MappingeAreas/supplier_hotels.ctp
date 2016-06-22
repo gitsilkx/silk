@@ -25,7 +25,7 @@ $this->Html->addCrumb('My Supplier Hotels', 'javascript:void(0);', array('class'
                 ?> 
                 <div class="row spe-row">
                     <div class="col-sm-4 col-xs-8">
-                        <?php echo $this->Form->input('hotel_name', array('value' => $hotel_name, 'placeholder' => 'Hotel id, Hotel name, hotel code, country, city or area', 'error' => array('class' => 'formerror'))); ?>
+                        <?php echo $this->Form->input('hotel_name', array('value' => $hotel_name, 'placeholder' => 'Please type hotel name', 'error' => array('class' => 'formerror'))); ?>
                     </div>                 
                 </div>
                 <div class="row">
