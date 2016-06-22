@@ -53,12 +53,18 @@ class MappingeAreasController extends AppController {
         $country_id = '';
         $province_id = '';
         $city_id = '';
+        $hotel_name = '';
         
         if($this->checkProvince())
             $proArr = $this->checkProvince();
         
         if ($this->request->is('post') || $this->request->is('put')){
             $display = 'TRUE';
+            
+            if (!empty($this->data['TravelHotelLookup']['hotel_name'])) {
+                $hotel_name = $this->data['TravelHotelLookup']['hotel_name'];
+                 array_push($search_condition, array("SupplierHotel.hotel_name LIKE '%$hotel_name%'")); 
+            }
             if (!empty($this->data['TravelHotelLookup']['supplier_id'])) {
                 $supplier_id = $this->data['TravelHotelLookup']['supplier_id'];
                
@@ -121,7 +127,7 @@ class MappingeAreasController extends AppController {
        
         
         $this->set(compact('TravelCities','Provinces','TravelCountries','display','TravelLookupContinents'
-                ,'TravelSuppliers','supplier_id','continent_id','country_id','province_id','city_id'));
+                ,'TravelSuppliers','supplier_id','continent_id','country_id','province_id','city_id','hotel_name'));
         
     }
 

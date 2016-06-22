@@ -23,28 +23,32 @@ $this->Html->addCrumb('My Supplier Hotels', 'javascript:void(0);', array('class'
                         'class' => 'form-control',
                 )));
                 ?> 
-
+                <div class="row spe-row">
+                    <div class="col-sm-4 col-xs-8">
+                        <?php echo $this->Form->input('hotel_name', array('value' => $hotel_name, 'placeholder' => 'Hotel id, Hotel name, hotel code, country, city or area', 'error' => array('class' => 'formerror'))); ?>
+                    </div>                 
+                </div>
                 <div class="row">
                     
                     <div class="col-sm-3 col-xs-6">
                         <label for="un_member">Supplier:</label>
-                        <?php echo $this->Form->input('supplier_id', array('options' => $TravelSuppliers, 'empty' => '--Select--', 'value' => $supplier_id)); ?>
+                        <?php echo $this->Form->input('supplier_id', array('options' => $TravelSuppliers, 'empty' => '--Select--', 'value' => $supplier_id, 'data-required' => 'true')); ?>
                     </div>
                     <div class="col-sm-3 col-xs-6">
                         <label for="un_member">Continent:</label>
-                        <?php echo $this->Form->input('continent_id', array('options' => $TravelLookupContinents, 'empty' => '--Select--', 'value' => $continent_id)); ?>
+                        <?php echo $this->Form->input('continent_id', array('options' => $TravelLookupContinents, 'empty' => '--Select--', 'value' => $continent_id, 'data-required' => 'true')); ?>
                     </div>                    
                     <div class="col-sm-3 col-xs-6">
                         <label for="un_member">Country:</label>
-                        <?php echo $this->Form->input('country_id', array('options' => $TravelCountries, 'empty' => '--Select--', 'value' => $country_id)); ?>
+                        <?php echo $this->Form->input('country_id', array('options' => $TravelCountries, 'empty' => '--Select--', 'value' => $country_id, 'data-required' => 'true')); ?>
                     </div>
                     <div class="col-sm-3 col-xs-6">
                         <label for="un_member">Province:</label>
-                        <?php echo $this->Form->input('province_id', array('options' => $Provinces, 'empty' => '--Select--', 'value' => $continent_id)); ?>
+                        <?php echo $this->Form->input('province_id', array('options' => $Provinces, 'empty' => '--Select--', 'value' => $continent_id, 'data-required' => 'true')); ?>
                     </div>
                     <div class="col-sm-3 col-xs-6">
                         <label for="un_member">City:</label>
-                        <?php echo $this->Form->input('city_id', array('options' => $TravelCities, 'empty' => '--Select--', 'value' => $city_id)); ?>
+                        <?php echo $this->Form->input('city_id', array('options' => $TravelCities, 'empty' => '--Select--', 'value' => $city_id, 'data-required' => 'true')); ?>
                     </div>
 
 
