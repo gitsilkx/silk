@@ -278,11 +278,12 @@ class AdminController extends AppController {
 
                                 $this->Session->setFlash('Data inserted successfully', 'success');
                                 $this->redirect(array('action' => 'fetch_hotels'));
-                            } else {
+                            } 
+                        }
+                        else {
                                 $this->Session->setFlash('Unable to insert data.', 'failure');
                                 $this->redirect(array('action' => 'fetch_hotels'));
                             }
-                        }
                     }
                 }
             } catch (SoapFault $exception) {
