@@ -109,7 +109,8 @@ echo $this->Form->create('SupportTicket', array('method' => 'post', 'enctype' =>
                                 <span class="colon">:</span>
                                 <div class="col-sm-10">
                                     <?php
-                                     $id =   end(explode(" | ", $this->data['SupportTicket']['about']));
+                                    $id =   $this->Custom->after_last(' ',$this->data['SupportTicket']['about']);
+                                     //$id =   end(explode(" | ", $this->data['SupportTicket']['about']));
                                      $about_link = '';
                                      if($this->data['SupportTicket']['screen'] == '1')
                                         $about_link = $this->Html->link($this->data['SupportTicket']['about'], array('controller' => 'reports', 'action' => 'hotel_summary/id:'.$id), array('class' => 'act-ico', 'escape' => false,'target' => '_blank'));

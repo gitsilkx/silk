@@ -70,6 +70,8 @@ class CustomHelper extends Helper {
         return $user['User']['fname'] . ' ' . $user['User']['mname'] . ' ' . $user['User']['lname'];
     }
     
+   
+    
     
    public function ConvertGMTToLocalTimezone($gmttime, $timezoneRequired) {
         $system_timezone = date_default_timezone_get();
@@ -89,6 +91,18 @@ class CustomHelper extends Helper {
         $timestamp = $date->format("m-d-Y H:i:s");
         return $timestamp;
     }
+    
+    public function after_last($this, $inthat)
+    {
+        if (!is_bool(strrevpos($inthat, $this)))
+        return substr($inthat, strrevpos($inthat, $this)+strlen($this));
+    }
+    public function strrevpos($instr, $needle)
+    {
+        $rev_pos = strpos (strrev($instr), strrev($needle));
+        if ($rev_pos===false) return false;
+        else return strlen($instr) - $rev_pos - strlen($needle);
+    } 
   
   
 }
