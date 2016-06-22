@@ -253,8 +253,8 @@ class AdminController extends AppController {
                             }
                         }
                         
-                   echo $inserted_volume = count($save);   
-                   die;
+                   $inserted_volume = count($save);   
+                   
                    $total_volume = $this->SupplierHotel->find('count');
                     $this->request->data['TravelFetchTable']['supplier_id'] = $supplier_id;
                     $this->request->data['TravelFetchTable']['user_id'] = $user_id;
