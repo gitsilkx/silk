@@ -94,8 +94,8 @@ class CustomHelper extends Helper {
     
     public function after_last($pattern, $inthat)
     {
-        if (!is_bool(strrevpos($inthat, $pattern)))
-        return substr($inthat, strrevpos($inthat, $pattern)+strlen($pattern));
+        if (!is_bool($this->strrevpos($inthat, $pattern)))
+        return substr($inthat, $this->strrevpos($inthat, $pattern)+strlen($pattern));
     }
     public function strrevpos($instr, $needle)
     {
