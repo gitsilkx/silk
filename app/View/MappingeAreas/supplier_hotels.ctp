@@ -44,7 +44,7 @@ $this->Html->addCrumb('My Supplier Hotels', 'javascript:void(0);', array('class'
                     </div>
                     <div class="col-sm-3 col-xs-6">
                         <label for="un_member">Province:</label>
-                        <?php echo $this->Form->input('province_id', array('options' => $Provinces, 'empty' => '--Select--', 'value' => $continent_id, 'data-required' => 'true')); ?>
+                        <?php echo $this->Form->input('province_id', array('options' => $Provinces, 'empty' => '--Select--', 'value' => $province_id, 'data-required' => 'true')); ?>
                     </div>
                     <div class="col-sm-3 col-xs-6">
                         <label for="un_member">City:</label>
