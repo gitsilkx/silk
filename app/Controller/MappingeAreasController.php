@@ -36,7 +36,7 @@ App::uses('AppController', 'Controller');
 class MappingeAreasController extends AppController {
 
     public $uses = array('TravelHotelLookup','TravelCountry','TravelCity','Province','SupplierHotel','TravelSupplier',
-        'TravelLookupContinent','TravelHotelRoomSupplier');
+        'TravelLookupContinent','TravelHotelRoomSupplier','TravelCitySupplier');
 
     public function supplier_hotels() {
 
