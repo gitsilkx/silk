@@ -81,7 +81,7 @@ echo $this->element('FetchAreas/top_menu');
                        
                         <th data-hide="phone">Country</th>
                         <th data-hide="phone">City</th>
-                        <th data-hide="phone">Fetch Volume</th>
+                        <th data-hide="phone">Fetched Volume</th>
                         <th data-hide="phone">Inserted Volume</th>
                         <th data-hide="phone">Status</th>
                           
