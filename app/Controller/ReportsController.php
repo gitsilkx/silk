@@ -344,7 +344,7 @@ class ReportsController extends AppController {
                 ),
                 'TravelArea' => array(
                     'className' => 'TravelArea',
-                    'foreignKey' => 'city_id',
+                    'foreignKey' => 'continent_id',
                     'fields' => 'TravelArea.id',
                     'conditions' => array(
                         //'TravelArea.country_id' => $country_id,
