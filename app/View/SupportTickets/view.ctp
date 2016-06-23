@@ -260,6 +260,10 @@ echo $this->Form->create('SupportTicket', array('method' => 'post', 'enctype' =>
                                          $duplicate_id =   $this->Custom->after_last(' ',$this->data['SupportTicket']['answer1']);
                                          
                                     }
+                                    else{
+                                        echo $this->data['SupportTicket']['answer1'];
+                                        echo ($this->data['SupportTicket']['answer2']) ? ' ->'.$this->data['SupportTicket']['answer2'] : '';
+                                    }
                                      
                                    //echo ($this->data['SupportTicket']['response2']) ? ' ->'.$this->data['SupportTicket']['response2'] : '';     
                                     ///echo $this->data['SupportTicket']['answer1'].' -> '.$this->data['SupportTicket']['answer2']; ?>
