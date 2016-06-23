@@ -809,6 +809,7 @@ class AdminController extends AppController {
                 $this->request->data['TravelCountrySupplier']['excluded'] = 'FALSE'; // 2 for No of lookup_value_statuses
                 $this->request->data['TravelCountrySupplier']['wtb_status'] = '1'; // 1 for True
                 $this->request->data['TravelCountrySupplier']['active'] = 'FALSE'; // 2 for No of lookup_value_statuses
+                $this->request->data['TravelCountrySupplier']['supplier_id'] = $SupplierCountries['SupplierCountry']['supplier_id'];
                 $this->request->data['TravelCountrySupplier']['supplier_code'] = $SupplierCountries['SupplierCountry']['supplier_code'];
                 $this->request->data['TravelCountrySupplier']['supplier_country_code'] = $SupplierCountries['SupplierCountry']['code'];
                 $this->request->data['TravelCountrySupplier']['pf_country_code'] = $TravelCountries['TravelCountry']['country_code'];
@@ -952,6 +953,7 @@ class AdminController extends AppController {
                 $this->request->data['TravelCitySupplier']['active'] = 'FALSE'; // 2 for No of lookup_value_statuses
                 $this->request->data['TravelCitySupplier']['excluded'] = 'FALSE'; // 2 for No of lookup_value_statuses
                 $this->request->data['TravelCitySupplier']['wtb_status'] = '1'; // 1 = true
+                $this->request->data['TravelCitySupplier']['supplier_id'] = $SupplierCities['SupplierCity']['supplier_id'];
                 $this->request->data['TravelCitySupplier']['supplier_code'] = $SupplierCities['SupplierCity']['supplier_code'];
                 $this->request->data['TravelCitySupplier']['supplier_city_code'] = $SupplierCities['SupplierCity']['code'];
                 $this->request->data['TravelCitySupplier']['pf_city_code'] = $TravelCities['TravelCity']['city_code'];
