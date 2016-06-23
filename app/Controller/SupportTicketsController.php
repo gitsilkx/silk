@@ -150,7 +150,7 @@ class SupportTicketsController extends AppController {
             }
             elseif($answer == '27'){ // Duplicate Hotel               
                 
-                 $this->request->data['SupportTicket']['answer1'] = $this->SupportTicket->getHotelByHotelId($answer1);
+                 $this->request->data['SupportTicket']['answer1'] = $this->SupportTicket->getHotelNameByHotelId($answer1);
             }
             elseif($answer == '30'){ // Brand Missing               
                 

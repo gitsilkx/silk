@@ -56,7 +56,7 @@ class SupportTicket extends AppModel {
     public function getHotelNameByHotelId($hotel_id){
         
         $Data = ClassRegistry::init('TravelHotelLookup')->find('first', array('fields' => array( 'TravelHotelLookup.hotel_name','TravelHotelLookup.hotel_code','TravelHotelLookup.id'), 'conditions' => array('TravelHotelLookup.id' => $hotel_id)));
-        return $Data['TravelHotelLookup']['hotel_name'].' | '.$Data['TravelHotelLookup']['hotel_code'].' | '.$Data['TravelHotelLookup']['id'];
+        return $Data['TravelHotelLookup']['hotel_name'].' | Code: '.$Data['TravelHotelLookup']['hotel_code'].' | Id: '.$Data['TravelHotelLookup']['id'];
     }
     
     public function getAnswerByAnswerId($answer_id){
