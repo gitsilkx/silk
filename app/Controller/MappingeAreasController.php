@@ -118,12 +118,13 @@ class MappingeAreasController extends AppController {
             $supplier_city_codde = $this->TravelCitySupplier->find('list',ARRAY('fields' => 'supplier_city_code,supplier_city_code','conditions' => 
              array('supplier_id' => $supplier_id,'city_continent_id' => $continent_id,'city_country_id' => $country_id,'province_id' => $province_id,'city_id' => $city_id)));
             //pr($supplier_city_codde);
-            $log = $this->TravelCitySupplier->getDataSource()->getLog(false, false);
-            debug($log);
-            die;
+            
             array_push($search_condition, array('SupplierHotel.city_code' => $supplier_city_codde)); 
             $this->paginate['order'] = array('SupplierHotel.id' => 'asc');
             $this->set('SupplierHotels', $this->paginate("SupplierHotel", $search_condition));
+            $log = $this->SupplierHotel->getDataSource()->getLog(false, false);
+            debug($log);
+            die;
         }
        
          
