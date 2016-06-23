@@ -122,9 +122,9 @@ class MappingeAreasController extends AppController {
             array_push($search_condition, array('SupplierHotel.city_code' => $supplier_city_codde)); 
             $this->paginate['order'] = array('SupplierHotel.id' => 'asc');
             $this->set('SupplierHotels', $this->paginate("SupplierHotel", $search_condition));
-            $log = $this->SupplierHotel->getDataSource()->getLog(false, false);
-            debug($log);
-            die;
+            //$log = $this->SupplierHotel->getDataSource()->getLog(false, false);
+           // debug($log);
+           // die;
         }
        
          
