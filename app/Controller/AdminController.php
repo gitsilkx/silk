@@ -223,12 +223,12 @@ class AdminController extends AppController {
                 //PR($xmlArray);
                 // die;
                 $ValArr = $xmlArray['Envelope']['soap:Body']['ProcessXMLResponse']['ProcessXMLResult']['SupplierData_Hotel']['ResponseAuditInfo']['root']['LocalHotelList']['item'];
-                //$total_volume = count($ValArr);
+                $total_volume = count($ValArr);
 
 
                 if (count($ValArr)) {
 
-                    $total_volume = $this->SupplierHotel->find('count');
+                    //$total_volume = $this->SupplierHotel->find('count');
                     $this->request->data['TravelFetchTable']['supplier_id'] = $supplier_id;
                     $this->request->data['TravelFetchTable']['user_id'] = $user_id;
                     $this->request->data['TravelFetchTable']['country_id'] = $country_id;
@@ -349,11 +349,11 @@ class AdminController extends AppController {
                 $xmlArray = Xml::toArray(Xml::build($order_return));
 
                 $ValArr = $xmlArray['Envelope']['soap:Body']['ProcessXMLResponse']['ProcessXMLResult']['SupplierData_Country']['ResponseAuditInfo']['root']['a:item'];
-                //$total_volume = count($ValArr);
+                $total_volume = count($ValArr);
                 //if($total_volume){
                 //pr($ValArr);
                 //die;
-                $total_volume = $this->SupplierCountry->find('count');
+                //$total_volume = $this->SupplierCountry->find('count');
                 $this->request->data['TravelFetchTable']['supplier_id'] = $supplier_id;
                 $this->request->data['TravelFetchTable']['user_id'] = $user_id;
                 $this->request->data['TravelFetchTable']['country_id'] = '';
@@ -478,9 +478,9 @@ class AdminController extends AppController {
                 $xmlArray = Xml::toArray(Xml::build($order_return));
 
                 $ValArr = $xmlArray['Envelope']['soap:Body']['ProcessXMLResponse']['ProcessXMLResult']['SupplierData_City']['ResponseAuditInfo']['root']['CityInfo']['item'];
-                //$total_volume = count($ValArr);
+                $total_volume = count($ValArr);
 
-                $total_volume = $this->SupplierCity->find('count');
+                //$total_volume = $this->SupplierCity->find('count');
                 $this->request->data['TravelFetchTable']['supplier_id'] = $supplier_id;
                 $this->request->data['TravelFetchTable']['user_id'] = $user_id;
                 $this->request->data['TravelFetchTable']['country_id'] = $country_id;
