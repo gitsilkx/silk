@@ -72,10 +72,12 @@ class MappingeAreasController extends AppController {
            if (!empty($this->data['TravelHotelLookup']['continent_id'])) {
                 $continent_id = $this->data['TravelHotelLookup']['continent_id'];
                 //array_push($search_condition, array('TravelHotelLookup.continent_id' => $continent_id));
-                $TravelCountries = $this->TravelCountry->find('list', array('fields' => 'id, country_name', 'conditions' => array('TravelCountry.continent_id' => $continent_id,
+                $TravelCountries = $this->TravelCountry->find('all', array('fields' => 'id, country_name,country_code', 'conditions' => array('TravelCountry.continent_id' => $continent_id,
                         'TravelCountry.country_status' => '1',
                         'TravelCountry.wtb_status' => '1',
-                        'TravelCountry.active' => 'TRUE'), 'order' => 'country_name ASC'));
+                        'TravelCountry.active' => 'TRUE'), 'order' => 'country_code ASC'));
+                
+                $TravelCountries = Set::combine($TravelCountries, '{n}.TravelCountry.id', array('%s - %s', '{n}.TravelCountry.country_code', '{n}.TravelCountry.country_name'));
             }
 
             if (!empty($this->data['TravelHotelLookup']['country_id'])) {
@@ -88,10 +90,12 @@ class MappingeAreasController extends AppController {
                 
                 $province_id = $this->data['TravelHotelLookup']['province_id'];
                 //array_push($search_condition, array('TravelHotelLookup.country_id' => $country_id));
-                $TravelCities = $this->TravelCity->find('list', array('fields' => 'id, city_name', 'conditions' => array('TravelCity.province_id' => $province_id,
+                $TravelCities = $this->TravelCity->find('all', array('fields' => 'id, city_name,city_code', 'conditions' => array('TravelCity.province_id' => $province_id,
                         'TravelCity.city_status' => '1',
                         'TravelCity.wtb_status' => '1',
-                        'TravelCity.active' => 'TRUE',), 'order' => 'city_name ASC'));
+                        'TravelCity.active' => 'TRUE',), 'order' => 'city_code ASC'));
+                
+                $TravelCities = Set::combine($TravelCities, '{n}.TravelCity.id', array('%s - %s', '{n}.TravelCity.city_code', '{n}.TravelCity.city_name'));
                 
                 $Provinces = $this->Province->find('list', array(
                 'conditions' => array(

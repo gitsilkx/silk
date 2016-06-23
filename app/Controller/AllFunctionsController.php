@@ -1143,7 +1143,7 @@ class AllFunctionsController extends AppController {
                     'TravelCountry.active' => 'TRUE'
                 ),
                 'fields' => array('TravelCountry.id', 'TravelCountry.country_name', 'TravelCountry.country_code'),
-                'order' => 'TravelCountry.country_name ASC'
+                'order' => 'TravelCountry.country_code ASC'
             ));
             $DataArray = Set::combine($DataArray, '{n}.TravelCountry.id', array('%s - %s', '{n}.TravelCountry.country_code', '{n}.TravelCountry.country_name'));
         }
