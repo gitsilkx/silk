@@ -184,14 +184,7 @@ echo $this->Form->hidden('SupplierHotel.supplier_hotel_id', array('value' => $Su
                                 //echo $this->Form->input('TravelHotelRoomSupplier.hotel_code', array('id' => 'hotel_code','options' => $TravelHotelLookups, 'empty' => '--Select--','value' => $TravelHotelRoomSuppliers['TravelHotelRoomSupplier']['hotel_code'],'disabled' => true));
                                 ?></div>
                         </div>
-                <div class="form-group">
-                        <label for="reg_input_name">Comment</label>
-                        <span class="colon">:</span>
-                        <div class="col-sm-10">
-                            <?php
-                            echo $this->Form->input('SupplierHotel.comment', array('type' => 'textarea','style' => 'width:122%;height:100px'));
-                            ?></div>
-                    </div>
+                
                 
             </div>
             <div style="padding:10px"></div>
@@ -469,6 +462,14 @@ echo $this->Form->input('lookup_return_id', array('id' => 'return_id', 'options'
         </div>
         <div style="clear:both"></div>
         <div class="col-sm-12">
+            <div class="form-group">
+                        <label for="reg_input_name">Comment</label>
+                        <span class="colon">:</span>
+                        <div class="col-sm-10">
+                            <?php
+                            echo $this->Form->input('SupplierHotel.comment', array('type' => 'textarea','style' => 'width:79%;'));
+                            ?></div>
+                    </div>
              <div class="form-group">
                  
 <?php
