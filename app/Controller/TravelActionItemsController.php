@@ -356,6 +356,8 @@ class TravelActionItemsController extends AppController {
                     }
                 }
                 
+                pr($condition);
+                die;
                 array_push($search_condition, array('OR' => $condition, 'TravelHotelLookup.country_name like' => $country_name, 'TravelHotelLookup.city_name like' => $city_name, 'TravelHotelLookup.id != '.$TravelHotelRoomSuppliers['TravelHotelRoomSupplier']['hotel_id']));
                 
                 $this->paginate['order'] = array('TravelHotelLookup.hotel_name' => 'asc');
