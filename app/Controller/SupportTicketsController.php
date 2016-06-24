@@ -62,6 +62,7 @@ class SupportTicketsController extends AppController {
         $suburb_id = '';
         $chain_id = '';
         $brand_id = '';
+        $hotel_id = '';
         $user_id = $this->Auth->user('id');
         $upload_picture = '';
         
@@ -80,6 +81,7 @@ class SupportTicketsController extends AppController {
            $suburb_id = $AllHotel['TravelHotelLookup']['suburb_id'];
            $chain_id = $AllHotel['TravelHotelLookup']['chain_id'];
            $brand_id = $AllHotel['TravelHotelLookup']['brand_id'];
+           $hotel_id = $AllHotel['TravelHotelLookup']['id'];
         }
         
         if ($this->request->is('post')) {
@@ -179,7 +181,7 @@ class SupportTicketsController extends AppController {
         $CommonQuestion = $this->LookupQuestion->find('list', array('fields' => 'LookupQuestion.id, LookupQuestion.question','conditions' => array('LookupQuestion.id' => array('7','8')), 'order' => 'LookupQuestion.id ASC'));
         $LookupTicketUrgency = $this->LookupTicketUrgency->find('list', array('fields' => 'LookupTicketUrgency.id, LookupTicketUrgency.value', 'order' => 'LookupTicketUrgency.value ASC'));
         $LookupQuestion =  $LookupQuestion + $CommonQuestion;    
-       $this->set(compact('LookupDepartment','LookupQuestion','LookupScreen','TravelHotelLookup','LookupTicketUrgency','continent_id','country_id','province_id','city_id','suburb_id','chain_id','brand_id'));
+       $this->set(compact('LookupDepartment','LookupQuestion','LookupScreen','TravelHotelLookup','LookupTicketUrgency','continent_id','country_id','province_id','city_id','suburb_id','chain_id','brand_id','hotel_id'));
          
     }
     

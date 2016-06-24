@@ -31,6 +31,7 @@ echo $this->Form->hidden('country_id',array('value' => $country_id,'type' => 'te
 echo $this->Form->hidden('province_id',array('value' => $province_id,'type' => 'text'));
 echo $this->Form->hidden('city_id',array('value' => $city_id,'type' => 'text'));
 echo $this->Form->hidden('suburb_id',array('value' => $suburb_id,'type' => 'text'));
+echo $this->Form->hidden('hotel_id',array('value' => $hotel_id,'type' => 'text'));
 
 echo $this->Form->hidden('base_url', array('id' => 'hidden_site_baseurl', 'value' => $this->request->base . ((!is_null($this->params['language'])) ? '/' . $this->params['language'] : '')));
 ?>
@@ -136,8 +137,9 @@ echo $this->Form->hidden('base_url', array('id' => 'hidden_site_baseurl', 'value
         var province_id = $('#SupportTicketProvinceId').val();
         var city_id = $('#SupportTicketCityId').val();
         var suburb_id = $('#SupportTicketSuburbId').val();
+        var hotel_id = $('#SupportTicketHotelId').val();
 
-        var dataString = 'question_id=' + question_id + '&model=' + model + '&continent_id=' + continent_id + '&country_id=' + country_id + '&province_id=' + province_id + '&city_id=' + city_id + '&suburb_id=' + suburb_id;
+        var dataString = 'question_id=' + question_id + '&model=' + model + '&continent_id=' + continent_id + '&country_id=' + country_id + '&province_id=' + province_id + '&city_id=' + city_id + '&suburb_id=' + suburb_id + '&hotel_id=' + hotel_id;
         $('#ajax').addClass('loader');  
         $.ajax({
             type: "POST",
