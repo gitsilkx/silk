@@ -356,16 +356,16 @@ class TravelActionItemsController extends AppController {
                     }
                 }
                 
-                pr($condition);
-                die;
+                //pr($condition);
+                //die;
                 array_push($search_condition, array('OR' => $condition, 'TravelHotelLookup.country_name like' => $country_name, 'TravelHotelLookup.city_name like' => $city_name, 'TravelHotelLookup.id != '.$TravelHotelRoomSuppliers['TravelHotelRoomSupplier']['hotel_id']));
                 
                 $this->paginate['order'] = array('TravelHotelLookup.hotel_name' => 'asc');
                 $this->set('DuplicateHotels', $this->paginate("TravelHotelLookup", $search_condition));
                 
-                $log = $this->TravelHotelLookup->getDataSource()->getLog(false, false);       
-                debug($log);
-                die;
+                //$log = $this->TravelHotelLookup->getDataSource()->getLog(false, false);       
+                //debug($log);
+                //die;
             }
             $hotel_code = $TravelHotelRoomSuppliers['TravelHotelRoomSupplier']['hotel_code'];
             $hotel_name_arr = $this->TravelHotelLookup->findByHotelCode($hotel_code, array('fields' => 'hotel_name'));
