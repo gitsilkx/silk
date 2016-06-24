@@ -206,6 +206,22 @@ echo $this->Form->hidden('SupplierHotel.supplier_hotel_id', array('value' => $Su
                                 <?php echo $HotelUrl['TravelHotelLookup']['id'] ?></div>
                         </div>
                     <div class="form-group">
+                    <label for="reg_input_name">Continent</label>
+                    <span class="colon">:</span>
+                    <div class="col-sm-10">
+                        <?php
+                        echo $this->Form->input('TravelHotelRoomSupplier.hotel_continent_id', array('id' => 'hotel_continent_id', 'options' => $TravelLookupContinents, 'value' => $TravelHotelRoomSuppliers['TravelHotelRoomSupplier']['hotel_continent_id'], 'empty' => '--Select--', 'disabled' => true));
+                        ?></div>
+                </div>
+                    <div class="form-group">
+                    <label for="reg_input_name">Province</label>
+                    <span class="colon">:</span>
+                    <div class="col-sm-10">
+                        <?php
+                        echo $this->Form->input('TravelHotelRoomSupplier.province_id', array('options' => $Provinces, 'value' => $TravelHotelRoomSuppliers['TravelHotelRoomSupplier']['province_id'], 'empty' => '--Select--', 'disabled' => true));
+                        ?></div>
+                </div>
+                    <div class="form-group">
                             <label for="reg_input_name">Suburb</label>
                             <span class="colon">:</span>
                             <div class="col-sm-10">
@@ -229,6 +245,22 @@ echo $this->Form->hidden('SupplierHotel.supplier_hotel_id', array('value' => $Su
                             <div class="col-sm-10">
                                 <?php echo $HotelUrl['TravelHotelLookup']['hotel_code'] ?></div>
                         </div>
+                    <div class="form-group">
+                    <label for="reg_input_name">WTB Country</label>
+                    <span class="colon">:</span>
+                    <div class="col-sm-10">
+                        <?php
+                        echo $this->Form->input('TravelHotelRoomSupplier.hotel_country_code', array('id' => 'hotel_country_code', 'options' => $TravelCountries, 'value' => $TravelHotelRoomSuppliers['TravelHotelRoomSupplier']['hotel_country_code'], 'empty' => '--Select--', 'disabled' => true));
+                        ?></div>
+                </div>
+                <div class="form-group">
+                    <label for="reg_input_name">WTB City</label>
+                    <span class="colon">:</span>
+                    <div class="col-sm-10">
+                        <?php
+                        echo $this->Form->input('TravelHotelRoomSupplier.hotel_city_code', array('id' => 'hotel_city_code', 'options' => $TravelCities, 'value' => $TravelHotelRoomSuppliers['TravelHotelRoomSupplier']['hotel_city_code'], 'empty' => '--Select--', 'disabled' => true));
+                        ?></div>
+                </div>
                       <div class="form-group">
                             <label for="reg_input_name">Area</label>
                             <span class="colon">:</span>
