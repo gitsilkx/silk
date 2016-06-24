@@ -44,6 +44,7 @@ if ($mapping_type == '1') { //country
 }
 //pr($TravelCitySuppliers);
 echo $this->Form->hidden('SupplierHotel.supplier_hotel_id', array('value' => $SupplierHotels['SupplierHotel']['id'],'type' => 'text'));
+/echo $this->Form->input('TravelHotelRoomSupplier.hotel_room_supplier_id', array('value' => $TravelHotelRoomSuppliers['TravelHotelRoomSupplier']['id'],'type' => 'text'));
 ?>
 
 <div class="col-sm-12" id="mycl-det">
