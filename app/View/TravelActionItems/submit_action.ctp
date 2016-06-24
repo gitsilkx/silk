@@ -463,14 +463,16 @@ echo $this->Form->input('lookup_return_id', array('id' => 'return_id', 'options'
         </div>
         <div style="clear:both"></div>
         <div class="col-sm-12">
+            <?php if($mapping_type == '3'){?>
             <div class="form-group">
-                        <label for="reg_input_name">Comment</label>
+                        <label for="reg_input_name" style="margin-left: 15px;">Comment</label>
                         <span class="colon">:</span>
                         <div class="col-sm-10">
                             <?php
-                            echo $this->Form->input('SupplierHotel.comment', array('type' => 'textarea','style' => 'width:79%;'));
+                            echo $this->Form->input('SupplierHotel.comment', array('type' => 'textarea','style' => 'width:110%;'));
                             ?></div>
                     </div>
+            <?php }?>
              <div class="form-group">
                  
 <?php
