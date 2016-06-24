@@ -573,12 +573,12 @@ echo $this->Form->input('other_rejection', array('div' => array('id' => 'other_r
             </div>
 
     
-                <?php echo $this->Form->end();
-                ?>
+                
 
     </div>
 </div>
-
+<?php echo $this->Form->end();
+                ?>
 <!----------------------------end add project block------------------------------>
 
 <script>
