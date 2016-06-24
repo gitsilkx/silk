@@ -34,12 +34,13 @@ if ($mapping_type == '1') { //country
     $search_result = 'block';
     $style_city = 'none';
     $style_country = 'none';
+    $table_head = 'Existing Mappings for this WTB HOTEL';
 } else {
     $style_city = 'none';
     $style_country = 'none';
     $style_hotel = 'none';
     $search_result = 'none';
-    $table_head = 'Existing Mappings for this WTB HOTEL';
+    
 }
 //pr($TravelCitySuppliers);
 echo $this->Form->hidden('SupplierHotel.supplier_hotel_id', array('value' => $SupplierHotels['SupplierHotel']['id'],'type' => 'text'));
