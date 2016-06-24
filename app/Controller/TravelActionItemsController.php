@@ -340,6 +340,7 @@ class TravelActionItemsController extends AppController {
                 $hotel_name = $SupplierHotels['SupplierHotel']['hotel_name'];
                 $country_name = $SupplierHotels['SupplierHotel']['country_name'];
                 $city_name = $SupplierHotels['SupplierHotel']['city_name'];
+                $search_condition = array();
 
                 for ($indexOfFirstLetter = 0; $indexOfFirstLetter <= strlen($hotel_name); $indexOfFirstLetter++) {
                     for ($indexOfLastLetter = $indexOfFirstLetter + 1; $indexOfLastLetter <= strlen($hotel_name); $indexOfLastLetter++) {
