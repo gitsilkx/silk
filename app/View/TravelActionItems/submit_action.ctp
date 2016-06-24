@@ -368,7 +368,7 @@ if (isset($DuplicateHotels) && count($DuplicateHotels) > 0):
         <?php endforeach; ?>
 
                         <?php
-                        echo $this->element('paginate');
+                        //echo $this->element('paginate');
                     else:
                         echo '<tr><td colspan="7" class="norecords">No Records Found</td></tr>';
 
