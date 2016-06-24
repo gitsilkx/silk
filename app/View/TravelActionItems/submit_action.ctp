@@ -514,7 +514,7 @@ endif;
                     <label class="req">Choose Action Type</label>
                     <span class="colon">:</span>
                     <div class="col-sm-10"><?php
-echo $this->Form->input('type_id', array('id' => 'type_id', 'options' => $type, 'empty' => '--Select--', 'data-required' => 'true'));
+echo $this->Form->input('type_id', array('id' => 'type_id','class'=> "form-control", 'options' => $type, 'empty' => '--Select--', 'data-required' => 'true'));
 ?>
                     </div>
                 </div>
@@ -544,7 +544,7 @@ echo $this->Form->input('lookup_return_id', array('id' => 'return_id', 'options'
                         <span class="colon">:</span>
                         <div class="col-sm-10">
                             <?php
-                            echo $this->Form->input('SupplierHotel.comment', array('type' => 'textarea','style' => 'width:110%;'));
+                            echo $this->Form->input('SupplierHotel.comment', array('type' => 'textarea','label' => FALSE,'div' => FALSE,'class'=> "form-control",'style' => 'width:110%;'));
                             ?></div>
                     </div>
             <?php }?>
