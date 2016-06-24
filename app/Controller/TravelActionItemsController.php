@@ -358,6 +358,10 @@ class TravelActionItemsController extends AppController {
                 
                 $this->paginate['order'] = array('TravelHotelLookup.hotel_name' => 'asc');
                 $this->set('DuplicateHotels', $this->paginate("TravelHotelLookup", $search_condition));
+                
+                $log = $this->TravelHotelLookup->getDataSource()->getLog(false, false);       
+                debug($log);
+                die;
             }
             $hotel_code = $TravelHotelRoomSuppliers['TravelHotelRoomSupplier']['hotel_code'];
             $hotel_name_arr = $this->TravelHotelLookup->findByHotelCode($hotel_code, array('fields' => 'hotel_name'));
