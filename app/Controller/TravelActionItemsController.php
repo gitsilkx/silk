@@ -341,6 +341,7 @@ class TravelActionItemsController extends AppController {
                 $country_name = $SupplierHotels['SupplierHotel']['country_name'];
                 $city_name = $SupplierHotels['SupplierHotel']['city_name'];
                 $search_condition = array();
+                $condition = array();
 
                 for ($indexOfFirstLetter = 0; $indexOfFirstLetter <= strlen($hotel_name); $indexOfFirstLetter++) {
                     for ($indexOfLastLetter = $indexOfFirstLetter + 1; $indexOfLastLetter <= strlen($hotel_name); $indexOfLastLetter++) {
@@ -373,7 +374,7 @@ class TravelActionItemsController extends AppController {
             else
                 $actiontype = 'AddNew';
 
-
+/*
             for ($indexOfFirstLetter = 0; $indexOfFirstLetter <= strlen($hotel_name); $indexOfFirstLetter++) {
                 for ($indexOfLastLetter = $indexOfFirstLetter + 1; $indexOfLastLetter <= strlen($hotel_name); $indexOfLastLetter++) {
                     $hotel_arr[] = substr($hotel_name, $indexOfFirstLetter, 3);
@@ -383,6 +384,8 @@ class TravelActionItemsController extends AppController {
                     $indexOfFirstLetter++;
                 }
             }
+ * 
+ */
 
 
             $Mappinges = $this->TravelHotelRoomSupplier->find
