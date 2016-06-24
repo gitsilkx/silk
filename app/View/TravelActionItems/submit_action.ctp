@@ -362,7 +362,7 @@ if (isset($DuplicateHotels) && count($DuplicateHotels) > 0):
                                     <?php 
                                         $options=array($id=>'');
                                         $attributes=array('legend'=>false, 'hiddenField' => false,'label' => false,'div' => false,'class' => 'attrInputs');
-                                        echo $this->Form->radio('Common.hotel_id',$options,$attributes);
+                                        echo $this->Form->radio('TravelHotelLookup.hotel_id',$options,$attributes);
                                         ?>                                
                                 </td>
                             </tr>

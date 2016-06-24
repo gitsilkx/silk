@@ -885,8 +885,9 @@ class TravelActionItemsController extends AppController {
                 pr($this->data);
                 die;
                 $supplier_hotel_id = $this->data['SupplierHotel']['supplier_hotel_id'];
+                $hotel_room_supplier_id = $this->data['TravelHotelRoomSupplier']['hotel_room_supplier_id'];
                 $hotel_id = $this->data['SupplierHotel']['hotel_id'];
-
+                $TravelHotelRoomSuppliers = $this->TravelHotelRoomSupplier->findById($hotel_room_supplier_id);
                 $SupplierHotels = $this->SupplierHotel->findById($supplier_hotel_id);
                 $TravelHotelLookups = $this->TravelHotelLookup->findById($hotel_id);
 
