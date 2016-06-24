@@ -1791,7 +1791,7 @@ class AllFunctionsController extends AppController {
             $suburb_con = array('city_id' => $city_id);
         }
         elseif($question_id == '27'){
-            $hotel_con = array('continent_id' => $continent_id,'country_id' => $country_id,'province_id' => $province_id,'city_id' => $city_id,'id !='.$hotel_id);
+            $hotel_con = array('continent_id' => $continent_id,'country_id' => $country_id,'province_id' => $province_id,'city_id' => $city_id,'`TravelHotelLookup`.`id` !='.$hotel_id);
         }
         elseif($question_id == '30'){
             $chain_con = array('id' => $chain_id);
