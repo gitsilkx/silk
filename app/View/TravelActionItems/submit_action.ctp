@@ -617,9 +617,7 @@ echo $this->Form->input('other_rejection', array('div' => array('id' => 'other_r
         var rejections_id = $('#rejections_id').val();
         var type_id = $('#type_id').val();
         var mapping_type = $('#TravelActionItemMappingType').val();
-         alert($('.attrInputs:checked').length);
-         alert(type_id);
-            return false;
+        
 
         if (type_id == '3') {
             if (return_id == '') {
@@ -647,7 +645,7 @@ echo $this->Form->input('other_rejection', array('div' => array('id' => 'other_r
                 }
             }
         }
-        else if (type_id == '1') {
+        else if (type_id == '2') {
             //$('#ClickRadioMandatory').click(function(){
            
                 if($('.attrInputs:checked').length>0)
