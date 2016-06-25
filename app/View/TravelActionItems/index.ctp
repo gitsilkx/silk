@@ -165,7 +165,7 @@ $attr = new User();
                                         echo $this->Html->link('<span class="icon-pencil"></span>', '/mappinges/edit_supplier_city/' .$tarvel_actionitem['TravelActionItem']['city_supplier_id'].'_'. $id, array('class' => 'act-ico open-popup-link add-btn', 'escape' => false, 'data-placement' => "left", 'title' => "Action", 'data-toggle' => "tooltip"));
                    
                                     }
-                                    elseif($tarvel_actionitem['TravelActionItem']['hotel_supplier_id'] && ($tarvel_actionitem['TravelActionItem']['type_id'] =='1' || $tarvel_actionitem['TravelActionItem']['type_id'] =='4' || $tarvel_actionitem['TravelActionItem']['type_id'] =='8')){
+                                    elseif($tarvel_actionitem['TravelActionItem']['hotel_supplier_id'] && ($tarvel_actionitem['TravelActionItem']['type_id'] =='1' || $tarvel_actionitem['TravelActionItem']['type_id'] =='4' || $tarvel_actionitem['TravelActionItem']['type_id'] =='8' || $tarvel_actionitem['TravelActionItem']['type_id'] =='9')){
                                          echo $this->Html->link('<span class="icon-list"></span>', '/travel_action_items/submit_action/' . $id, array('class' => 'act-ico', 'escape' => false, 'target' => '_blank', 'data-placement' => "left", 'title' => "Edit", 'data-toggle' => "tooltip"));
                                         //echo $this->Html->link('<span class="icon-pencil"></span>', '/mappinges/edit_supplier_hotel/' .$tarvel_actionitem['TravelActionItem']['hotel_supplier_id'].'_'. $id, array('class' => 'act-ico open-popup-link add-btn', 'escape' => false, 'data-placement' => "left", 'title' => "Action", 'data-toggle' => "tooltip"));
                    
