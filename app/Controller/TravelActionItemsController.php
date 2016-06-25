@@ -477,6 +477,10 @@ class TravelActionItemsController extends AppController {
             $this->set(compact('TravelHotelRoomSuppliers', 'SupplierHotels', 'TravelHotelLookups', 'TravelCountries', 'TravelSuppliers', 'TravelAreas', 'TravelSuburbs', 'TravelChains', 'TravelBrands', 'HotelUrl', 'Provinces'));
             // $this->request->data = $TravelHotelRoomSuppliers;
         }
+        
+        elseif($type_id == '9'){
+            $type = $this->TravelActionItemType->find('list', array('fields' => array('id', 'value'), 'conditions' => 'id = 10 OR id = 5'));
+        }
 
         if ($this->request->is('post') || $this->request->is('put')) {
 
