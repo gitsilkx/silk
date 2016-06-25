@@ -952,7 +952,7 @@ class TravelActionItemsController extends AppController {
                 $this->request->data['Mappinge']['city_supplier_code'] = "'".$SupplierHotels['SupplierHotel']['city_code']."'";
 
                 $tr_remarks['TravelRemark']['remarks_level'] = '4'; // for Mapping City from travel_action_remark_levels
-                $tr_remarks['TravelRemark']['remarks'] = 'New Supplier Hotel Record Created';
+                $tr_remarks['TravelRemark']['remarks'] = "'New Supplier Hotel Record Created'";
 
                 $tr_action_item['TravelActionItem']['level_id'] = '4'; // for agent travel_action_remark_levels                 
                 $tr_action_item['TravelActionItem']['description'] = 'New Supplier Hotel Record Created - Submission For Approval';
