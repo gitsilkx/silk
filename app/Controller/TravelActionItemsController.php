@@ -326,6 +326,9 @@ class TravelActionItemsController extends AppController {
             // $this->request->data = $TravelCitySuppliers;
             //  pr($TravelSuppliers);
         }
+        elseif($action_type_id == '9'){
+            $type = $this->TravelActionItemType->find('list', array('fields' => array('id', 'value'), 'conditions' => 'id = 10 OR id = 5'));
+        }
         elseif ($level_id == '4') { // mapping hotel
             $retrun_cond = array('type' => array('0', '6')); // 0=other 4=mapping
             $rejection_cond = array('type' => array('0', '5')); // 0=other 4=mapping
@@ -479,9 +482,7 @@ class TravelActionItemsController extends AppController {
             // $this->request->data = $TravelHotelRoomSuppliers;
         }
         
-        elseif($action_type_id == '9'){
-            $type = $this->TravelActionItemType->find('list', array('fields' => array('id', 'value'), 'conditions' => 'id = 10 OR id = 5'));
-        }
+        
 
         if ($this->request->is('post') || $this->request->is('put')) {
 
