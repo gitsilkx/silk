@@ -355,10 +355,10 @@ class TravelActionItemsController extends AppController {
                         $indexOfFirstLetter++;
                     }
                 }
-                
+
                 //pr($condition);
                 //die;
-                array_push($search_condition, array('OR' => $condition, 'TravelHotelLookup.country_name like' => $country_name, 'TravelHotelLookup.city_name like' => $city_name, 'TravelHotelLookup.id != '.$TravelHotelRoomSuppliers['TravelHotelRoomSupplier']['hotel_id']));
+                array_push($search_condition, array('OR' => $condition, 'TravelHotelLookup.country_name like' => $country_name, 'TravelHotelLookup.city_name like' => $city_name, 'TravelHotelLookup.id != ' . $TravelHotelRoomSuppliers['TravelHotelRoomSupplier']['hotel_id']));
                 $DuplicateHotels = $this->TravelHotelLookup->find('all', array('conditions' => $search_condition));
                 //$this-TravelHotelLookup->find('all',array('conditions' => $search_condition));
                 //$this->paginate['order'] = array('TravelHotelLookup.hotel_name' => 'asc');
@@ -377,18 +377,18 @@ class TravelActionItemsController extends AppController {
             else
                 $actiontype = 'AddNew';
 
-/*
-            for ($indexOfFirstLetter = 0; $indexOfFirstLetter <= strlen($hotel_name); $indexOfFirstLetter++) {
-                for ($indexOfLastLetter = $indexOfFirstLetter + 1; $indexOfLastLetter <= strlen($hotel_name); $indexOfLastLetter++) {
-                    $hotel_arr[] = substr($hotel_name, $indexOfFirstLetter, 3);
-                    $condition .= "(hotel_name LIKE '%" . $hotel_arr[$indexOfFirstLetter] . "%')";
-                    if ($indexOfFirstLetter < strlen($hotel_name) - 1)
-                        $condition .= 'OR';
-                    $indexOfFirstLetter++;
-                }
-            }
- * 
- */
+            /*
+              for ($indexOfFirstLetter = 0; $indexOfFirstLetter <= strlen($hotel_name); $indexOfFirstLetter++) {
+              for ($indexOfLastLetter = $indexOfFirstLetter + 1; $indexOfLastLetter <= strlen($hotel_name); $indexOfLastLetter++) {
+              $hotel_arr[] = substr($hotel_name, $indexOfFirstLetter, 3);
+              $condition .= "(hotel_name LIKE '%" . $hotel_arr[$indexOfFirstLetter] . "%')";
+              if ($indexOfFirstLetter < strlen($hotel_name) - 1)
+              $condition .= 'OR';
+              $indexOfFirstLetter++;
+              }
+              }
+             * 
+             */
 
 
             $Mappinges = $this->TravelHotelRoomSupplier->find
@@ -884,135 +884,153 @@ class TravelActionItemsController extends AppController {
             } elseif ($type_id == '9') { //Submit For Review for Hotel Mapping
                 //pr($this->data);
                 //die;
-                $supplier_hotel_id = $this->data['SupplierHotel']['supplier_hotel_id'];
-                $hotel_room_supplier_id = $this->data['TravelHotelRoomSupplier']['hotel_room_supplier_id'];
-                $hotel_id = $this->data['TravelHotelLookup']['hotel_id'];
-                $TravelHotelRoomSuppliers = $this->TravelHotelRoomSupplier->findById($hotel_room_supplier_id);
-                $SupplierHotels = $this->SupplierHotel->findById($supplier_hotel_id);
-                $TravelHotelLookups = $this->TravelHotelLookup->findById($hotel_id);
+                if (isset($this->data['TravelHotelLookup']['hotel_id'])) {
+                    $supplier_hotel_id = $this->data['SupplierHotel']['supplier_hotel_id'];
+                    $hotel_room_supplier_id = $this->data['TravelHotelRoomSupplier']['hotel_room_supplier_id'];
+                    $hotel_id = $this->data['TravelHotelLookup']['hotel_id'];
+                    $TravelHotelRoomSuppliers = $this->TravelHotelRoomSupplier->findById($hotel_room_supplier_id);
+                    $SupplierHotels = $this->SupplierHotel->findById($supplier_hotel_id);
+                    $TravelHotelLookups = $this->TravelHotelLookup->findById($hotel_id);
 
-                //$next_action_by = '169';  //overseer 136 44 is sarika 152 - ojas
-                $flag = 0;
-                $search_condition = array();
-                $condition = '';
-                $success = '';
+                    //$next_action_by = '169';  //overseer 136 44 is sarika 152 - ojas
+                    $flag = 0;
+                    $search_condition = array();
+                    $condition = '';
+                    $success = '';
 
-                $this->request->data['Mappinge']['supplier_code'] = "'".$SupplierHotels['SupplierHotel']['supplier_code']."'";
-                $this->request->data['Mappinge']['mapping_type'] = '3'; // supplier hotel
-                $this->request->data['Mappinge']['hotel_wtb_code'] = "'".$TravelHotelLookups['TravelHotelLookup']['hotel_code']."'";
-                $this->request->data['Mappinge']['hotel_supplier_code'] = "'".$SupplierHotels['SupplierHotel']['hotel_code']."'";
-                $this->request->data['Mappinge']['city_wtb_code'] = "'".$TravelHotelLookups['TravelHotelLookup']['city_code']."'";
-                $this->request->data['Mappinge']['country_wtb_code'] = "'".$TravelHotelLookups['TravelHotelLookup']['country_code']."'";
+                    $this->request->data['Mappinge']['supplier_code'] = "'" . $SupplierHotels['SupplierHotel']['supplier_code'] . "'";
+                    $this->request->data['Mappinge']['mapping_type'] = '3'; // supplier hotel
+                    $this->request->data['Mappinge']['hotel_wtb_code'] = "'" . $TravelHotelLookups['TravelHotelLookup']['hotel_code'] . "'";
+                    $this->request->data['Mappinge']['hotel_supplier_code'] = "'" . $SupplierHotels['SupplierHotel']['hotel_code'] . "'";
+                    $this->request->data['Mappinge']['city_wtb_code'] = "'" . $TravelHotelLookups['TravelHotelLookup']['city_code'] . "'";
+                    $this->request->data['Mappinge']['country_wtb_code'] = "'" . $TravelHotelLookups['TravelHotelLookup']['country_code'] . "'";
 
-                $this->request->data['TravelHotelRoomSupplier']['hotel_supplier_status'] = '1'; // 1 for Submission For Approval [None] of the travel_action_item_types
-                $this->request->data['TravelHotelRoomSupplier']['active'] = 'FALSE'; // 2 for No of lookup_value_statuses
-                $this->request->data['TravelHotelRoomSupplier']['excluded'] = 'FALSE'; // 2 for No of lookup_value_statuses
-                $this->request->data['TravelHotelRoomSupplier']['wtb_status'] = '1'; // 1 = true
-                $this->request->data['TravelHotelRoomSupplier']['hotel_code'] = $TravelHotelLookups['TravelHotelLookup']['hotel_code'];
-                $this->request->data['TravelHotelRoomSupplier']['supplier_code'] = $SupplierHotels['SupplierHotel']['supplier_code'];
-                $this->request->data['TravelHotelRoomSupplier']['supplier_id'] = $SupplierHotels['SupplierHotel']['supplier_id'];
-                //$hotel_name_arr = $this->TravelHotelLookup->findByHotelCode($this->data['Mapping']['hotel_code'], array('fields' => 'hotel_name', 'id'));
-                $this->request->data['TravelHotelRoomSupplier']['hotel_mapping_name'] = strtoupper('[SUPP/HOTEL] | ' . $SupplierHotels['SupplierHotel']['supplier_code'] . ' | ' . $TravelHotelLookups['TravelHotelLookup']['country_code'] . ' | ' . $TravelHotelLookups['TravelHotelLookup']['city_code'] . ' | ' . $TravelHotelLookups['TravelHotelLookup']['hotel_code'] . ' - ' . $TravelHotelLookups['TravelHotelLookup']['hotel_name']);
-                $this->request->data['TravelHotelRoomSupplier']['hotel_name'] = $TravelHotelLookups['TravelHotelLookup']['hotel_name'];
-                $this->request->data['TravelHotelRoomSupplier']['hotel_id'] = $TravelHotelLookups['TravelHotelLookup']['id'];
-                $this->request->data['TravelHotelRoomSupplier']['hotel_country_code'] = $TravelHotelLookups['TravelHotelLookup']['country_code'];
-                $this->request->data['TravelHotelRoomSupplier']['supplier_item_code1'] = $SupplierHotels['SupplierHotel']['hotel_code'];
-                $this->request->data['TravelHotelRoomSupplier']['hotel_country_code'] = $TravelHotelLookups['TravelHotelLookup']['country_code'];
-                $this->request->data['TravelHotelRoomSupplier']['hotel_city_code'] = $TravelHotelLookups['TravelHotelLookup']['city_code'];
-                //$TravelAreas = $this->TravelArea->find('first', array('fields' => array('area_name'), 'conditions' => array('id' => $this->data['Mapping']['hotel_area_id'])));
-                $this->request->data['TravelHotelRoomSupplier']['hotel_area_id'] = $TravelHotelLookups['TravelHotelLookup']['area_id'];
-                $this->request->data['TravelHotelRoomSupplier']['hotel_area_name'] = $TravelHotelLookups['TravelHotelLookup']['area_name'];
-                //$TravelBrands = $this->TravelBrand->find('first', array('fields' => array('TravelBrand.brand_name'), 'conditions' => array('TravelBrand.id' => $this->data['Mapping']['hotel_brand_id'])));
-                $this->request->data['TravelHotelRoomSupplier']['hotel_brand_id'] = $TravelHotelLookups['TravelHotelLookup']['brand_id'];
-                $this->request->data['TravelHotelRoomSupplier']['hotel_brand_name'] = $TravelHotelLookups['TravelHotelLookup']['brand_name'];
-                //$TravelSuburbs = $this->TravelSuburb->find('first', array('fields' => array('TravelSuburb.name'), 'conditions' => array('TravelSuburb.id' => $this->data['Mapping']['hotel_suburb_id'])));
-                $this->request->data['TravelHotelRoomSupplier']['hotel_suburb_id'] = $TravelHotelLookups['TravelHotelLookup']['suburb_id'];
-                $this->request->data['TravelHotelRoomSupplier']['hotel_suburb_name'] = $TravelHotelLookups['TravelHotelLookup']['suburb_name'];
-                //$TravelChains = $this->TravelChain->find('first', array('fields' => array('TravelChain.chain_name'), 'conditions' => array('TravelChain.id' => $this->data['Mapping']['hotel_chain_id'])));        
-                $this->request->data['TravelHotelRoomSupplier']['hotel_chain_id'] = $TravelHotelLookups['TravelHotelLookup']['chain_id'];
-                $this->request->data['TravelHotelRoomSupplier']['hotel_chain_name'] = $TravelHotelLookups['TravelHotelLookup']['chain_name'];
-                $this->request->data['TravelHotelRoomSupplier']['created_by'] = $user_id;
-                $this->request->data['TravelHotelRoomSupplier']['province_id'] = $TravelHotelLookups['TravelHotelLookup']['province_id'];
-                $this->request->data['TravelHotelRoomSupplier']['province_name'] = $TravelHotelLookups['TravelHotelLookup']['province_name'];
+                    $this->request->data['TravelHotelRoomSupplier']['hotel_supplier_status'] = '1'; // 1 for Submission For Approval [None] of the travel_action_item_types
+                    $this->request->data['TravelHotelRoomSupplier']['active'] = 'FALSE'; // 2 for No of lookup_value_statuses
+                    $this->request->data['TravelHotelRoomSupplier']['excluded'] = 'FALSE'; // 2 for No of lookup_value_statuses
+                    $this->request->data['TravelHotelRoomSupplier']['wtb_status'] = '1'; // 1 = true
+                    $this->request->data['TravelHotelRoomSupplier']['hotel_code'] = $TravelHotelLookups['TravelHotelLookup']['hotel_code'];
+                    $this->request->data['TravelHotelRoomSupplier']['supplier_code'] = $SupplierHotels['SupplierHotel']['supplier_code'];
+                    $this->request->data['TravelHotelRoomSupplier']['supplier_id'] = $SupplierHotels['SupplierHotel']['supplier_id'];
+                    //$hotel_name_arr = $this->TravelHotelLookup->findByHotelCode($this->data['Mapping']['hotel_code'], array('fields' => 'hotel_name', 'id'));
+                    $this->request->data['TravelHotelRoomSupplier']['hotel_mapping_name'] = strtoupper('[SUPP/HOTEL] | ' . $SupplierHotels['SupplierHotel']['supplier_code'] . ' | ' . $TravelHotelLookups['TravelHotelLookup']['country_code'] . ' | ' . $TravelHotelLookups['TravelHotelLookup']['city_code'] . ' | ' . $TravelHotelLookups['TravelHotelLookup']['hotel_code'] . ' - ' . $TravelHotelLookups['TravelHotelLookup']['hotel_name']);
+                    $this->request->data['TravelHotelRoomSupplier']['hotel_name'] = $TravelHotelLookups['TravelHotelLookup']['hotel_name'];
+                    $this->request->data['TravelHotelRoomSupplier']['hotel_id'] = $TravelHotelLookups['TravelHotelLookup']['id'];
+                    $this->request->data['TravelHotelRoomSupplier']['hotel_country_code'] = $TravelHotelLookups['TravelHotelLookup']['country_code'];
+                    $this->request->data['TravelHotelRoomSupplier']['supplier_item_code1'] = $SupplierHotels['SupplierHotel']['hotel_code'];
+                    $this->request->data['TravelHotelRoomSupplier']['hotel_country_code'] = $TravelHotelLookups['TravelHotelLookup']['country_code'];
+                    $this->request->data['TravelHotelRoomSupplier']['hotel_city_code'] = $TravelHotelLookups['TravelHotelLookup']['city_code'];
+                    //$TravelAreas = $this->TravelArea->find('first', array('fields' => array('area_name'), 'conditions' => array('id' => $this->data['Mapping']['hotel_area_id'])));
+                    $this->request->data['TravelHotelRoomSupplier']['hotel_area_id'] = $TravelHotelLookups['TravelHotelLookup']['area_id'];
+                    $this->request->data['TravelHotelRoomSupplier']['hotel_area_name'] = $TravelHotelLookups['TravelHotelLookup']['area_name'];
+                    //$TravelBrands = $this->TravelBrand->find('first', array('fields' => array('TravelBrand.brand_name'), 'conditions' => array('TravelBrand.id' => $this->data['Mapping']['hotel_brand_id'])));
+                    $this->request->data['TravelHotelRoomSupplier']['hotel_brand_id'] = $TravelHotelLookups['TravelHotelLookup']['brand_id'];
+                    $this->request->data['TravelHotelRoomSupplier']['hotel_brand_name'] = $TravelHotelLookups['TravelHotelLookup']['brand_name'];
+                    //$TravelSuburbs = $this->TravelSuburb->find('first', array('fields' => array('TravelSuburb.name'), 'conditions' => array('TravelSuburb.id' => $this->data['Mapping']['hotel_suburb_id'])));
+                    $this->request->data['TravelHotelRoomSupplier']['hotel_suburb_id'] = $TravelHotelLookups['TravelHotelLookup']['suburb_id'];
+                    $this->request->data['TravelHotelRoomSupplier']['hotel_suburb_name'] = $TravelHotelLookups['TravelHotelLookup']['suburb_name'];
+                    //$TravelChains = $this->TravelChain->find('first', array('fields' => array('TravelChain.chain_name'), 'conditions' => array('TravelChain.id' => $this->data['Mapping']['hotel_chain_id'])));        
+                    $this->request->data['TravelHotelRoomSupplier']['hotel_chain_id'] = $TravelHotelLookups['TravelHotelLookup']['chain_id'];
+                    $this->request->data['TravelHotelRoomSupplier']['hotel_chain_name'] = $TravelHotelLookups['TravelHotelLookup']['chain_name'];
+                    $this->request->data['TravelHotelRoomSupplier']['created_by'] = $user_id;
+                    $this->request->data['TravelHotelRoomSupplier']['province_id'] = $TravelHotelLookups['TravelHotelLookup']['province_id'];
+                    $this->request->data['TravelHotelRoomSupplier']['province_name'] = $TravelHotelLookups['TravelHotelLookup']['province_name'];
 
-                //$supp_country_code = $this->TravelCountrySupplier->find('first', array('fields' => array('supplier_country_code', 'country_id', 'country_name', 'country_continent_id', 'country_continent_name'), 'conditions' => array('supplier_code' => $this->data['Mapping']['hotel_supplier_code'], 'pf_country_code' => $this->data['Mapping']['hotel_country_code'])));
-                //$supp_country_code = $this->TravelCountrySupplier->find('first', array('fields' => array('supplier_country_code'), 'conditions' => array('supplier_code' => $this->data['Mapping']['hotel_supplier_code'], 'pf_country_code' => $this->data['Mapping']['hotel_country_code'])));
-                $this->request->data['TravelHotelRoomSupplier']['supplier_item_code4'] = $SupplierHotels['SupplierHotel']['country_code'];
-                $this->request->data['Mappinge']['country_supplier_code'] = "'".$SupplierHotels['SupplierHotel']['country_code']."'";
-                $this->request->data['TravelHotelRoomSupplier']['hotel_country_id'] = $TravelHotelLookups['TravelHotelLookup']['country_id'];
-                $this->request->data['TravelHotelRoomSupplier']['hotel_country_name'] = $TravelHotelLookups['TravelHotelLookup']['country_name'];
-                $this->request->data['TravelHotelRoomSupplier']['hotel_continent_id'] = $TravelHotelLookups['TravelHotelLookup']['continent_id'];
-                $this->request->data['TravelHotelRoomSupplier']['hotel_continent_name'] = $TravelHotelLookups['TravelHotelLookup']['continent_name'];
-                $this->request->data['TravelHotelRoomSupplier']['hotel_supplier_id'] = $SupplierHotels['SupplierHotel']['id'];
+                    //$supp_country_code = $this->TravelCountrySupplier->find('first', array('fields' => array('supplier_country_code', 'country_id', 'country_name', 'country_continent_id', 'country_continent_name'), 'conditions' => array('supplier_code' => $this->data['Mapping']['hotel_supplier_code'], 'pf_country_code' => $this->data['Mapping']['hotel_country_code'])));
+                    //$supp_country_code = $this->TravelCountrySupplier->find('first', array('fields' => array('supplier_country_code'), 'conditions' => array('supplier_code' => $this->data['Mapping']['hotel_supplier_code'], 'pf_country_code' => $this->data['Mapping']['hotel_country_code'])));
+                    $this->request->data['TravelHotelRoomSupplier']['supplier_item_code4'] = $SupplierHotels['SupplierHotel']['country_code'];
+                    $this->request->data['Mappinge']['country_supplier_code'] = "'" . $SupplierHotels['SupplierHotel']['country_code'] . "'";
+                    $this->request->data['TravelHotelRoomSupplier']['hotel_country_id'] = $TravelHotelLookups['TravelHotelLookup']['country_id'];
+                    $this->request->data['TravelHotelRoomSupplier']['hotel_country_name'] = $TravelHotelLookups['TravelHotelLookup']['country_name'];
+                    $this->request->data['TravelHotelRoomSupplier']['hotel_continent_id'] = $TravelHotelLookups['TravelHotelLookup']['continent_id'];
+                    $this->request->data['TravelHotelRoomSupplier']['hotel_continent_name'] = $TravelHotelLookups['TravelHotelLookup']['continent_name'];
+                    $this->request->data['TravelHotelRoomSupplier']['hotel_supplier_id'] = $SupplierHotels['SupplierHotel']['id'];
 
-                //$supp_city_code = $this->TravelCitySupplier->find('first', array('fields' => array('supplier_city_code', 'city_id', 'city_name'), 'conditions' => array('supplier_code' => $this->data['Mapping']['hotel_supplier_code'], 'pf_city_code' => $this->data['Mapping']['hotel_city_code'], 'city_country_code' => $this->data['Mapping']['hotel_country_code'])));
-                $this->request->data['TravelHotelRoomSupplier']['supplier_item_code3'] = $SupplierHotels['SupplierHotel']['city_code'];
-                $this->request->data['TravelHotelRoomSupplier']['hotel_city_id'] = $TravelHotelLookups['TravelHotelLookup']['city_id'];
-                $this->request->data['TravelHotelRoomSupplier']['hotel_city_name'] = $TravelHotelLookups['TravelHotelLookup']['city_name'];
-                $this->request->data['Mappinge']['city_supplier_code'] = "'".$SupplierHotels['SupplierHotel']['city_code']."'";
+                    //$supp_city_code = $this->TravelCitySupplier->find('first', array('fields' => array('supplier_city_code', 'city_id', 'city_name'), 'conditions' => array('supplier_code' => $this->data['Mapping']['hotel_supplier_code'], 'pf_city_code' => $this->data['Mapping']['hotel_city_code'], 'city_country_code' => $this->data['Mapping']['hotel_country_code'])));
+                    $this->request->data['TravelHotelRoomSupplier']['supplier_item_code3'] = $SupplierHotels['SupplierHotel']['city_code'];
+                    $this->request->data['TravelHotelRoomSupplier']['hotel_city_id'] = $TravelHotelLookups['TravelHotelLookup']['city_id'];
+                    $this->request->data['TravelHotelRoomSupplier']['hotel_city_name'] = $TravelHotelLookups['TravelHotelLookup']['city_name'];
+                    $this->request->data['Mappinge']['city_supplier_code'] = "'" . $SupplierHotels['SupplierHotel']['city_code'] . "'";
 
-                $tr_remarks['TravelRemark']['remarks_level'] = '4'; // for Mapping City from travel_action_remark_levels
-                $tr_remarks['TravelRemark']['remarks'] = "'New Supplier Hotel Record Created'";
+                    $tr_remarks['TravelRemark']['remarks_level'] = '4'; // for Mapping City from travel_action_remark_levels
+                    $tr_remarks['TravelRemark']['remarks'] = "'New Supplier Hotel Record Created'";
 
-                $tr_action_item['TravelActionItem']['level_id'] = '4'; // for agent travel_action_remark_levels                 
-                $tr_action_item['TravelActionItem']['description'] = 'New Supplier Hotel Record Created - Submission For Approval';
+                    $tr_action_item['TravelActionItem']['level_id'] = '4'; // for agent travel_action_remark_levels                 
+                    $tr_action_item['TravelActionItem']['description'] = 'New Supplier Hotel Record Created - Submission For Approval';
 
-                /*
-                  $permissionArray = $this->ProvincePermission->find('first',array('conditions' => array('continent_id' => $supp_country_code['TravelCountrySupplier']['country_continent_id'],'country_id' => $supp_country_code['TravelCountrySupplier']['country_id'],'province_id' => $this->data['Mapping']['hotel_province_id'],'user_id' => $user_id)));
-                  if(isset($permissionArray['ProvincePermission']['approval_id']))
-                  $next_action_by = $permissionArray['ProvincePermission']['approval_id'];
-                  else
-                 * 
-                 */
-                $next_action_by = '169'; //overseer APC
-                $this->TravelHotelRoomSupplier->id = $hotel_room_supplier_id;
-                $this->TravelHotelRoomSupplier->save($this->request->data['TravelHotelRoomSupplier']);
-                //$this->TravelHotelLookup->updateAll(array('TravelHotelLookup.active' => "'FALSE'"), array('TravelHotelLookup.id' => $hotel_name_arr['TravelHotelLookup']['id']));
-                $hotel_supplier_id = $this->TravelHotelRoomSupplier->getLastInsertId();
-                if ($hotel_room_supplier_id) {
-                    $this->request->data['Mappinge']['hotel_supplier_id'] = "'".$hotel_room_supplier_id."'";
-                    $tr_remarks['TravelRemark']['hotel_supplier_id'] = "'".$hotel_room_supplier_id."'";
-                    $tr_action_item['TravelActionItem']['hotel_supplier_id'] = $hotel_room_supplier_id;
-                    $flag = 1;
-                }
+                    /*
+                      $permissionArray = $this->ProvincePermission->find('first',array('conditions' => array('continent_id' => $supp_country_code['TravelCountrySupplier']['country_continent_id'],'country_id' => $supp_country_code['TravelCountrySupplier']['country_id'],'province_id' => $this->data['Mapping']['hotel_province_id'],'user_id' => $user_id)));
+                      if(isset($permissionArray['ProvincePermission']['approval_id']))
+                      $next_action_by = $permissionArray['ProvincePermission']['approval_id'];
+                      else
+                     * 
+                     */
+                    $next_action_by = '169'; //overseer APC
+                    $this->TravelHotelRoomSupplier->id = $hotel_room_supplier_id;
+                    $this->TravelHotelRoomSupplier->save($this->request->data['TravelHotelRoomSupplier']);
+                    //$this->TravelHotelLookup->updateAll(array('TravelHotelLookup.active' => "'FALSE'"), array('TravelHotelLookup.id' => $hotel_name_arr['TravelHotelLookup']['id']));
+                    $hotel_supplier_id = $this->TravelHotelRoomSupplier->getLastInsertId();
+                    if ($hotel_room_supplier_id) {
+                        $this->request->data['Mappinge']['hotel_supplier_id'] = "'" . $hotel_room_supplier_id . "'";
+                        $tr_remarks['TravelRemark']['hotel_supplier_id'] = "'" . $hotel_room_supplier_id . "'";
+                        $tr_action_item['TravelActionItem']['hotel_supplier_id'] = $hotel_room_supplier_id;
+                        $flag = 1;
+                    }
 
-                $this->request->data['Mappinge']['created_by'] = "'".$user_id."'";
-                $this->request->data['Mappinge']['status'] = '1'; // 1 for Submission For Approval [None] of the travel_action_item_types
-                $this->request->data['Mappinge']['exclude'] = '2'; // 2 for No of lookup_value_statuses
-                $this->request->data['Mappinge']['dummy_status'] = "'".$dummy_status."'";
-                //$this->Mappinge->hotel_supplier_id = $hotel_room_supplier_id;
-                //$this->Mappinge->save($this->request->data['Mappinge']);
-                $this->Mappinge->updateAll($this->request->data['Mappinge'], array('Mappinge.hotel_supplier_id' => $hotel_room_supplier_id));
-                $tr_remarks['TravelRemark']['created_by'] = "'".$user_id."'";
-                $tr_remarks['TravelRemark']['remarks_time'] = "'".date('g:i A')."'";
+                    $this->request->data['Mappinge']['created_by'] = "'" . $user_id . "'";
+                    $this->request->data['Mappinge']['status'] = '1'; // 1 for Submission For Approval [None] of the travel_action_item_types
+                    $this->request->data['Mappinge']['exclude'] = '2'; // 2 for No of lookup_value_statuses
+                    $this->request->data['Mappinge']['dummy_status'] = "'" . $dummy_status . "'";
+                    //$this->Mappinge->hotel_supplier_id = $hotel_room_supplier_id;
+                    //$this->Mappinge->save($this->request->data['Mappinge']);
+                    $this->Mappinge->updateAll($this->request->data['Mappinge'], array('Mappinge.hotel_supplier_id' => $hotel_room_supplier_id));
+                    $tr_remarks['TravelRemark']['created_by'] = "'" . $user_id . "'";
+                    $tr_remarks['TravelRemark']['remarks_time'] = "'" . date('g:i A') . "'";
 
-                $tr_remarks['TravelRemark']['dummy_status'] = "'".$dummy_status."'";
-                $this->TravelRemark->updateAll($tr_remarks['TravelRemark'], array('TravelRemark.hotel_supplier_id' => $hotel_room_supplier_id));
-                //$this->TravelRemark->save($tr_remarks);
+                    $tr_remarks['TravelRemark']['dummy_status'] = "'" . $dummy_status . "'";
+                    $this->TravelRemark->updateAll($tr_remarks['TravelRemark'], array('TravelRemark.hotel_supplier_id' => $hotel_room_supplier_id));
+                    //$this->TravelRemark->save($tr_remarks);
 
-                /*
-                 * ********************** Action *********************
-                 */
+                    /*
+                     * ********************** Action *********************
+                     */
 
-                $tr_action_item['TravelActionItem']['type_id'] = '1'; // 1 for Submission For Approval [None] of the travel_action_item_types
-                $tr_action_item['TravelActionItem']['action_item_active'] = 'Yes';
-                $tr_action_item['TravelActionItem']['action_item_source'] = $role_id;
-                $tr_action_item['TravelActionItem']['created_by_id'] = $user_id;
-                $tr_action_item['TravelActionItem']['created_by'] = $user_id;
-                $tr_action_item['TravelActionItem']['dummy_status'] = $dummy_status;
-                $tr_action_item['TravelActionItem']['next_action_by'] = $next_action_by;
-                $tr_action_item['TravelActionItem']['parent_action_item_id'] = $this->data['TravelActionItem']['parent_action_item_id'];
-                $this->TravelActionItem->save($tr_action_item);
-                $ActionId = $this->TravelActionItem->getLastInsertId();
-                $ActionUpdateArr['TravelActionItem']['parent_action_item_id'] = "'" . $ActionId . "'";
-                $this->TravelActionItem->updateAll($ActionUpdateArr['TravelActionItem'], array('TravelActionItem.id' => $ActionId));
-                $this->SupplierHotel->updateAll(array('SupplierHotel.status' => "'2'"), array('SupplierHotel.id' => $SupplierHotels['SupplierHotel']['id']));
-                $this->Session->setFlash('Your changes have been submitted. Waiting for approval at the moment...', 'success');
-                $log = $this->TravelHotelLookup->getDataSource()->getLog(false, false);
-                debug($log);
-                die;
+                    $tr_action_item['TravelActionItem']['type_id'] = '1'; // 1 for Submission For Approval [None] of the travel_action_item_types
+                    $tr_action_item['TravelActionItem']['action_item_active'] = 'Yes';
+                    $tr_action_item['TravelActionItem']['action_item_source'] = $role_id;
+                    $tr_action_item['TravelActionItem']['created_by_id'] = $user_id;
+                    $tr_action_item['TravelActionItem']['created_by'] = $user_id;
+                    $tr_action_item['TravelActionItem']['dummy_status'] = $dummy_status;
+                    $tr_action_item['TravelActionItem']['next_action_by'] = $next_action_by;
+                    $tr_action_item['TravelActionItem']['parent_action_item_id'] = $this->data['TravelActionItem']['parent_action_item_id'];
+                    $this->TravelActionItem->save($tr_action_item);
+                    $ActionId = $this->TravelActionItem->getLastInsertId();
+                    $ActionUpdateArr['TravelActionItem']['parent_action_item_id'] = "'" . $ActionId . "'";
+                    $this->TravelActionItem->updateAll($ActionUpdateArr['TravelActionItem'], array('TravelActionItem.id' => $ActionId));
+                    $this->SupplierHotel->updateAll(array('SupplierHotel.status' => "'2'"), array('SupplierHotel.id' => $SupplierHotels['SupplierHotel']['id']));
+                    $this->Session->setFlash('Your changes have been submitted. Waiting for approval at the moment...', 'success');
+                    //$log = $this->TravelHotelLookup->getDataSource()->getLog(false, false);
+                    //debug($log);
+                    //die;
                     $this->redirect(array('action' => 'index'));
-                
+                }
+                else{
+                    echo 'Test';
+                    die;
+                    $this->request->data['TravelActionItem']['hotel_supplier_id'] = $travel_actionitems['TravelActionItem']['hotel_supplier_id'];
+                    $agents['TravelHotelRoomSupplier']['hotel_supplier_status'] = '3';  // 2 for approve of travel_action_item_types
+                    $agents['TravelHotelRoomSupplier']['active'] = 'FALSE'; // for FALSE of travel_action_item_types
+                    $agents['TravelHotelRoomSupplier']['approved_by'] = "'" . $user_id . "'";
+                    $agents['TravelHotelRoomSupplier']['approved_date'] = "'" . date('Y-m-d h:i:s') . "'";
+                    $mapping['Mappinge']['status'] = '4';  //3 for RETURN of travel_action_item_types
+
+                    $this->request->data['TravelRemark']['hotel_supplier_id'] = $travel_actionitems['TravelActionItem']['hotel_supplier_id'];
+                    $this->request->data['TravelRemark']['remarks'] = 'Submit Review For Mapping Hotel (R)';
+                    $this->request->data['TravelActionItem']['description'] = 'Submit Review For Mapping Hotel(R)';
+                    $this->request->data['TravelActionItem']['next_action_by'] = '169';
+                    $flag = '34';
+                    
+                }
             }
 
 
