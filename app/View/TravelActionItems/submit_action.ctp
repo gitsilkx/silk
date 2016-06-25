@@ -539,19 +539,11 @@ echo $this->Form->input('lookup_return_id', array('id' => 'return_id', 'options'
         </div>
         <div style="clear:both"></div>
         <div class="col-sm-12">
-            <?php if($mapping_type == '3'){?>
-            <div class="form-group">
-                        <label for="reg_input_name" style="margin-left: 15px;">Comment</label>
-                        <span class="colon">:</span>
-                        <div class="col-sm-10">
-                            <?php
-                            echo $this->Form->input('SupplierHotel.comment', array('type' => 'textarea','label' => FALSE,'div' => FALSE,'class'=> "form-control",'style' => 'width:110%;'));
-                            ?></div>
-                    </div>
-            <?php }?>
+            
              <div class="form-group">
                  
 <?php
+echo $this->Form->input('SupplierHotel.comment', array('div' => array('id' => 'support_comment', 'style' => 'display:none; width:79%;margin-left: 16.5%;'), 'type' => 'textarea'));
 echo $this->Form->input('other_return', array('div' => array('id' => 'other_return', 'style' => 'display:none; width:79%;margin-left: 16.5%;'), 'type' => 'textarea'));
 echo $this->Form->input('other_rejection', array('div' => array('id' => 'other_rejection', 'style' => 'display:none; width:79%;margin-left: 16.5%;'), 'label' => false, 'type' => 'textarea'));
 ?>
@@ -592,10 +584,20 @@ echo $this->Form->input('other_rejection', array('div' => array('id' => 'other_r
             $('#other_return').css('display', 'block');
             $('#rejection').css('display', 'none');
             $('#other_rejection').css('display', 'none');
+            $('#support_comment').css('display', 'none');
         }
         else if (type == 5) {
             $('#rejection').css('display', 'block');
             $('#other_rejection').css('display', 'block');
+            $('#other_return').css('display', 'none');
+            $('#return').css('display', 'none');
+            $('#support_comment').css('display', 'none');
+
+        }
+        else if (type == 9) {
+            $('#support_comment').css('display', 'block');
+            $('#rejection').css('display', 'none');
+            $('#other_rejection').css('display', 'none');
             $('#other_return').css('display', 'none');
             $('#return').css('display', 'none');
 
@@ -605,6 +607,7 @@ echo $this->Form->input('other_rejection', array('div' => array('id' => 'other_r
             $('#other_return').css('display', 'none');
             $('#rejection').css('display', 'none');
             $('#other_rejection').css('display', 'none');
+            $('#support_comment').css('display', 'none');
         }
     });
 
