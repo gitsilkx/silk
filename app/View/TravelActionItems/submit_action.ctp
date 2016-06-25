@@ -644,6 +644,15 @@ echo $this->Form->input('other_rejection', array('div' => array('id' => 'other_r
                 }
             }
         }
+        else if (type_id == '1') {
+            //$('#ClickRadioMandatory').click(function(){
+                if($('.attrInputs:checked').length>0)
+                    {
+                        bootbox.alert('Please Unchecked radio button.');
+                        return false;
+                    }
+               
+        }
         //alert($('#TravelHotelRoomSupplierHotelBrandId').val());
        /*
         if(mapping_type == '3'){
