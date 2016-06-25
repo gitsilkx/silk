@@ -983,10 +983,10 @@ class TravelActionItemsController extends AppController {
                 //$this->Mappinge->hotel_supplier_id = $hotel_room_supplier_id;
                 //$this->Mappinge->save($this->request->data['Mappinge']);
                 $this->Mappinge->updateAll($this->request->data['Mappinge'], array('Mappinge.hotel_supplier_id' => $hotel_room_supplier_id));
-                $tr_remarks['TravelRemark']['created_by'] = $user_id;
-                $tr_remarks['TravelRemark']['remarks_time'] = date('g:i A');
+                $tr_remarks['TravelRemark']['created_by'] = "'".$user_id."'";
+                $tr_remarks['TravelRemark']['remarks_time'] = "'".date('g:i A')."'";
 
-                $tr_remarks['TravelRemark']['dummy_status'] = $dummy_status;
+                $tr_remarks['TravelRemark']['dummy_status'] = "'".$dummy_status."'";
                 $this->TravelRemark->updateAll($tr_remarks['TravelRemark'], array('TravelRemark.hotel_supplier_id' => $hotel_room_supplier_id));
                 //$this->TravelRemark->save($tr_remarks);
 
