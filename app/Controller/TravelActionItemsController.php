@@ -980,14 +980,16 @@ class TravelActionItemsController extends AppController {
                 $this->request->data['Mappinge']['status'] = '1'; // 1 for Submission For Approval [None] of the travel_action_item_types
                 $this->request->data['Mappinge']['exclude'] = '2'; // 2 for No of lookup_value_statuses
                 $this->request->data['Mappinge']['dummy_status'] = $dummy_status;
-                //$this->Mappinge->hotel_supplier_id = $hotel_room_supplier_id;
-                //$this->Mappinge->save($this->request->data['Mappinge']);
-                $this->Mappinge->updateAll($this->request->data['Mappinge'], array('Mappinge.hotel_supplier_id' => $hotel_room_supplier_id));
+                $this->Mappinge->hotel_supplier_id = $hotel_room_supplier_id;
+                $this->Mappinge->save($this->request->data['Mappinge']);
+                //$this->Mappinge->updateAll($this->request->data['Mappinge'], array('Mappinge.hotel_supplier_id' => $hotel_room_supplier_id));
                 $tr_remarks['TravelRemark']['created_by'] = $user_id;
                 $tr_remarks['TravelRemark']['remarks_time'] = date('g:i A');
 
                 $tr_remarks['TravelRemark']['dummy_status'] = $dummy_status;
-                $this->TravelRemark->updateAll($tr_remarks['TravelRemark'], array('TravelRemark.hotel_supplier_id' => $hotel_room_supplier_id));
+                $this->TravelRemark->hotel_supplier_id = $hotel_room_supplier_id;
+                $this->TravelRemark->save($tr_remarks['TravelRemark']);
+                //$this->TravelRemark->updateAll($tr_remarks['TravelRemark'], array('TravelRemark.hotel_supplier_id' => $hotel_room_supplier_id));
                 //$this->TravelRemark->save($tr_remarks);
 
                 /*
