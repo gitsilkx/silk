@@ -976,7 +976,7 @@ class TravelActionItemsController extends AppController {
                     $flag = 1;
                 }
 
-                $this->request->data['Mappinge']['created_by'] = $user_id;
+                $this->request->data['Mappinge']['created_by'] = "'".$user_id."'";
                 $this->request->data['Mappinge']['status'] = '1'; // 1 for Submission For Approval [None] of the travel_action_item_types
                 $this->request->data['Mappinge']['exclude'] = '2'; // 2 for No of lookup_value_statuses
                 $this->request->data['Mappinge']['dummy_status'] = "'".$dummy_status."'";
