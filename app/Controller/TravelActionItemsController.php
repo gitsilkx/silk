@@ -882,11 +882,11 @@ class TravelActionItemsController extends AppController {
                     $Email->template('XML/xml', 'default')->emailFormat('html')->to($to)->cc($cc)->from('admin@silkrouters.com')->subject('XML Error [' . $log_call_screen . '] Log Id [' . $LogId . '] Open By [' . $this->User->Username($user_id) . '] Date [' . date("m/d/Y H:i:s", $date->format('U')) . ']')->send();
                 }
             } elseif ($type_id == '9') { //Submit For Review for Hotel Mapping
-                pr($this->data);
-                die;
+                //pr($this->data);
+                //die;
                 $supplier_hotel_id = $this->data['SupplierHotel']['supplier_hotel_id'];
                 $hotel_room_supplier_id = $this->data['TravelHotelRoomSupplier']['hotel_room_supplier_id'];
-                $hotel_id = $this->data['SupplierHotel']['hotel_id'];
+                $hotel_id = $this->data['TravelHotelLookup']['hotel_id'];
                 $TravelHotelRoomSuppliers = $this->TravelHotelRoomSupplier->findById($hotel_room_supplier_id);
                 $SupplierHotels = $this->SupplierHotel->findById($supplier_hotel_id);
                 $TravelHotelLookups = $this->TravelHotelLookup->findById($hotel_id);
@@ -965,13 +965,14 @@ class TravelActionItemsController extends AppController {
                  * 
                  */
                 $next_action_by = '169'; //overseer APC
+                $this->TravelHotelRoomSupplier->id = $hotel_room_supplier_id;
                 $this->TravelHotelRoomSupplier->save($this->request->data['TravelHotelRoomSupplier']);
                 //$this->TravelHotelLookup->updateAll(array('TravelHotelLookup.active' => "'FALSE'"), array('TravelHotelLookup.id' => $hotel_name_arr['TravelHotelLookup']['id']));
                 $hotel_supplier_id = $this->TravelHotelRoomSupplier->getLastInsertId();
-                if ($hotel_supplier_id) {
-                    $this->request->data['Mappinge']['hotel_supplier_id'] = $hotel_supplier_id;
-                    $tr_remarks['TravelRemark']['hotel_supplier_id'] = $hotel_supplier_id;
-                    $tr_action_item['TravelActionItem']['hotel_supplier_id'] = $hotel_supplier_id;
+                if ($hotel_room_supplier_id) {
+                    $this->request->data['Mappinge']['hotel_supplier_id'] = $hotel_room_supplier_id;
+                    $tr_remarks['TravelRemark']['hotel_supplier_id'] = $hotel_room_supplier_id;
+                    $tr_action_item['TravelActionItem']['hotel_supplier_id'] = $hotel_room_supplier_id;
                     $flag = 1;
                 }
 
@@ -979,13 +980,15 @@ class TravelActionItemsController extends AppController {
                 $this->request->data['Mappinge']['status'] = '1'; // 1 for Submission For Approval [None] of the travel_action_item_types
                 $this->request->data['Mappinge']['exclude'] = '2'; // 2 for No of lookup_value_statuses
                 $this->request->data['Mappinge']['dummy_status'] = $dummy_status;
-                $this->Mappinge->save($this->request->data['Mappinge']);
-
+                //$this->Mappinge->hotel_supplier_id = $hotel_room_supplier_id;
+                //$this->Mappinge->save($this->request->data['Mappinge']);
+                $this->Mappinge->updateAll($this->request->data['Mappinge'], array('Mappinge.hotel_supplier_id' => $hotel_room_supplier_id));
                 $tr_remarks['TravelRemark']['created_by'] = $user_id;
                 $tr_remarks['TravelRemark']['remarks_time'] = date('g:i A');
 
                 $tr_remarks['TravelRemark']['dummy_status'] = $dummy_status;
-                $this->TravelRemark->save($tr_remarks);
+                $this->TravelRemark->updateAll($tr_remarks['TravelRemark'], array('TravelRemark.hotel_supplier_id' => $hotel_room_supplier_id));
+                //$this->TravelRemark->save($tr_remarks);
 
                 /*
                  * ********************** Action *********************
@@ -998,14 +1001,16 @@ class TravelActionItemsController extends AppController {
                 $tr_action_item['TravelActionItem']['created_by'] = $user_id;
                 $tr_action_item['TravelActionItem']['dummy_status'] = $dummy_status;
                 $tr_action_item['TravelActionItem']['next_action_by'] = $next_action_by;
-                $tr_action_item['TravelActionItem']['parent_action_item_id'] = '';
+                $tr_action_item['TravelActionItem']['parent_action_item_id'] = $this->data['TravelActionItem']['parent_action_item_id'];
                 $this->TravelActionItem->save($tr_action_item);
                 $ActionId = $this->TravelActionItem->getLastInsertId();
                 $ActionUpdateArr['TravelActionItem']['parent_action_item_id'] = "'" . $ActionId . "'";
                 $this->TravelActionItem->updateAll($ActionUpdateArr['TravelActionItem'], array('TravelActionItem.id' => $ActionId));
                 $this->SupplierHotel->updateAll(array('SupplierHotel.status' => "'2'"), array('SupplierHotel.id' => $SupplierHotels['SupplierHotel']['id']));
                 $this->Session->setFlash('Your changes have been submitted. Waiting for approval at the moment...', 'success');
-                
+                $log = $this->TravelHotelLookup->getDataSource()->getLog(false, false);
+                debug($log);
+                die;
                     $this->redirect(array('action' => 'index'));
                 
             }
