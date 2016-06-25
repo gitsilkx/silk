@@ -1007,7 +1007,7 @@ class TravelActionItemsController extends AppController {
                     $ActionId = $this->TravelActionItem->getLastInsertId();
                     $ActionUpdateArr['TravelActionItem']['parent_action_item_id'] = "'" . $ActionId . "'";
                     $this->TravelActionItem->updateAll($ActionUpdateArr['TravelActionItem'], array('TravelActionItem.id' => $ActionId));
-                    $this->SupplierHotel->updateAll(array('SupplierHotel.status' => "'2'"), array('SupplierHotel.id' => $SupplierHotels['SupplierHotel']['id']));
+                    $this->SupplierHotel->updateAll(array('SupplierHotel.status' => "'6'"), array('SupplierHotel.id' => $SupplierHotels['SupplierHotel']['id']));
                     $this->Session->setFlash('Your changes have been submitted. Waiting for approval at the moment...', 'success');
                     //$log = $this->TravelHotelLookup->getDataSource()->getLog(false, false);
                     //debug($log);
@@ -1015,15 +1015,17 @@ class TravelActionItemsController extends AppController {
                     $this->redirect(array('action' => 'index'));
                 }
                 else{
-                    echo 'Test';
-                    die;
+                    //echo 'Test';
+                    //die;
+                    $supplier_hotel_id = $this->data['SupplierHotel']['supplier_hotel_id'];
+                    $hotel_room_supplier_id = $this->data['TravelHotelRoomSupplier']['hotel_room_supplier_id'];
                     $this->request->data['TravelActionItem']['hotel_supplier_id'] = $travel_actionitems['TravelActionItem']['hotel_supplier_id'];
                     $agents['TravelHotelRoomSupplier']['hotel_supplier_status'] = '3';  // 2 for approve of travel_action_item_types
                     $agents['TravelHotelRoomSupplier']['active'] = 'FALSE'; // for FALSE of travel_action_item_types
                     $agents['TravelHotelRoomSupplier']['approved_by'] = "'" . $user_id . "'";
                     $agents['TravelHotelRoomSupplier']['approved_date'] = "'" . date('Y-m-d h:i:s') . "'";
                     $mapping['Mappinge']['status'] = '4';  //3 for RETURN of travel_action_item_types
-
+                    $this->SupplierHotel->updateAll(array('SupplierHotel.status' => "'6'"), array('SupplierHotel.id' => $supplier_hotel_id));
                     $this->request->data['TravelRemark']['hotel_supplier_id'] = $travel_actionitems['TravelActionItem']['hotel_supplier_id'];
                     $this->request->data['TravelRemark']['remarks'] = 'Submit Review For Mapping Hotel (R)';
                     $this->request->data['TravelActionItem']['description'] = 'Submit Review For Mapping Hotel(R)';
