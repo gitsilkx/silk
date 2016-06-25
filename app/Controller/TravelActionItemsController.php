@@ -220,6 +220,7 @@ class TravelActionItemsController extends AppController {
 
         $travel_actionitems = $this->TravelActionItem->findById($actio_itme_id);
         $level_id = $travel_actionitems['TravelActionItem']['level_id'];
+        $action_type_id = $travel_actionitems['TravelActionItem']['type_id'];
 
         /*
           if ($travel_actionitems['TravelActionItem']['type_id'] == '1' || $travel_actionitems['TravelActionItem']['type_id'] == '8')
@@ -478,7 +479,7 @@ class TravelActionItemsController extends AppController {
             // $this->request->data = $TravelHotelRoomSuppliers;
         }
         
-        elseif($type_id == '9'){
+        elseif($action_type_id == '9'){
             $type = $this->TravelActionItemType->find('list', array('fields' => array('id', 'value'), 'conditions' => 'id = 10 OR id = 5'));
         }
 
