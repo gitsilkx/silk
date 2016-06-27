@@ -17,7 +17,7 @@ class TravelHotelLookup extends AppModel {
         'TravelHotelRoomSupplier' => array(
             'className' => 'TravelHotelRoomSupplier',
             'foreignKey' => 'hotel_id',            
-            'conditions' => array('supplier_id' => $this->data[$this->name]['supplier_id'])  // 1 for client table of  lookup_value_activity_levels
+            //'conditions' => array('TravelHotelRoomSupplier.wtb_status' => '1','TravelHotelRoomSupplier.active' => 'TRUE','TravelHotelRoomSupplier.hotel_supplier_status' => '2')  // 1 for client table of  lookup_value_activity_levels
         ),
         
         
