@@ -1044,11 +1044,10 @@ class TravelActionItemsController extends AppController {
             }
             
             elseif ($type_id == '10') { // Mapping Approved
-                //pr($this->data);
-                //die;
+                $supplier_hotel_id = $this->data['SupplierHotel']['supplier_hotel_id'];
+                $hotel_room_supplier_id = $this->data['TravelHotelRoomSupplier']['hotel_room_supplier_id'];
                 if (isset($this->data['TravelHotelLookup']['hotel_id'])) {
-                    $supplier_hotel_id = $this->data['SupplierHotel']['supplier_hotel_id'];
-                    $hotel_room_supplier_id = $this->data['TravelHotelRoomSupplier']['hotel_room_supplier_id'];
+                    
                     $hotel_id = $this->data['TravelHotelLookup']['hotel_id'];
                     $TravelHotelRoomSuppliers = $this->TravelHotelRoomSupplier->findById($hotel_room_supplier_id);
                     $SupplierHotels = $this->SupplierHotel->findById($supplier_hotel_id);
@@ -1173,8 +1172,8 @@ class TravelActionItemsController extends AppController {
                     $agents['TravelHotelRoomSupplier']['approved_by'] = "'" . $user_id . "'";
                     $agents['TravelHotelRoomSupplier']['approved_date'] = "'" . date('Y-m-d h:i:s') . "'";
                     $mapping['Mappinge']['status'] = '2';  // 2 for approve of travel_action_item_types
-                    if ($TravelHotelRoomSuppliers['TravelHotelRoomSupplier']['hotel_supplier_id'])
-                        $this->SupplierHotel->updateAll(array('SupplierHotel.status' => "'6'"), array('SupplierHotel.id' => $TravelHotelRoomSuppliers['TravelHotelRoomSupplier']['hotel_supplier_id']));
+                    if ($supplier_hotel_id)
+                        $this->SupplierHotel->updateAll(array('SupplierHotel.status' => "'6'"), array('SupplierHotel.id' => $supplier_hotel_id));
                     $this->request->data['TravelRemark']['hotel_supplier_id'] = $travel_actionitems['TravelActionItem']['hotel_supplier_id'];
                     $this->request->data['TravelRemark']['remarks'] = 'Approve Mapping Hotel';
                     $this->request->data['TravelActionItem']['description'] = 'Approve Mapping Hotel';
