@@ -630,6 +630,7 @@ class TravelActionItemsController extends AppController {
 
                 $flag = '534';
             } elseif ($type_id == '5' && $level_id == '4') {// Rejection in mapping hotel
+                $supplier_hotel_id = $this->data['SupplierHotel']['supplier_hotel_id'];
                 $mapping['Mappinge']['status'] = '5';  //3 for RETURN of travel_action_item_types
 
                 /* Email Logic */
@@ -657,7 +658,8 @@ class TravelActionItemsController extends AppController {
                 $this->TravelHotelRoomSupplier->delete($travel_actionitems['TravelActionItem']['hotel_supplier_id']);
                 $this->Mappinge->deleteAll(array('Mappinge.hotel_supplier_id' => $travel_actionitems['TravelActionItem']['hotel_supplier_id']));
                 $flag = '534';
-
+                if ($supplier_hotel_id)
+                        $this->SupplierHotel->updateAll(array('SupplierHotel.status' => "'8'"), array('SupplierHotel.id' => $supplier_hotel_id));
                 /**
                  * Hotel rejection xml fire - active = false
                  */
@@ -1156,7 +1158,7 @@ class TravelActionItemsController extends AppController {
                 $agents['TravelHotelRoomSupplier']['approved_date'] = "'" . date('Y-m-d h:i:s') . "'";
                 $mapping['Mappinge']['status'] = '2';  // 2 for approve of travel_action_item_types
                 if ($TravelHotelRoomSuppliers['TravelHotelRoomSupplier']['hotel_supplier_id'])
-                    $this->SupplierHotel->updateAll(array('SupplierHotel.status' => "'6'"), array('SupplierHotel.id' => $TravelHotelRoomSuppliers['TravelHotelRoomSupplier']['hotel_supplier_id']));
+                    $this->SupplierHotel->updateAll(array('SupplierHotel.status' => "'7'"), array('SupplierHotel.id' => $TravelHotelRoomSuppliers['TravelHotelRoomSupplier']['hotel_supplier_id']));
                 $this->request->data['TravelRemark']['hotel_supplier_id'] = $travel_actionitems['TravelActionItem']['hotel_supplier_id'];
                 $this->request->data['TravelRemark']['remarks'] = 'Approve Mapping Hotel';
                 $this->request->data['TravelActionItem']['description'] = 'Approve Mapping Hotel';
@@ -1173,7 +1175,7 @@ class TravelActionItemsController extends AppController {
                     $agents['TravelHotelRoomSupplier']['approved_date'] = "'" . date('Y-m-d h:i:s') . "'";
                     $mapping['Mappinge']['status'] = '2';  // 2 for approve of travel_action_item_types
                     if ($supplier_hotel_id)
-                        $this->SupplierHotel->updateAll(array('SupplierHotel.status' => "'6'"), array('SupplierHotel.id' => $supplier_hotel_id));
+                        $this->SupplierHotel->updateAll(array('SupplierHotel.status' => "'7'"), array('SupplierHotel.id' => $supplier_hotel_id));
                     $this->request->data['TravelRemark']['hotel_supplier_id'] = $travel_actionitems['TravelActionItem']['hotel_supplier_id'];
                     $this->request->data['TravelRemark']['remarks'] = 'Approve Mapping Hotel';
                     $this->request->data['TravelActionItem']['description'] = 'Approve Mapping Hotel';
@@ -1194,6 +1196,7 @@ class TravelActionItemsController extends AppController {
                 if ($this->TravelActionItem->save($this->data['TravelActionItem'])) {
 
                     $last_action_id = $this->TravelActionItem->getLastInsertId();
+                    $this->TravelRemark->create();
                     $this->TravelRemark->save($this->data['TravelRemark']);
                     $this->TravelActionItem->updateAll(array('TravelActionItem.action_item_active' => "'No'"), array('TravelActionItem.id' => $actio_itme_id));
                     $this->Mappinge->updateAll($mapping['Mappinge'], array('Mappinge.country_supplier_id' => $travel_actionitems['TravelActionItem']['country_supplier_id']));
@@ -1351,6 +1354,7 @@ class TravelActionItemsController extends AppController {
                 $table_id = $travel_actionitems['TravelActionItem']['hotel_supplier_id'];
                 if ($this->TravelActionItem->save($this->data['TravelActionItem'])) {
                     $last_action_id = $this->TravelActionItem->getLastInsertId();
+                    $this->TravelRemark->create();
                     $this->TravelRemark->save($this->data['TravelRemark']);
                     $this->TravelActionItem->updateAll(array('TravelActionItem.action_item_active' => "'No'"), array('TravelActionItem.id' => $actio_itme_id));
                     $this->TravelHotelRoomSupplier->updateAll($agents['TravelHotelRoomSupplier'], array('TravelHotelRoomSupplier.id' => $travel_actionitems['TravelActionItem']['hotel_supplier_id']));
