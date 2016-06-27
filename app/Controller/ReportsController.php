@@ -5122,5 +5122,185 @@ class ReportsController extends AppController {
         //die;
         $this->set(compact('TravelActionItems', 'HotelMappingAction'));
     }
+    
+    public function country_mapping_list() {
+
+        $dummy_status = $this->Auth->user('dummy_status');
+        $role_id = $this->Session->read("role_id");
+        $search_condition = array();
+        $search = '';
+        $supplier_code = '';
+        $country_wtb_code = '';
+   
+        $hotel_wtb_code = '';
+        $status = '';
+        $active = '';
+        $exclude = '';
+        $mapping_type = '';
+        $wtb_status = '';
+        $province_id = '';
+        $TravelCities = array();
+        $TravelHotelLookups = array();
+        $Provinces = array();
+
+
+        if ($this->request->is('post') || $this->request->is('put')) {
+
+            if (!empty($this->data['TravelCountrySupplier']['search'])) {
+                $search = $this->data['TravelCountrySupplier']['search'];
+                array_push($search_condition, array('TravelCountrySupplier.country_name' . ' LIKE' => "%" . mysql_escape_string(trim(strip_tags($search))) . "%"));
+            }
+            if (!empty($this->data['TravelCountrySupplier']['active'])) {
+                $active = $this->data['TravelCountrySupplier']['active'];
+                array_push($search_condition, array('TravelCountrySupplier.active' => $active));
+            }
+            if (!empty($this->data['TravelCountrySupplier']['wtb_status'])) {
+                $wtb_status = $this->data['TravelCountrySupplier']['wtb_status'];
+                array_push($search_condition, array('TravelCountrySupplier.wtb_status' => $wtb_status));
+            }
+
+            if (!empty($this->data['TravelCountrySupplier']['supplier_code'])) {
+                $supplier_code = $this->data['TravelCountrySupplier']['supplier_code'];
+                array_push($search_condition, array('TravelCountrySupplier.supplier_code LIKE' => "%" . mysql_escape_string(trim(strip_tags($supplier_code))) . "%"));
+            }
+
+           
+            if (!empty($this->data['TravelCountrySupplier']['pf_country_code'])) {
+                $country_wtb_code = $this->data['TravelCountrySupplier']['pf_country_code'];
+                array_push($search_condition, array('TravelCountrySupplier.pf_country_code LIKE' => "%" . mysql_escape_string(trim(strip_tags($country_wtb_code))) . "%"));
+            }
+
+            if (!empty($this->data['TravelCountrySupplier']['province_id'])) {
+                $province_id = $this->data['TravelCountrySupplier']['province_id'];
+                array_push($search_condition, array('OR' => array('TravelCountrySupplier.province_id' => $province_id)));
+            }
+
+            if (!empty($this->data['TravelCountrySupplier']['country_suppliner_status'])) {
+                $status = $this->data['TravelCountrySupplier']['country_suppliner_status'];
+                array_push($search_condition, array('TravelCountrySupplier.country_suppliner_status' => $status));
+            }
+            if (!empty($this->data['TravelCountrySupplier']['exclude'])) {
+                $exclude = $this->data['TravelCountrySupplier']['exclude'];
+                array_push($search_condition, array('TravelCountrySupplier.exclude' => $exclude));
+            }
+        } elseif ($this->request->is('get')) {
+
+            if (!empty($this->request->params['named']['search '])) {
+                $search = $this->request->params['named']['search '];
+                array_push($search_condition, array('TravelCountrySupplier.country_name' . ' LIKE' => "%" . mysql_escape_string(trim(strip_tags($search))) . "%"));
+            }
+            if (!empty($this->request->params['named']['active'])) {
+                $active = $this->request->params['named']['active'];
+                array_push($search_condition, array('TravelCountrySupplier.active' => $active));
+            }
+            if (!empty($this->request->params['named']['province_id'])) {
+                $province_id = $this->request->params['named']['province_id'];
+                array_push($search_condition, array('OR' => array('TravelCountrySupplier.province_id' => $province_id)));
+            }
+            if (!empty($this->request->params['named']['wtb_status'])) {
+                $wtb_status = $this->request->params['named']['wtb_status'];
+                array_push($search_condition, array('TravelCountrySupplier.wtb_status' => $wtb_status));
+            }
+
+            if (!empty($this->request->params['named']['supplier_code'])) {
+                $supplier_code = $this->request->params['named']['supplier_code'];
+                array_push($search_condition, array('TravelCountrySupplier.supplier_code LIKE' => "%" . mysql_escape_string(trim(strip_tags($supplier_code))) . "%"));
+            }
+
+            if (!empty($this->request->params['named']['pf_country_code'])) {
+                $country_wtb_code = $this->request->params['named']['pf_country_code'];
+                array_push($search_condition, array('TravelCountrySupplier.pf_country_code LIKE' => "%" . mysql_escape_string(trim(strip_tags($country_wtb_code))) . "%"));
+               
+            }
+       
+
+            if (!empty($this->request->params['named']['country_suppliner_status'])) {
+                $status = $this->request->params['named']['country_suppliner_status'];
+                array_push($search_condition, array('TravelCountrySupplier.country_suppliner_status' => $status));
+            }
+            if (!empty($this->request->params['named']['exclude'])) {
+                $exclude = $this->request->params['named']['exclude'];
+                array_push($search_condition, array('TravelCountrySupplier.exclude' => $exclude));
+            }
+        }
+
+        if (count($this->params['pass'])) {
+
+           foreach ($this->params['pass'] as $key => $value) {
+                array_push($search_condition, array('TravelCountrySupplier.' . $key => $value));
+                //$conArry = array('TravelHotelLookup.'.$key => $value);
+                //$conAreaArry = array('TravelArea.'.$key => $value);
+            }                
+        } elseif (count($this->params['named'])) {
+
+            foreach ($this->params['named'] as $key => $value) {
+                array_push($search_condition, array('TravelCountrySupplier.' . $key => $value));
+                //$conArry = array('TravelHotelLookup.'.$key => $value);
+                //$conAreaArry = array('TravelArea.'.$key => $value);
+            }
+        }
+
+        $this->paginate['order'] = array('TravelCountrySupplier.city_id' => 'asc');
+        $this->set('TravelCountrySuppliers', $this->paginate("TravelCountrySupplier", $search_condition));
+
+
+        $TravelSuppliers = $this->TravelSupplier->find('list', array('fields' => 'supplier_code, supplier_name', 'conditions' => array('active' => 'TRUE'), 'order' => 'supplier_name ASC'));
+        $this->set(compact('TravelSuppliers'));
+
+        $TravelCountries = $this->TravelCountry->find('list', array('fields' => 'country_code, country_name', 'conditions' => array(
+                'TravelCountry.country_status' => '1',
+                'TravelCountry.wtb_status' => '1',
+                'TravelCountry.active' => 'TRUE'), 'order' => 'country_name ASC'));
+
+        //$TravelCountries = $this->TravelCountry->find('list', array('fields' => 'country_code, country_name', 'conditions' => array('country_status' => '1'), 'order' => 'country_name ASC'));
+        $this->set(compact('TravelCountries'));
+
+
+        $this->set(compact('TravelCities'));
+
+
+
+        if (!isset($this->passedArgs['search']) && empty($this->passedArgs['search'])) {
+            $this->passedArgs['search'] = (isset($this->data['TravelCountrySupplier']['search'])) ? $this->data['TravelCountrySupplier']['search'] : '';
+        }
+        if (!isset($this->passedArgs['active']) && empty($this->passedArgs['active'])) {
+            $this->passedArgs['active'] = (isset($this->data['TravelCountrySupplier']['active'])) ? $this->data['TravelCountrySupplier']['active'] : '';
+        }
+        if (!isset($this->passedArgs['wtb_status']) && empty($this->passedArgs['wtb_status'])) {
+            $this->passedArgs['wtb_status'] = (isset($this->data['TravelCountrySupplier']['wtb_status'])) ? $this->data['TravelCountrySupplier']['wtb_status'] : '';
+        }
+        if (!isset($this->passedArgs['supplier_code']) && empty($this->passedArgs['supplier_code'])) {
+            $this->passedArgs['supplier_code'] = (isset($this->data['TravelCountrySupplier']['supplier_code'])) ? $this->data['TravelCountrySupplier']['supplier_code'] : '';
+        }
+        if (!isset($this->passedArgs['pf_country_code']) && empty($this->passedArgs['pf_country_code'])) {
+            $this->passedArgs['pf_country_code'] = (isset($this->data['TravelCountrySupplier']['pf_country_code'])) ? $this->data['TravelCountrySupplier']['city_country_code'] : '';
+        }
+   
+        if (!isset($this->passedArgs['country_suppliner_status']) && empty($this->passedArgs['country_suppliner_status'])) {
+            $this->passedArgs['country_suppliner_status'] = (isset($this->data['TravelCountrySupplier']['country_suppliner_status'])) ? $this->data['TravelCountrySupplier']['city_supplier_status'] : '';
+        }
+        if (!isset($this->passedArgs['exclude']) && empty($this->passedArgs['exclude'])) {
+            $this->passedArgs['exclude'] = (isset($this->data['TravelCountrySupplier']['exclude'])) ? $this->data['TravelCountrySupplier']['exclude'] : '';
+        }
+        if (!isset($this->passedArgs['province_id']) && empty($this->passedArgs['province_id'])) {
+            $this->passedArgs['province_id'] = (isset($this->data['TravelCountrySupplier']['province_id'])) ? $this->data['TravelCountrySupplier']['province_id'] : '';
+        }
+
+
+
+        if (!isset($this->data) && empty($this->data)) {
+            $this->data['TravelCountrySupplier']['search'] = $this->passedArgs['search'];
+            $this->data['TravelCountrySupplier']['active'] = $this->passedArgs['active'];
+            $this->data['TravelCountrySupplier']['wtb_status'] = $this->passedArgs['wtb_status'];
+            $this->data['TravelCountrySupplier']['pf_country_code'] = $this->passedArgs['pf_country_code'];
+
+            $this->data['TravelCountrySupplier']['country_suppliner_status'] = $this->passedArgs['country_suppliner_status'];
+            $this->data['TravelCountrySupplier']['exclude'] = $this->passedArgs['exclude'];
+            $this->data['TravelCountrySupplier']['province_id'] = $this->passedArgs['province_id'];
+        }
+        $TravelActionItemTypes = $this->TravelActionItemType->find('list', array('fields' => 'id, value', 'order' => 'value ASC'));
+
+        $this->set(compact('search', 'supplier_code', 'country_wtb_code', 'wtb_status', 'city_wtb_code', 'active', 'TravelActionItemTypes', 'status', 'exclude', 'TravelMappingTypes', 'mapping_type', 'province_id', 'Provinces'));
+    }
 
 }

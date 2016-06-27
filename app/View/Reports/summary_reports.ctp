@@ -156,7 +156,7 @@ echo $this->Html->link(count($value['TravelCountry']), array('controller' => 're
 //echo count($value['TravelCitySuppliers']); ?></td>
                                 <td><?php $sum6 = $sum6 + count($value['TravelCountrySupplier']);  
 
-echo $this->Html->link(count($value['TravelCountrySupplier']), array('controller' => 'reports', 'action' => ''), array('class' => 'act-ico', 'escape' => false,'target' => '_blank'));
+echo $this->Html->link(count($value['TravelCountrySupplier']), array('controller' => 'reports', 'action' => 'country_mapping_list/country_continent_id:'.$continent_id), array('class' => 'act-ico', 'escape' => false,'target' => '_blank'));
 //echo count($value['TravelCitySuppliers']); ?></td>
                                 <td><?php $sum = $sum + count($value['TravelHotelLookup']);  
                                  echo $this->Html->link(count($value['TravelHotelLookup']), array('controller' => 'reports', 'action' => 'hotel_summary/continent_id:'.$continent_id), array('class' => 'act-ico', 'escape' => false,'target' => '_blank'));
