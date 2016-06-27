@@ -1005,7 +1005,7 @@ class TravelActionItemsController extends AppController {
                      * ********************** Action *********************
                      */
 
-                    $tr_action_item['TravelActionItem']['type_id'] = '1'; // 1 for Submission For Approval [None] of the travel_action_item_types
+                    $tr_action_item['TravelActionItem']['type_id'] = '9'; // 1 for Submission For Approval [None] of the travel_action_item_types
                     $tr_action_item['TravelActionItem']['action_item_active'] = 'Yes';
                     $tr_action_item['TravelActionItem']['action_item_source'] = $role_id;
                     $tr_action_item['TravelActionItem']['created_by_id'] = $user_id;
