@@ -220,6 +220,9 @@ if (isset($TravelHotelLookups) && count($TravelHotelLookups) > 0):
                             //echo $this->Form->submit('Submit For Review', array('class' => 'btn btn-success sticky_success','name' => 'review','style' => 'width:100%;float:left;'));
                             ?>
                         </div>
+                        <div class="col-sm-2">
+<?php echo $this->Form->button('Reset', array('type' => 'reset', 'class' => 'btn btn-danger sticky_important')); ?>
+            </div>
                     </div>
                 </div>
             </div>
