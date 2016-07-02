@@ -134,8 +134,8 @@ echo $this->Form->end();
                     $sum8 = 0;
                     if (isset($TravelLookupContinents) && count($TravelLookupContinents) > 0):
                         foreach ($TravelLookupContinents as $value):                       
-                         $Status = $value['TravelLookupContinent']['continent_status'] ? 'OK' : 'ERROR';
-                         $WTBStatus = $value['TravelLookupContinent']['wtb_status'] ? 'OK' : 'ERROR';
+                         $Status = ($value['TravelLookupContinent']['continent_status'] == '1') ? 'OK' : 'ERROR';
+                         $WTBStatus = ($value['TravelLookupContinent']['wtb_status'] == '1') ? 'OK' : 'ERROR';
                          $continent_id = $value['TravelLookupContinent']['id'];
                             ?>
                             <tr>
