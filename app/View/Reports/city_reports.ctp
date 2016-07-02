@@ -240,7 +240,9 @@ endif;
                                 <td  width="54%">Mismatch Counts</td>
                                 
                                 <td width="7%">&nbsp;</td>
-                                <td width="7%"><?php echo $sum5;?></td> 
+                                <td width="7%"><?php 
+                                    echo $this->Html->link($sum5, array('controller' => 'reports', 'action' => 'mismatch_hotel'), array('class' => 'act-ico', 'escape' => false,'target' => '_blank'));
+?></td> 
                                 <td width="7%">&nbsp;</td>                                
                                 <td width="7%">&nbsp;</td>
                                 <td  width="7%">&nbsp;</td>
