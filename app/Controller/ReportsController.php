@@ -403,6 +403,7 @@ class ReportsController extends AppController {
         $CityMappingCon = array();
         $SuburbCon = array();
         $AreaCon = array();
+        $miss_match = array();
         
         $TravelLookupContinents = $this->TravelLookupContinent->find('list', array('fields' => 'id,continent_name', 'conditions' => array('continent_status' => 1, 'wtb_status' => 1, 'active' => 'TRUE'), 'order' => 'continent_name ASC'));
         $TravelCountries = $this->TravelCountry->find('list', array('fields' => 'TravelCountry.id,TravelCountry.country_name', 'conditions' => array(
@@ -536,11 +537,35 @@ class ReportsController extends AppController {
          $area_count = $this->TravelArea->find('count',array('conditions' => $AreaCon));
          $suburb_count = $this->TravelSuburb->find('count',array('conditions' => $SuburbCon));
          
+         $miss_match = $this->TravelHotelLookup->find
+                (
+                'count', array
+            (
+            
+            'joins' => array(
+                array(
+                    'table' => 'travel_cities',
+                    'alias' => 'TravelCity',
+                    'conditions' => array(
+                        'TravelCity.id = TravelHotelLookup.city_id'
+                    )
+                )
+            ),
+            'conditions' => array
+                (
+                'TravelHotelLookup.city_id NOT IN (SELECT id FROM travel_cities WHERE country_id = "' . $country_id . '")',
+                'TravelHotelLookup.country_id' => $country_id
+            ),
+            'group' => 'TravelHotelLookup.city_id',
+            'order' => 'TravelHotelLookup.city_name ASC'
+                )
+        );
+         
         // pr($TravelCities);
 
         //$TravelCountries = $this->TravelCountry->find('list', array('fields' => 'id,country_name', 'order' => 'country_name ASC'));
 
-        $this->set(compact('TravelCities','hotel_count','city_mapping_count','hotel_mapping_count',
+        $this->set(compact('TravelCities','miss_match','hotel_count','city_mapping_count','hotel_mapping_count',
                 'area_count','suburb_count', 'TravelCountries','Provinces','province_id', 'country_id','continent_id','TravelLookupContinents','wtb_status','active','city_status'));
     }
 

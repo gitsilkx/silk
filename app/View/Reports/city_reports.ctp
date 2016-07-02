@@ -96,7 +96,7 @@ echo $this->Form->end();
 
 ?></div>
     </div> 
-                     <table id="resp_table" class="table toggle-square" data-filter="#table_search" data-page-size="20000">
+                     <table id="resp_table" class="table toggle-square" data-filter="#table_search" data-page-size="2000">
 
                 <thead>
                      <tr class="footable-group-row">
@@ -225,6 +225,16 @@ endif; ?>
 									$this->Html->link($area_count, array('controller' => 'reports', 'action' => 'area_list/city_id:0/country_id:'.$country_id), array('class' => 'act-ico', 'escape' => false,'target' => '_blank')) : '0';
 								
 								?></td>
+                                <td  width="7%">&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td  width="54%">Mismatch Counts</td>
+                                
+                                <td width="7%">&nbsp;</td>
+                                <td width="7%"><?php echo $miss_match;?></td> 
+                                <td width="7%">&nbsp;</td>                                
+                                <td width="7%">&nbsp;</td>
+                                <td  width="7%">&nbsp;</td>
                                 <td  width="7%">&nbsp;</td>
                             </tr>
                             <tr>
