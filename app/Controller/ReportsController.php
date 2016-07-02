@@ -539,9 +539,9 @@ class ReportsController extends AppController {
          
          $miss_match = $this->TravelHotelLookup->find
                 (
-                'count', array
+                'all', array
             (
-            
+            'fields' => array('COUNT(TravelHotelLookup.city_id) AS cnt'),
             'joins' => array(
                 array(
                     'table' => 'travel_cities',

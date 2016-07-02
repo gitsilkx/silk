@@ -133,6 +133,7 @@ echo $this->Form->end();
                     $sum2 = 0;
                     $sum3 = 0;
                     $sum4 = 0;
+                    $sum5 = 0;
                     if (isset($TravelCities) && count($TravelCities) > 0):
                         foreach ($TravelCities as $value):                       
                          $CityStatus = $value['TravelCity']['city_status'] ? 'OK' : 'ERROR';
@@ -227,11 +228,19 @@ endif; ?>
 								?></td>
                                 <td  width="7%">&nbsp;</td>
                             </tr>
+<?php
+if (isset($miss_match) && count($miss_match) > 0):
+                        foreach ($miss_match as $value): 
+                            $sum5 = $sum5 + $value[0]['cnt'];
+
+endforeach; 
+endif;
+?>
                             <tr>
                                 <td  width="54%">Mismatch Counts</td>
                                 
                                 <td width="7%">&nbsp;</td>
-                                <td width="7%"><?php echo $miss_match;?></td> 
+                                <td width="7%"><?php echo $sum5;?></td> 
                                 <td width="7%">&nbsp;</td>                                
                                 <td width="7%">&nbsp;</td>
                                 <td  width="7%">&nbsp;</td>
