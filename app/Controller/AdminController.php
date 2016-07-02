@@ -1331,15 +1331,15 @@ class AdminController extends AppController {
                 $this->redirect(array('action' => 'supplier_hotels'));
             } elseif (isset($this->data['inserted'])) {
 
-
+               
                 $screen = '4'; // fetch hotel table of  
                 $supplier_hotel_id = $this->data['Common']['supplier_hotel_id'];
                 $hotel_id = $this->data['Common']['hotel_id'];
 
-                $hotel_code = $this->Common->getHotelCode($hotel_id);
-                $hotel_name = $this->Common->getHotelName($hotel_id);
-                $about = $hotel_name . ' | Code: ' . $hotel_code . ' | Hotel Id: ' . $hotel_id . ' | Supp. Hotel Id: ' . $supplier_hotel_id;
-
+                $hotel_code = $this->Common->getSupplierHotelCode($supplier_hotel_id);
+                $hotel_name = $this->Common->getSupplierHotelName($supplier_hotel_id);
+                $about = $hotel_name . ' | Code: ' . $hotel_code . ' | Hotel Id: ' . $supplier_hotel_id;
+           
                 $answer = '36'; // table of lookup_questions
                 $this->request->data['SupportTicket']['status'] = '1'; // 1 = open
                 $this->request->data['SupportTicket']['opend_by'] = 'SENDER';
