@@ -147,8 +147,8 @@ echo $this->Form->create('Report', array('controller' => 'reports','action' => '
                     $sum5 = 0;
                     if (isset($Provinces) && count($Provinces) > 0):
                         foreach ($Provinces as $value):                       
-                         $Status = $value['Province']['status'] ? 'OK' : 'ERROR';
-                         $WTBStatus = $value['Province']['wtb_status'] ? 'OK' : 'ERROR';
+                         $Status = ($value['Province']['status'] == '1') ? 'OK' : 'ERROR';
+                         $WTBStatus = ($value['Province']['wtb_status'] == '1') ? 'OK' : 'ERROR';
                             ?>
                             <tr>
                                 <td class="tablebody"><?php											
