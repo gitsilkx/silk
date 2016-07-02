@@ -96,7 +96,7 @@ echo $this->Form->end();
 
 ?></div>
     </div> 
-                     <table id="resp_table" class="table toggle-square" data-filter="#table_search" data-page-size="2000">
+                     <table id="resp_table" class="table toggle-square" data-filter="#table_search" data-page-size="20000">
 
                 <thead>
                      <tr class="footable-group-row">
