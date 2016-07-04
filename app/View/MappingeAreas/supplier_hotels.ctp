@@ -109,7 +109,7 @@ $this->Html->addCrumb('My Supplier Hotels', 'javascript:void(0);', array('class'
                             $id = $SupplierHotel['SupplierHotel']['id'];
                     
                     if($city_code <> $SupplierHotel['SupplierHotel']['city_code'])
-                           echo '<h4>'.$SupplierHotel['SupplierHotel']['city_code'].'</h4>';
+                           echo '<h4> Supplier City : '.$SupplierHotel['SupplierHotel']['city_code'].' - '.$SupplierHotel['SupplierHotel']['city_name'].'</h4>';
                            $city_code = $SupplierHotel['SupplierHotel']['city_code'];
                             ?>
                 
