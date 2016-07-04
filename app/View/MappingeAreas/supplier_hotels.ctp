@@ -102,13 +102,17 @@ $this->Html->addCrumb('My Supplier Hotels', 'javascript:void(0);', array('class'
                     $i = 1;
 	//pr($SupplierHotels);
                     $secondary_city = '';
+                    $city_code = '';
 
                     if (isset($SupplierHotels) && count($SupplierHotels) > 0):
                         foreach ($SupplierHotels as $SupplierHotel):
                             $id = $SupplierHotel['SupplierHotel']['id'];
-
-                           
+                    
+                    if($city_code <> $SupplierHotel['SupplierHotel']['city_code'])
+                           echo '<h4>'.$SupplierHotel['SupplierHotel']['city_code'].'</h4>';
+                           $city_code = $SupplierHotel['SupplierHotel']['city_code'];
                             ?>
+                
                             <tr>
                                 <td class="tablebody"><?php echo $id; ?></td>
                                 <td class="tablebody"><?php echo $SupplierHotel['SupplierHotel']['hotel_name']; ?></td>               

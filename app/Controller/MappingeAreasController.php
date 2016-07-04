@@ -54,7 +54,7 @@ class MappingeAreasController extends AppController {
         $country_id = '';
         $province_id = '';
         $city_id = '';
-        $supplier_city_codde = '';
+        $supplier_city_codde = array();
         $hotel_name = '';
         
         if($this->checkProvince())
