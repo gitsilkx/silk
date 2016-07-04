@@ -2038,8 +2038,10 @@ class AllFunctionsController extends AppController {
 
         if ($city_id) {
             $DataArray = $this->TravelCitySupplier->find('list',ARRAY('fields' => 'supplier_city_code,city_name','conditions' => 
-             array('supplier_id' => $supplier_id,'city_continent_id' => $continent_id,'city_country_id' => $country_id,'province_id' => $province_id,'city_id' => $city_id)));
-        }
+             array('supplier_id' => $supplier_id,'city_continent_id' => $continent_id,'city_country_id' => $country_id,'province_id' => $province_id,'city_id' => $city_id), 'order' => 'supplier_city_code ASC'));
+        
+            $DataArray = Set::combine($DataArray, '{n}.TravelCitySupplier.supplier_city_code', array('%s - %s', '{n}.TravelCitySupplier.supplier_city_code', '{n}.TravelCitySupplier.city_name'));
+            }
         
        // return $DataArray;
 

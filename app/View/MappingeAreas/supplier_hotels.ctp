@@ -52,7 +52,7 @@ $this->Html->addCrumb('My Supplier Hotels', 'javascript:void(0);', array('class'
                     </div>
                     <div class="col-sm-3 col-xs-6">
                         <label for="un_member">Supplier City:</label>
-                        <?php echo $this->Form->input('supplier_city_code', array('options' => $TravelCities, 'empty' => '--Select--', 'value' => $city_id, 'data-required' => 'true')); ?>
+                        <?php echo $this->Form->input('supplier_city_code', array('options' => $TravelCitySuppliers, 'empty' => '--Select--', 'value' => $supplier_city_code, 'data-required' => 'true')); ?>
                     </div>
 
 
