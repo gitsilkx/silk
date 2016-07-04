@@ -114,22 +114,28 @@ class MappingeAreasController extends AppController {
             }
             if (!empty($this->data['TravelHotelLookup']['city_id'])) {
                 $city_id = $this->data['TravelHotelLookup']['city_id'];
+                /*
                 $TravelCitySuppliers = $this->TravelCitySupplier->find('list',ARRAY('fields' => 'supplier_city_code,city_name','conditions' => 
              array('supplier_id' => $supplier_id,'city_continent_id' => $continent_id,'city_country_id' => $country_id,'province_id' => $province_id,'city_id' => $city_id), 'order' => 'supplier_city_code ASC'));
         
             $TravelCitySuppliers = Set::combine($TravelCitySuppliers, '{n}.TravelCitySupplier.supplier_city_code', array('%s - %s', '{n}.TravelCitySupplier.supplier_city_code', '{n}.TravelCitySupplier.city_name'));        
-            }
+           
+                 */
+                }
+              /*   
             
             if (!empty($this->data['TravelHotelLookup']['supplier_city_code'])) {
                 $supplier_city_codde = $this->data['TravelHotelLookup']['supplier_city_code'];
                 array_push($search_condition, array('SupplierHotel.city_code' => $supplier_city_codde));               
             }
+               * 
+               */
             
-            //$supplier_city_codde = $this->TravelCitySupplier->find('list',ARRAY('fields' => 'supplier_city_code,supplier_city_code','conditions' => 
-           //  array('supplier_id' => $supplier_id,'city_continent_id' => $continent_id,'city_country_id' => $country_id,'province_id' => $province_id,'city_id' => $city_id)));
+            $supplier_city_codde = $this->TravelCitySupplier->find('list',ARRAY('fields' => 'supplier_city_code,supplier_city_code','conditions' => 
+             array('supplier_id' => $supplier_id,'city_continent_id' => $continent_id,'city_country_id' => $country_id,'province_id' => $province_id,'city_id' => $city_id)));
             //pr($supplier_city_codde);
             
-            //array_push($search_condition, array('SupplierHotel.city_code' => $supplier_city_codde)); 
+            array_push($search_condition, array('SupplierHotel.city_code' => $supplier_city_codde)); 
             $this->paginate['order'] = array('SupplierHotel.id' => 'asc');
             $this->set('SupplierHotels', $this->paginate("SupplierHotel", $search_condition));
             //$log = $this->SupplierHotel->getDataSource()->getLog(false, false);
