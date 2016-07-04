@@ -2024,5 +2024,26 @@ class AllFunctionsController extends AppController {
 
         $this->set(compact('DataArray'));
     }
+    
+    public function get_supplier_city_code($model = null){
+        
+        $this->layout = 'ajax';
+        $supplier_id = $this->data[$model]['supplier_id'];
+        $continent_id = $this->data[$model]['continent_id'];
+        $country_id = $this->data[$model]['country_id'];
+        $province_id = $this->data[$model]['province_id'];
+        $city_id = $this->data[$model]['city_id'];
+        
+        $DataArray = array();
+
+        if ($city_id) {
+            $DataArray = $this->TravelCitySupplier->find('list',ARRAY('fields' => 'supplier_city_code,city_name','conditions' => 
+             array('supplier_id' => $supplier_id,'city_continent_id' => $continent_id,'city_country_id' => $country_id,'province_id' => $province_id,'city_id' => $city_id)));
+        }
+        
+       // return $DataArray;
+
+        $this->set(compact('DataArray'));
+    }
 
 }
