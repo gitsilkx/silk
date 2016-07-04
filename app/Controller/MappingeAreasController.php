@@ -142,6 +142,24 @@ class MappingeAreasController extends AppController {
            // debug($log);
            // die;
         }
+        
+        elseif ($this->request->is('get')) {
+
+            if (!empty($this->request->params['named']['supplier_id'])) {
+                $supplier_id = $this->data['TravelHotelLookup']['supplier_id'];
+            }
+            
+        }
+        
+         if (!isset($this->passedArgs['supplier_id']) && empty($this->passedArgs['supplier_id'])) {
+            $this->passedArgs['supplier_id'] = (isset($this->data['TravelHotelLookup']['supplier_id'])) ? $this->data['TravelHotelLookup']['supplier_id'] : '';
+        }
+        
+        if (!isset($this->data) && empty($this->data)) {
+
+            $this->data['TravelHotelLookup']['supplier_id'] = $this->passedArgs['supplier_id'];
+            
+        }
        
          
         
