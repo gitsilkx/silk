@@ -70,7 +70,7 @@ echo $this->Html->script(array('jquery.min','lib/chained/jquery.chained.remote.m
                                 
                                 <td><?php $sum = $sum + $value[0]['cnt']; 
                                 
-                                echo $this->Html->link($value[0]['cnt'], array('controller' => 'reports', 'action' => 'hotel_summary/city_id:'.$value['TravelHotelLookup']['city_id']), array('class' => 'act-ico', 'escape' => false,'target' => '_blank'));
+                                echo $this->Html->link($value[0]['cnt'], array('controller' => 'reports', 'action' => 'hotel_summary/city_id:'.$value['TravelHotelLookup']['city_id'].'/country_id:'.$value['TravelHotelLookup']['country_id']), array('class' => 'act-ico', 'escape' => false,'target' => '_blank'));
                                 ?></td> 
                                 
                               
