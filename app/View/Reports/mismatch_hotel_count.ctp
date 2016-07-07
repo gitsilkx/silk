@@ -18,7 +18,7 @@ echo $this->Html->script(array('jquery.min','lib/chained/jquery.chained.remote.m
 
 <div class="pop-outer">
      <div class="pop-up-hdng">Hotel Count</div>
-
+     
 
     <?php
     //echo $this->Form->create('Remark', array('enctype' => 'multipart/form-data'));
