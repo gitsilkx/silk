@@ -498,6 +498,16 @@ class ReportsController extends AppController {
                         //'TravelHotelLookup.province_id' => $province_id
                 )  // 1 for client table of  lookup_value_activity_levelsv
                 ),
+                'MissmatchHotelCount' => array(
+                    'className' => 'TravelHotelLookup',
+                    'foreignKey' => false,
+                    'fields' => 'MissmatchHotelCount.id',
+                    'conditions' => array('MissmatchHotelCount.country_id' => $country_id,
+                        'MissmatchHotelCount.city_id != TravelCity.id'
+                        //'TravelHotelLookup.continent_id' => $continent_id,
+                        //'TravelHotelLookup.province_id' => $province_id
+                )  // 1 for client table of  lookup_value_activity_levelsv
+                ),
                 'TravelSuburb' => array(
                     'className' => 'TravelSuburb',
                     'foreignKey' => 'city_id',
@@ -530,7 +540,7 @@ class ReportsController extends AppController {
         
         //$log = $this->TravelCity->getDataSource()->getLog(false, false);       
         //debug($log);
-
+        //die;
          $hotel_count = $this->TravelHotelLookup->find('count',array('conditions' => $HotelCon));
          $city_mapping_count = $this->TravelCitySuppliers->find('count',array('conditions' => $CityMappingCon));
          $hotel_mapping_count = $this->TravelHotelRoomSupplier->find('count',array('conditions' => $HotelMappingCon));
