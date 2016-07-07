@@ -5329,5 +5329,9 @@ class ReportsController extends AppController {
 
         $this->set(compact('search', 'supplier_code', 'country_wtb_code', 'wtb_status', 'city_wtb_code', 'active', 'TravelActionItemTypes', 'status', 'exclude', 'TravelMappingTypes', 'mapping_type', 'province_id', 'Provinces'));
     }
+    
+    public function mismatch_hotel_count($country_id = null, $city_id = null){
+        
+    }
 
 }
