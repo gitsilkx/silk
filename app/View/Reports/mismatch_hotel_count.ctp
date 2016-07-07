@@ -40,6 +40,7 @@ echo $this->Html->script(array('jquery.min','lib/chained/jquery.chained.remote.m
                 <thead>         
                     <tr>
                         <th data-hide="phone" data-sort-ignore="true">Id</th>
+                        <th data-hide="phone" data-sort-ignore="true">Continent Name</th>
                         <th data-hide="phone" data-sort-ignore="true">Country Name</th>
                        
                         <th data-hide="phone" data-sort-ignore="true">City Name</th>
@@ -62,6 +63,7 @@ echo $this->Html->script(array('jquery.min','lib/chained/jquery.chained.remote.m
                             ?>
                             <tr>
                                 <td><?php echo $i;?></td> 
+                                 <td><?php echo $value['TravelHotelLookup']['continent_name']; ?></td>   
                                 <td><?php echo $value['TravelHotelLookup']['country_name']; ?></td>
                                
                                 <td><?php echo $value['TravelHotelLookup']['city_name']; ?></td>
