@@ -126,8 +126,8 @@ echo $this->Form->end();
                 </thead>
                 <tbody>
                     <?php
-                    //pr($TravelCities);
-//die;
+                    pr($TravelCities);
+die;
                     $i = 1;
                     $sum = 0;
                     $sum1 = 0;
