@@ -5338,7 +5338,7 @@ class ReportsController extends AppController {
                      
                     ),
                    
-                    'order' => 'TravelArea.area_name ASC',
+                    'order' => 'TravelHotelLookup.hotel_name ASC',
                     
                 ));
         
