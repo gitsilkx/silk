@@ -64,7 +64,7 @@ echo $this->Html->script(array('jquery.min','lib/chained/jquery.chained.remote.m
                                 <td><?php echo $i;?></td> 
                                 <td><?php echo $value['TravelHotelLookup']['country_name']; ?></td>
                                
-                                <td><?php echo $value['TravelHotelLookup']['city_name'].' ('.$value['TravelCity']['country_name'].',' .$value['TravelCity']['continent_name'].')'; ?></td>
+                                <td><?php echo $value['TravelHotelLookup']['city_name']; ?></td>
                                 <td><?php echo $value['TravelHotelLookup']['city_id']; ?></td>
                                 <td><?php echo $value['TravelHotelLookup']['city_code']; ?></td>
                                 
