@@ -105,7 +105,7 @@ class CustomHelper extends Helper {
     } 
     
     public function getMissmatchHotelCount($country_id,$city_id){
-        ClassRegistry::init('TravelHotelLookup')->find('all', array('fields' => array('id'),'conditions' => array('TravelHotelLookup.country_id' => $country_id,'TravelHotelLookup.city_id !='.$city_id)));
+        ClassRegistry::init('TravelHotelLookup')->find('all', array('fields' => array('id'),'conditions' => array('TravelHotelLookup.country_id' => $country_id)));
         return $DataArray['TravelHotelLookup'];
     }
   
