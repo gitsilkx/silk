@@ -5331,7 +5331,24 @@ class ReportsController extends AppController {
     }
     
     public function mismatch_hotel_count($country_id = null, $city_id = null){
-        echo 'ssdf';
+        $TravelHotelLookups = $this->TravelHotelLookup->find('all', array(
+                    'conditions' => array(
+                        'TravelHotelLookup.country_id' => $country_id,
+                        'TravelHotelLookup.city_id !='.$city_id,
+                     
+                    ),
+                   
+                    'order' => 'TravelArea.area_name ASC',
+                    
+                ));
+        
+        
+        
+        echo count($TravelHotelLookups['TravelHotelLookup']);
+        
+        $log = $this->TravelHotelLookup->getDataSource()->getLog(false, false);       
+        debug($log);
+        //pr($TravelHotelLookups);
         die;
     }
 
