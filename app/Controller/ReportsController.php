@@ -5337,7 +5337,7 @@ class ReportsController extends AppController {
                 (
                 'all', array
             (
-            'fields' => array('TravelHotelLookup.city_name', 'TravelHotelLookup.city_id', 'TravelHotelLookup.country_id', 'TravelHotelLookup.city_code', 'TravelCity.city_name', 'TravelCity.country_name', 'TravelCity.continent_name', 'TravelHotelLookup.country_name', 'COUNT(TravelHotelLookup.city_id) AS cnt'),
+            'fields' => array('TravelHotelLookup.city_name', 'TravelHotelLookup.city_id', 'TravelHotelLookup.country_id', 'TravelHotelLookup.city_code', 'COUNT(TravelHotelLookup.city_id) AS cnt'),
             
             'conditions' => array
                 (                
