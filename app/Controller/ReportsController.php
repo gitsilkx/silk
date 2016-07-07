@@ -491,7 +491,7 @@ class ReportsController extends AppController {
                 ),
                 'TravelHotelLookup' => array(
                     'className' => 'TravelHotelLookup',
-                    'foreignKey' => 'city_id',
+                    'foreignKey != city_id',
                     'fields' => 'TravelHotelLookup.id',
                     'conditions' => array('TravelHotelLookup.country_id' => $country_id,
                         //'TravelHotelLookup.continent_id' => $continent_id,
