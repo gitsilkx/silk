@@ -498,24 +498,7 @@ class ReportsController extends AppController {
                         //'TravelHotelLookup.province_id' => $province_id
                 )  // 1 for client table of  lookup_value_activity_levelsv
                 ),
-                'MissmatchHotelCount' => array(
-                    'className' => 'TravelHotelLookup',
-                    'joins' => array(
-                            array(
-                                'table' => 'travel_cities',
-                                'alias' => 'TravelCity',
-                                'conditions' => array(
-                                    'MissmatchHotelCount.city_id != TravelCity.id')
-                            ),
-                        ),
-                    'foreignKey' => false,
-                    'fields' => 'MissmatchHotelCount.id',
-                    'conditions' => array('MissmatchHotelCount.country_id' => $country_id,
-                       
-                        //'TravelHotelLookup.continent_id' => $continent_id,
-                        //'TravelHotelLookup.province_id' => $province_id
-                )  // 1 for client table of  lookup_value_activity_levelsv
-                ),
+           
                 'TravelSuburb' => array(
                     'className' => 'TravelSuburb',
                     'foreignKey' => 'city_id',
