@@ -1768,16 +1768,15 @@ class MappingesController extends AppController {
                 'order' => 'TravelBrand.brand_name ASC'
             ));
             
-            if($this->checkProvince())
-                    $proArr = $this->checkProvince();
+           
                     
                     $Provinces = $this->Province->find('list', array(
                 'conditions' => array(                    
-                    'Province.country_id' => $arrs['TravelHotelRoomSupplier']['hotel_country_id'],
+                   
                     'Province.status' => '1',
                     'Province.wtb_status' => '1',
                     'Province.active' => 'TRUE',
-                    'Province.id' => $proArr
+                   
                 ),
                 'fields' => array('Province.id', 'Province.name'),
                 'order' => 'Province.name ASC'
