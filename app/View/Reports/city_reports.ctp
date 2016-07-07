@@ -118,6 +118,7 @@ echo $this->Form->end();
                         <th data-hide="phone" data-sort-ignore="true" data-group="group2">WTB Status</th>
                         <th data-hide="phone" width="7%" data-group="group3">City Mapping</th>
                         <th data-hide="phone" width="7%" data-group="group3">Hotel</th> 
+                        <th data-hide="phone" width="7%" data-group="group3">Hotel2</th>
                         <th data-hide="phone" width="7%" data-group="group3">Hotel Mapping</th>                      
                         <th data-hide="phone" width="7%" data-group="group3">Suburb Count</th>
                         <th data-hide="phone" width="7%" data-group="group3">Area Count</th>
@@ -162,6 +163,10 @@ echo $this->Html->link(count($value['TravelCitySuppliers']), array('controller' 
                                  echo $this->Html->link(count($value['TravelHotelLookup']), array('controller' => 'reports', 'action' => 'hotel_summary/city_id:'.$value['TravelCity']['id'].'/province_id:'.$value['TravelCity']['province_id'].'/country_id:'.$value['TravelCity']['country_id'].'/continent_id:'.$value['TravelCity']['continent_id']), array('class' => 'act-ico', 'escape' => false,'target' => '_blank'));
                                 
                                 //echo count($value['TravelHotelLookup']); ?></td> 
+                                <td><?php //$sum = $sum + count($value['TravelHotelLookup']);  
+                                 //echo $this->Html->link(count($value['TravelHotelLookup']), array('controller' => 'reports', 'action' => 'hotel_summary/city_id:'.$value['TravelCity']['id'].'/province_id:'.$value['TravelCity']['province_id'].'/country_id:'.$value['TravelCity']['country_id'].'/continent_id:'.$value['TravelCity']['continent_id']), array('class' => 'act-ico', 'escape' => false,'target' => '_blank'));
+                                echo $this->CustomHelper->getMissmatchHotelCount($value['TravelCity']['country_id'],$value['TravelCity']['id']);
+                                //echo count($value['TravelHotelLookup']); ?></td>
                                 <td><?php $sum1 = $sum1 + count($value['TravelHotelRoomSupplier']);  
 
                                 echo $this->Html->link(count($value['TravelHotelRoomSupplier']), array('controller' => 'reports', 'action' => 'hotel_mapping_list/hotel_city_id:'.$value['TravelCity']['id'].'/province_id:'.$value['TravelCity']['province_id'].'/hotel_country_id:'.$value['TravelCity']['country_id'].'/hotel_continent_id:'.$value['TravelCity']['continent_id']), array('class' => 'act-ico', 'escape' => false,'target' => '_blank'));

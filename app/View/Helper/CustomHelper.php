@@ -103,6 +103,11 @@ class CustomHelper extends Helper {
         if ($rev_pos===false) return false;
         else return strlen($instr) - $rev_pos - strlen($needle);
     } 
+    
+    public function getMissmatchHotelCount($country_id,$city_id){
+        return ClassRegistry::init('TravelHotelLookup')->find('count', array('conditions' => array('TravelHotelLookup.country_id' => $country_id,'TravelHotelLookup.city_id !='.$city_id)));
+        //return $DataArray['SupplierCountry']['name'];
+    }
   
   
 }
