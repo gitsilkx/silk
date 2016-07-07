@@ -5332,6 +5332,7 @@ class ReportsController extends AppController {
     
     public function mismatch_hotel_count($country_id = null, $city_id = null){
         
+        $this->layout = '';
         
         $TravelHotelLookups = $this->TravelHotelLookup->find
                 (
