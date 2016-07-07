@@ -5349,20 +5349,7 @@ class ReportsController extends AppController {
                 )
         );
         
-        /*
-        $TravelHotelLookups = $this->TravelHotelLookup->find('all', array(
-                    'conditions' => array(
-                        'TravelHotelLookup.country_id' => $country_id,
-                        'TravelHotelLookup.city_id !='.$city_id,
-                     
-                    ),
-                   
-                    'order' => 'TravelHotelLookup.hotel_name ASC',
-                    
-                ));
-        
-        */
-        
+         
         $this->set(compact('TravelHotelLookups'));
         
         //echo count($TravelHotelLookups['TravelHotelLookup']);
