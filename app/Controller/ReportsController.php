@@ -542,6 +542,14 @@ class ReportsController extends AppController {
 
 
         $TravelCities = $this->TravelCity->find('all', array(
+            'join' => array(
+                array(
+                                'table' => 'travel_hotel_lookups',
+                                'alias' => 'MissmatchHotelCount',
+                                'conditions' => array(
+                                    'MissmatchHotelCount.city_id != TravelCity.id')
+                            ),
+            ),
             'conditions' => $search_condition,
             'order' => 'city_name ASC'
         ));
