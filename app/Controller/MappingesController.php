@@ -1768,7 +1768,22 @@ class MappingesController extends AppController {
                 'order' => 'TravelBrand.brand_name ASC'
             ));
             
-            $this->set(compact('HotelUrl','TravelAreas','TravelSuburbs','TravelChains','TravelBrands'));        
+            if($this->checkProvince())
+                    $proArr = $this->checkProvince();
+                    
+                    $Provinces = $this->Province->find('list', array(
+                'conditions' => array(                    
+                    'Province.country_id' => $arrs['TravelHotelRoomSupplier']['hotel_country_id'],
+                    'Province.status' => '1',
+                    'Province.wtb_status' => '1',
+                    'Province.active' => 'TRUE',
+                    'Province.id' => $proArr
+                ),
+                'fields' => array('Province.id', 'Province.name'),
+                'order' => 'Province.name ASC'
+            ));
+            
+            $this->set(compact('HotelUrl','TravelAreas','Provinces','TravelSuburbs','TravelChains','TravelBrands'));        
         }
 
         if ($this->request->is('post') || $this->request->is('put')) {
@@ -2006,6 +2021,8 @@ class MappingesController extends AppController {
 
         $TravelHotelLookups = $this->TravelHotelLookup->find('list', array('fields' => 'hotel_code, hotel_name', 'conditions' => array('hotel_code' => $hotel_code), 'order' => 'hotel_name ASC'));
         $this->set(compact('TravelHotelLookups'));
+        
+        
 
         $this->set(compact('mapping_type'));
 
