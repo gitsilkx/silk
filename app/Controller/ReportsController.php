@@ -5331,6 +5331,24 @@ class ReportsController extends AppController {
     }
     
     public function mismatch_hotel_count($country_id = null, $city_id = null){
+        
+        
+        $TravelHotelLookups = $this->TravelHotelLookup->find
+                (
+                'all', array
+            (
+            'fields' => array('TravelHotelLookup.city_name', 'TravelHotelLookup.city_id', 'TravelHotelLookup.country_id', 'TravelHotelLookup.city_code', 'TravelCity.city_name', 'TravelCity.country_name', 'TravelCity.continent_name', 'TravelHotelLookup.country_name', 'COUNT(TravelHotelLookup.city_id) AS cnt'),
+            
+            'conditions' => array
+                (                
+                'TravelHotelLookup.city_id' => $city_id
+            ),
+            'group' => 'TravelHotelLookup.country_id',
+            'order' => 'TravelHotelLookup.city_name ASC'
+                )
+        );
+        
+        /*
         $TravelHotelLookups = $this->TravelHotelLookup->find('all', array(
                     'conditions' => array(
                         'TravelHotelLookup.country_id' => $country_id,
@@ -5342,14 +5360,16 @@ class ReportsController extends AppController {
                     
                 ));
         
+        */
         
+        $this->set(compact('TravelHotelLookups'));
         
-        echo count($TravelHotelLookups['TravelHotelLookup']);
+        //echo count($TravelHotelLookups['TravelHotelLookup']);
         
-        $log = $this->TravelHotelLookup->getDataSource()->getLog(false, false);       
-        debug($log);
+        //$log = $this->TravelHotelLookup->getDataSource()->getLog(false, false);       
+        //debug($log);
         //pr($TravelHotelLookups);
-        die;
+        //die;
     }
 
 }

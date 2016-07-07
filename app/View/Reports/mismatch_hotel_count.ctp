@@ -36,21 +36,62 @@ echo $this->Html->script(array('jquery.min','lib/chained/jquery.chained.remote.m
     ?>
  
 <div class="col-sm-12">
-    <table id="resp_table" class="table toggle-square" data-filter="#table_search" data-page-size="1000">
-        <thead>
-            <tr>
-            <th data-hide="phone" data-group="group1">Continent</th> 
-            <th data-hide="phone" data-group="group1">Province</th> 
-            <th data-hide="phone" data-group="group1">Country</th>                        
-            <th data-hide="phone" data-group="group1">City</th> 
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                
-            </tr>
-        </tbody>
-    </table>
+       <table id="resp_table" class="table toggle-square" data-filter="#table_search" data-page-size="2000">
+                <thead>         
+                    <tr>
+                        <th data-hide="phone" data-sort-ignore="true">Id</th>
+                        <th data-hide="phone" data-sort-ignore="true">Country Name</th>
+                       
+                        <th data-hide="phone" data-sort-ignore="true">City Name</th>
+                        <th data-hide="phone" data-sort-ignore="true">City Id</th>
+                        <th data-hide="phone" data-sort-ignore="true">City Code</th>
+                        
+                        <th data-hide="phone" data-sort-ignore="true">Hotel Count</th>                        
+                      
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                   
+                    $i = 1;
+                    $sum = 0;
+             
+                    if (isset($TravelHotelLookups) && count($TravelHotelLookups) > 0):
+                        foreach ($TravelHotelLookups as $value):                       
+                         
+                            ?>
+                            <tr>
+                                <td><?php echo $i;?></td> 
+                                <td><?php echo $value['TravelHotelLookup']['country_name']; ?></td>
+                               
+                                <td><?php echo $value['TravelHotelLookup']['city_name'].' ('.$value['TravelCity']['country_name'].',' .$value['TravelCity']['continent_name'].')'; ?></td>
+                                <td><?php echo $value['TravelHotelLookup']['city_id']; ?></td>
+                                <td><?php echo $value['TravelHotelLookup']['city_code']; ?></td>
+                                
+                                <td><?php $sum = $sum + $value[0]['cnt']; 
+                                
+                                echo $this->Html->link($value[0]['cnt'], array('controller' => 'reports', 'action' => 'hotel_summary/city_id:'.$value['TravelHotelLookup']['city_id'].'/country_id:'.$value['TravelHotelLookup']['country_id']), array('class' => 'act-ico', 'escape' => false,'target' => '_blank'));
+                                ?></td> 
+                                
+                              
+                            </tr>
+                        <?php 
+                        $i++;
+                        endforeach; ?>
+                            <tr>
+                                <td  colspan="5">Total</td>
+                                <td colspan="2"><?php echo $sum?></td> 
+                                
+                            </tr>
+
+                        <?php
+                       
+                    else:
+                        echo '<tr><td colspan="3" class="norecords">No Records Found</td></tr>';
+                    endif;
+                    ?>
+                </tbody>
+            </table>
 	</div>
             
         
