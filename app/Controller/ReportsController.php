@@ -5344,7 +5344,7 @@ class ReportsController extends AppController {
                 (                
                 'TravelHotelLookup.city_id' => $city_id
             ),
-            'group' => 'TravelHotelLookup.country_id',
+            'group' => array('TravelHotelLookup.country_id','TravelHotelLookup.continent_id'),
             'order' => 'TravelHotelLookup.city_name ASC'
                 )
         );
