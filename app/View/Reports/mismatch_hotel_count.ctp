@@ -81,7 +81,7 @@ echo $this->Html->script(array('jquery.min','lib/chained/jquery.chained.remote.m
                         $i++;
                         endforeach; ?>
                             <tr>
-                                <td  colspan="5">Total</td>
+                                <td  colspan="6">Total</td>
                                 <td colspan="2"><?php echo $sum?></td> 
                                 
                             </tr>
