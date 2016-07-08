@@ -2112,7 +2112,7 @@ class TravelActionItemsController extends AppController {
                 $this->request->data['TravelActionItem']['description'] = 'Hotel Review';
                 $this->request->data['TravelActionItem']['next_action_by'] = '169';
             }
-
+              $message = 'Local hotel record has been successfully updated.';
             //$TravelHotelLookups['TravelHotelLookup']['is_updated'] = 'Y';
             $this->TravelActionItem->create();
             if ($this->TravelActionItem->save($this->data['TravelActionItem'])) {
@@ -2347,7 +2347,7 @@ class TravelActionItemsController extends AppController {
                 $this->LogCall->create();
                 $this->LogCall->save($this->request->data['LogCall']);
                 $LogId = $this->LogCall->getLastInsertId();
-                $message .= 'Local hotel record has been successfully updated.<br />' . $xml_msg;
+                $message = 'Local hotel record has been successfully updated.<br />' . $xml_msg;
                 $a = date('m/d/Y H:i:s', strtotime('-1 hour'));
                 $date = new DateTime($a, new DateTimeZone('Asia/Calcutta'));
                 if ($xml_error == 'TRUE') {
