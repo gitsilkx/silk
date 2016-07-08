@@ -2062,6 +2062,7 @@ class TravelActionItemsController extends AppController {
         $dummy_status = $this->Auth->user('dummy_status');
         $role_id = $this->Session->read("role_id");
         $flag = '';
+        $typeCon = ARRAY();
         $xml_msg = '';
         $xml_error = 'FALSE';
 
@@ -2104,6 +2105,12 @@ class TravelActionItemsController extends AppController {
                 $this->request->data['TravelRemark']['remarks'] = 'Returned Hotel';
                 $this->request->data['TravelActionItem']['description'] = 'Returned Hotel';
                 $this->request->data['TravelActionItem']['next_action_by'] = $travel_actionitems['TravelActionItem']['created_by_id'];
+            }
+            elseif ($type_id == '9') { // Submit for review
+                $TravelHotelLookups['TravelHotelLookup']['status'] = '6'; // Submit For Review
+                $this->request->data['TravelRemark']['remarks'] = 'Hotel Review';
+                $this->request->data['TravelActionItem']['description'] = 'Hotel Review';
+                $this->request->data['TravelActionItem']['next_action_by'] = '169';
             }
 
             //$TravelHotelLookups['TravelHotelLookup']['is_updated'] = 'Y';
@@ -2589,9 +2596,15 @@ class TravelActionItemsController extends AppController {
                         objC[0].style.display="none";
                         parent.location.reload(true);</script>';
         }
+        
 
-
-        $type = $this->TravelActionItemType->find('list', array('fields' => array('id', 'value'), 'conditions' => 'id = 2 OR id = 3', 'order' => 'value asc'));
+        if($user_id == '169')
+            $typeCon = array('TravelActionItemType.id' => '2');
+        else 
+            $typeCon = array('OR' => array('TravelActionItemType.id' => array('2','3','9')));
+      
+        
+        $type = $this->TravelActionItemType->find('list', array('fields' => array('id', 'value'), 'conditions' => $typeCon, 'order' => 'value asc'));
         $this->set(compact('type'));
 
         $TravelHotelRoomSuppliers = $this->TravelHotelRoomSupplier->find('all', array('conditions' => array('TravelHotelRoomSupplier.hotel_id' => $travel_actionitems['TravelActionItem']['hotel_id'])));

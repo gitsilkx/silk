@@ -203,6 +203,8 @@ echo $this->element('Hotel/top_menu');
                                 $status_txt = 'Rejected';
                             elseif ($status == '7')
                                 $status_txt = 'Duplicated';
+                            elseif ($status == '6')
+                                $status_txt = 'Submit For Review';
                             else
                                 $status_txt = 'Allocation';
 

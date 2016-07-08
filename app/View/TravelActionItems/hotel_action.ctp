@@ -63,6 +63,7 @@ echo $this->Form->input('type_id', array('id' => 'type_id', 'options' => $type, 
         <div class="lf-space">
 <?php
 echo $this->Form->input('other_return', array('type' => 'textarea', 'class' => 'form-control return', 'style' => 'display:none;'));
+echo $this->Form->input('note', array('type' => 'textarea', 'class' => 'form-control note', 'style' => 'display:none;'));
 
 ?>
         </div>
@@ -165,10 +166,17 @@ echo $this->Form->button('Reset', array('type' => 'reset', 'class' => 'reset btn
             if (type == '3') { //return
                 $('.rejection').css('display', 'none');
                 $('.return').css('display', 'block');
+                $('.note').css('display', 'none');
             }
 
             else if (type == '5') { //rejection
                 $('.rejection').css('display', 'block');
+                $('.return').css('display', 'none');
+                $('.note').css('display', 'none');
+            }
+            else if (type == '9') { //rejection
+                $('.note').css('display', 'block');
+                $('.rejection').css('display', 'none');
                 $('.return').css('display', 'none');
             }
             else {
@@ -210,7 +218,14 @@ echo $this->Form->button('Reset', array('type' => 'reset', 'class' => 'reset btn
                         return false;
             }
         }
-
+        else if(type_id == '9')
+        {
+            if ($('#TravelActionItemNote').val() == '')
+                    {
+                        alert('Please type description for review.');
+                        return false;
+                    }
+        }
     }
 
 

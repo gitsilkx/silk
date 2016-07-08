@@ -87,9 +87,9 @@ $attr = new User();
             <table border="0" cellpadding="0" cellspacing="0" id="resp_table" class="table toggle-square myclitb" data-filter="#table_search" data-page-size="100">
                 <thead>
                     <tr class="footable-group-row" style="display:none;">
-                        <th data-group="group1" colspan="8" class="nodis">Action Information</th>
-                        <th data-group="group2" colspan="6">Action Interests</th>
-                        <th data-group="group3" colspan="6">Action Logistics</th>
+                        <th data-group="group1" colspan="11" class="nodis">Action Information</th>
+                       
+                        <th data-group="group3" colspan="3">Action Logistics</th>
                         <th data-group="group4" class="nodis">Action Action</th>
                     </tr>
                     <tr>
@@ -107,7 +107,8 @@ $attr = new User();
 
                         <th data-group="group3" data-sort-ignore="true" data-hide="all" align="left">Reason for return</th>
                         <th data-group="group3" data-sort-ignore="true" data-hide="all" align="left">Farther details on return</th>
-
+                        <th data-group="group3" data-sort-ignore="true" data-hide="all" align="left">Reason for review</th>
+                        
                         <th data-group="group4" data-sort-ignore="true" width="6%" data-hide="phone" valign="middle" align="center">Action</th>        
                     </tr>
                 </thead>
@@ -147,7 +148,8 @@ $attr = new User();
 
                                 <td class="sub-tablebody"><?php echo $tarvel_actionitem['LookupReturn']['value']; ?></td>
                                 <td class="sub-tablebody"><?php echo $tarvel_actionitem['TravelActionItem']['other_return']; ?></td>
-
+                                <td class="sub-tablebody"><?php echo $tarvel_actionitem['TravelActionItem']['note']; ?></td>
+                                
                                 <td align="center" valign="middle">
                                     <?php
                                     if ($tarvel_actionitem['TravelActionItem']['level_id'] == '1') { // agent
@@ -196,7 +198,7 @@ $attr = new User();
                    
                                     }
                                     elseif($tarvel_actionitem['TravelActionItem']['hotel_id'] && $tarvel_actionitem['TravelActionItem']['level_id']=='7'){
-                                        if($tarvel_actionitem['TravelActionItem']['type_id'] =='2' || $tarvel_actionitem['TravelActionItem']['type_id'] =='4' || $tarvel_actionitem['TravelActionItem']['type_id'] =='1')
+                                        if($tarvel_actionitem['TravelActionItem']['type_id'] =='2' || $tarvel_actionitem['TravelActionItem']['type_id'] =='4' || $tarvel_actionitem['TravelActionItem']['type_id'] =='1' || $tarvel_actionitem['TravelActionItem']['type_id'] =='9')
                                          echo $this->Html->link('<span class="icon-list"></span>', '/travel_action_items/hotel_action/' . $id, array('class' => 'act-ico open-popup-link add-btn', 'escape' => false, 'data-placement' => "left", 'title' => "Action", 'data-toggle' => "tooltip"));
                                         echo $this->Html->link('<span class="icon-pencil"></span>', '/travel_hotel_lookups/edit/' .$tarvel_actionitem['TravelActionItem']['hotel_id'].'_'. $id, array('class' => 'act-ico', 'escape' => false, 'target' => '_blank', 'data-placement' => "left", 'title' => "Edit", 'data-toggle' => "tooltip"));
                    
