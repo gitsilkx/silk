@@ -144,9 +144,11 @@ class MappingeAreasController extends AppController {
                 elseif(isset($this->data['fetch_hotel'])){
                    
                     $display = 'TRUE';
+                    $check_mapp = 'TRUE';
                     
             $supplier_city_codde = $this->TravelCitySupplier->find('list',ARRAY('fields' => 'supplier_city_code,supplier_city_code','conditions' => 
-             array('supplier_id' => $supplier_id,'city_continent_id' => $continent_id,'city_country_id' => $country_id,'province_id' => $province_id,'city_id' => $city_id)));
+             array('supplier_id' => $supplier_id,'city_continent_id' => $continent_id,'city_country_id' => $country_id,'province_id' => $province_id
+                    ,'city_id' => $city_id,'wtb_status' => '1','active' => 'TRUE', 'city_supplier_status' => '2','excluded' => 'FALSE' )));
             //pr($supplier_city_codde);
             
             array_push($search_condition, array('SupplierHotel.city_code' => $supplier_city_codde)); 

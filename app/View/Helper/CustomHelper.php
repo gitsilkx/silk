@@ -61,6 +61,16 @@ class CustomHelper extends Helper {
         return $DataArray['SupplierCity']['name'];
     }
     
+    public function getSupplierCountryNameByCode($country_code){
+        $DataArray = ClassRegistry::init('SupplierCountry')->find('first', array('fields' => array('name'), 'conditions' => array('SupplierCountry.code' => $country_code)));
+        return $DataArray['SupplierCountry']['name'];
+    }
+    
+    public function getSupplierCityNameByCode($city_code){
+        $DataArray = ClassRegistry::init('SupplierCity')->find('first', array('fields' => array('name'), 'conditions' => array('SupplierCity.code' => $city_code)));
+        return $DataArray['SupplierCity']['name'];
+    }
+    
     public function Hello(){
         return 'Hello';
     }

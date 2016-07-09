@@ -58,7 +58,7 @@ $this->Html->addCrumb('My Supplier Hotels', 'javascript:void(0);', array('class'
                     <div class="col-sm-3 col-xs-6">
                         <label>&nbsp;</label>
                         <?php
-                        echo $this->Form->submit('Check City Mappinges', array('div' => false,'name' => 'check_city_mapping', 'class' => 'success btn','style' => 'width: 59%;margin-top: 0px;'));
+                        echo $this->Form->submit('Check City Mappinges', array('div' => false,'name' => 'check_city_mapping', 'class' => 'success btn','style' => 'width: 61%;margin-top: 0px;'));
 // echo $this->Form->button('Reset', array('type' => 'reset', 'class' => 'btn btn-default btn-sm"'));
                         ?>
 
@@ -111,10 +111,10 @@ $this->Html->addCrumb('My Supplier Hotels', 'javascript:void(0);', array('class'
                                 <td class="tablebody"><?php											
                                 echo $id;
                                 ?></td>
+                                <td><?php echo $this->Custom->getSupplierCountryNameByCode($TravelCitySupplier['TravelCitySupplier']['supplier_coutry_code']); ?></td>
                                 <td><?php echo $TravelCitySupplier['TravelCitySupplier']['supplier_coutry_code']; ?></td>
-                                <td><?php //echo $status_txt; ?></td>
-                                  <td><?php echo $TravelCitySupplier['TravelCitySupplier']['supplier_city_code']; ?></td>                                                       
-                                <td><?php //echo $status_txt; ?></td>
+                                  <td><?php echo $this->Custom->getSupplierCityNameByCode($$TravelCitySupplier['TravelCitySupplier']['supplier_city_code']); ?></td>                                                       
+                                <td><?php echo $TravelCitySupplier['TravelCitySupplier']['supplier_city_code']; ?></td>
                                  <td><?php echo $status_txt; ?></td>
                                 <td><?php echo $TravelCitySupplier['TravelCitySupplier']['active']; ?></td> 
                                 <td><?php echo $wtb_status; ?></td>
