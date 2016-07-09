@@ -58,7 +58,7 @@ $this->Html->addCrumb('My Supplier Hotels', 'javascript:void(0);', array('class'
                     <div class="col-sm-3 col-xs-6">
                         <label>&nbsp;</label>
                         <?php
-                        echo $this->Form->submit('Check City Mappings', array('div' => false,'name' => 'check_city_mapping', 'class' => 'success btn','style' => 'width: 61%;margin-top: 0px;'));
+                        echo $this->Form->submit('Check City Mappings', array('div' => false,'label' => false,'name' => 'check_city_mapping', 'class' => 'success btn','style' => 'width: 61%;margin-top: 0px;margin-left:-16px;'));
 // echo $this->Form->button('Reset', array('type' => 'reset', 'class' => 'btn btn-default btn-sm"'));
                         ?>
 
