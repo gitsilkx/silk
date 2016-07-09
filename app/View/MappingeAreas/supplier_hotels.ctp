@@ -3,7 +3,13 @@ $this->Html->addCrumb('My Supplier Hotels', 'javascript:void(0);', array('class'
 //echo $this->element('FetchAreas/top_menu');
 ?>
 
-
+<?php
+                echo $this->Form->create('TravelHotelLookup', array('class' => 'quick_search', 'id' => 'parsley_reg', 'novalidate' => true, 'inputDefaults' => array(
+                        'label' => false,
+                        'div' => false,
+                        'class' => 'form-control',
+                )));
+                ?> 
 <div class="row">
     <div class="col-sm-12">
         <div class="table-heading">
@@ -16,13 +22,7 @@ $this->Html->addCrumb('My Supplier Hotels', 'javascript:void(0);', array('class'
         <div class="panel panel-default">
             <div class="panel_controls">
 
-                <?php
-                echo $this->Form->create('TravelHotelLookup', array('class' => 'quick_search', 'id' => 'parsley_reg', 'novalidate' => true, 'inputDefaults' => array(
-                        'label' => false,
-                        'div' => false,
-                        'class' => 'form-control',
-                )));
-                ?> 
+                
                 <div class="row spe-row">
                     <div class="col-sm-4 col-xs-8">
                         <?php echo $this->Form->input('hotel_name', array('value' => $hotel_name, 'placeholder' => 'Please type hotel name', 'error' => array('class' => 'formerror'))); ?>
@@ -30,10 +30,7 @@ $this->Html->addCrumb('My Supplier Hotels', 'javascript:void(0);', array('class'
                 </div>
                 <div class="row">
                     
-                    <div class="col-sm-3 col-xs-6">
-                        <label for="un_member">Supplier:</label>
-                        <?php echo $this->Form->input('supplier_id', array('options' => $TravelSuppliers, 'empty' => '--Select--', 'value' => $supplier_id, 'data-required' => 'true')); ?>
-                    </div>
+                    
                     <div class="col-sm-3 col-xs-6">
                         <label for="un_member">Continent:</label>
                         <?php echo $this->Form->input('continent_id', array('options' => $TravelLookupContinents, 'empty' => '--Select--', 'value' => $continent_id, 'data-required' => 'true')); ?>
@@ -50,7 +47,10 @@ $this->Html->addCrumb('My Supplier Hotels', 'javascript:void(0);', array('class'
                         <label for="un_member">City:</label>
                         <?php echo $this->Form->input('city_id', array('options' => $TravelCities, 'empty' => '--Select--', 'value' => $city_id, 'data-required' => 'true')); ?>
                     </div>
-                    
+                    <div class="col-sm-3 col-xs-6">
+                        <label for="un_member">Supplier:</label>
+                        <?php echo $this->Form->input('supplier_id', array('options' => $TravelSuppliers, 'empty' => '--Select--', 'value' => $supplier_id, 'data-required' => 'true')); ?>
+                    </div>
 
 
 
@@ -58,14 +58,94 @@ $this->Html->addCrumb('My Supplier Hotels', 'javascript:void(0);', array('class'
                     <div class="col-sm-3 col-xs-6">
                         <label>&nbsp;</label>
                         <?php
-                        echo $this->Form->submit('Filter', array('div' => false, 'class' => 'btn btn-default btn-sm"'));
+                        echo $this->Form->submit('Check City Mappinges', array('div' => false,'name' => 'check_city_mapping', 'class' => 'success btn','style' => 'width: 59%;margin-top: 0px;'));
 // echo $this->Form->button('Reset', array('type' => 'reset', 'class' => 'btn btn-default btn-sm"'));
                         ?>
 
                     </div>
                 </div>
-                <?php echo $this->Form->end(); ?>
+                
             </div>
+            <?PHP if($check_mapp == 'TRUE'){?>
+            <div class="col-sm-12">
+             <table border="0" cellpadding="0" cellspacing="0" id="resp_table" class="table toggle-square myclitb" data-filter="#table_search" data-page-size="500">
+               
+                <thead>
+                          
+                    <tr>
+                        <th data-hide="phone" width="2%" data-sort-ignore="true">ID</th>
+                        <th data-toggle="phone" >Supplier Country</th>    
+                        <th data-toggle="phone" >Supplier Country Code</th> 
+                        <th data-toggle="phone" >Supplier City</th>
+                        <th data-toggle="phone" >Supplier City Code</th>
+                        <th data-hide="phone" >Mapping Status</th>                                                              
+                        <th data-hide="phone" data-sort-ignore="true">Mapping Active?</th>
+                        <th data-hide="phone" data-sort-ignore="true">WTB Status</th>
+                        <th data-hide="phone" data-sort-ignore="true">Mapping Excluded?</th>                                                      
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                   if (isset($TravelCitySuppliers) && count($TravelCitySuppliers) > 0):
+                        foreach ($TravelCitySuppliers as $TravelCitySupplier):
+                            $id = $TravelCitySupplier['TravelCitySupplier']['id'];
+                            $status = $TravelCitySupplier['TravelCitySupplier']['city_supplier_status'];
+                            if ($status == '1')
+                                $status_txt = 'Submitted For Approval';
+                            elseif ($status == '2')
+                                $status_txt = 'Approved';
+                            elseif ($status == '3')
+                                $status_txt = 'Returned';
+                            elseif ($status == '4')
+                                $status_txt = 'Change Submitted';
+                            elseif ($status == '5')
+                                $status_txt = 'Rejection';
+                            elseif ($status == '6')
+                                $status_txt = 'Request For Allocation';
+                            else
+                                $status_txt = 'Allocation';
+                            
+                           $wtb_status = ($TravelCitySupplier['TravelCitySupplier']['wtb_status'] == '1') ? "OK" : "ERROR";
+                            ?>
+                            <tr>
+                                <td class="tablebody"><?php											
+                                echo $id;
+                                ?></td>
+                                <td><?php echo $TravelCitySupplier['TravelCitySupplier']['supplier_coutry_code']; ?></td>
+                                <td><?php //echo $status_txt; ?></td>
+                                  <td><?php echo $TravelCitySupplier['TravelCitySupplier']['supplier_city_code']; ?></td>                                                       
+                                <td><?php //echo $status_txt; ?></td>
+                                 <td><?php echo $status_txt; ?></td>
+                                <td><?php echo $TravelCitySupplier['TravelCitySupplier']['active']; ?></td> 
+                                <td><?php echo $wtb_status; ?></td>
+                                <td><?php echo $TravelCitySupplier['TravelCitySupplier']['excluded']; ?></td>
+                                
+                            </tr>
+                        <?php endforeach; ?>
+                            
+                        <?php
+                       
+                    else:
+                        echo '<tr><td colspan="9" class="norecords">No Records Found</td></tr>';
+
+                    endif;
+                    ?>
+                </tbody>
+            </table>  
+                <?php
+                   if (isset($TravelCitySuppliers) && count($TravelCitySuppliers) > 0):?>
+                <div class="col-sm-3 col-xs-6">
+                        <label>&nbsp;</label>
+                        <?php
+                        echo $this->Form->submit('Fetch Hotel', array('div' => false,'name' => 'fetch_hotel', 'class' => 'success btn','style' => 'width:42%;margin-top: 0px;'));
+// echo $this->Form->button('Reset', array('type' => 'reset', 'class' => 'btn btn-default btn-sm"'));
+                        ?>
+
+                    </div>
+                <?php endif;?>
+                
+                </div>
+            <?php }?>
             <?php if($display == 'TRUE'){?>
             <table border="0" cellpadding="0" cellspacing="0" id="resp_table" class="table toggle-square myclitb" data-filter="#table_search" data-page-size="500">
                 <thead>
@@ -109,7 +189,7 @@ $this->Html->addCrumb('My Supplier Hotels', 'javascript:void(0);', array('class'
                             $id = $SupplierHotel['SupplierHotel']['id'];
                     
                     if($city_code <> $SupplierHotel['SupplierHotel']['city_code'])
-                           echo '<h4> Supplier City : '.$SupplierHotel['SupplierHotel']['city_code'].' - '.$SupplierHotel['SupplierHotel']['city_name'].'</h4>';
+                         //  echo '<h4> Supplier City : '.$SupplierHotel['SupplierHotel']['city_code'].' - '.$SupplierHotel['SupplierHotel']['city_name'].'</h4>';
                            $city_code = $SupplierHotel['SupplierHotel']['city_code'];
                             ?>
                 
@@ -156,7 +236,7 @@ $this->Html->addCrumb('My Supplier Hotels', 'javascript:void(0);', array('class'
         </div>
     </div>
 </div>
-
+<?php echo $this->Form->end(); ?>
 <?php
 
 /*

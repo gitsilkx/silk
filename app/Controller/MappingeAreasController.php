@@ -49,6 +49,7 @@ class MappingeAreasController extends AppController {
         $TravelCitySuppliers = array();
         $Provinces = array();
         $display = 'FALSE';
+        $check_mapp = 'FALSE';
         $supplier_id = '';
         $continent_id = '';
         $country_id = '';
@@ -61,7 +62,9 @@ class MappingeAreasController extends AppController {
             $proArr = $this->checkProvince();
         
         if ($this->request->is('post') || $this->request->is('put')){
-            $display = 'TRUE';
+            
+           
+            
             
             if (!empty($this->data['TravelHotelLookup']['hotel_name'])) {
                 $hotel_name = $this->data['TravelHotelLookup']['hotel_name'];
@@ -130,7 +133,18 @@ class MappingeAreasController extends AppController {
             }
                * 
                */
-            
+                
+                if(isset($this->data['check_city_mapping'])){
+                    
+                    $check_mapp = 'TRUE';
+                
+                $TravelCitySuppliers = $this->TravelCitySupplier->find('all',ARRAY('conditions' => 
+             array('supplier_id' => $supplier_id,'city_continent_id' => $continent_id,'city_country_id' => $country_id,'province_id' => $province_id,'city_id' => $city_id)));
+                }
+                elseif(isset($this->data['fetch_hotel'])){
+                   
+                    $display = 'TRUE';
+                    
             $supplier_city_codde = $this->TravelCitySupplier->find('list',ARRAY('fields' => 'supplier_city_code,supplier_city_code','conditions' => 
              array('supplier_id' => $supplier_id,'city_continent_id' => $continent_id,'city_country_id' => $country_id,'province_id' => $province_id,'city_id' => $city_id)));
             //pr($supplier_city_codde);
@@ -138,6 +152,7 @@ class MappingeAreasController extends AppController {
             array_push($search_condition, array('SupplierHotel.city_code' => $supplier_city_codde)); 
             $this->paginate['order'] = array('SupplierHotel.id' => 'asc');
             $this->set('SupplierHotels', $this->paginate("SupplierHotel", $search_condition));
+                }
             //$log = $this->SupplierHotel->getDataSource()->getLog(false, false);
            // debug($log);
            // die;
@@ -169,7 +184,7 @@ class MappingeAreasController extends AppController {
         $TravelLookupContinents = $this->TravelLookupContinent->find('list', array('fields' => 'id,continent_name', 'order' => 'continent_name ASC'));
        
         
-        $this->set(compact('TravelCities','TravelCitySuppliers','supplier_city_codde','Provinces','TravelCountries','display','TravelLookupContinents'
+        $this->set(compact('TravelCities','TravelCitySuppliers','supplier_city_codde','Provinces','TravelCountries','check_mapp','display','TravelLookupContinents'
                 ,'TravelSuppliers','supplier_id','continent_id','country_id','province_id','city_id','hotel_name'));
         
     }
