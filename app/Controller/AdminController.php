@@ -207,6 +207,8 @@ class AdminController extends AppController {
 
             try {
                 $order_return = $client->__doRequest($xml_string, $location_URL, $action_URL, 1);
+                
+               
                 //$xmlparser = xml_parser_create();
                 //xml_parse_into_struct($xmlparser,$order_return,$values);
                 //xml_parser_free($xmlparser);;
@@ -220,15 +222,22 @@ class AdminController extends AppController {
                 //$xmlObject = new Xml();
 //$xmlArray = Xml::toArray($order_return);
                 $xmlArray = Xml::toArray(Xml::build($order_return));
-                //PR($xmlArray);
-                // die;
-                $ValArr = $xmlArray['Envelope']['soap:Body']['ProcessXMLResponse']['ProcessXMLResult']['SupplierData_Hotel']['ResponseAuditInfo']['root']['LocalHotelList']['item'];
+               
+                $dataArray = $xmlArray['Envelope']['soap:Body']['ProcessXMLResponse']['ProcessXMLResult']['SupplierData_Hotel']['ResponseAuditInfo']['root']['LocalHotelList']['item'];
+                    
+                if(count($dataArray) > 3){
+                   
+                     $ValArr =$dataArray;
+                }
+                else  {                   
+                    $ValArr[] =$dataArray;                    
+                }
+                
                 $total_volume = count($ValArr);
-
+               
 
                 if (count($ValArr)) {
 
-                    //$total_volume = $this->SupplierHotel->find('count');
                     $this->request->data['TravelFetchTable']['supplier_id'] = $supplier_id;
                     $this->request->data['TravelFetchTable']['user_id'] = $user_id;
                     $this->request->data['TravelFetchTable']['country_id'] = $country_id;
@@ -241,8 +250,9 @@ class AdminController extends AppController {
                     $fetch_id = $this->TravelFetchTable->getLastInsertId();
 
                     if ($fetch_id) {
-                        foreach ($ValArr as $value) {
-                            //echo  $value['Code']['@'];
+                 
+                        foreach ($ValArr as $value) {                            
+                         
                             if ($this->SupplierHotel->find('count', array('conditions' => array(
                                             'supplier_id' => $supplier_id,
                                             'city_id' => $city_id,
@@ -266,7 +276,11 @@ class AdminController extends AppController {
                                 ));
                             }
                         }
+                   
+            
+                        
                         $inserted_volume = count($save);
+                        
                         $this->TravelFetchTable->updateAll(array('TravelFetchTable.inserted_volume' => "'" . $inserted_volume . "'"), array('TravelFetchTable.id' => $fetch_id));
 
 
@@ -348,7 +362,17 @@ class AdminController extends AppController {
 
                 $xmlArray = Xml::toArray(Xml::build($order_return));
 
-                $ValArr = $xmlArray['Envelope']['soap:Body']['ProcessXMLResponse']['ProcessXMLResult']['SupplierData_Country']['ResponseAuditInfo']['root']['a:item'];
+                $dataArray = $xmlArray['Envelope']['soap:Body']['ProcessXMLResponse']['ProcessXMLResult']['SupplierData_Country']['ResponseAuditInfo']['root']['a:item'];
+                
+                if(count($dataArray) > 3){
+                    
+                     $ValArr =$dataArray;
+                }
+                else  {                   
+                    $ValArr[] =$dataArray;
+                    
+                }
+                
                 $total_volume = count($ValArr);
                 //if($total_volume){
                 //pr($ValArr);
@@ -477,7 +501,16 @@ class AdminController extends AppController {
 
                 $xmlArray = Xml::toArray(Xml::build($order_return));
 
-                $ValArr = $xmlArray['Envelope']['soap:Body']['ProcessXMLResponse']['ProcessXMLResult']['SupplierData_City']['ResponseAuditInfo']['root']['CityInfo']['item'];
+                $dataArray = $xmlArray['Envelope']['soap:Body']['ProcessXMLResponse']['ProcessXMLResult']['SupplierData_City']['ResponseAuditInfo']['root']['CityInfo']['item'];
+                
+                if(count($dataArray) > 3){                    
+                     $ValArr =$dataArray;
+                }
+                else  {                   
+                    $ValArr[] =$dataArray;                    
+                }
+                
+                
                 $total_volume = count($ValArr);
 
                 //$total_volume = $this->SupplierCity->find('count');
