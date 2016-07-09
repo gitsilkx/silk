@@ -134,7 +134,7 @@ class MappingeAreasController extends AppController {
                * 
                */
                 
-                if(isset($this->data['check_city_mapping'])){
+                if(isset($this->data['check_city_mapping']) || isset($this->data['fetch_hotel'])){
                     
                     $check_mapp = 'TRUE';
                 
