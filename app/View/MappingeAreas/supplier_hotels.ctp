@@ -58,7 +58,7 @@ $this->Html->addCrumb('My Supplier Hotels', 'javascript:void(0);', array('class'
                     <div class="col-sm-3 col-xs-6">
                         <label>&nbsp;</label>
                         <?php
-                        echo $this->Form->submit('Check City Mappinges', array('div' => false,'name' => 'check_city_mapping', 'class' => 'success btn','style' => 'width: 61%;margin-top: 0px;'));
+                        echo $this->Form->submit('Check City Mappings', array('div' => false,'name' => 'check_city_mapping', 'class' => 'success btn','style' => 'width: 61%;margin-top: 0px;'));
 // echo $this->Form->button('Reset', array('type' => 'reset', 'class' => 'btn btn-default btn-sm"'));
                         ?>
 
@@ -68,17 +68,19 @@ $this->Html->addCrumb('My Supplier Hotels', 'javascript:void(0);', array('class'
             </div>
             <?PHP if($check_mapp == 'TRUE'){?>
             <div class="col-sm-12">
+                <h4>Exiting City Mappings</h4>
              <table border="0" cellpadding="0" cellspacing="0" id="resp_table" class="table toggle-square myclitb" data-filter="#table_search" data-page-size="500">
                
                 <thead>
                           
                     <tr>
-                        <th data-hide="phone" width="2%" data-sort-ignore="true">ID</th>
-                        <th data-toggle="phone" >Supplier Country</th>    
-                        <th data-toggle="phone" >Supplier Country Code</th> 
-                        <th data-toggle="phone" >Supplier City</th>
-                        <th data-toggle="phone" >Supplier City Code</th>
-                        <th data-hide="phone" >Mapping Status</th>                                                              
+                        <th data-hide="phone" width="2%" data-sort-ignore="true">SL No.</th>
+                        <th data-toggle="phone" data-sort-ignore="true" >Mapping Name</th> 
+                        <th data-toggle="phone"  data-sort-ignore="true">Supplier Country</th>    
+                        <th data-toggle="phone"  data-sort-ignore="true">Supplier Country Code</th> 
+                        <th data-toggle="phone"  data-sort-ignore="true">Supplier City</th>
+                        <th data-toggle="phone"  data-sort-ignore="true">Supplier City Code</th>
+                        <th data-hide="phone"  data-sort-ignore="true">Mapping Status</th>                                                              
                         <th data-hide="phone" data-sort-ignore="true">Mapping Active?</th>
                         <th data-hide="phone" data-sort-ignore="true">WTB Status</th>
                         <th data-hide="phone" data-sort-ignore="true">Mapping Excluded?</th>                                                      
@@ -88,6 +90,7 @@ $this->Html->addCrumb('My Supplier Hotels', 'javascript:void(0);', array('class'
                     <?php
                    if (isset($TravelCitySuppliers) && count($TravelCitySuppliers) > 0):
                         foreach ($TravelCitySuppliers as $TravelCitySupplier):
+                            $i = 1;
                             $id = $TravelCitySupplier['TravelCitySupplier']['id'];
                             $status = $TravelCitySupplier['TravelCitySupplier']['city_supplier_status'];
                             if ($status == '1')
@@ -109,19 +112,20 @@ $this->Html->addCrumb('My Supplier Hotels', 'javascript:void(0);', array('class'
                             ?>
                             <tr>
                                 <td class="tablebody"><?php											
-                                echo $id;
+                                echo $i;
                                 ?></td>
+                                <td><?php echo $TravelCitySupplier['TravelCitySupplier']['city_mapping_name']; ?></td>
                                 <td><?php echo $this->Custom->getSupplierCountryNameByCode($TravelCitySupplier['TravelCitySupplier']['supplier_coutry_code']); ?></td>
                                 <td><?php echo $TravelCitySupplier['TravelCitySupplier']['supplier_coutry_code']; ?></td>
-                                  <td><?php echo $this->Custom->getSupplierCityNameByCode($$TravelCitySupplier['TravelCitySupplier']['supplier_city_code']); ?></td>                                                       
+                                <td><?php echo $this->Custom->getSupplierCityNameByCode($TravelCitySupplier['TravelCitySupplier']['supplier_city_code']); ?></td>                                                       
                                 <td><?php echo $TravelCitySupplier['TravelCitySupplier']['supplier_city_code']; ?></td>
-                                 <td><?php echo $status_txt; ?></td>
+                                <td><?php echo $status_txt; ?></td>
                                 <td><?php echo $TravelCitySupplier['TravelCitySupplier']['active']; ?></td> 
                                 <td><?php echo $wtb_status; ?></td>
                                 <td><?php echo $TravelCitySupplier['TravelCitySupplier']['excluded']; ?></td>
                                 
                             </tr>
-                        <?php endforeach; ?>
+                        <?php $i++; endforeach; ?>
                             
                         <?php
                        
