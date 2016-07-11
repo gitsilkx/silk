@@ -68,7 +68,7 @@ $this->Html->addCrumb('My Supplier Hotels', 'javascript:void(0);', array('class'
             </div>
             <?PHP if($check_mapp == 'TRUE'){?>
             <div class="col-sm-12" style="background-color: rgb(188, 255, 255);overflow:hidden;padding: 15px">
-                <h4>Exiting City Mappings</h4>
+                <h4>Existing City Mappings : Supplier Code - <?php echo $this->Custom->getSupplierCode($supplier_id);?></h4>
              <table border="0" cellpadding="0" cellspacing="0" id="resp_table" class="table toggle-square myclitb" data-filter="#table_search" data-page-size="500">
                
                 <thead>
