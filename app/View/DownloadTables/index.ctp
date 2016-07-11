@@ -131,7 +131,7 @@ if ($operation == '2') { // download
                             <div class="col-sm-8">
                                 <?php
                                 // 'TravelHotelLookup' => 'Hotel', 'TravelCountry' => 'Country', 'TravelCity' => 'City', 'TravelCountrySupplier' => 'Mapping Country', 'TravelCitySupplier' => 'Mapping City', 'TravelHotelRoomSupplier' => 'Mapping Hotel'
-                                echo $this->Form->input('type_id', array('options' => array('1' => 'Business' ,'2' => 'Production'), 'empty' => '--Select--', 'data-required' => 'true'));
+                                echo $this->Form->input('type_id', array('options' => array('1' => 'Business' ,'2' => 'Lookup'), 'empty' => '--Select--', 'data-required' => 'true'));
                                 ?></div>
                         </div>
                         <div class="form-group">
