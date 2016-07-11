@@ -33,7 +33,8 @@ class DownloadTablesController extends AppController {
 
     public $uses = array('TravelLookupContinent','TravelLookupChainPresence','TravelLookupChainSegment','TravelHotelLookup', 
         'TravelCountry', 'TravelCity', 'TravelCountrySupplier', 'TravelHotelRoomSupplier', 'TravelCitySupplier',
-        'TravelChain','TravelBrand','TravelLookupBrandPresence','TravelLookupBrandSegment','TravelSuburb','TravelArea','Province');
+        'TravelChain','TravelBrand','TravelLookupBrandPresence','TravelLookupBrandSegment','TravelSuburb','TravelArea','Province'
+        ,'lookupValueTravelAllocation','TravelLookupPropertyType','TravelLookupRateType','');
 
     public function index() {
 
@@ -147,6 +148,7 @@ class DownloadTablesController extends AppController {
         $Chains = array();
         $Areas = array();
         $Brands = array();
+        $tableOption = array();
         
         if ($this->request->is('post')) {
             
@@ -155,6 +157,14 @@ class DownloadTablesController extends AppController {
 
             $operation = $this->data['DownloadTable']['operation'];
             $table = $this->data['DownloadTable']['table'];
+            $type_id = $this->data['DownloadTable']['type_id'];
+            
+            if($type_id == '1')
+            $tableOption = array('TravelLookupContinent' => 'Continent','TravelCountry' => 'Country','Province' => 'Province', 'TravelCity' => 'City', 'TravelSuburb' => 'Suburb', 'TravelArea' => 'Area','TravelChain' => 'Chain','TravelBrand' => 'Brand','TravelHotelLookup' => 'Hotel');
+        elseif($type_id == '2')
+            $tableOption = array('TravelLookupChainPresence' => 'Lookup Chain Presence', 'TravelLookupChainSegment' => 'Lookup Chain Segment', 'TravelLookupBrandPresence' => 'Lookup Brand Presence', 'TravelLookupBrandSegment' => 'Lookup Brand Segment','lookupValueTravelAllocation' => 'lookup Value Travel Allocation'
+                ,'TravelLookupPropertyType' => 'Travel Lookup Property Type','TravelLookupRateType' => 'Travel Lookup Rate Type'); 
+            
             
             $this->TravelHotelLookup->unbindModel(
                 array('hasMany' => array('TravelHotelRoomSupplier'))
@@ -308,7 +318,7 @@ class DownloadTablesController extends AppController {
                 'order' => 'TravelChain.chain_name ASC'
             ));
         
-        $this->set(compact('counts','operation','table','TravelCountries','DataArray','Suburbs','Chains','Areas','Brands'));
+        $this->set(compact('counts','tableOption','operation','table','TravelCountries','DataArray','Suburbs','Chains','Areas','Brands'));
         
     }
 

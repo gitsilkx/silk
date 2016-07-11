@@ -2047,5 +2047,22 @@ class AllFunctionsController extends AppController {
 
         $this->set(compact('DataArray'));
     }
+    
+    public function get_travel_table_by_type_id($model = null) {
+
+        $this->layout = 'ajax';
+        $DataArray = array();
+        $type_id = $this->data[$model]['type_id'];
+        if($type_id == '1')
+            $DataArray = array('TravelLookupContinent' => 'Continent','TravelCountry' => 'Country','Province' => 'Province', 'TravelCity' => 'City', 'TravelSuburb' => 'Suburb', 'TravelArea' => 'Area','TravelChain' => 'Chain','TravelBrand' => 'Brand','TravelHotelLookup' => 'Hotel');
+        elseif($type_id == '2')
+            $DataArray = $tableOption = array('TravelLookupChainPresence' => 'Lookup Chain Presence', 'TravelLookupChainSegment' => 'Lookup Chain Segment', 'TravelLookupBrandPresence' => 'Lookup Brand Presence', 'TravelLookupBrandSegment' => 'Lookup Brand Segment','lookupValueTravelAllocation' => 'lookup Value Travel Allocation'
+                ,'TravelLookupPropertyType' => 'Travel Lookup Property Type','TravelLookupRateType' => 'Travel Lookup Rate Type'); 
+
+        
+       // return $DataArray;
+
+        $this->set(compact('DataArray'));
+    }
 
 }

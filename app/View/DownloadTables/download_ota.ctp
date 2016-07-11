@@ -166,14 +166,22 @@ else{
                 <div class="col-sm-12">
                     <div class="col-sm-6">
                         <div class="form-group">
-                            <label for="reg_input_name" class="req"  style="margin-left: 14px;">Select Table</label>
+                            <label for="reg_input_name" class="req"  style="margin-left: 14px;">Select Type</label>
                             <span class="colon">:</span>
                             <div class="col-sm-8">
                                 <?php
                                 // 'TravelHotelLookup' => 'Hotel', 'TravelCountry' => 'Country', 'TravelCity' => 'City', 'TravelCountrySupplier' => 'Mapping Country', 'TravelCitySupplier' => 'Mapping City', 'TravelHotelRoomSupplier' => 'Mapping Hotel'
-                                echo $this->Form->input('table', array('options' => array('TravelLookupContinent' => 'Continent','TravelCountry' => 'Country','Province' => 'Province', 'TravelCity' => 'City', 'TravelSuburb' => 'Suburb', 'TravelArea' => 'Area','TravelChain' => 'Chain','TravelBrand' => 'Brand','TravelHotelLookup' => 'Hotel'), 'empty' => '--Select--', 'data-required' => 'true'));
+                                echo $this->Form->input('type_id', array('options' => array('1' => 'Business' ,'2' => 'Production'), 'empty' => '--Select--', 'data-required' => 'true'));
                                 ?></div>
-                        </div> 
+                        </div>
+                        <div class="form-group">
+                            <label for="reg_input_name" class="req" style="margin-left: 14px;">Operation</label>
+                            <span class="colon">:</span>
+                            <div class="col-sm-8">
+                                <?php
+                                echo $this->Form->input('operation', array('options' => array('2' => 'Data Download', '3' => 'Data Count'), 'empty' => '--Select--', 'data-required' => 'true'));
+                                ?></div>
+                        </div>
                         <div class="form-group country" style="display:<?php echo $country;?>">
                             <label for="reg_input_name" class="req" style="margin-left: 14px;">Select Country</label>
                             <span class="colon">:</span>
@@ -210,13 +218,15 @@ else{
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
-                            <label for="reg_input_name" class="req">Operation</label>
+                            <label for="reg_input_name" class="req">Select Table</label>
                             <span class="colon">:</span>
                             <div class="col-sm-8">
                                 <?php
-                                echo $this->Form->input('operation', array('options' => array('2' => 'Data Download', '3' => 'Data Count'), 'empty' => '--Select--', 'data-required' => 'true'));
+                                // 'TravelHotelLookup' => 'Hotel', 'TravelCountry' => 'Country', 'TravelCity' => 'City', 'TravelCountrySupplier' => 'Mapping Country', 'TravelCitySupplier' => 'Mapping City', 'TravelHotelRoomSupplier' => 'Mapping Hotel'
+                                echo $this->Form->input('table', array('options' => $tableOption, 'empty' => '--Select--', 'data-required' => 'true'));
                                 ?></div>
-                        </div>   
+                        </div> 
+                           
                         <div class="form-group city" style="display:<?php echo $city;?>">
                             <label for="reg_input_name">Select City</label>
                             <span class="colon">:</span>
@@ -280,6 +290,23 @@ else{
 echo $this->Form->end();
 
 $data = $this->Js->get('#parsley_reg')->serializeForm(array('isForm' => true, 'inline' => true));
+
+$this->Js->get('#DownloadTableTypeId')->event('change', $this->Js->request(array(
+            'controller' => 'all_functions',
+            'action' => 'get_travel_table_by_type_id/DownloadTable'
+                ), array(
+            'update' => '#DownloadTableTable',
+            'async' => true,
+            'before' => 'loading("DownloadTableTable")',
+            'complete' => 'loaded("DownloadTableTable")',
+            'method' => 'post',
+            'dataExpression' => true,
+            'data' => $this->Js->serializeForm(array(
+                'isForm' => true,
+                'inline' => true
+            ))
+        ))
+);
 
 $this->Js->get('#DownloadTableCountryId')->event('change', $this->Js->request(array(
             'controller' => 'all_functions',
@@ -665,17 +692,24 @@ $this->Js->get('#DownloadTableChainId')->event('change', $this->Js->request(arra
 {
     var table = $('#DownloadTableTable').val();
     
+    if(document.fom.DownloadTableTypeId.value=="")
+	{
+		alert("Select type");
+		document.fom.DownloadTableTypeId.focus();
+		return false;
+	}
+    
     if(document.fom.DownloadTableTable.value=="")
 	{
 		alert("Select table");
-		document.fom.DownloadTableCountryId.focus();
+		document.fom.DownloadTableTable.focus();
 		return false;
 	}
     
     if(document.fom.DownloadTableOperation.value=="")
 	{
 		alert("Select operation");
-		document.fom.DownloadTableCountryId.focus();
+		document.fom.DownloadTableOperation.focus();
 		return false;
 	}
     
