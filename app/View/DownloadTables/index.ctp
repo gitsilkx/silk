@@ -126,12 +126,20 @@ if ($operation == '2') { // download
                 <div class="col-sm-12">
                     <div class="col-sm-6">
                         <div class="form-group">
-                            <label for="reg_input_name" class="req"  style="margin-left: 14px;">Select Table</label>
+                            <label for="reg_input_name" class="req"  style="margin-left: 14px;">Select Type</label>
+                            <span class="colon">:</span>
+                            <div class="col-sm-8">
+                                <?php
+                                // 'TravelHotelLookup' => 'Hotel', 'TravelCountry' => 'Country', 'TravelCity' => 'City', 'TravelCountrySupplier' => 'Mapping Country', 'TravelCitySupplier' => 'Mapping City', 'TravelHotelRoomSupplier' => 'Mapping Hotel'
+                                echo $this->Form->input('type_id', array('options' => array('1' => 'Business' ,'2' => 'Production'), 'empty' => '--Select--', 'data-required' => 'true'));
+                                ?></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="reg_input_name" class="req" style="margin-left: 14px;">Operations</label>
                             <span class="colon">:</span>
                             <div class="col-sm-8">
 <?php
-// 'TravelHotelLookup' => 'Hotel', 'TravelCountry' => 'Country', 'TravelCity' => 'City', 'TravelCountrySupplier' => 'Mapping Country', 'TravelCitySupplier' => 'Mapping City', 'TravelHotelRoomSupplier' => 'Mapping Hotel'
-echo $this->Form->input('table', array('options' => array('TravelCountry' => 'Country', 'TravelCity' => 'City', 'TravelHotelLookup' => 'Hotel', 'TravelCountrySupplier' => 'Country Mapping', 'TravelCitySupplier' => 'City Mapping', 'TravelHotelRoomSupplier' => 'Hotel Mapping', 'TravelSuburb' => 'Suburb', 'TravelArea' => 'Area', 'TravelLookupContinent' => 'Continent', 'TravelChain' => 'Chain', 'TravelBrand' => 'Brand', 'TravelLookupChainPresence' => 'Lookup Chain Presence', 'TravelLookupChainSegment' => 'Lookup Chain Segment', 'TravelLookupBrandPresence' => 'Lookup Brand Presence', 'TravelLookupBrandSegment' => 'Lookup Brand Segment', 'Province' => 'Province'), 'empty' => '--Select--', 'data-required' => 'true'));
+echo $this->Form->input('operation', array('options' => array('1' => 'Table Structure', '2' => 'Data Download', '3' => 'Data Count'), 'empty' => '--Select--', 'data-required' => 'true'));
 ?></div>
                         </div>
                         <div class="form-group country" style="display:<?php echo $country; ?>">
@@ -180,13 +188,15 @@ echo $this->Form->input('wtb_status', array('options' => array('1' => 'OK', '2' 
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
-                            <label for="reg_input_name" class="req">Operations</label>
+                            <label for="reg_input_name" class="req"  style="margin-left: 14px;">Select Table</label>
                             <span class="colon">:</span>
                             <div class="col-sm-8">
 <?php
-echo $this->Form->input('operation', array('options' => array('1' => 'Table Structure', '2' => 'Data Download', '3' => 'Data Count'), 'empty' => '--Select--', 'data-required' => 'true'));
+// 'TravelHotelLookup' => 'Hotel', 'TravelCountry' => 'Country', 'TravelCity' => 'City', 'TravelCountrySupplier' => 'Mapping Country', 'TravelCitySupplier' => 'Mapping City', 'TravelHotelRoomSupplier' => 'Mapping Hotel'
+echo $this->Form->input('table', array('options' => $tableOption, 'empty' => '--Select--', 'data-required' => 'true'));
 ?></div>
                         </div>
+                        
                         <div class="form-group city" style="display:<?php echo $city; ?>">
                             <label for="reg_input_name" class="req">Select City</label>
                             <span class="colon">:</span>
@@ -284,6 +294,23 @@ if ($counts) {
 </div>
 <?php
 echo $this->Form->end();
+
+$this->Js->get('#DownloadTableTypeId')->event('change', $this->Js->request(array(
+            'controller' => 'all_functions',
+            'action' => 'get_travel_table_by_type_id/DownloadTable'
+                ), array(
+            'update' => '#DownloadTableTable',
+            'async' => true,
+            'before' => 'loading("DownloadTableTable")',
+            'complete' => 'loaded("DownloadTableTable")',
+            'method' => 'post',
+            'dataExpression' => true,
+            'data' => $this->Js->serializeForm(array(
+                'isForm' => true,
+                'inline' => true
+            ))
+        ))
+);
 
 $this->Js->get('#DownloadTableCountryId')->event('change', $this->Js->request(array(
             'controller' => 'all_functions',
@@ -577,18 +604,25 @@ $this->Js->get('#DownloadTableHotelCountryId')->event('change', $this->Js->reque
     {
         var table = $('#DownloadTableTable').val();
         var Operation = $('#DownloadTableOperation').val();
+        
+         if(document.fom.DownloadTableTypeId.value=="")
+	{
+		alert("Select type");
+		document.fom.DownloadTableTypeId.focus();
+		return false;
+	}
 
         if (document.fom.DownloadTableTable.value == "")
         {
             alert("Select table");
-            document.fom.DownloadTableCountryId.focus();
+            document.fom.DownloadTableTable.focus();
             return false;
         }
 
         if (document.fom.DownloadTableOperation.value == "")
         {
             alert("Select operation");
-            document.fom.DownloadTableCountryId.focus();
+            document.fom.DownloadTableOperation.focus();
             return false;
         }
         if (Operation == '2' || Operation == '3') {

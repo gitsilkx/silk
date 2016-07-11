@@ -2054,7 +2054,7 @@ class AllFunctionsController extends AppController {
         $DataArray = array();
         $type_id = $this->data[$model]['type_id'];
         if($type_id == '1')
-            $DataArray = array('TravelLookupContinent' => 'Continent','TravelCountry' => 'Country','Province' => 'Province', 'TravelCity' => 'City', 'TravelSuburb' => 'Suburb', 'TravelArea' => 'Area','TravelChain' => 'Chain','TravelBrand' => 'Brand','TravelHotelLookup' => 'Hotel');
+            $DataArray = array('TravelCountry' => 'Country', 'TravelCity' => 'City', 'TravelHotelLookup' => 'Hotel', 'TravelCountrySupplier' => 'Country Mapping', 'TravelCitySupplier' => 'City Mapping', 'TravelHotelRoomSupplier' => 'Hotel Mapping', 'TravelSuburb' => 'Suburb', 'TravelArea' => 'Area', 'TravelLookupContinent' => 'Continent', 'TravelChain' => 'Chain', 'TravelBrand' => 'Brand','Province' => 'Province');
         elseif($type_id == '2')
             $DataArray = array('TravelLookupChainPresence' => 'Lookup Chain Presence', 'TravelLookupChainSegment' => 'Lookup Chain Segment', 'TravelLookupBrandPresence' => 'Lookup Brand Presence', 'TravelLookupBrandSegment' => 'Lookup Brand Segment','lookupValueTravelAllocation' => 'lookup Allocation'
                 ,'TravelLookupPropertyType' => 'Lookup Property Type','TravelLookupRateType' => 'Lookup Rate Type',

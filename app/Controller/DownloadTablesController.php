@@ -46,6 +46,7 @@ class DownloadTablesController extends AppController {
         $table = '';
         $country_id = '';
         $DataArray = array();
+        $tableOption = array();
         
         if ($this->request->is('post')) {
             
@@ -53,6 +54,14 @@ class DownloadTablesController extends AppController {
 
             $operation = $this->data['DownloadTable']['operation'];
             $table = $this->data['DownloadTable']['table'];
+            $type_id = $this->data['DownloadTable']['type_id'];
+            
+            if($type_id == '1')
+            $tableOption = array('TravelCountry' => 'Country', 'TravelCity' => 'City', 'TravelHotelLookup' => 'Hotel', 'TravelCountrySupplier' => 'Country Mapping', 'TravelCitySupplier' => 'City Mapping', 'TravelHotelRoomSupplier' => 'Hotel Mapping', 'TravelSuburb' => 'Suburb', 'TravelArea' => 'Area', 'TravelLookupContinent' => 'Continent', 'TravelChain' => 'Chain', 'TravelBrand' => 'Brand','Province' => 'Province');
+        elseif($type_id == '2')
+            $tableOption = array('TravelLookupChainPresence' => 'Lookup Chain Presence', 'TravelLookupChainSegment' => 'Lookup Chain Segment', 'TravelLookupBrandPresence' => 'Lookup Brand Presence', 'TravelLookupBrandSegment' => 'Lookup Brand Segment','lookupValueTravelAllocation' => 'lookup Allocation'
+                ,'TravelLookupPropertyType' => 'Lookup Property Type','TravelLookupRateType' => 'Lookup Rate Type',
+                'TravelLookupValueContractStatus' => 'Lookup Contract Status','TravelMappingType' => 'Lookup Mapping Type');
             
             if (!empty($this->data['DownloadTable']['country_id'])) {
                 $country_id = $this->data['DownloadTable']['country_id'];
@@ -128,7 +137,7 @@ class DownloadTablesController extends AppController {
              // die;
         }
         $TravelCountries = $this->TravelCountry->find('list', array('fields' => 'id, country_name','conditions' => array('TravelCountry.country_status' => '1','TravelCountry.active' => 'TRUE','TravelCountry.wtb_status' => '1'), 'order' => 'country_name ASC'));
-        $this->set(compact('TravelCountries','structure','counts','operation','table','DataArray'));
+        $this->set(compact('TravelCountries','structure','counts','operation','table','DataArray','tableOption'));
     
     }
     
