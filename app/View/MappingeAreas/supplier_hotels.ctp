@@ -32,19 +32,19 @@ $this->Html->addCrumb('My Supplier Hotels', 'javascript:void(0);', array('class'
                     
                     
                     <div class="col-sm-3 col-xs-6">
-                        <label for="un_member">Continent:</label>
+                        <label for="un_member">WTB Continent:</label>
                         <?php echo $this->Form->input('continent_id', array('options' => $TravelLookupContinents, 'empty' => '--Select--', 'value' => $continent_id, 'data-required' => 'true')); ?>
                     </div>                    
                     <div class="col-sm-3 col-xs-6">
-                        <label for="un_member">Country:</label>
+                        <label for="un_member">WTB Country:</label>
                         <?php echo $this->Form->input('country_id', array('options' => $TravelCountries, 'empty' => '--Select--', 'value' => $country_id, 'data-required' => 'true')); ?>
                     </div>
                     <div class="col-sm-3 col-xs-6">
-                        <label for="un_member">Province:</label>
+                        <label for="un_member">WTB Province:</label>
                         <?php echo $this->Form->input('province_id', array('options' => $Provinces, 'empty' => '--Select--', 'value' => $province_id, 'data-required' => 'true')); ?>
                     </div>
                     <div class="col-sm-3 col-xs-6">
-                        <label for="un_member">City:</label>
+                        <label for="un_member">WTB City:</label>
                         <?php echo $this->Form->input('city_id', array('options' => $TravelCities, 'empty' => '--Select--', 'value' => $city_id, 'data-required' => 'true')); ?>
                     </div>
                     <div class="col-sm-3 col-xs-6">
