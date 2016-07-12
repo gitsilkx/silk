@@ -300,7 +300,7 @@ echo $this->Form->hidden('TravelHotelRoomSupplier.hotel_room_supplier_id', array
                             <span class="colon">:</span>
                             <div class="col-sm-10">
                                 <?php
-                               echo $this->Html->link('Click here', '/travel_hotel_lookups/view_city_mapping/'.$SupplierHotels['SupplierHotel']['supplier_id'].'/'.$TravelHotelRoomSuppliers['TravelHotelRoomSupplier']['city_id'], array('class' => 'act-ico open-popup-link add-btn', 'escape' => false));
+                               echo $this->Html->link('Click here', '/travel_hotel_lookups/view_city_mapping/'.$SupplierHotels['SupplierHotel']['supplier_id'].'/'.$TravelHotelRoomSuppliers['TravelHotelRoomSupplier']['hotel_city_id'], array('class' => 'act-ico open-popup-link add-btn', 'escape' => false));
                                 ?></div>
                         </div>
                 
