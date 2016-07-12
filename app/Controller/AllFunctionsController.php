@@ -2054,11 +2054,13 @@ class AllFunctionsController extends AppController {
         $DataArray = array();
         $type_id = $this->data[$model]['type_id'];
         if($type_id == '1')
-            $DataArray = array('TravelCountry' => 'Country', 'TravelCity' => 'City', 'TravelHotelLookup' => 'Hotel', 'TravelCountrySupplier' => 'Country Mapping', 'TravelCitySupplier' => 'City Mapping', 'TravelHotelRoomSupplier' => 'Hotel Mapping', 'TravelSuburb' => 'Suburb', 'TravelArea' => 'Area', 'TravelLookupContinent' => 'Continent', 'TravelChain' => 'Chain', 'TravelBrand' => 'Brand','Province' => 'Province');
+            $DataArray = array('TravelCountry' => 'Country', 'TravelCity' => 'City', 'TravelHotelLookup' => 'Hotel', 'TravelCountrySupplier' => 'Country Mapping', 'TravelCitySupplier' => 'City Mapping', 'TravelHotelRoomSupplier' => 'Hotel Mapping', 'TravelSuburb' => 'Suburb', 'TravelArea' => 'Area', 'TravelLookupContinent' => 'Continent', 'TravelChain' => 'Chain', 'TravelBrand' => 'Brand','Province' => 'Province','TravelSupplier' => 'Supplier',);
         elseif($type_id == '2')
-            $DataArray = array('TravelLookupChainPresence' => 'Lookup Chain Presence', 'TravelLookupChainSegment' => 'Lookup Chain Segment', 'TravelLookupBrandPresence' => 'Lookup Brand Presence', 'TravelLookupBrandSegment' => 'Lookup Brand Segment','lookupValueTravelAllocation' => 'lookup Allocation'
+            $DataArray = array('TravelLookupChainPresence' => 'Lookup Chain Presence', 'TravelLookupChainSegment' => 'Lookup Chain Segment', 'TravelLookupBrandPresence' => 'Lookup Brand Presence', 'TravelLookupBrandSegment' => 'Lookup Brand Segment','lookupValueTravelAllocation' => 'Lookup Allocation'
                 ,'TravelLookupPropertyType' => 'Lookup Property Type','TravelLookupRateType' => 'Lookup Rate Type',
-                'TravelLookupValueContractStatus' => 'Lookup Contract Status','TravelMappingType' => 'Lookup Mapping Type'); 
+                'TravelLookupValueContractStatus' => 'Lookup Contract Status','TravelMappingType' => 'Lookup Mapping Type','TravelSupplierStatus' => 'Lookup Supplier Status',
+                'LookupAgentNatureOfBusiness' => 'Lookup AgentNature Business','LookupAgentProcurementType' => 'Lookup Agent Procurement Type',
+                'LookupAgentSource' => 'Lookup Agent Source','LookupAgentStatus' => 'Lookup Agent Status'); 
 
         
        // return $DataArray;

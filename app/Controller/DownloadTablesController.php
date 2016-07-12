@@ -34,7 +34,9 @@ class DownloadTablesController extends AppController {
     public $uses = array('TravelLookupContinent','TravelLookupChainPresence','TravelLookupChainSegment','TravelHotelLookup', 
         'TravelCountry', 'TravelCity', 'TravelCountrySupplier', 'TravelHotelRoomSupplier', 'TravelCitySupplier',
         'TravelChain','TravelBrand','TravelLookupBrandPresence','TravelLookupBrandSegment','TravelSuburb','TravelArea','Province'
-        ,'lookupValueTravelAllocation','TravelLookupPropertyType','TravelLookupRateType','TravelMappingType','TravelLookupValueContractStatus');
+        ,'lookupValueTravelAllocation','TravelLookupPropertyType','TravelLookupRateType','TravelMappingType','TravelLookupValueContractStatus',
+        'TravelSupplier','TravelSupplierStatus','LookupAgentNatureOfBusiness','LookupAgentProcurementType','LookupAgentSource',
+        'LookupAgentStatus');
 
     public function index() {
 
@@ -57,12 +59,16 @@ class DownloadTablesController extends AppController {
             $type_id = $this->data['DownloadTable']['type_id'];
             
             if($type_id == '1')
-            $tableOption = array('TravelCountry' => 'Country', 'TravelCity' => 'City', 'TravelHotelLookup' => 'Hotel', 'TravelCountrySupplier' => 'Country Mapping', 'TravelCitySupplier' => 'City Mapping', 'TravelHotelRoomSupplier' => 'Hotel Mapping', 'TravelSuburb' => 'Suburb', 'TravelArea' => 'Area', 'TravelLookupContinent' => 'Continent', 'TravelChain' => 'Chain', 'TravelBrand' => 'Brand','Province' => 'Province');
-        elseif($type_id == '2')
-            $tableOption = array('TravelLookupChainPresence' => 'Lookup Chain Presence', 'TravelLookupChainSegment' => 'Lookup Chain Segment', 'TravelLookupBrandPresence' => 'Lookup Brand Presence', 'TravelLookupBrandSegment' => 'Lookup Brand Segment','lookupValueTravelAllocation' => 'lookup Allocation'
+                $tableOption = array('TravelCountry' => 'Country', 'TravelCity' => 'City', 'TravelHotelLookup' => 'Hotel', 'TravelCountrySupplier' => 'Country Mapping', 'TravelCitySupplier' => 'City Mapping', 'TravelHotelRoomSupplier' => 'Hotel Mapping', 'TravelSuburb' => 'Suburb', 'TravelArea' => 'Area', 'TravelLookupContinent' => 'Continent', 'TravelChain' => 'Chain', 'TravelBrand' => 'Brand','Province' => 'Province','TravelSupplier' => 'Supplier',);
+            elseif($type_id == '2')
+                
+            $tableOption = array('TravelLookupChainPresence' => 'Lookup Chain Presence', 'TravelLookupChainSegment' => 'Lookup Chain Segment', 'TravelLookupBrandPresence' => 'Lookup Brand Presence', 'TravelLookupBrandSegment' => 'Lookup Brand Segment','lookupValueTravelAllocation' => 'Lookup Allocation'
                 ,'TravelLookupPropertyType' => 'Lookup Property Type','TravelLookupRateType' => 'Lookup Rate Type',
-                'TravelLookupValueContractStatus' => 'Lookup Contract Status','TravelMappingType' => 'Lookup Mapping Type');
-            
+                'TravelLookupValueContractStatus' => 'Lookup Contract Status','TravelMappingType' => 'Lookup Mapping Type','TravelSupplierStatus' => 'Lookup Supplier Status',
+                'LookupAgentNatureOfBusiness' => 'Lookup AgentNature Business','LookupAgentProcurementType' => 'Lookup Agent Procurement Type',
+                'LookupAgentSource' => 'Lookup Agent Source','LookupAgentStatus' => 'Lookup Agent Status'); 
+
+          
             if (!empty($this->data['DownloadTable']['country_id'])) {
                 $country_id = $this->data['DownloadTable']['country_id'];
                 array_push($search_condition, array('country_id' => $country_id));
