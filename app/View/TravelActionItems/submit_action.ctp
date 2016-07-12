@@ -331,7 +331,7 @@ echo $this->Form->hidden('TravelHotelRoomSupplier.hotel_room_supplier_id', array
                                 <th data-hide="phone" data-group="group1" width="15%" data-sort-ignore="true">Hotel Name</th>
                                 <th data-hide="phone" data-group="group1" width="10%" data-sort-ignore="true">Hotel Code</th>
                                 <th data-hide="phone" data-group="group1" width="7%" data-sort-ignore="true">No. Of Mapping</th>
-                                <th data-hide="phone" data-group="group1" width="7%" data-sort-ignore="true">Check City Mapping<</th>
+                                <th data-hide="phone" data-group="group1" width="10%" data-sort-ignore="true">Check City Mapping</th>
                                 <th data-hide="all" data-group="group2" data-sort-ignore="true">Suburb</th>
                                 <th data-hide="all" data-group="group2" data-sort-ignore="true">Area</th>
                                 <th data-hide="all" data-group="group2" data-sort-ignore="true">Chain</th>
