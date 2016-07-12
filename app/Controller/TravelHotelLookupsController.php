@@ -37,7 +37,7 @@ class TravelHotelLookupsController extends AppController {
 
     public $uses = array('TravelHotelLookup', 'TravelHotelRoomSupplier', 'TravelCountry', 'TravelLookupContinent', 'TravelLookupValueContractStatus', 'TravelCity', 'TravelChain',
         'TravelSuburb', 'TravelArea', 'TravelBrand', 'TravelActionItem', 'TravelRemark', 'LogCall','User','Province','ProvincePermission', 'DeleteTravelHotelLookup', 'DeleteLogTable',
-        'TravelLookupRateType','TravelLookupPropertyType');
+        'TravelLookupRateType','TravelLookupPropertyType','TravelCitySupplier');
     public $components = array('Sms', 'Image');
     public $uploadDir;
 
@@ -2185,6 +2185,13 @@ class TravelHotelLookupsController extends AppController {
         $TravelHotelRoomSuppliers = $this->TravelHotelRoomSupplier->find('all',array( 'conditions' => array('TravelHotelRoomSupplier.hotel_id' => $hotel_id)));
      
         $this->set(compact('TravelHotelRoomSuppliers'));
+    }
+    
+    public function view_city_mapping($supplier_id = null,$city_id = null){
+        $this->layout = '';
+        $TravelCitySuppliers = $this->TravelCitySupplier->find('all',array( 'conditions' => array('TravelCitySupplier.supplier_id' => $supplier_id,'TravelCitySupplier.city_id' => $city_id)));
+     
+        $this->set(compact('TravelCitySuppliers'));
     }
     
     public function hotel_edit($id = null){

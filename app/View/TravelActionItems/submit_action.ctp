@@ -295,6 +295,14 @@ echo $this->Form->hidden('TravelHotelRoomSupplier.hotel_room_supplier_id', array
                                 echo $this->Form->input('TravelHotelRoomSupplier.hotel_mapping_name',array('readonly' => true,'style' => 'width:122%','value' => $TravelHotelRoomSuppliers['TravelHotelRoomSupplier']['hotel_mapping_name']));
                                 ?></div>
                         </div>
+                        <div class="form-group">
+                            <label for="reg_input_name" style="margin-left:16px;">Check City Mapping</label>
+                            <span class="colon">:</span>
+                            <div class="col-sm-10">
+                                <?php
+                               echo $this->Html->link('Click here', '/travel_hotel_lookups/view_city_mapping/'.$SupplierHotels['SupplierHotel']['supplier_id'].'/'.$TravelHotelRoomSuppliers['TravelHotelRoomSupplier']['city_id'], array('class' => 'act-ico open-popup-link add-btn', 'escape' => false));
+                                ?></div>
+                        </div>
                 
             </div>
             
@@ -307,7 +315,7 @@ echo $this->Form->hidden('TravelHotelRoomSupplier.hotel_room_supplier_id', array
               <table border="0" cellpadding="0" cellspacing="0" id="resp_table" class="table toggle-square myclitb" data-filter="#table_search" data-page-size="3000">
                         <thead>         
                             <tr class="footable-group-row">
-                                <th data-group="group1" colspan="9" class="nodis">Hotel Information</th>
+                                <th data-group="group1" colspan="10" class="nodis">Hotel Information</th>
 
                                 <th data-group="group2" colspan="3">Hotel Information</th>
 
@@ -315,14 +323,15 @@ echo $this->Form->hidden('TravelHotelRoomSupplier.hotel_room_supplier_id', array
                             </tr>
                             <tr>
                                 <th data-toggle="true" data-group="group1" width="5%">Id</th>  
-                                <th data-hide="phone" data-group="group1" width="10%"  data-sort-ignore="true">Continent Name</th> 
-                                <th data-hide="phone" data-group="group1" width="10%">Country Name</th> 
-                                <th data-hide="phone" data-group="group1" width="10%">Country Code</th>
+                                <th data-hide="phone" data-group="group1" width="7%"  data-sort-ignore="true">Continent Name</th> 
+                                <th data-hide="phone" data-group="group1" width="7%">Country Name</th> 
+                                <th data-hide="phone" data-group="group1" width="5%">Country Code</th>
                                 <th data-hide="phone" data-group="group1" width="10%" data-sort-ignore="true">City Name</th>
-                                <th data-hide="phone" data-group="group1" width="10%" data-sort-ignore="true">City Code</th>
-                                <th data-hide="phone" data-group="group1" width="10%" data-sort-ignore="true">Hotel Name</th>
+                                <th data-hide="phone" data-group="group1" width="5%" data-sort-ignore="true">City Code</th>
+                                <th data-hide="phone" data-group="group1" width="15%" data-sort-ignore="true">Hotel Name</th>
                                 <th data-hide="phone" data-group="group1" width="10%" data-sort-ignore="true">Hotel Code</th>
-                                <th data-hide="phone" data-group="group1" width="10%" data-sort-ignore="true">No. Of Mapping</th>
+                                <th data-hide="phone" data-group="group1" width="7%" data-sort-ignore="true">No. Of Mapping</th>
+                                <th data-hide="phone" data-group="group1" width="7%" data-sort-ignore="true">Check City Mapping<</th>
                                 <th data-hide="all" data-group="group2" data-sort-ignore="true">Suburb</th>
                                 <th data-hide="all" data-group="group2" data-sort-ignore="true">Area</th>
                                 <th data-hide="all" data-group="group2" data-sort-ignore="true">Chain</th>
@@ -353,6 +362,7 @@ if (isset($DuplicateHotels) && count($DuplicateHotels) > 0):
                                 <td class="tablebody"><?php echo $TravelHotelLookup['TravelHotelLookup']['hotel_name']; ?></td>
                                 <td class="tablebody"><?php echo $TravelHotelLookup['TravelHotelLookup']['hotel_code']; ?></td>
                                 <td class="tablebody"><?php echo count($TravelHotelLookup['TravelHotelRoomSupplier']); ?></td>
+                                <td class="tablebody"><?php echo $this->Html->link('Click here', '/travel_hotel_lookups/view_city_mapping/'.$SupplierHotels['SupplierHotel']['supplier_id'].'/'.$TravelHotelLookup['TravelHotelLookup']['city_id'], array('class' => 'act-ico open-popup-link add-btn', 'escape' => false));?></td>
                                 <td class="sub-tablebody"><?php echo $TravelHotelLookup['TravelHotelLookup']['suburb_name']; ?></td>
                                 <td class="sub-tablebody"><?php echo $TravelHotelLookup['TravelHotelLookup']['area_name']; ?></td>
                                 <td class="sub-tablebody"><?php echo $TravelHotelLookup['TravelHotelLookup']['chain_name']; ?></td>
