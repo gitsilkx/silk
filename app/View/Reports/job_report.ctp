@@ -10,8 +10,7 @@
     <div class="col-sm-12">
         <div class="table-heading">
             <h4 class="table-heading-title"> My Summary</h4>
-            <span class="badge badge-circle add-client nomrgn"><i class="icon-plus"></i> <?php echo $this->Html->link('Add City', '/travel_cities/add') ?></span>
-            <span class="search_panel_icon"><i class="icon-plus" id="toggle_search_panel"></i></span>
+            
         </div>
         <div class="panel panel-default">
             <div class="panel_controls hideform">
