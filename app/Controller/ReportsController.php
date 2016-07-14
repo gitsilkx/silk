@@ -5401,13 +5401,13 @@ class ReportsController extends AppController {
          $hotel_unallocated_cnt = $this->TravelHotelLookup->find('count', array('conditions' => array('OR' => $conArray,'province_id' => '0')));
          $hotel_pending_cnt = $this->TravelHotelLookup->find('count', array('conditions' => array('OR' => $conArray,'province_id !=' => '0','chain_id' => '0','brand_id' => '0','suburb_id' => '0')));
          $hotel_submitted_cnt = $this->TravelHotelLookup->find('count', array('conditions' => array('OR' => $conArray,'province_id !=' => '0',
-             'suburb_id !=' => '0','area_id !=' => '0','chain_id !=' => '0','brand_id !=' => '0','status' => '1')));
+             'suburb_id !=' => '0','area_id !=' => '0','chain_id !=' => '0','brand_id !=' => '0','status' => '4')));
          $hotel_approved_cnt = $this->TravelHotelLookup->find('count', array('conditions' => array('OR' => $conArray,'province_id !=' => '0',
              'suburb_id !=' => '0','area_id !=' => '0','chain_id !=' => '0','brand_id !=' => '0','status' => '2')));
          $hotel_total_cnt = $this->TravelHotelLookup->find('count', array('conditions' => array('OR' => $conArray)));
-         $log = $this->TravelHotelLookup->getDataSource()->getLog(false, false);   
+         //$log = $this->TravelHotelLookup->getDataSource()->getLog(false, false);   
          
-          debug($log); 
+          //debug($log); 
         }
         
         $persons = $this->ProvincePermission->find('all', array('fields' => array('ProvincePermission.user_id', 'User.fname','User.lname'),
