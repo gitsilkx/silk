@@ -38,7 +38,8 @@ class ReportsController extends AppController {
     public $uses = array('TravelHotelLookup','Common', 'TravelCity', 'TravelCountry','TravelCountrySupplier', 'TravelLookupContinent', 'TravelLookupValueContractStatus', 'TravelChain',
         'TravelSuburb', 'TravelArea', 'TravelBrand', 'Province', 'TravelHotelRoomSupplier', 'TravelCitySupplier', 'Mappinge', 'TravelSupplier', 'LogCall',
         'TravelActionItemType', 'User', 'DeleteTravelHotelLookup', 'DeleteLogTable', 'DeleteTravelHotelRoomSupplier', 'DeleteTravelCitySupplier', 'DeleteTravelCity',
-        'DeleteTravelSuburb', 'DeleteTravelArea', 'DeleteProvince', 'TravelActionItem','TravelCitySuppliers');
+        'DeleteTravelSuburb', 'DeleteTravelArea', 'DeleteProvince', 'TravelActionItem','TravelCitySuppliers',
+        'ProvincePermission');
 
     public function index() {
         
@@ -5359,5 +5360,46 @@ class ReportsController extends AppController {
         //pr($TravelHotelLookups);
         //die;
     }
-
+    
+    public function job_report() {
+        
+        $user_id = $this->Auth->user('id');
+        $dataArray = array();   
+        $TravelCities = array();
+        
+        if ($this->request->is('post') || $this->request->is('put')) {
+            
+           $user_id = $this->data['Report']['user_id'];
+           $ProvincePermissions = $this->ProvincePermission->find('all',array('conditions' => array('user_id' => $user_id)));
+           //pr($ProvincePermissions);
+           foreach($ProvincePermissions as $ProvincePermission){
+               array_push($dataArray, array('province_id' => $ProvincePermission['ProvincePermission']['province_id'],'country_id' => $ProvincePermission['ProvincePermission']['country_id']));
+               //$dataArray = ARRAY('province_id' => $ProvincePermission['ProvincePermission']['province_id'],'country_id' => $ProvincePermission['ProvincePermission']['country_id']);
+               
+           }
+          
+           foreach($dataArray as $val){
+          $this->TravelCity->unbindModel(
+                array('hasMany' => array('TravelHotelRoomSupplier','TravelCitySupplier','TravelArea','TravelHotelLookup','TravelSuburb'))
+            );
+               $TravelCities[] = $this->TravelCity->find('first',array('fields' => 'id,city_name','conditions' => array('province_id' => $val['province_id'])));
+               $TravelCities[] = array('province_id' => $val['province_id'],'country_id' => $val['country_id']) + $TravelCities;  
+           }
+    
+            
+        }
+        
+        $persons = $this->ProvincePermission->find('all', array('fields' => array('ProvincePermission.user_id', 'User.fname','User.lname'),
+           'joins' => array(
+                array(
+                    'table' => 'users',
+                    'alias' => 'User',
+                    'conditions' => array(
+                        'ProvincePermission.user_id = User.id')
+                ),              
+            )            
+            ,'group' => 'ProvincePermission.user_id'));
+        $persons = Set::combine($persons, '{n}.ProvincePermission.user_id', array('%s %s', '{n}.User.fname', '{n}.User.lname'));
+        $this->set(compact('persons','TravelCities'));
+    }
 }
