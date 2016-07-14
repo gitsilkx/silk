@@ -54,8 +54,8 @@
                 <tbody>
                     <?php
                     $i = 1;
-                    //pr($TravelCities);
-                    //die;
+                    pr($TravelCities);
+                    die;
                     if (isset($TravelCities) && count($TravelCities) > 0):
                         foreach ($TravelCities as $TravelCity):
                             $id = $TravelCity['TravelCity']['id'];              
