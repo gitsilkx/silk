@@ -54,8 +54,8 @@
                 <tbody>
                     <?php
                     $i = 1;
-                    pr($TravelCities);
-                    die;
+                    //pr($this->data);
+                   // die;
                     if (isset($TravelCities) && count($TravelCities) > 0):
                         foreach ($TravelCities as $TravelCity):
                             $id = $TravelCity['TravelCity']['id'];              
@@ -63,9 +63,9 @@
                             ?>
                             <tr>                              
                                 <td><?php echo $i; ?></td>
-                                <td><?php //echo $TravelCity['TravelCity']['city_name']; ?></td>
-                                <td><?php echo $TravelCity['country_id']; ?></td>
-                                <td><?php echo $TravelCity['province_id']; ?></td>
+                                <td><?php echo $this->Custom->Username($this->data['Report']['user_id']); ?></td>
+                                <td><?php echo $this->Custom->getCountryName($TravelCity[0]['country_id']); ?></td>
+                                <td><?php echo $this->Custom->getProvinceName($TravelCity[0]['province_id']); ?></td>
                                 <td><?php echo $TravelCity['TravelCity']['city_name']; ?></td>                               
 
                             </tr>
@@ -79,7 +79,7 @@
                 </tbody>
             </table>
             
-            <table id="resp_table" class="table toggle-square" data-filter="#table_search" data-page-size="1000" style="display: none">
+            <table id="resp_table" class="table toggle-square" data-filter="#table_search" data-page-size="1000" style="width: 50%;float: left;">
                 <thead>
                      <tr class="footable-group-row">
                         <th data-group="group1" colspan="7" class="nodis">Edit</th>                     
@@ -88,7 +88,7 @@
                     <tr>           
                         <th data-toggle="phone"  data-sort-ignore="true" data-group="group1">Unallocated</th>
                         <th data-toggle="phone"  data-sort-ignore="true" data-group="group1">Pending</th>
-                        <th data-toggle="phone"  data-sort-ignore="true" data-group="group1">Submitted/th>
+                        <th data-toggle="phone"  data-sort-ignore="true" data-group="group1">Submitted</th>
                         <th data-toggle="phone"  data-sort-ignore="true" data-group="group1">Approved</th>
                         <th data-hide="phone"  data-sort-ignore="true" data-group="group1">Total</th>                
                                              
@@ -97,28 +97,23 @@
                 <tbody>
                     <?php
                     
-                    if (isset($TravelCities) && count($TravelCities) > 0):
-                        foreach ($TravelCities as $TravelCity):
-                            $id = $TravelCity['TravelCity']['id'];
+                   
                 
                            
                             ?>
                             <tr>                              
-                                <td><?php echo $id; ?></td>
-                                <td><?php echo $TravelCity['TravelCity']['city_name']; ?></td>
-                                <td><?php echo $TravelCity['TravelCity']['city_code']; ?></td>
-                                <td><?php echo $TravelCity['TravelCity']['continent_name']; ?></td>
-                                <td><?php echo $TravelCity['TravelCity']['country_name']; ?></td>                               
+                                <td><?php echo $hotel_unallocated_cnt; ?></td>
+                                <td><?php echo $hotel_pending_cnt; ?></td>
+                                <td><?php echo $hotel_submitted_cnt; ?></td>
+                                <td><?php echo $hotel_approved_cnt; ?></td>
+                                <td><?php echo $hotel_total_cnt; ?></td>                               
 
                             </tr>
-                        <?php endforeach; 
-                    else:
-                        echo '<tr><td colspan="5" class="norecords">No Records Found</td></tr>';
-                    endif;
-                    ?>
+                        
+                   
                 </tbody>
             </table>
-            <table id="resp_table" class="table toggle-square" data-filter="#table_search" data-page-size="1000" style="display: none">
+            <table id="resp_table" class="table toggle-square" data-filter="#table_search" data-page-size="1000" style="width:50%;float: left;">
                 <thead>
                      <tr class="footable-group-row">
                         <th data-group="group1" colspan="7" class="nodis">Mapping</th>                     
@@ -127,33 +122,23 @@
                     <tr>           
                       
                         <th data-toggle="phone"  data-sort-ignore="true" data-group="group1">Pending</th>
-                        <th data-toggle="phone"  data-sort-ignore="true" data-group="group1">Submitted/th>
+                        <th data-toggle="phone"  data-sort-ignore="true" data-group="group1">Submitted</th>
                         <th data-toggle="phone"  data-sort-ignore="true" data-group="group1">Approved</th>
                         <th data-hide="phone"  data-sort-ignore="true" data-group="group1">Total</th>                
                         <th data-hide="phone"  data-sort-ignore="true" data-group="group1">Supplier Total</th>                      
                     </tr>
                 </thead>
                 <tbody>
-                    <?php
                     
-                    if (isset($TravelCities) && count($TravelCities) > 0):
-                        foreach ($TravelCities as $TravelCity):
-                            $id = $TravelCity['TravelCity']['id'];               
-                           
-                            ?>
                             <tr>                              
-                                <td><?php echo $id; ?></td>
-                                <td><?php echo $TravelCity['TravelCity']['city_name']; ?></td>
-                                <td><?php echo $TravelCity['TravelCity']['city_code']; ?></td>
-                                <td><?php echo $TravelCity['TravelCity']['continent_name']; ?></td>
-                                <td><?php echo $TravelCity['TravelCity']['country_name']; ?></td>                               
+                                <td><?php echo $hotel_unallocated_cnt; ?></td>
+                                <td><?php echo $hotel_pending_cnt; ?></td>
+                                <td><?php echo $hotel_submitted_cnt; ?></td>
+                                <td><?php echo $hotel_approved_cnt; ?></td>
+                                <td><?php echo $hotel_total_cnt; ?></td>                               
 
                             </tr>
-                        <?php endforeach; 
-                    else:
-                        echo '<tr><td colspan="5" class="norecords">No Records Found</td></tr>';
-                    endif;
-                    ?>
+                        
                 </tbody>
             </table>
 

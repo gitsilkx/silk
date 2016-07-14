@@ -5366,27 +5366,47 @@ class ReportsController extends AppController {
         $user_id = $this->Auth->user('id');
         $dataArray = array();   
         $TravelCities = array();
+        $hotel_unallocated_cnt = 0;
+        $hotel_submitted_cnt = 0;
+        $hotel_pending_cnt = 0;
+        $hotel_approved_cnt = 0;
+        $hotel_total_cnt = 0;
         
         if ($this->request->is('post') || $this->request->is('put')) {
             
            $user_id = $this->data['Report']['user_id'];
            $ProvincePermissions = $this->ProvincePermission->find('all',array('conditions' => array('user_id' => $user_id)));
-           //pr($ProvincePermissions);
+          // pr($ProvincePermissions);
            foreach($ProvincePermissions as $ProvincePermission){
                array_push($dataArray, array('province_id' => $ProvincePermission['ProvincePermission']['province_id'],'country_id' => $ProvincePermission['ProvincePermission']['country_id']));
                //$dataArray = ARRAY('province_id' => $ProvincePermission['ProvincePermission']['province_id'],'country_id' => $ProvincePermission['ProvincePermission']['country_id']);
                
            }
-          
+          $i=0;
            foreach($dataArray as $val){
           $this->TravelCity->unbindModel(
                 array('hasMany' => array('TravelHotelRoomSupplier','TravelCitySupplier','TravelArea','TravelHotelLookup','TravelSuburb'))
             );
                $TravelCities[] = $this->TravelCity->find('first',array('fields' => 'id,city_name','conditions' => array('province_id' => $val['province_id'])));
-               $TravelCities[] = array('province_id' => $val['province_id'],'country_id' => $val['country_id']) + $TravelCities;  
+              
+               array_push($TravelCities[$i], array('province_id' => $val['province_id'],'country_id' => $val['country_id'])); 
+              
+                $conArray[] = array('city_id' => $TravelCities[$i]['TravelCity']['id'],'country_id' => $val['country_id']);
+                ///$andArray = array('province_id' => $val['province_id'],'country_id' => $val['country_id']);
+                $i++;
+              
            }
-    
-            
+           
+           
+         $hotel_unallocated_cnt = $this->TravelHotelLookup->find('count', array('conditions' => array('OR' => $conArray,'province_id' => '0')));
+         $hotel_pending_cnt = $this->TravelHotelLookup->find('count', array('conditions' => array('OR' => $conArray,'province_id !=' => '0')));
+         $hotel_submitted_cnt = $this->TravelHotelLookup->find('count', array('conditions' => array('OR' => $conArray,'province_id !=' => '0',
+             'suburb_id !=' => '0','area_id !=' => '0','chain_id !=' => '0','brand_id !=' => '0','status' => '1')));
+         $hotel_approved_cnt = $this->TravelHotelLookup->find('count', array('conditions' => array('OR' => $conArray,'province_id !=' => '0',
+             'suburb_id !=' => '0','area_id !=' => '0','chain_id !=' => '0','brand_id !=' => '0','status' => '2')));
+         $hotel_total_cnt = $this->TravelHotelLookup->find('count', array('conditions' => array('OR' => $conArray)));
+         //$log = $this->TravelHotelLookup->getDataSource()->getLog(false, false);       
+            //debug($log); 
         }
         
         $persons = $this->ProvincePermission->find('all', array('fields' => array('ProvincePermission.user_id', 'User.fname','User.lname'),
@@ -5400,6 +5420,7 @@ class ReportsController extends AppController {
             )            
             ,'group' => 'ProvincePermission.user_id'));
         $persons = Set::combine($persons, '{n}.ProvincePermission.user_id', array('%s %s', '{n}.User.fname', '{n}.User.lname'));
-        $this->set(compact('persons','TravelCities'));
+        $this->set(compact('persons','TravelCities','hotel_unallocated_cnt','hotel_submitted_cnt','hotel_pending_cnt',
+                'hotel_approved_cnt','hotel_total_cnt'));
     }
 }

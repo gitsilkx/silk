@@ -80,6 +80,16 @@ class CustomHelper extends Helper {
         return $user['User']['fname'] . ' ' . $user['User']['mname'] . ' ' . $user['User']['lname'];
     }
     
+    public function getCountryName($country_id) {
+        $DataArray = ClassRegistry::init('TravelCountry')->find('first', array('fields' => array('country_name'), 'conditions' => array('TravelCountry.id' => $country_id)));
+        return $DataArray['TravelCountry']['country_name'];
+    }
+    
+    public function getProvinceName($province_id) {
+        $DataArray = ClassRegistry::init('Province')->find('first', array('fields' => array('name'), 'conditions' => array('Province.id' => $province_id)));
+        return $DataArray['Province']['name'];
+    }
+    
    
     
     
