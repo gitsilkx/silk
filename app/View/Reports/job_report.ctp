@@ -45,7 +45,7 @@
                     <tr>           
                         <th data-toggle="phone"  data-sort-ignore="true" data-group="group1">Sl. No.</th>
                         <th data-toggle="phone"  data-sort-ignore="true" data-group="group1">Person</th>
-                        <th data-toggle="phone"  data-sort-ignore="true" data-group="group1">Country/th>
+                        <th data-toggle="phone"  data-sort-ignore="true" data-group="group1">Country</th>
                         <th data-toggle="phone"  data-sort-ignore="true" data-group="group1">Province</th>
                         <th data-hide="phone"  data-sort-ignore="true" data-group="group1">City</th>                
                                              
@@ -69,7 +69,9 @@
                                 <td><?php echo $TravelCity['TravelCity']['city_name']; ?></td>                               
 
                             </tr>
-                        <?php endforeach; 
+                        <?php 
+                        $i++;
+                        endforeach; 
                     else:
                         echo '<tr><td colspan="5" class="norecords">No Records Found</td></tr>';
                     endif;
