@@ -216,7 +216,7 @@ $this->Html->addCrumb('My Supplier Hotels', 'javascript:void(0);', array('class'
                                     <?php
                                     if($this->Session->read('role_id') <> '64' || $this->Session->read('role_id') <> '61') {
                                     if($SupplierHotel['SupplierHotel']['status'] == '1' || $SupplierHotel['SupplierHotel']['status'] == '5')
-                                        echo $this->Html->link('<span class="icon-list"></span>', array('controller' => 'admin', 'action' => 'hotel_mapping/' . $id), array('class' => 'act-ico','target' => '_blank', 'escape' => false));
+                                        echo $this->Html->link('<span class="icon-list"></span>', array('controller' => 'admin', 'action' => 'hotel_mapping/' . $id.'/'.$country_id.'/'.$city_id), array('class' => 'act-ico','target' => '_blank', 'escape' => false));
                                     }
                                     ?>
                                 </td>

@@ -1095,7 +1095,7 @@ class AdminController extends AppController {
         }
     }
 
-    public function hotel_mapping($id = null) {
+    public function hotel_mapping($id = null,$country_id = null,$city_id = null) {
 
         $location_URL = 'http://dev.wtbnetworks.com/TravelXmlManagerv001/ProEngine.Asmx';
         $action_URL = 'http://www.travel.domain/ProcessXML';
@@ -1181,7 +1181,7 @@ class AdminController extends AppController {
                 }
             }
             //pr($condition);
-            array_push($search_condition, array('OR' => $condition, 'TravelHotelLookup.country_name like' => $country_name));
+            array_push($search_condition, array('OR' => $condition, 'TravelHotelLookup.country_id' => $country_id, 'TravelHotelLookup.city_id' => $city_id));
             // pr($search_condition);
             // die;
             /*
