@@ -27,7 +27,7 @@
                     </div>
                     <div class="col-sm-3 col-xs-6">
                         <label for="un_member">Supplier:</label>
-                        <?php echo $this->Form->input('supplier_id', array('options' => array(), 'empty' => '--Select--')); ?>
+                        <?php echo $this->Form->input('supplier_id', array('options' => $TravelSuppliers, 'empty' => '--Select--')); ?>
                     </div>              
                     <div class="col-sm-3 col-xs-6">
                         <label>&nbsp;</label>
@@ -109,10 +109,10 @@
                                 <td><?php echo $hotel_total_cnt; ?></td>                               
                                 
                                 <td><?php echo $mapping_pending_cnt; ?></td>
-                                <td><?php echo $hotel_pending_cnt; ?></td>
-                                <td><?php echo $hotel_submitted_cnt; ?></td>
-                                <td><?php echo $hotel_approved_cnt; ?></td>
-                                <td><?php echo $hotel_total_cnt; ?></td>
+                                <td><?php echo $mapping_pending_cnt; ?></td>
+                                <td><?php echo $mapping_approved_cnt; ?></td>
+                                <td><?php //echo $hotel_approved_cnt; ?></td>
+                                <td><?php //echo $hotel_total_cnt; ?></td>
                             </tr>
                         
                    

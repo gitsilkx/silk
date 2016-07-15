@@ -5373,10 +5373,13 @@ class ReportsController extends AppController {
         $hotel_total_cnt = 0;
         $mapping_pending_cnt = 0;
         $mapping_approved_cnt = 0;
+        $mapping_submitted_cnt = 0;
         
         if ($this->request->is('post') || $this->request->is('put')) {
             
            $user_id = $this->data['Report']['user_id'];
+           $supplier_id = $this->data['Report']['supplier_id'];
+           
            $ProvincePermissions = $this->ProvincePermission->find('all',array('conditions' => array('user_id' => $user_id)));
           // pr($ProvincePermissions);
            foreach($ProvincePermissions as $ProvincePermission){
@@ -5439,7 +5442,22 @@ class ReportsController extends AppController {
                 'conditions' => array
                     (
                     'TravelHotelRoomSupplier.hotel_id' => $hotelIdArray,
-                    'TravelHotelRoomSupplier.hotel_supplier_status' => '1'
+                    'TravelHotelRoomSupplier.supplier_id' => $supplier_id
+                ),
+               
+                    )
+            );
+         
+         $mapping_submitted_cnt = $this->TravelHotelRoomSupplier->find
+                    (
+                    'count', array
+                (
+                'fields' => array('TravelHotelRoomSupplier.hotel_id'),
+                'conditions' => array
+                    (
+                    'TravelHotelRoomSupplier.hotel_id' => $hotelIdArray,
+                    'TravelHotelRoomSupplier.hotel_supplier_status' => '1',
+                    'TravelHotelRoomSupplier.supplier_id' => $supplier_id
                 ),
                
                     )
@@ -5453,7 +5471,8 @@ class ReportsController extends AppController {
                 'conditions' => array
                     (
                     'TravelHotelRoomSupplier.hotel_id' => $hotelIdArray,
-                    'TravelHotelRoomSupplier.hotel_supplier_status' => '2'
+                    'TravelHotelRoomSupplier.hotel_supplier_status' => '2',
+                    'TravelHotelRoomSupplier.supplier_id' => $supplier_id
                 ),
                
                     )
@@ -5477,7 +5496,10 @@ class ReportsController extends AppController {
             )            
             ,'group' => 'ProvincePermission.user_id'));
         $persons = Set::combine($persons, '{n}.ProvincePermission.user_id', array('%s %s', '{n}.User.fname', '{n}.User.lname'));
+        $TravelSuppliers = $this->TravelSupplier->find('list', array('fields' => 'id,supplier_code', 'order' => 'supplier_code ASC'));
+        
+        
         $this->set(compact('persons','TravelCities','hotel_unallocated_cnt','hotel_submitted_cnt','hotel_pending_cnt',
-                'hotel_approved_cnt','hotel_total_cnt','mapping_pending_cnt','mapping_approved_cnt'));
+                'hotel_approved_cnt','hotel_total_cnt','mapping_pending_cnt','mapping_approved_cnt','TravelSuppliers','mapping_submitted_cnt'));
     }
 }
