@@ -5476,7 +5476,7 @@ class ReportsController extends AppController {
                 'conditions' => array
                     (
                     'TravelHotelRoomSupplier.hotel_id' => $hotelIdArray,
-                    'TravelHotelRoomSupplier.hotel_supplier_status' => '2',
+                    'TravelHotelRoomSupplier.hotel_supplier_status' => array('2','8'),
                     //'TravelHotelRoomSupplier.supplier_id' => $supplier_id
                 ),
                
