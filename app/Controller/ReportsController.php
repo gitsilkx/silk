@@ -5372,6 +5372,7 @@ class ReportsController extends AppController {
         $hotel_approved_cnt = 0;
         $hotel_total_cnt = 0;
         $mapping_pending_cnt = 0;
+        $mapping_approved_cnt = 0;
         
         if ($this->request->is('post') || $this->request->is('put')) {
             
@@ -5400,7 +5401,7 @@ class ReportsController extends AppController {
           
            $hotelIdArray = $this->TravelHotelLookup->find('list', array('fields' => 'id,id','conditions' => array('OR' => $conArray,'province_id !=' => '0',
              'TravelHotelLookup.suburb_id !=' => '0','TravelHotelLookup.area_id !=' => '0','TravelHotelLookup.chain_id !=' => '0','TravelHotelLookup.brand_id !=' => '0','TravelHotelLookup.status' => '2')));
-           pr($hotelIdArray);
+          // pr($hotelIdArray);
          $hotel_unallocated_cnt = $this->TravelHotelLookup->find('count', array('conditions' => array('OR' => $conArray,'TravelHotelLookup.province_id' => '0')));
          $hotel_pending_cnt = $this->TravelHotelLookup->find('count', array('conditions' => array('OR' => $conArray,'TravelHotelLookup.province_id !=' => '0','chain_id' => '0','brand_id' => '0','suburb_id' => '0')));
          $hotel_submitted_cnt = $this->TravelHotelLookup->find('count', array('conditions' => array('OR' => $conArray,'province_id !=' => '0',
@@ -5444,11 +5445,25 @@ class ReportsController extends AppController {
                     )
             );
          
+         $mapping_approved_cnt = $this->TravelHotelRoomSupplier->find
+                    (
+                    'count', array
+                (
+                'fields' => array('TravelHotelRoomSupplier.hotel_id'),
+                'conditions' => array
+                    (
+                    'TravelHotelRoomSupplier.hotel_id' => $hotelIdArray,
+                    'TravelHotelRoomSupplier.hotel_supplier_status' => '2'
+                ),
+               
+                    )
+            );
          
-$log = $this->TravelHotelRoomSupplier->getDataSource()->getLog(false, false);   
          
-          debug($log); 
-          die;
+//$log = $this->TravelHotelRoomSupplier->getDataSource()->getLog(false, false);   
+         
+          //debug($log); 
+          //die;
         }
         
         $persons = $this->ProvincePermission->find('all', array('fields' => array('ProvincePermission.user_id', 'User.fname','User.lname'),
@@ -5463,6 +5478,6 @@ $log = $this->TravelHotelRoomSupplier->getDataSource()->getLog(false, false);
             ,'group' => 'ProvincePermission.user_id'));
         $persons = Set::combine($persons, '{n}.ProvincePermission.user_id', array('%s %s', '{n}.User.fname', '{n}.User.lname'));
         $this->set(compact('persons','TravelCities','hotel_unallocated_cnt','hotel_submitted_cnt','hotel_pending_cnt',
-                'hotel_approved_cnt','hotel_total_cnt','mapping_pending_cnt'));
+                'hotel_approved_cnt','hotel_total_cnt','mapping_pending_cnt','mapping_approved_cnt'));
     }
 }
