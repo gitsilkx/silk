@@ -78,11 +78,11 @@
                 </tbody>
             </table>
             
-            <table id="resp_table" class="table toggle-square" data-filter="#table_search" data-page-size="1000" style="width: 50%;float: left;">
+            <table id="resp_table" class="table toggle-square" data-filter="#table_search" data-page-size="50">
                 <thead>
                      <tr class="footable-group-row">
-                        <th data-group="group1" colspan="7" class="nodis">Edit</th>                     
-                       
+                        <th data-group="group1" colspan="5" class="nodis">Edit</th>                     
+                        <th data-group="group2" colspan="5" class="nodis">Mapping</th>
                     </tr>
                     <tr>           
                         <th data-toggle="phone"  data-sort-ignore="true" data-group="group1">Unallocated</th>
@@ -90,28 +90,34 @@
                         <th data-toggle="phone"  data-sort-ignore="true" data-group="group1">Submitted</th>
                         <th data-toggle="phone"  data-sort-ignore="true" data-group="group1">Approved</th>
                         <th data-hide="phone"  data-sort-ignore="true" data-group="group1">Total</th>                
-                                             
+                        
+                        <th data-toggle="phone"  data-sort-ignore="true" data-group="group2">Pending</th>
+                        <th data-toggle="phone"  data-sort-ignore="true" data-group="group2">Submitted</th>
+                        <th data-toggle="phone"  data-sort-ignore="true" data-group="group2">Approved</th>
+                        <th data-hide="phone"  data-sort-ignore="true" data-group="group2">Total</th>                
+                        <th data-hide="phone"  data-sort-ignore="true" data-group="group2">Supplier Total</th> 
                     </tr>
                 </thead>
                 <tbody>
-                    <?php
                     
-                   
-                
-                           
-                            ?>
                             <tr>                              
                                 <td><?php echo $hotel_unallocated_cnt; ?></td>
                                 <td><?php echo $hotel_pending_cnt; ?></td>
                                 <td><?php echo $hotel_submitted_cnt; ?></td>
                                 <td><?php echo $hotel_approved_cnt; ?></td>
                                 <td><?php echo $hotel_total_cnt; ?></td>                               
-
+                                
+                                <td><?php echo $hotel_unallocated_cnt; ?></td>
+                                <td><?php echo $hotel_pending_cnt; ?></td>
+                                <td><?php echo $hotel_submitted_cnt; ?></td>
+                                <td><?php echo $hotel_approved_cnt; ?></td>
+                                <td><?php echo $hotel_total_cnt; ?></td>
                             </tr>
                         
                    
                 </tbody>
             </table>
+            <!--
             <table id="resp_table" class="table toggle-square" data-filter="#table_search" data-page-size="1000" style="width:50%;float: left;">
                 <thead>
                      <tr class="footable-group-row">
@@ -130,17 +136,17 @@
                 <tbody>
                     
                             <tr>                              
-                                <td><?php echo $hotel_unallocated_cnt; ?></td>
-                                <td><?php echo $hotel_pending_cnt; ?></td>
-                                <td><?php echo $hotel_submitted_cnt; ?></td>
-                                <td><?php echo $hotel_approved_cnt; ?></td>
-                                <td><?php echo $hotel_total_cnt; ?></td>                               
+                                <td><?php //echo $hotel_unallocated_cnt; ?></td>
+                                <td><?php //echo $hotel_pending_cnt; ?></td>
+                                <td><?php //echo $hotel_submitted_cnt; ?></td>
+                                <td><?php //echo $hotel_approved_cnt; ?></td>
+                                <td><?php //echo $hotel_total_cnt; ?></td>                               
 
                             </tr>
                         
                 </tbody>
             </table>
-
+                    -->
         </div>
     </div>
 </div>
