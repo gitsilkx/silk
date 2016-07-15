@@ -1163,53 +1163,23 @@ class AdminController extends AppController {
             for ($indexOfFirstLetter = 0; $indexOfFirstLetter <= strlen($hotel_name); $indexOfFirstLetter++) {
                 for ($indexOfLastLetter = $indexOfFirstLetter + 1; $indexOfLastLetter <= strlen($hotel_name); $indexOfLastLetter++) {
                     $new_arr[] = substr($hotel_name, $indexOfFirstLetter, 4);
-                    //pr($new_arr);
-                    //array_push($search_condition, ARRAY('OR'));
+                  
                     if (strlen($new_arr[$indexOfFirstLetter]) == '4') {
                         array_push($condition, array("TravelHotelLookup.hotel_name LIKE '%$new_arr[$indexOfFirstLetter]%'"));
                     }
-                    //$condition[] = array("TravelHotelLookup.hotel_name LIKE '%$new_arr[$indexOfFirstLetter]%'");
-                    //array_push($search_condition,  array("TravelCity.city_name LIKE '%$new_arr[$indexOfFirstLetter]%'"));
-                    /*
-                      $condition .= "(TravelCity.city_name LIKE '%" . $new_arr[$indexOfFirstLetter] . "%')";
-                      if ($indexOfFirstLetter < strlen($city_name) - 1)
-                      $condition .= 'OR';
-                      $search_condition[] = $condition;
-                     * 
-                     */
+                  
                     $indexOfFirstLetter++;
                 }
             }
-            //pr($condition);
+           
             array_push($search_condition, array('OR' => $condition, 'TravelHotelLookup.country_id' => $country_id, 'TravelHotelLookup.city_id' => $city_id));
-            // pr($search_condition);
-            // die;
-            /*
-              $TravelCities = $this->TravelCity->find
-              (
-              'all', array
-              (
-
-              'conditions' => array
-              (
-              $condition
-              //'TravelCity.city_name like' => '%'.$city_name.'%'
-              ),
-              'order' => 'TravelCity.id ASC',
-              )
-              );
-             * 
-             */
+           
             $this->paginate['order'] = array('TravelHotelLookup.hotel_name' => 'asc');
             $this->set('TravelHotelLookups', $this->paginate("TravelHotelLookup", $search_condition));
-            // $this->set(compact('TravelCities'));
+           
         }
         $this->set(compact('address'));
 
-        // pr($condition);
-        //$log = $this->TravelHotelLookup->getDataSource()->getLog(false, false);       
-        //debug($log);
-        //die;
 
         $this->request->data = $SupplierHotels;
     }
