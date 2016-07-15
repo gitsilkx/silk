@@ -5391,21 +5391,57 @@ class ReportsController extends AppController {
               
                array_push($TravelCities[$i], array('province_id' => $val['province_id'],'country_id' => $val['country_id'])); 
               
-                $conArray[] = array('city_id' => $TravelCities[$i]['TravelCity']['id'],'country_id' => $val['country_id']);
+                $conArray[] = array('TravelHotelLookup.city_id' => $TravelCities[$i]['TravelCity']['id'],'TravelHotelLookup.country_id' => $val['country_id']);
                 ///$andArray = array('province_id' => $val['province_id'],'country_id' => $val['country_id']);
                 $i++;
               
            }
            
            
-         $hotel_unallocated_cnt = $this->TravelHotelLookup->find('count', array('conditions' => array('OR' => $conArray,'province_id' => '0')));
-         $hotel_pending_cnt = $this->TravelHotelLookup->find('count', array('conditions' => array('OR' => $conArray,'province_id !=' => '0','chain_id' => '0','brand_id' => '0','suburb_id' => '0')));
+         $hotel_unallocated_cnt = $this->TravelHotelLookup->find('count', array('conditions' => array('OR' => $conArray,'TravelHotelLookup.province_id' => '0')));
+         $hotel_pending_cnt = $this->TravelHotelLookup->find('count', array('conditions' => array('OR' => $conArray,'TravelHotelLookup.province_id !=' => '0','chain_id' => '0','brand_id' => '0','suburb_id' => '0')));
          $hotel_submitted_cnt = $this->TravelHotelLookup->find('count', array('conditions' => array('OR' => $conArray,'province_id !=' => '0',
-             'suburb_id !=' => '0','area_id !=' => '0','chain_id !=' => '0','brand_id !=' => '0','status' => '4')));
+             'TravelHotelLookup.suburb_id !=' => '0','TravelHotelLookup.area_id !=' => '0','TravelHotelLookup.chain_id !=' => '0','TravelHotelLookup.brand_id !=' => '0','TravelHotelLookup.status' => '4')));
          $hotel_approved_cnt = $this->TravelHotelLookup->find('count', array('conditions' => array('OR' => $conArray,'province_id !=' => '0',
-             'suburb_id !=' => '0','area_id !=' => '0','chain_id !=' => '0','brand_id !=' => '0','status' => '2')));
+             'TravelHotelLookup.suburb_id !=' => '0','TravelHotelLookup.area_id !=' => '0','TravelHotelLookup.chain_id !=' => '0','TravelHotelLookup.brand_id !=' => '0','TravelHotelLookup.status' => '2')));
          $hotel_total_cnt = $this->TravelHotelLookup->find('count', array('conditions' => array('OR' => $conArray)));
-         //$log = $this->TravelHotelLookup->getDataSource()->getLog(false, false);   
+        
+         
+         $mapping_pending_cnt = $this->TravelHotelRoomSupplier->find('count', array(
+                'fields' => array(
+                    'TravelHotelRoomSupplier.hotel_id'
+                    ),
+                'joins' => array(
+                    array(
+                        'table' => 'travel_hotel_lookups',
+                        'alias' => 'TravelHotelLookup',
+                        'type'  => 'INNER',
+                        'foreignKey'    => false,
+                        'conditions'    => array('OR' => $conArray,'TravelHotelLookup.id = TravelHotelRoomSupplier.hotel_id'),
+                        ),
+                ),
+             
+            )
+        );
+         
+         /*
+         $mapping_pending_cnt = $this->TravelHotelRoomSupplier->find
+                    (
+                    'count', array
+                (
+                'fields' => array('TravelHotelRoomSupplier.hotel_id'),
+                'conditions' => array
+                    (
+                    'TravelHotelRoomSupplier.hotel_id NOT IN (SELECT id FROM travel_hotel_lookups WHERE supplier_code = "' . $ConValue . '")',
+                    'TravelCountry.country_status' => '1','TravelCountry.active' => 'TRUE','TravelCountry.wtb_status' => '1'
+                ),
+                'order' => 'TravelCountry.country_name ASC'
+                    )
+            );
+          * 
+          */
+         
+//$log = $this->TravelHotelLookup->getDataSource()->getLog(false, false);   
          
           //debug($log); 
         }
