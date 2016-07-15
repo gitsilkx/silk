@@ -2093,7 +2093,10 @@ class TravelActionItemsController extends AppController {
             $type_id = $this->data['TravelActionItem']['type_id'];
 
             if ($type_id == '2') { // Approval
-                $TravelHotelLookups['TravelHotelLookup']['status'] = '2'; //  for active for Approval of lookup_agent_statuses
+                if($user_id == '169')
+                    $TravelHotelLookups['TravelHotelLookup']['status'] = '8'; 
+                else
+                    $TravelHotelLookups['TravelHotelLookup']['status'] = '2'; //  for active for Approval of lookup_agent_statuses
                 $TravelHotelLookups['TravelHotelLookup']['active'] = "'TRUE'";
                 $TravelHotelLookups['TravelHotelLookup']['approved_by'] = "'" . $user_id . "'";
                 $TravelHotelLookups['TravelHotelLookup']['approved_date'] = "'" . date('Y-m-d h:i:s') . "'";
