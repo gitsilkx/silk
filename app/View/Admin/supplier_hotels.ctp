@@ -69,7 +69,10 @@ echo $this->element('FetchAreas/top_menu');
                                 <td class="sub-tablebody"><?php echo $SupplierHotel['SupplierHotel']['city_code']; ?></td>
                                 
                                 <td class="sub-tablebody"><?php echo $SupplierHotel['TravelSupplierStatus']['value']; ?></td>
-                                <td class="tablebody"><?php echo count($SupplierHotel['TravelHotelRoomSupplier']);?></td>
+                                <td class="tablebody"><?php 
+                                
+                                if(count($SupplierHotel['TravelHotelRoomSupplier']) > 0) echo $this->Html->link(count($SupplierHotel['TravelHotelRoomSupplier']), array('controller' => 'travel_hotel_lookups', 'action' => 'view_mapping/' . $id), array('class' => 'act-ico open-popup-link add-btn', 'escape' => false)); else echo '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0';
+                                ?></td>
 
                                 <td valign="middle" align="center">
 
