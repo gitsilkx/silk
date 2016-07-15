@@ -111,7 +111,7 @@
                                 <td><?php echo $mapping_pending_cnt; ?></td>
                                 <td><?php echo $mapping_submitted_cnt; ?></td>
                                 <td><?php echo $mapping_approved_cnt; ?></td>
-                                <td><?php //echo $hotel_approved_cnt; ?></td>
+                                <td><?php echo $hotel_approved_cnt; ?></td>
                                 <td><?php //echo $hotel_total_cnt; ?></td>
                             </tr>
                         
