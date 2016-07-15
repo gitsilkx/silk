@@ -5399,7 +5399,7 @@ class ReportsController extends AppController {
            
            
          $hotel_unallocated_cnt = $this->TravelHotelLookup->find('count', array('conditions' => array('OR' => $conArray,'province_id' => '0')));
-         $hotel_pending_cnt = $this->TravelHotelLookup->find('count', array('conditions' => array('OR' => $conArray,'province_id !=' => '0','chain_id' => '0','brand_id' => '0','suburb_id' => '0')));
+         $hotel_pending_cnt = $this->TravelHotelLookup->find('count', array('conditions' => array('OR' => $conArray + array('chain_id' => '0','brand_id' => '0','suburb_id' => '0'),'province_id !=' => '0')));
          $hotel_submitted_cnt = $this->TravelHotelLookup->find('count', array('conditions' => array('OR' => $conArray,'province_id !=' => '0',
              'suburb_id !=' => '0','area_id !=' => '0','chain_id !=' => '0','brand_id !=' => '0','status' => '4')));
          $hotel_approved_cnt = $this->TravelHotelLookup->find('count', array('conditions' => array('OR' => $conArray,'province_id !=' => '0',
