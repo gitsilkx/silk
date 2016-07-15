@@ -5371,6 +5371,7 @@ class ReportsController extends AppController {
         $hotel_pending_cnt = 0;
         $hotel_approved_cnt = 0;
         $hotel_total_cnt = 0;
+        $mapping_pending_cnt = 0;
         
         if ($this->request->is('post') || $this->request->is('put')) {
             
@@ -5458,6 +5459,6 @@ class ReportsController extends AppController {
             ,'group' => 'ProvincePermission.user_id'));
         $persons = Set::combine($persons, '{n}.ProvincePermission.user_id', array('%s %s', '{n}.User.fname', '{n}.User.lname'));
         $this->set(compact('persons','TravelCities','hotel_unallocated_cnt','hotel_submitted_cnt','hotel_pending_cnt',
-                'hotel_approved_cnt','hotel_total_cnt'));
+                'hotel_approved_cnt','hotel_total_cnt','mapping_pending_cnt'));
     }
 }

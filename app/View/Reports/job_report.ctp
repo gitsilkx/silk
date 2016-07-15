@@ -108,7 +108,7 @@
                                 <td><?php echo $hotel_approved_cnt; ?></td>
                                 <td><?php echo $hotel_total_cnt; ?></td>                               
                                 
-                                <td><?php echo $hotel_unallocated_cnt; ?></td>
+                                <td><?php echo $mapping_pending_cnt; ?></td>
                                 <td><?php echo $hotel_pending_cnt; ?></td>
                                 <td><?php echo $hotel_submitted_cnt; ?></td>
                                 <td><?php echo $hotel_approved_cnt; ?></td>
