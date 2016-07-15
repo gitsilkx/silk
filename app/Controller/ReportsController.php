@@ -5398,7 +5398,8 @@ class ReportsController extends AppController {
               
            }
           
-           $hotelIdArray = $this->TravelHotelLookup->find('list', array('fields' => 'id,id','conditions' => array('OR' => $conArray)));
+           $hotelIdArray = $this->TravelHotelLookup->find('list', array('fields' => 'id,id','conditions' => array('OR' => $conArray,'province_id !=' => '0',
+             'TravelHotelLookup.suburb_id !=' => '0','TravelHotelLookup.area_id !=' => '0','TravelHotelLookup.chain_id !=' => '0','TravelHotelLookup.brand_id !=' => '0','TravelHotelLookup.status' => '2')));
            pr($hotelIdArray);
          $hotel_unallocated_cnt = $this->TravelHotelLookup->find('count', array('conditions' => array('OR' => $conArray,'TravelHotelLookup.province_id' => '0')));
          $hotel_pending_cnt = $this->TravelHotelLookup->find('count', array('conditions' => array('OR' => $conArray,'TravelHotelLookup.province_id !=' => '0','chain_id' => '0','brand_id' => '0','suburb_id' => '0')));
@@ -5437,7 +5438,7 @@ class ReportsController extends AppController {
                 'conditions' => array
                     (
                     'TravelHotelRoomSupplier.hotel_id' => $hotelIdArray,
-                    'TravelHotelRoomSupplier.hotel_supplier_status' => '2'
+                    'TravelHotelRoomSupplier.hotel_supplier_status' => '1'
                 ),
                
                     )
