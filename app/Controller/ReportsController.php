@@ -5444,7 +5444,7 @@ class ReportsController extends AppController {
                     (
                     'TravelHotelRoomSupplier.hotel_id' => $hotelIdArray,
                     'TravelHotelRoomSupplier.hotel_supplier_status NOT' => array('1','2'),
-                    'TravelHotelRoomSupplier.supplier_id' => $supplier_id
+                    //'TravelHotelRoomSupplier.supplier_id' => $supplier_id
                 ),
                
                     )
@@ -5459,7 +5459,7 @@ class ReportsController extends AppController {
                     (
                     'TravelHotelRoomSupplier.hotel_id' => $hotelIdArray,
                     'TravelHotelRoomSupplier.hotel_supplier_status' => '1',
-                    'TravelHotelRoomSupplier.supplier_id' => $supplier_id
+                    //'TravelHotelRoomSupplier.supplier_id' => $supplier_id
                 ),
                
                     )
@@ -5474,7 +5474,7 @@ class ReportsController extends AppController {
                     (
                     'TravelHotelRoomSupplier.hotel_id' => $hotelIdArray,
                     'TravelHotelRoomSupplier.hotel_supplier_status' => '2',
-                    'TravelHotelRoomSupplier.supplier_id' => $supplier_id
+                    //'TravelHotelRoomSupplier.supplier_id' => $supplier_id
                 ),
                
                     )
