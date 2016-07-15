@@ -5374,6 +5374,7 @@ class ReportsController extends AppController {
         $mapping_pending_cnt = 0;
         $mapping_approved_cnt = 0;
         $mapping_submitted_cnt = 0;
+        $mapping_supp_tot_cnt = 0;
         
         if ($this->request->is('post') || $this->request->is('put')) {
             
@@ -5479,6 +5480,20 @@ class ReportsController extends AppController {
                     )
             );
          
+         $mapping_supp_tot_cnt = $this->TravelHotelRoomSupplier->find
+                    (
+                    'count', array
+                (
+                'fields' => array('TravelHotelRoomSupplier.hotel_id'),
+                'conditions' => array
+                    (
+                    'TravelHotelRoomSupplier.hotel_id' => $hotelIdArray,                    
+                    'TravelHotelRoomSupplier.supplier_id' => $supplier_id
+                ),
+               
+                    )
+            );
+         
          
 //$log = $this->TravelHotelRoomSupplier->getDataSource()->getLog(false, false);   
          
@@ -5501,6 +5516,7 @@ class ReportsController extends AppController {
         
         
         $this->set(compact('persons','TravelCities','hotel_unallocated_cnt','hotel_submitted_cnt','hotel_pending_cnt',
-                'hotel_approved_cnt','hotel_total_cnt','mapping_pending_cnt','mapping_approved_cnt','TravelSuppliers','mapping_submitted_cnt'));
+                'hotel_approved_cnt','hotel_total_cnt','mapping_pending_cnt','mapping_approved_cnt','TravelSuppliers',
+                'mapping_submitted_cnt','mapping_supp_tot_cnt'));
     }
 }
