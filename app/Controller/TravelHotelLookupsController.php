@@ -2187,6 +2187,13 @@ class TravelHotelLookupsController extends AppController {
         $this->set(compact('TravelHotelRoomSuppliers'));
     }
     
+    public function view_supplier_mapping($hotel_supplier_id = null){
+        $this->layout = '';
+        $TravelHotelRoomSuppliers = $this->TravelHotelRoomSupplier->find('all',array( 'conditions' => array('TravelHotelRoomSupplier.hotel_supplier_id' => $hotel_supplier_id)));
+     
+        $this->set(compact('TravelHotelRoomSuppliers'));
+    }
+    
     public function view_city_mapping($supplier_id = null,$city_id = null){
         $this->layout = '';
         $TravelCitySuppliers = $this->TravelCitySupplier->find('all',array( 'conditions' => array('TravelCitySupplier.supplier_id' => $supplier_id,'TravelCitySupplier.city_id' => $city_id)));

@@ -364,7 +364,7 @@ class TravelActionItemsController extends AppController {
 
                 //pr($condition);
                 //die;
-                array_push($search_condition, array('OR' => $condition, 'TravelHotelLookup.country_name like' => $country_name, 'TravelHotelLookup.city_name like' => $city_name, 'TravelHotelLookup.id != ' . $TravelHotelRoomSuppliers['TravelHotelRoomSupplier']['hotel_id']));
+                array_push($search_condition, array('OR' => $condition, 'TravelHotelLookup.country_id' => $TravelHotelLookups['TravelHotelLookup']['country_id'], 'TravelHotelLookup.city_id' => $TravelHotelLookups['TravelHotelLookup']['city_id'], 'TravelHotelLookup.id != ' . $TravelHotelRoomSuppliers['TravelHotelRoomSupplier']['hotel_id']));
                 $DuplicateHotels = $this->TravelHotelLookup->find('all', array('conditions' => $search_condition));
                 //$this-TravelHotelLookup->find('all',array('conditions' => $search_condition));
                 //$this->paginate['order'] = array('TravelHotelLookup.hotel_name' => 'asc');
