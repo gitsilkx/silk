@@ -5375,8 +5375,11 @@ class ReportsController extends AppController {
         $mapping_approved_cnt = 0;
         $mapping_submitted_cnt = 0;
         $mapping_supp_tot_cnt = 0;
+        $display = 'FALSE';
         
         if ($this->request->is('post') || $this->request->is('put')) {
+            
+            $display = 'TRUE';
             
            $user_id = $this->data['Report']['user_id'];
            $supplier_id = $this->data['Report']['supplier_id'];
@@ -5517,6 +5520,6 @@ class ReportsController extends AppController {
         
         $this->set(compact('persons','TravelCities','hotel_unallocated_cnt','hotel_submitted_cnt','hotel_pending_cnt',
                 'hotel_approved_cnt','hotel_total_cnt','mapping_pending_cnt','mapping_approved_cnt','TravelSuppliers',
-                'mapping_submitted_cnt','mapping_supp_tot_cnt'));
+                'mapping_submitted_cnt','mapping_supp_tot_cnt','display'));
     }
 }

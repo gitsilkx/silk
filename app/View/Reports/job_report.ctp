@@ -1,6 +1,6 @@
 <?php $this->Html->addCrumb('My Summary', 'javascript:void(0);', array('class' => 'breadcrumblast')); 
 
-                echo $this->Form->create('Report', array('controller' => 'reports', 'action' => 'job_report','class' => 'quick_search', 'id' => 'SearchForm', 'novalidate' => true, 'inputDefaults' => array(
+                echo $this->Form->create('Report', array('controller' => 'reports', 'action' => 'job_report','class' => 'quick_search', 'id' => 'parsley_reg', 'novalidate' => true, 'inputDefaults' => array(
                         'label' => false,
                         'div' => false,
                         'class' => 'form-control',
@@ -30,15 +30,16 @@
                         <?php echo $this->Form->input('supplier_id', array('options' => $TravelSuppliers, 'empty' => '--Select--', 'data-required' => 'true')); ?>
                     </div>              
                     <div class="col-sm-3 col-xs-6">
-                       
+                       <label>&nbsp;</label>
                         <?php
-                        echo $this->Form->submit('View Report', array('div' => false,'label' => false,'class' => 'success btn'));
+                        echo $this->Form->submit('View Report', array('div' => false,'label' => false,'class' => 'success btn','style' => 'width: 50%;margin-top: 0px;'));
                         ?>
                     </div>
                 </div>
                 
             </div>
-            
+            <br />
+            <?php if($display = 'TRUE'){?>
             <table id="resp_table" class="table toggle-square" data-filter="#table_search" data-page-size="1000">
                 <thead>
                    
@@ -118,6 +119,8 @@
                    
                 </tbody>
             </table>
+            
+            <?php }?>
             <!--
             <table id="resp_table" class="table toggle-square" data-filter="#table_search" data-page-size="1000" style="width:50%;float: left;">
                 <thead>
