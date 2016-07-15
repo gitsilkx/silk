@@ -19,20 +19,20 @@
                 <div class="row">
                     <div class="col-sm-3 col-xs-6">
                         <label for="un_member">Summary Type:</label>
-                        <?php echo $this->Form->input('summary_type', array('options' => array('1' => 'Operation' , '2' => 'Application'), 'empty' => '--Select--')); ?>
+                        <?php echo $this->Form->input('summary_type', array('options' => array('1' => 'Operation' , '2' => 'Application'), 'empty' => '--Select--', 'data-required' => 'true')); ?>
                     </div>
                     <div class="col-sm-3 col-xs-6">
                         <label for="un_member">Choose Person:</label>
-                        <?php echo $this->Form->input('user_id', array('options' => $persons, 'empty' => '--Select--')); ?>
+                        <?php echo $this->Form->input('user_id', array('options' => $persons, 'empty' => '--Select--', 'data-required' => 'true')); ?>
                     </div>
                     <div class="col-sm-3 col-xs-6">
                         <label for="un_member">Supplier:</label>
-                        <?php echo $this->Form->input('supplier_id', array('options' => $TravelSuppliers, 'empty' => '--Select--')); ?>
+                        <?php echo $this->Form->input('supplier_id', array('options' => $TravelSuppliers, 'empty' => '--Select--', 'data-required' => 'true')); ?>
                     </div>              
                     <div class="col-sm-3 col-xs-6">
-                        <label>&nbsp;</label>
+                       
                         <?php
-                        echo $this->Form->submit('Filter', array('div' => false, 'class' => 'btn btn-default btn-sm"'));
+                        echo $this->Form->submit('View Report', array('div' => false,'label' => false,'class' => 'success btn'));
                         ?>
                     </div>
                 </div>
