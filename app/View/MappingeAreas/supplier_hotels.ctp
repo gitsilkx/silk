@@ -210,7 +210,7 @@ $this->Html->addCrumb('My Supplier Hotels', 'javascript:void(0);', array('class'
                                 
                                 <td class="sub-tablebody"><?php echo $SupplierHotel['TravelSupplierStatus']['value']; ?></td>
                                 <td class="tablebody"><?php 
-                                if(count($SupplierHotel['TravelHotelRoomSupplier']) > 0) echo $this->Html->link(count($SupplierHotel['TravelHotelRoomSupplier']), array('controller' => 'travel_hotel_lookups', 'action' => 'view_mapping/' . $id), array('class' => 'act-ico open-popup-link add-btn', 'escape' => false)); else echo '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0';
+                                if(count($SupplierHotel['TravelHotelRoomSupplier']) > 0) echo $this->Html->link(count($SupplierHotel['TravelHotelRoomSupplier']), array('controller' => 'travel_hotel_lookups', 'action' => 'view_supplier_mapping/' . $id), array('class' => 'act-ico open-popup-link add-btn', 'escape' => false)); else echo '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0';
                                // echo count($SupplierHotel['TravelHotelRoomSupplier']);?></td>
 
                                 <td valign="middle" align="center">
