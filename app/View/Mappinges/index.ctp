@@ -181,6 +181,8 @@ echo $this->element('Mapping/top_menu');
                                 $status_txt = 'Rejection';
                             elseif ($status == '6')
                                 $status_txt = 'Request For Allocation';
+                            elseif ($status == '7')
+                                $status_txt = 'Approved [R]';
                             else
                                 $status_txt = 'Allocation';
 

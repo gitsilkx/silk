@@ -170,5 +170,41 @@ class CustomHelper extends Helper {
              'TravelHotelLookup.suburb_id !=' => '0','TravelHotelLookup.area_id !=' => '0','TravelHotelLookup.chain_id !=' => '0','TravelHotelLookup.brand_id !=' => '0')));
      
     }
+    
+    public function getMappingSubmitCnt($country_id,$city_id,$supplier_id){
+        
+        return ClassRegistry::init('TravelHotelLookup')->find('count', array('fields' => array('id'),
+            'joins' => array(
+                    array(
+                        'table' => 'travel_hotel_room_suppliers',
+                        'alias' => 'TravelHotelRoomSupplier',
+                        'type'  => 'INNER',
+                        'foreignKey'    => false,
+                        'conditions'    => array('TravelHotelLookup.id = TravelHotelRoomSupplier.hotel_id','TravelHotelRoomSupplier.supplier_id' => $supplier_id,'TravelHotelRoomSupplier.hotel_supplier_status' => '1'),
+                        ),
+                )                   
+            ,'conditions' => array('OR' => array('TravelHotelLookup.status' => array('2','8')),'TravelHotelLookup.country_id' => $country_id,'TravelHotelLookup.city_id' => $city_id,'TravelHotelLookup.province_id !=' => '0',
+             'TravelHotelLookup.suburb_id !=' => '0','TravelHotelLookup.area_id !=' => '0','TravelHotelLookup.chain_id !=' => '0','TravelHotelLookup.brand_id !=' => '0')));
+     
+     
+    }
+    
+    public function getMappingApproveCnt($country_id,$city_id,$supplier_id){
+        
+        return ClassRegistry::init('TravelHotelLookup')->find('count', array('fields' => array('id'),
+            'joins' => array(
+                    array(
+                        'table' => 'travel_hotel_room_suppliers',
+                        'alias' => 'TravelHotelRoomSupplier',
+                        'type'  => 'INNER',
+                        'foreignKey'    => false,
+                        'conditions'    => array('TravelHotelLookup.id = TravelHotelRoomSupplier.hotel_id','TravelHotelRoomSupplier.supplier_id' => $supplier_id,'TravelHotelRoomSupplier.hotel_supplier_status' => array('2','7')),
+                        ),
+                )                   
+            ,'conditions' => array('OR' => array('TravelHotelLookup.status' => array('2','8')),'TravelHotelLookup.country_id' => $country_id,'TravelHotelLookup.city_id' => $city_id,'TravelHotelLookup.province_id !=' => '0',
+             'TravelHotelLookup.suburb_id !=' => '0','TravelHotelLookup.area_id !=' => '0','TravelHotelLookup.chain_id !=' => '0','TravelHotelLookup.brand_id !=' => '0')));
+     
+     
+    }
   
 }

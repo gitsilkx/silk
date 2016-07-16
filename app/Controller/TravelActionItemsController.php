@@ -1152,11 +1152,11 @@ class TravelActionItemsController extends AppController {
                      */
 
                     $this->request->data['TravelActionItem']['hotel_supplier_id'] = $travel_actionitems['TravelActionItem']['hotel_supplier_id'];
-                $agents['TravelHotelRoomSupplier']['hotel_supplier_status'] = '2';  // 2 for approve of travel_action_item_types
+                $agents['TravelHotelRoomSupplier']['hotel_supplier_status'] = '7';  // 2 for approve of travel_action_item_types
                 $agents['TravelHotelRoomSupplier']['active'] = 'TRUE'; // for approve of travel_action_item_types
                 $agents['TravelHotelRoomSupplier']['approved_by'] = "'" . $user_id . "'";
                 $agents['TravelHotelRoomSupplier']['approved_date'] = "'" . date('Y-m-d h:i:s') . "'";
-                $mapping['Mappinge']['status'] = '2';  // 2 for approve of travel_action_item_types
+                $mapping['Mappinge']['status'] = '7';  // 2 for approve of travel_action_item_types
                 if ($TravelHotelRoomSuppliers['TravelHotelRoomSupplier']['hotel_supplier_id'])
                     $this->SupplierHotel->updateAll(array('SupplierHotel.status' => "'7'"), array('SupplierHotel.id' => $TravelHotelRoomSuppliers['TravelHotelRoomSupplier']['hotel_supplier_id']));
                 $this->request->data['TravelRemark']['hotel_supplier_id'] = $travel_actionitems['TravelActionItem']['hotel_supplier_id'];
