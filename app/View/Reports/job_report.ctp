@@ -40,13 +40,13 @@
             </div>
             <br />
             <?php if($display == 'TRUE'){?>
-            <table id="resp_table" class="table toggle-square" data-filter="#table_search" data-page-size="1000">
+            <table border="0" cellpadding="0" cellspacing="0" id="resp_table" class="table toggle-square myclitb" data-filter="#table_search" data-page-size="500">
                 <thead>
                    <tr class="footable-group-row">
                         <th data-group="group3" colspan="5" class="nodis">Information</th>
-                        <th data-group="group1" colspan="5" class="nodis">Edit</th>                     
-                        <th data-group="group2" colspan="5" class="nodis">Mapping</th>
-                        <th data-group="group4" colspan="3" class="nodis">Supplier</th>
+                        <th data-group="group1" colspan="5">Edit</th>                     
+                        <th data-group="group2" colspan="4">Mapping</th>
+                        <th data-group="group4" colspan="3">Supplier</th>
                     </tr>
                     <tr>           
                         <th data-toggle="phone"  data-sort-ignore="true" data-group="group3">Sl. No.</th>
@@ -65,7 +65,7 @@
                         <th data-toggle="phone"  data-sort-ignore="true" data-group="group2">Submitted</th>
                         <th data-toggle="phone"  data-sort-ignore="true" data-group="group2">Approved</th>
                         <th data-hide="phone"  data-sort-ignore="true" data-group="group2">Total</th>                
-                        <th data-hide="phone"  data-sort-ignore="true" data-group="group2">Supplier Total</th> 
+                        
                         
                         <th data-toggle="phone"  data-sort-ignore="true" data-group="group4">Mapp Completed</th>
                         <th data-toggle="phone"  data-sort-ignore="true" data-group="group4">Map Submitted</th>
@@ -92,15 +92,15 @@
                                 
                                 <td><?php echo $this->Custom->getHotelUnallocatedCnt($country_id,$id); ?></td>
                                 <td><?php echo $this->Custom->getHotePendingCnt($country_id,$id); ?></td>
-                                <td><?php echo $hotel_submitted_cnt; ?></td>
-                                <td><?php echo $hotel_approved_cnt; ?></td>
-                                <td><?php echo $hotel_total_cnt; ?></td>                               
+                                <td><?php echo $this->Custom->getHoteSubmittedCnt($country_id,$id);; ?></td>
+                                <td><?php echo $this->Custom->getHoteApprovedCnt($country_id,$id);; ?></td>
+                                <td><?php echo $this->Custom->getHoteTotalCnt($country_id,$id);; ?></td>                               
                                 
                                 <td><?php echo $mapping_pending_cnt; ?></td>
                                 <td><?php echo $mapping_submitted_cnt; ?></td>
                                 <td><?php echo $mapping_approved_cnt; ?></td>
                                 <td><?php echo $hotel_approved_cnt; ?></td>
-                                <td><?php echo $mapping_supp_tot_cnt; ?></td>
+                                
                                 
                                 <td><?php //echo $mapping_approved_cnt; ?></td>
                                 <td><?php //echo $hotel_approved_cnt; ?></td>
