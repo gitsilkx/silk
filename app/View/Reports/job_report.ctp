@@ -91,7 +91,7 @@
                                 <td><?php echo $TravelCity['TravelCity']['city_name']; ?></td> 
                                 
                                 <td><?php echo $this->Custom->getHotelUnallocatedCnt($country_id,$id); ?></td>
-                                <td><?php echo $hotel_pending_cnt; ?></td>
+                                <td><?php echo $this->Custom->getHotePendingCnt($country_id,$id); ?></td>
                                 <td><?php echo $hotel_submitted_cnt; ?></td>
                                 <td><?php echo $hotel_approved_cnt; ?></td>
                                 <td><?php echo $hotel_total_cnt; ?></td>                               

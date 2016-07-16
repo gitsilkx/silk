@@ -133,6 +133,11 @@ class CustomHelper extends Helper {
         return ClassRegistry::init('TravelHotelLookup')->find('count', array('fields' => array('id'),'conditions' => array('TravelHotelLookup.country_id' => $country_id,'TravelHotelLookup.city_id' => $city_id,'TravelHotelLookup.province_id' => '0')));
         //return $DataArray['TravelHotelLookup'];
     }
+    
+    public function getHotePendingCnt($country_id,$city_id){
+        return ClassRegistry::init('TravelHotelLookup')->find('count', array('fields' => array('id'),'conditions' => array('TravelHotelLookup.country_id' => $country_id,'TravelHotelLookup.city_id' => $city_id,'TravelHotelLookup.province_id !=' => '0','chain_id' => '0','brand_id' => '0','suburb_id' => '0')));
+        //return $DataArray['TravelHotelLookup'];
+    }
   
   
 }
