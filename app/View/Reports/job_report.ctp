@@ -42,51 +42,19 @@
             <?php if($display == 'TRUE'){?>
             <table id="resp_table" class="table toggle-square" data-filter="#table_search" data-page-size="1000">
                 <thead>
-                   
-                    <tr>           
-                        <th data-toggle="phone"  data-sort-ignore="true" data-group="group1">Sl. No.</th>
-                        <th data-toggle="phone"  data-sort-ignore="true" data-group="group1">Person</th>
-                        <th data-toggle="phone"  data-sort-ignore="true" data-group="group1">Country</th>
-                        <th data-toggle="phone"  data-sort-ignore="true" data-group="group1">Province</th>
-                        <th data-hide="phone"  data-sort-ignore="true" data-group="group1">City</th>                
-                                             
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php
-                    $i = 1;
-                    //pr($this->data);
-                   // die;
-                    if (isset($TravelCities) && count($TravelCities) > 0):
-                        foreach ($TravelCities as $TravelCity):
-                            $id = $TravelCity['TravelCity']['id'];              
-                           
-                            ?>
-                            <tr>                              
-                                <td><?php echo $i; ?></td>
-                                <td><?php echo $this->Custom->Username($this->data['Report']['user_id']); ?></td>
-                                <td><?php echo $this->Custom->getCountryName($TravelCity[0]['country_id']); ?></td>
-                                <td><?php echo $this->Custom->getProvinceName($TravelCity[0]['province_id']); ?></td>
-                                <td><?php echo $TravelCity['TravelCity']['city_name']; ?></td>                               
-
-                            </tr>
-                        <?php 
-                        $i++;
-                        endforeach; 
-                    else:
-                        echo '<tr><td colspan="5" class="norecords">No Records Found</td></tr>';
-                    endif;
-                    ?>
-                </tbody>
-            </table>
-            
-            <table id="resp_table" class="table toggle-square" data-filter="#table_search" data-page-size="50">
-                <thead>
-                     <tr class="footable-group-row">
+                   <tr class="footable-group-row">
+                        <th data-group="group3" colspan="5" class="nodis">Information</th>
                         <th data-group="group1" colspan="5" class="nodis">Edit</th>                     
                         <th data-group="group2" colspan="5" class="nodis">Mapping</th>
+                        <th data-group="group4" colspan="3" class="nodis">Supplier</th>
                     </tr>
                     <tr>           
+                        <th data-toggle="phone"  data-sort-ignore="true" data-group="group3">Sl. No.</th>
+                        <th data-toggle="phone"  data-sort-ignore="true" data-group="group3">Person</th>
+                        <th data-toggle="phone"  data-sort-ignore="true" data-group="group3">Country</th>
+                        <th data-toggle="phone"  data-sort-ignore="true" data-group="group3">Province</th>
+                        <th data-toggle="phone"  data-sort-ignore="true" data-group="group3">City</th>    
+                        
                         <th data-toggle="phone"  data-sort-ignore="true" data-group="group1">Unallocated</th>
                         <th data-toggle="phone"  data-sort-ignore="true" data-group="group1">Pending</th>
                         <th data-toggle="phone"  data-sort-ignore="true" data-group="group1">Submitted</th>
@@ -98,12 +66,31 @@
                         <th data-toggle="phone"  data-sort-ignore="true" data-group="group2">Approved</th>
                         <th data-hide="phone"  data-sort-ignore="true" data-group="group2">Total</th>                
                         <th data-hide="phone"  data-sort-ignore="true" data-group="group2">Supplier Total</th> 
+                        
+                        <th data-toggle="phone"  data-sort-ignore="true" data-group="group4">Mapp Completed</th>
+                        <th data-toggle="phone"  data-sort-ignore="true" data-group="group4">Map Submitted</th>
+                        <th data-toggle="phone"  data-sort-ignore="true" data-group="group4">Total</th>
+                                             
                     </tr>
                 </thead>
                 <tbody>
-                    
+                    <?php
+                    $i = 1;
+                    //pr($this->data);
+                   // die;
+                    if (isset($TravelCities) && count($TravelCities) > 0):
+                        foreach ($TravelCities as $TravelCity):
+                            $id = $TravelCity['TravelCity']['id'];              
+                             $country_id = $TravelCity[0]['country_id'];
+                            ?>
                             <tr>                              
-                                <td><?php echo $hotel_unallocated_cnt; ?></td>
+                                <td><?php echo $i; ?></td>
+                                <td><?php echo $this->Custom->Username($this->data['Report']['user_id']); ?></td>
+                                <td><?php echo $this->Custom->getCountryName($country_id); ?></td>
+                                <td><?php echo $this->Custom->getProvinceName($TravelCity[0]['province_id']); ?></td>
+                                <td><?php echo $TravelCity['TravelCity']['city_name']; ?></td> 
+                                
+                                <td><?php echo $this->Custom->getHotelUnallocatedCnt($country_id,$id); ?></td>
                                 <td><?php echo $hotel_pending_cnt; ?></td>
                                 <td><?php echo $hotel_submitted_cnt; ?></td>
                                 <td><?php echo $hotel_approved_cnt; ?></td>
@@ -114,11 +101,22 @@
                                 <td><?php echo $mapping_approved_cnt; ?></td>
                                 <td><?php echo $hotel_approved_cnt; ?></td>
                                 <td><?php echo $mapping_supp_tot_cnt; ?></td>
+                                
+                                <td><?php //echo $mapping_approved_cnt; ?></td>
+                                <td><?php //echo $hotel_approved_cnt; ?></td>
+                                <td><?php //echo $mapping_supp_tot_cnt; ?></td>
+
                             </tr>
-                        
-                   
+                        <?php 
+                        $i++;
+                        endforeach; 
+                    else:
+                        echo '<tr><td colspan="5" class="norecords">No Records Found</td></tr>';
+                    endif;
+                    ?>
                 </tbody>
             </table>
+     
             
             <?php }?>
             <!--

@@ -128,6 +128,11 @@ class CustomHelper extends Helper {
         ClassRegistry::init('TravelHotelLookup')->find('all', array('fields' => array('id'),'conditions' => array('TravelHotelLookup.country_id' => $country_id)));
         return $DataArray['TravelHotelLookup'];
     }
+    
+    public function getHotelUnallocatedCnt($country_id,$city_id){
+        return ClassRegistry::init('TravelHotelLookup')->find('count', array('fields' => array('id'),'conditions' => array('TravelHotelLookup.country_id' => $country_id,'TravelHotelLookup.city_id' => $city_id,'TravelHotelLookup.province_id' => '0')));
+        //return $DataArray['TravelHotelLookup'];
+    }
   
   
 }
