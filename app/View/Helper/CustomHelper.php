@@ -166,7 +166,7 @@ class CustomHelper extends Helper {
                         'conditions'    => array('TravelHotelLookup.id = TravelHotelRoomSupplier.hotel_id'),
                         ),
                 )                   
-            ,'conditions' => array('OR' => array('TravelHotelLookup.status' => array('2','8')),'TravelHotelLookup.country_id' => $country_id,'TravelHotelLookup.city_id' => $city_id,'TravelHotelLookup.province_id !=' => '0',
+            ,'conditions' => array('TravelHotelLookup.status' => array('2','8'),'TravelHotelLookup.country_id' => $country_id,'TravelHotelLookup.city_id' => $city_id,'TravelHotelLookup.province_id !=' => '0',
              'TravelHotelLookup.suburb_id !=' => '0','TravelHotelLookup.area_id !=' => '0','TravelHotelLookup.chain_id !=' => '0','TravelHotelRoomSupplier.hotel_supplier_status NOT' => array('1','2','7'),'TravelHotelLookup.brand_id !=' => '0')));
      
     }
