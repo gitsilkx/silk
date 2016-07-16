@@ -46,7 +46,7 @@
                         <th data-group="group3" colspan="5" class="nodis">Information</th>
                         <th data-group="group1" colspan="5">Edit</th>                     
                         <th data-group="group2" colspan="4">Mapping</th>
-                        <th data-group="group4" colspan="3"><?php echo $this->Custom->getSupplierName($this->data['Report']['supplier_id']); ?></th>
+                        <th data-group="group4" colspan="3"><?php echo $this->Custom->getSupplierCode($this->data['Report']['supplier_id']); ?></th>
                     </tr>
                     <tr>           
                         <th data-toggle="phone"  data-sort-ignore="true" data-group="group3">Sl. No.</th>
