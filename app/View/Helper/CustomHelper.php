@@ -163,7 +163,7 @@ class CustomHelper extends Helper {
                         'alias' => 'TravelHotelRoomSupplier',
                         'type'  => 'LEFT',
                         'foreignKey'    => false,
-                        'conditions'    => array('TravelHotelLookup.id = TravelHotelRoomSupplier.hotel_id','TravelHotelRoomSupplier.supplier_id' => $supplier_id,'TravelHotelRoomSupplier.hotel_supplier_status NOT' => array('1','2')),
+                        'conditions'    => array('TravelHotelLookup.id = TravelHotelRoomSupplier.hotel_id','TravelHotelRoomSupplier.supplier_id' => $supplier_id,'TravelHotelRoomSupplier.hotel_supplier_status NOT' => array('1','2','7')),
                         ),
                 )                   
             ,'conditions' => array('OR' => array('TravelHotelLookup.status' => array('2','8')),'TravelHotelLookup.country_id' => $country_id,'TravelHotelLookup.city_id' => $city_id,'TravelHotelLookup.province_id !=' => '0',
