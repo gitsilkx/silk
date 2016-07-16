@@ -146,12 +146,28 @@ class CustomHelper extends Helper {
     
     public function getHoteApprovedCnt($country_id,$city_id){
         return ClassRegistry::init('TravelHotelLookup')->find('count', array('fields' => array('id'),'conditions' => array('OR' => array('TravelHotelLookup.status' => array('2','8')),'TravelHotelLookup.country_id' => $country_id,'TravelHotelLookup.city_id' => $city_id,'province_id !=' => '0',
-             'TravelHotelLookup.suburb_id !=' => '0','TravelHotelLookup.area_id !=' => '0','TravelHotelLookup.chain_id !=' => '0','TravelHotelLookup.brand_id !=' => '0','TravelHotelLookup.status' => '2')));
+             'TravelHotelLookup.suburb_id !=' => '0','TravelHotelLookup.area_id !=' => '0','TravelHotelLookup.chain_id !=' => '0','TravelHotelLookup.brand_id !=' => '0')));
      
     }
     
     public function getHoteTotalCnt($country_id,$city_id){
         return ClassRegistry::init('TravelHotelLookup')->find('count', array('fields' => array('id'),'conditions' => array('TravelHotelLookup.country_id' => $country_id,'TravelHotelLookup.city_id' => $city_id)));
+     
+    }
+    
+    public function getMappingPendingCnt($country_id,$city_id,$supplier_id){
+        return ClassRegistry::init('TravelHotelLookup')->find('count', array('fields' => array('id'),
+            'joins' => array(
+                    array(
+                        'table' => 'travel_hotel_room_suppliers',
+                        'alias' => 'TravelHotelRoomSupplier',
+                        'type'  => 'INNER',
+                        'foreignKey'    => false,
+                        'conditions'    => array('TravelHotelLookup.id = TravelHotelRoomSupplier.hotel_id','TravelHotelRoomSupplier.supplier_id' => $supplier_id,'TravelHotelRoomSupplier.hotel_supplier_status NOT' => array('1','2')),
+                        ),
+                )                   
+            ,'conditions' => array('OR' => array('TravelHotelLookup.status' => array('2','8')),'TravelHotelLookup.country_id' => $country_id,'TravelHotelLookup.city_id' => $city_id,'province_id !=' => '0',
+             'TravelHotelLookup.suburb_id !=' => '0','TravelHotelLookup.area_id !=' => '0','TravelHotelLookup.chain_id !=' => '0','TravelHotelLookup.brand_id !=' => '0')));
      
     }
   
