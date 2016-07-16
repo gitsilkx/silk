@@ -161,7 +161,7 @@ class CustomHelper extends Helper {
                     array(
                         'table' => 'travel_hotel_room_suppliers',
                         'alias' => 'TravelHotelRoomSupplier',
-                        'type'  => 'LEFT',
+                        'type'  => 'RIGHT',
                         'foreignKey'    => false,
                         'conditions'    => array('TravelHotelLookup.id = TravelHotelRoomSupplier.hotel_id'),
                         ),
