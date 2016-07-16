@@ -135,7 +135,7 @@ class CustomHelper extends Helper {
     }
     
     public function getHotePendingCnt($country_id,$city_id){
-        return ClassRegistry::init('TravelHotelLookup')->find('count', array('fields' => array('id'),'conditions' => array('TravelHotelLookup.country_id' => $country_id,'TravelHotelLookup.city_id' => $city_id,'TravelHotelLookup.province_id !=' => '0','chain_id' => '0','brand_id' => '0','suburb_id' => '0')));
+        return ClassRegistry::init('TravelHotelLookup')->find('count', array('fields' => array('id'),'conditions' => array('OR'=> array('chain_id' => '0','brand_id' => '0','suburb_id' => '0'),'TravelHotelLookup.country_id' => $country_id,'TravelHotelLookup.city_id' => $city_id,'TravelHotelLookup.province_id !=' => '0')));
         //return $DataArray['TravelHotelLookup'];
     }
     public function getHoteSubmittedCnt($country_id,$city_id){
@@ -151,7 +151,7 @@ class CustomHelper extends Helper {
     }
     
     public function getHoteTotalCnt($country_id,$city_id){
-        return ClassRegistry::init('TravelHotelLookup')->find('count', array('fields' => array('id'),'conditions' => array('OR' => array('TravelHotelLookup.status' => array('2','8')),'TravelHotelLookup.country_id' => $country_id,'TravelHotelLookup.city_id' => $city_id)));
+        return ClassRegistry::init('TravelHotelLookup')->find('count', array('fields' => array('id'),'conditions' => array('TravelHotelLookup.country_id' => $country_id,'TravelHotelLookup.city_id' => $city_id)));
      
     }
   

@@ -92,9 +92,9 @@
                                 
                                 <td><?php echo $this->Custom->getHotelUnallocatedCnt($country_id,$id); ?></td>
                                 <td><?php echo $this->Custom->getHotePendingCnt($country_id,$id); ?></td>
-                                <td><?php echo $this->Custom->getHoteSubmittedCnt($country_id,$id);; ?></td>
-                                <td><?php echo $this->Custom->getHoteApprovedCnt($country_id,$id);; ?></td>
-                                <td><?php echo $this->Custom->getHoteTotalCnt($country_id,$id);; ?></td>                               
+                                <td><?php echo $this->Custom->getHoteSubmittedCnt($country_id,$id); ?></td>
+                                <td><?php echo $this->Custom->getHoteApprovedCnt($country_id,$id); ?></td>
+                                <td><?php echo $this->Custom->getHoteTotalCnt($country_id,$id); ?></td>                               
                                 
                                 <td><?php echo $mapping_pending_cnt; ?></td>
                                 <td><?php echo $mapping_submitted_cnt; ?></td>
