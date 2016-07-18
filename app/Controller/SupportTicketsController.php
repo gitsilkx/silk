@@ -52,7 +52,7 @@ class SupportTicketsController extends AppController {
             //die;
             if (!empty($this->data['SupportTicket']['about'])) {
                 $about = $this->data['SupportTicket']['about'];
-                array_push($search_condition, array('SupportTicket.about' . ' LIKE %' => $about.'%'));
+                array_push($search_condition, array('SupportTicket.about LIKE' => "%".$about.'%'));
             }
             
             if (!empty($this->data['SupportTicket']['created_by'])) {
