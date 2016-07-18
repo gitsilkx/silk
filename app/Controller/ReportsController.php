@@ -5365,16 +5365,7 @@ class ReportsController extends AppController {
         
         $user_id = $this->Auth->user('id');
         $dataArray = array();   
-        $TravelCities = array();
-        $hotel_unallocated_cnt = 0;
-        $hotel_submitted_cnt = 0;
-        $hotel_pending_cnt = 0;
-        $hotel_approved_cnt = 0;
-        $hotel_total_cnt = 0;
-        $mapping_pending_cnt = 0;
-        $mapping_approved_cnt = 0;
-        $mapping_submitted_cnt = 0;
-        $mapping_supp_tot_cnt = 0;
+        $TravelCities = array();     
         $display = 'FALSE';
         
         if ($this->request->is('post') || $this->request->is('put')) {
@@ -5404,97 +5395,7 @@ class ReportsController extends AppController {
                 ///$andArray = array('province_id' => $val['province_id'],'country_id' => $val['country_id']);
                 $i++;
               
-           }
-          
-           $hotelIdArray = $this->TravelHotelLookup->find('list', array('fields' => 'id,id','conditions' => array('OR' => $conArray,'province_id !=' => '0',
-             'TravelHotelLookup.suburb_id !=' => '0','TravelHotelLookup.area_id !=' => '0','TravelHotelLookup.chain_id !=' => '0','TravelHotelLookup.brand_id !=' => '0','TravelHotelLookup.status' => '2')));
-          // pr($hotelIdArray);
-        
-         /*
-         $mapping_pending_cnt = $this->TravelHotelRoomSupplier->find('count', array(
-                'fields' => array(
-                    'TravelHotelRoomSupplier.hotel_id'
-                    ),
-                'joins' => array(
-                    array(
-                        'table' => 'travel_hotel_lookups',
-                        'alias' => 'TravelHotelLookup',
-                        'type'  => 'INNER',
-                        'foreignKey'    => false,
-                        'conditions'    => array('OR' => $conArray,'TravelHotelLookup.id = TravelHotelRoomSupplier.hotel_id'),
-                        ),
-                ),
-             
-            )
-        );
-          * 
-          */
-         
-       
-         $mapping_pending_cnt = $this->TravelHotelRoomSupplier->find
-                    (
-                    'count', array
-                (
-                'fields' => array('TravelHotelRoomSupplier.hotel_id'),
-                'conditions' => array
-                    (
-                    'TravelHotelRoomSupplier.hotel_id' => $hotelIdArray,
-                    'TravelHotelRoomSupplier.hotel_supplier_status NOT' => array('1','2'),
-                    //'TravelHotelRoomSupplier.supplier_id' => $supplier_id
-                ),
-               
-                    )
-            );
-         
-         $mapping_submitted_cnt = $this->TravelHotelRoomSupplier->find
-                    (
-                    'count', array
-                (
-                'fields' => array('TravelHotelRoomSupplier.hotel_id'),
-                'conditions' => array
-                    (
-                    'TravelHotelRoomSupplier.hotel_id' => $hotelIdArray,
-                    'TravelHotelRoomSupplier.hotel_supplier_status' => '1',
-                    //'TravelHotelRoomSupplier.supplier_id' => $supplier_id
-                ),
-               
-                    )
-            );
-         
-         $mapping_approved_cnt = $this->TravelHotelRoomSupplier->find
-                    (
-                    'count', array
-                (
-                'fields' => array('TravelHotelRoomSupplier.hotel_id'),
-                'conditions' => array
-                    (
-                    'TravelHotelRoomSupplier.hotel_id' => $hotelIdArray,
-                    'TravelHotelRoomSupplier.hotel_supplier_status' => array('2','8'),
-                    //'TravelHotelRoomSupplier.supplier_id' => $supplier_id
-                ),
-               
-                    )
-            );
-         
-         $mapping_supp_tot_cnt = $this->TravelHotelRoomSupplier->find
-                    (
-                    'count', array
-                (
-                'fields' => array('TravelHotelRoomSupplier.hotel_id'),
-                'conditions' => array
-                    (
-                    'TravelHotelRoomSupplier.hotel_id' => $hotelIdArray,                    
-                    'TravelHotelRoomSupplier.supplier_id' => $supplier_id
-                ),
-               
-                    )
-            );
-         
-         
-//$log = $this->TravelHotelRoomSupplier->getDataSource()->getLog(false, false);   
-         
-          //debug($log); 
-          //die;
+           }         
         }
         
         $persons = $this->ProvincePermission->find('all', array('fields' => array('ProvincePermission.user_id', 'User.fname','User.lname'),
@@ -5511,8 +5412,6 @@ class ReportsController extends AppController {
         $TravelSuppliers = $this->TravelSupplier->find('list', array('fields' => 'id,supplier_code', 'order' => 'supplier_code ASC'));
         
         
-        $this->set(compact('persons','TravelCities','hotel_unallocated_cnt','hotel_submitted_cnt','hotel_pending_cnt',
-                'hotel_approved_cnt','hotel_total_cnt','mapping_pending_cnt','mapping_approved_cnt','TravelSuppliers',
-                'mapping_submitted_cnt','mapping_supp_tot_cnt','display'));
+        $this->set(compact('persons','TravelCities','TravelSuppliers','display'));
     }
 }

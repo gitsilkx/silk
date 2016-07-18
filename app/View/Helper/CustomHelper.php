@@ -155,7 +155,7 @@ class CustomHelper extends Helper {
      
     }
     
-    public function getMappingPendingCnt($country_id,$city_id,$supplier_id){
+    public function getMappingPendingCnt($country_id,$city_id){
         return ClassRegistry::init('TravelHotelLookup')->find('count', array('fields' => array('id')                             
             ,'conditions' => array(
                 "TravelHotelLookup.id NOT IN (SELECT `TravelHotelRoomSupplier`.hotel_id FROM `travel_hotel_room_suppliers` AS `TravelHotelRoomSupplier` WHERE `TravelHotelRoomSupplier`.hotel_country_id = ".$country_id." AND `TravelHotelRoomSupplier`.hotel_city_id = ".$city_id." AND `TravelHotelRoomSupplier`.`hotel_supplier_status` IN ('1','2','7'))",
@@ -164,7 +164,7 @@ class CustomHelper extends Helper {
     
     }
     
-    public function getMappingSubmitCnt($country_id,$city_id,$supplier_id){
+    public function getMappingSubmitCnt($country_id,$city_id){
         
         return ClassRegistry::init('TravelHotelLookup')->find('count', array('fields' => array('id'),
             'joins' => array(
@@ -182,7 +182,7 @@ class CustomHelper extends Helper {
      
     }
     
-    public function getMappingApproveCnt($country_id,$city_id,$supplier_id){
+    public function getMappingApproveCnt($country_id,$city_id){
         
         return ClassRegistry::init('TravelHotelLookup')->find('count', array('fields' => array('id'),
             'joins' => array(
@@ -198,6 +198,11 @@ class CustomHelper extends Helper {
              'TravelHotelLookup.suburb_id !=' => '0','TravelHotelLookup.area_id !=' => '0','TravelHotelLookup.chain_id !=' => '0','TravelHotelLookup.brand_id !=' => '0')));
      
      
+    }
+    
+    public function getSupplierHotelTotalCnt($country_id,$city_id,$supplier_id){
+        return $dataArray = ClassRegistry::init('TravelCitySupplier')->find('all', array('fields' => array('TravelCitySupplier.supplier_coutry_code','TravelCitySupplier.supplier_city_code'),'conditions' => array('TravelCitySupplier.city_country_id' => $country_id,'TravelCitySupplier.city_id' => $city_id,'TravelCitySupplier.supplier_id' => $supplier_id)));
+        
     }
   
 }

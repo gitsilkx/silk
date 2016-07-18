@@ -96,13 +96,13 @@
                                 <td><?php echo $this->Custom->getHoteApprovedCnt($country_id,$id); ?></td>
                                 <td><?php echo $this->Custom->getHoteTotalCnt($country_id,$id); ?></td>                               
                                 
-                                <td><?php echo $this->Custom->getMappingPendingCnt($country_id,$id,$supplier_id); ?></td>
-                                <td><?php echo $this->Custom->getMappingSubmitCnt($country_id,$id,$supplier_id); ?></td>
-                                <td><?php echo $this->Custom->getMappingApproveCnt($country_id,$id,$supplier_id); ?></td>
+                                <td><?php echo $this->Custom->getMappingPendingCnt($country_id,$id); ?></td>
+                                <td><?php echo $this->Custom->getMappingSubmitCnt($country_id,$id); ?></td>
+                                <td><?php echo $this->Custom->getMappingApproveCnt($country_id,$id); ?></td>
                                 <td><?php echo $this->Custom->getHoteApprovedCnt($country_id,$id);?></td>
                                 
                                 
-                                <td><?php //echo $mapping_approved_cnt; ?></td>
+                                <td><?php pr($this->Custom->getSupplierHotelTotalCnt($country_id,$id,$supplier_id)); ?></td>
                                 <td><?php //echo $hotel_approved_cnt; ?></td>
                                 <td><?php //echo $mapping_supp_tot_cnt; ?></td>
 
