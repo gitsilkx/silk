@@ -201,7 +201,7 @@ class CustomHelper extends Helper {
     }
     
     public function getSupplierHotelTotalCnt($country_id,$city_id,$supplier_id){
-        return $dataArray = ClassRegistry::init('TravelCitySupplier')->find('all', array('fields' => array('TravelCitySupplier.supplier_coutry_code','TravelCitySupplier.supplier_city_code'),'conditions' => array('TravelCitySupplier.city_country_id' => $country_id,'TravelCitySupplier.city_id' => $city_id,'TravelCitySupplier.supplier_id' => $supplier_id)));
+        return $dataArray = ClassRegistry::init('TravelCitySupplier')->find('first', array('fields' => array('TravelCitySupplier.supplier_coutry_code','TravelCitySupplier.supplier_city_code'),'conditions' => array('TravelCitySupplier.city_country_id' => $country_id,'TravelCitySupplier.city_id' => $city_id,'TravelCitySupplier.supplier_id' => $supplier_id)));
         
     }
   
