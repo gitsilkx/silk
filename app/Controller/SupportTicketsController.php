@@ -95,7 +95,7 @@ class SupportTicketsController extends AppController {
         $LookupTicketStatus = $this->LookupTicketStatus->find('list', array('fields' => 'LookupTicketStatus.id, LookupTicketStatus.value', 'order' => 'LookupTicketStatus.value ASC'));
         
         if($user_id == '169'){ // overseer apac
-            $conArray = array('OR' =>  ARRAY('User.travel_role_infra_mapping != ""','User.t_sales_role_id != ""'));
+            $conArray = array('OR' =>  array('t_sales_role_id' => 28,'infra_operations_channel_id' => 262));
         }
         else{
             $conArray = array('User.id' => $user_id);
