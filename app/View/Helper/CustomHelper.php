@@ -161,9 +161,7 @@ class CustomHelper extends Helper {
                 "TravelHotelLookup.id NOT IN (SELECT `TravelHotelRoomSupplier`.hotel_id FROM `travel_hotel_room_suppliers` AS `TravelHotelRoomSupplier` WHERE `TravelHotelRoomSupplier`.hotel_country_id = ".$country_id." AND `TravelHotelRoomSupplier`.hotel_city_id = ".$city_id." AND `TravelHotelRoomSupplier`.`hotel_supplier_status` IN ('1','2','7'))",
                 'TravelHotelLookup.status' => array('2','8'),'TravelHotelLookup.country_id' => $country_id,'TravelHotelLookup.city_id' => $city_id,'TravelHotelLookup.province_id !=' => '0',
              'TravelHotelLookup.suburb_id !=' => '0','TravelHotelLookup.area_id !=' => '0','TravelHotelLookup.chain_id !=' => '0','TravelHotelLookup.brand_id !=' => '0')));
-     $log = $this->TravelHotelLookup->getDataSource()->getLog(false, false);
-              debug($log);
-             die;
+    
     }
     
     public function getMappingSubmitCnt($country_id,$city_id,$supplier_id){
