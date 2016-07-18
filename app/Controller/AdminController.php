@@ -666,7 +666,21 @@ class AdminController extends AppController {
     public function supplier_hotels() {
 
         $search_condition = array();
-        $this->paginate['order'] = array('SupplierHotel.id' => 'asc');
+        
+        if (count($this->params['pass'])) {
+
+           foreach ($this->params['pass'] as $key => $value) {
+                array_push($search_condition, array('SupplierHotel.' . $key => $value));
+                
+            }                
+        } elseif (count($this->params['named'])) {
+
+            foreach ($this->params['named'] as $key => $value) {
+                array_push($search_condition, array('SupplierHotel.' . $key => $value));
+               
+            }
+        }
+        $this->paginate['order'] = array('SupplierHotel.id' => 'asc');        
         $this->set('SupplierHotels', $this->paginate("SupplierHotel", $search_condition));
 
         $SupplierCityCount = $this->SupplierCity->find('count');

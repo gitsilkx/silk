@@ -69,10 +69,10 @@ echo $this->Html->script(array('jquery.min', 'lib/chained/jquery.chained.remote.
 
                                 <td><?php echo $TravelHotelRoomSupplier['TravelHotelRoomSupplier']['excluded']; ?></td>
                                 <td><?php echo $TravelHotelRoomSupplier['TravelHotelRoomSupplier']['hotel_mapping_name']; ?></td>
-                                <td><?php echo $TravelHotelRoomSupplier['TravelHotelRoomSupplier']['hotel_code']; ?></td>
+                                <td><?php echo $this->Html->link($TravelHotelRoomSupplier['TravelHotelRoomSupplier']['hotel_code']), array('controller' => 'reports', 'action' => 'hotel_summary/id:'.$TravelHotelRoomSupplier['TravelHotelRoomSupplier']['hotel_id']), array('class' => 'act-ico', 'escape' => false,'target' => '_blank')); ?></td>
                                 <td><?php echo $TravelHotelRoomSupplier['TravelHotelRoomSupplier']['hotel_country_code']; ?></td>
                                 <td><?php echo $TravelHotelRoomSupplier['TravelHotelRoomSupplier']['hotel_city_code']; ?></td>
-                                <td><?php echo $TravelHotelRoomSupplier['TravelHotelRoomSupplier']['supplier_item_code1']; ?></td>
+                                <td><?php echo $this->Html->link($TravelHotelRoomSupplier['TravelHotelRoomSupplier']['supplier_item_code1']), array('controller' => 'admin', 'action' => 'supplier_hotels/hotel_code:'.$TravelHotelRoomSupplier['TravelHotelRoomSupplier']['supplier_item_code1']), array('class' => 'act-ico', 'escape' => false,'target' => '_blank')); ?></td>
                                 <td><?php echo $TravelHotelRoomSupplier['TravelHotelRoomSupplier']['supplier_item_code4']; ?></td>
                                 <td><?php echo $TravelHotelRoomSupplier['TravelHotelRoomSupplier']['supplier_item_code3']; ?></td>
                             </tr>
