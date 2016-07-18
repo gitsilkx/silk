@@ -102,8 +102,8 @@
                                 <td><?php echo $this->Custom->getHoteApprovedCnt($country_id,$id);?></td>
                                 
                                 
-                                <td><?php //pr($this->Custom->getSupplierHotelTotalCnt($country_id,$id,$supplier_id)); ?></td>
-                                <td><?php //echo $hotel_approved_cnt; ?></td>
+                                <td><?php echo $this->Custom->getSupplierHotelCompeleteCnt($country_id,$id,$supplier_id); ?></td>
+                                <td><?php echo $this->Custom->getSupplierHotelSubmitCnt($country_id,$id,$supplier_id); ?></td>
                                 <td><?php echo $this->Custom->getSupplierHotelTotalCnt($country_id,$id,$supplier_id); ?></td>
 
                             </tr>
