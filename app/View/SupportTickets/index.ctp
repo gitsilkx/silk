@@ -19,39 +19,44 @@
                         'class' => 'form-control',
                 )));
                 ?> 
-<!--
+
                 <div class="row spe-row">
                     <div class="col-sm-4 col-xs-8">
 
-                        <?php echo $this->Form->input('area_name', array('value' => $area_name, 'placeholder' => 'Type area name', 'error' => array('class' => 'formerror'))); ?>
+                        <?php echo $this->Form->input('about', array('placeholder' => 'Type raised about', 'error' => array('class' => 'formerror'))); ?>
                     </div>
                     <div class="col-sm-3 col-xs-4">
                         <?php
-                        echo $this->Form->submit('Area Search', array('div' => false, 'class' => 'btn btn-default btn-sm"'));
+                        echo $this->Form->submit('Search', array('div' => false, 'class' => 'btn btn-default btn-sm"'));
                         ?>
 
                     </div>
                 </div>
-                <div class="row" id="search_panel_controls">
+                    <div class="row" id="search_panel_controls">
                     
                     <div class="col-sm-3 col-xs-6">
-                        <label for="un_member">Continent:</label>
-                        <?php echo $this->Form->input('continent_id', array('options' => $TravelLookupContinents, 'empty' => '--Select--', 'value' => $continent_id)); ?>
+                        <label for="un_member">Raised By:</label>
+                        <?php echo $this->Form->input('created_by', array('options' => $users, 'empty' => '--Select--')); ?>
                     </div>
 
                     <div class="col-sm-3 col-xs-6">
-                        <label for="un_member">Country:</label>
-                        <?php echo $this->Form->input('country_id', array('options' => $TravelCountries, 'empty' => '--Select--', 'value' => $country_id)); ?>
+                        <label for="un_member">Raised From:</label>
+                        <?php echo $this->Form->input('screen', array('options' => $LookupScreen, 'empty' => '--Select--')); ?>
                     </div>
 
                     <div class="col-sm-3 col-xs-6">
-                        <label for="un_member">City:</label>
-                        <?php echo $this->Form->input('city_id', array('options' => $TravelCities, 'empty' => '--Select--', 'value' => $city_id)); ?>
+                        <label for="un_member">Topic:</label>
+                        <?php echo $this->Form->input('answer', array('options' => $LookupQuestion, 'empty' => '--Select--')); ?>
                     </div>
 
                     <div class="col-sm-3 col-xs-6">
-                        <label for="un_member">Suburb:</label>
-                        <?php echo $this->Form->input('suburb_id', array('options' => $TravelSuburbs, 'empty' => '--Select--', 'value' => $suburb_id)); ?>
+                        <label for="un_member">Urgency:</label>
+                        <?php echo $this->Form->input('urgency', array('options' => $LookupTicketUrgency, 'empty' => '--Select--')); ?>
+                    </div>
+                        
+                    <div class="col-sm-3 col-xs-6">
+                        <label for="un_member">Status:</label>
+                        <?php echo $this->Form->input('status', array('options' => $LookupTicketStatus, 'empty' => '--Select--')); ?>
                     </div>
 
 
@@ -65,7 +70,7 @@
 
                     </div>
                 </div>
--->
+
                 <?php echo $this->Form->end(); ?>
             </div>
             <table id="resp_table" class="table toggle-square" data-filter="#table_search" data-page-size="500">

@@ -33,7 +33,7 @@ class SupportTicketsController extends AppController {
 
     var $uses = array('SupportTicket','LookupDepartment','LookupQuestion','LookupScreen','TravelHotelLookup','LookupTicketUrgency',
         'TravelLookupContinent','TravelCountry','Province','TravelCity','TravelSuburb','LookupTicketSolution','TravelArea','LookupResponseIssue',
-        'TravelChain');
+        'TravelChain','LookupTicketStatus','User');
     public $components = array('Image');
    
     public function beforeFilter() {
@@ -45,11 +45,67 @@ class SupportTicketsController extends AppController {
         
         $user_id = $this->Auth->user('id');
         $search_condition = array();
+        $conArray = array();
         
+        if ($this->request->is('post') || $this->request->is('put')) {
+            // pr($this->request);
+            //die;
+            if (!empty($this->data['SupportTicket']['about'])) {
+                $about = $this->data['SupportTicket']['about'];
+                array_push($search_condition, array('SupportTicket.about' . ' LIKE %' => $hotel_name.'%'));
+            }
+            
+            if (!empty($this->data['SupportTicket']['created_by'])) {
+                $created_by = $this->data['SupportTicket']['created_by'];
+                array_push($search_condition, array('SupportTicket.created_by' => $created_by));
+            }
+            
+            if (!empty($this->data['SupportTicket']['screen'])) {
+                $screen = $this->data['SupportTicket']['screen'];
+                array_push($search_condition, array('SupportTicket.screen' => $screen));
+            }
+            
+            if (!empty($this->data['SupportTicket']['answer'])) {
+                $answer = $this->data['SupportTicket']['answer'];
+                array_push($search_condition, array('SupportTicket.answer' => $answer));
+            }
+            
+            if (!empty($this->data['SupportTicket']['urgency'])) {
+                $urgency = $this->data['SupportTicket']['urgency'];
+                array_push($search_condition, array('SupportTicket.urgency' => $urgency));
+            }
+            
+            if (!empty($this->data['SupportTicket']['status'])) {
+                $status = $this->data['SupportTicket']['status'];
+                array_push($search_condition, array('SupportTicket.status' => $status));
+            }
+            
+            
+            
+        }
         
         array_push($search_condition, array('OR' => array('SupportTicket.created_by' => $user_id,'SupportTicket.next_action_by' => $user_id,'SupportTicket.approved_by' => $user_id,'SupportTicket.last_action_by' => $user_id),'SupportTicket.active' => 'TRUE'));
         $this->paginate['order'] = array('SupportTicket.created' => 'desc');
         $this->set('SupportTickets', $this->paginate("SupportTicket", $search_condition));
+        
+        $LookupScreen = $this->LookupScreen->find('list', array('fields' => 'id, value', 'order' => 'value ASC'));
+        $LookupQuestion = $this->LookupQuestion->find('list', array('fields' => 'LookupQuestion.id, LookupQuestion.question','conditions' => array('LookupQuestion.parent_id' => null), 'order' => 'LookupQuestion.id ASC'));
+        //$CommonQuestion = $this->LookupQuestion->find('list', array('fields' => 'LookupQuestion.id, LookupQuestion.question','conditions' => array('LookupQuestion.id' => array('7','8')), 'order' => 'LookupQuestion.id ASC'));
+        $LookupTicketUrgency = $this->LookupTicketUrgency->find('list', array('fields' => 'LookupTicketUrgency.id, LookupTicketUrgency.value', 'order' => 'LookupTicketUrgency.value ASC'));
+        $LookupTicketStatus = $this->LookupTicketStatus->find('list', array('fields' => 'LookupTicketStatus.id, LookupTicketStatus.value', 'order' => 'LookupTicketStatus.value ASC'));
+        
+        if($user_id == '169'){ // overseer apac
+            $conArray = array('OR' =>  ARRAY('User.travel_role_infra_mapping != ""','User.t_sales_role_id != ""'));
+        }
+        else{
+            $conArray = array('User.id' => $user_id);
+        }
+        
+        $users = $this->User->find('all', array('fields' => array('User.id', 'User.fname', 'User.lname'),
+            'conditions' => $conArray, 'order' => 'User.fname asc'));
+        $users = Set::combine($users, '{n}.User.id', array('%s %s', '{n}.User.fname', '{n}.User.lname'));
+        
+        $this->set(compact('LookupScreen','LookupQuestion','LookupTicketUrgency','users','LookupTicketStatus'));
          
     }
     
