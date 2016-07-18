@@ -16,7 +16,7 @@ echo $this->Html->script(array('jquery.min', 'lib/chained/jquery.chained.remote.
     <div class="pop-up-hdng">Mapping Information</div>
     <div class="col-sm-12">
         <?php if (count($TravelHotelRoomSuppliers) > 0) { ?>
-            <table border="0" cellpadding="0" cellspacing="0" id="resp_table" class="table toggle-square myclitb" data-filter="#table_search" data-page-size="500">
+             <table border="0" cellpadding="0" cellspacing="0" id="resp_table" class="table toggle-square myclitb" data-filter="#table_search" data-page-size="500">
                 <thead>
                     <tr class="footable-group-row">
                         <th data-group="group1" colspan="5" class="nodis">Information</th>
