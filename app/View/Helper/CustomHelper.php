@@ -215,10 +215,10 @@ class CustomHelper extends Helper {
     }
     
     public function getSupplierHotelCompeleteCnt($country_id,$city_id,$supplier_id){
-         $dataArray = ClassRegistry::init('TravelCitySupplier')->find('first', array('fields' => array('TravelCitySupplier.supplier_coutry_code','TravelCitySupplier.supplier_city_code'),'conditions' => array('TravelCitySupplier.city_country_id' => $country_id,'TravelCitySupplier.city_id' => $city_id,'TravelCitySupplier.supplier_id' => $supplier_id,'SupplierHotel.status' => array('3','7'))));
+         $dataArray = ClassRegistry::init('TravelCitySupplier')->find('first', array('fields' => array('TravelCitySupplier.supplier_coutry_code','TravelCitySupplier.supplier_city_code'),'conditions' => array('TravelCitySupplier.city_country_id' => $country_id,'TravelCitySupplier.city_id' => $city_id,'TravelCitySupplier.supplier_id' => $supplier_id)));
          $supplier_country_code = $dataArray['TravelCitySupplier']['supplier_coutry_code'];
          $supplier_city_code = $dataArray['TravelCitySupplier']['supplier_city_code'];
-         return ClassRegistry::init('SupplierHotel')->find('count', array('fields' => array('id'),'conditions' => array('SupplierHotel.country_code' => $supplier_country_code,'SupplierHotel.city_code' => $supplier_city_code)));
+         return ClassRegistry::init('SupplierHotel')->find('count', array('fields' => array('id'),'conditions' => array('SupplierHotel.country_code' => $supplier_country_code,'SupplierHotel.city_code' => $supplier_city_code,'SupplierHotel.status' => array('3','7'))));
     }
   
 }
