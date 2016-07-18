@@ -18,14 +18,24 @@ echo $this->Html->script(array('jquery.min', 'lib/chained/jquery.chained.remote.
         <?php if (count($TravelHotelRoomSuppliers) > 0) { ?>
             <table border="0" cellpadding="0" cellspacing="0" id="resp_table" class="table toggle-square myclitb" data-filter="#table_search" data-page-size="100">
                 <thead>
+                    <tr class="footable-group-row">
+                        <th data-group="group1" colspan="5" class="nodis">Information</th>
+                        <th data-group="group2" colspan="3">WTB</th>
+                        <th data-group="group3" colspan="3">SUPPLIER</th>
+                        
+                    </tr>
                     <tr>                        
                         <th data-toggle="phone"  data-group="group1">Supplier Code</th>                        
                         <th data-hide="phone"  data-group="group1">Mapping Status</th>                                                              
                         <th data-hide="phone" data-sort-ignore="true" data-group="group1">Mapping Active?</th>
                         <th data-hide="phone" data-sort-ignore="true" data-group="group1">Mapping Excluded?</th>
                         <th data-hide="phone" data-sort-ignore="true" data-group="group1">Mapping Name</th>
-                        <th data-hide="phone" data-sort-ignore="true" data-group="group1">WTB</th> 
-                        <th data-hide="phone" data-sort-ignore="true" data-group="group1">Supplier</th>  
+                        <th data-hide="phone" data-sort-ignore="true" data-group="group2">Hotel</th>
+                        <th data-hide="phone" data-sort-ignore="true" data-group="group2">Country</th>
+                        <th data-hide="phone" data-sort-ignore="true" data-group="group2">City</th>
+                        <th data-hide="phone" data-sort-ignore="true" data-group="group3">Hotel</th>
+                        <th data-hide="phone" data-sort-ignore="true" data-group="group3">Country</th>
+                        <th data-hide="phone" data-sort-ignore="true" data-group="group3">City</th>
 
                     </tr>
                 </thead>
@@ -60,7 +70,11 @@ echo $this->Html->script(array('jquery.min', 'lib/chained/jquery.chained.remote.
                                 <td><?php echo $TravelHotelRoomSupplier['TravelHotelRoomSupplier']['excluded']; ?></td>
                                 <td><?php echo $TravelHotelRoomSupplier['TravelHotelRoomSupplier']['hotel_mapping_name']; ?></td>
                                 <td><?php echo $TravelHotelRoomSupplier['TravelHotelRoomSupplier']['hotel_code']; ?></td>
+                                <td><?php echo $TravelHotelRoomSupplier['TravelHotelRoomSupplier']['hotel_country_code']; ?></td>
+                                <td><?php echo $TravelHotelRoomSupplier['TravelHotelRoomSupplier']['hotel_city_code']; ?></td>
                                 <td><?php echo $TravelHotelRoomSupplier['TravelHotelRoomSupplier']['supplier_item_code1']; ?></td>
+                                <td><?php echo $TravelHotelRoomSupplier['TravelHotelRoomSupplier']['supplier_item_code4']; ?></td>
+                                <td><?php echo $TravelHotelRoomSupplier['TravelHotelRoomSupplier']['supplier_item_code3']; ?></td>
                             </tr>
                         <?php endforeach; ?>
 
