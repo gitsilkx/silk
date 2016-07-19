@@ -1330,8 +1330,7 @@ class ReportsController extends AppController {
 
 
         if ($this->request->is('post') || $this->request->is('put')) {
-            pr($this->request);
-           die;
+            
             if (!empty($this->data['TravelHotelLookup']['hotel_name'])) {
                 $hotel_name = $this->data['TravelHotelLookup']['hotel_name'];
                 array_push($search_condition, array('OR' => array('TravelHotelLookup.id' . ' LIKE' => $hotel_name, 'TravelHotelLookup.hotel_name' . ' LIKE' => "%" . mysql_escape_string(trim(strip_tags($hotel_name))) . "%", 'TravelHotelLookup.hotel_code' . ' LIKE' => "%" . mysql_escape_string(trim(strip_tags($hotel_name))) . "%", 'TravelHotelLookup.country_name' . ' LIKE' => "%" . mysql_escape_string(trim(strip_tags($hotel_name))) . "%", 'TravelHotelLookup.city_name' . ' LIKE' => "%" . mysql_escape_string(trim(strip_tags($hotel_name))) . "%", 'TravelHotelLookup.area_name' . ' LIKE' => "%" . mysql_escape_string(trim(strip_tags($hotel_name))) . "%")));
@@ -1551,6 +1550,10 @@ class ReportsController extends AppController {
              */
             )
         ));
+        
+        if($id){
+            array_push($search_condition, array('TravelHotelLookup.id' => $id));
+        }
         
         if (count($this->params['pass'])) {
 
