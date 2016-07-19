@@ -33,11 +33,12 @@ else
               ?>
             <div class="row" style="padding: 15px;">
         <div class="col-sm-12">
-            <?php echo $this->Form->submit('Delete', array('class' => 'success btn', 'div' => false, 'id' => 'udate_unit')); ?><?php
-
-?></div>
+            <?php echo $this->Form->submit('Delete', array('class' => 'success btn', 'div' => false, 'id' => 'udate_unit'));
+            echo $this->Html->link('Duplicate Hotel','/reports/support_hotel_summary/'.$hotel_id, array('class' => 'success btn', 'escape' => false,'style' => 'width:50%'));
+            ?>
+        </div>
     </div> 
-        <?php echo $this->Html->link('Duplicate Hotel','/reports/support_hotel_summary/'.$hotel_id, array('class' => 'success btn', 'escape' => false));  ?>     
+        <?php   ?>     
             <table border="0" cellpadding="0" cellspacing="0" id="resp_table" class="table toggle-square myclitb" data-filter="#table_search" data-page-size="500">
                
                 <thead>
