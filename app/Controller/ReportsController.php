@@ -1554,20 +1554,21 @@ class ReportsController extends AppController {
         if($id){
             array_push($search_condition, array('TravelHotelLookup.id' => $id));
         }
-        
-        if (count($this->params['pass'])) {
+        else{
+            if (count($this->params['pass'])) {
 
-           foreach ($this->params['pass'] as $key => $value) {
-                array_push($search_condition, array('TravelHotelLookup.' . $key => $value));
-                $conHotelArry = array('TravelHotelLookup.'.$key => $value);
-                $conSuburbArry = array('TravelSuburb.'.$key => $value);
-            }                
-        } elseif (count($this->params['named'])) {
+               foreach ($this->params['pass'] as $key => $value) {
+                    array_push($search_condition, array('TravelHotelLookup.' . $key => $value));
+                    $conHotelArry = array('TravelHotelLookup.'.$key => $value);
+                    $conSuburbArry = array('TravelSuburb.'.$key => $value);
+                }                
+            } elseif (count($this->params['named'])) {
 
-            foreach ($this->params['named'] as $key => $value) {
-                array_push($search_condition, array('TravelHotelLookup.' . $key => $value));
-                $conHotelArry = array('TravelHotelLookup.'.$key => $value);
-                $conSuburbArry = array('TravelSuburb.'.$key => $value);
+                foreach ($this->params['named'] as $key => $value) {
+                    array_push($search_condition, array('TravelHotelLookup.' . $key => $value));
+                    $conHotelArry = array('TravelHotelLookup.'.$key => $value);
+                    $conSuburbArry = array('TravelSuburb.'.$key => $value);
+                }
             }
         }
 
