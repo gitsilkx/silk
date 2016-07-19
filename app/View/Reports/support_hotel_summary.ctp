@@ -26,98 +26,10 @@ if (!empty($this->request->params['named']['country_id'])) {
             <h4 class="table-heading-title"><span class="badge badge-circle badge-success"> <?php
                     echo $this->Paginator->counter(array('format' => '{:count}'));
                     ?></span> My Hotels</h4>
-            
-            <span class="search_panel_icon"><i class="icon-plus" id="toggle_search_panel"></i></span>
+           
         </div>
         <div class="panel panel-default">
-<?php
-                echo $this->Form->create('Report', array('controller' => 'reports','action' => 'support_hotel_summary','class' => 'quick_search', 'id' => 'SearchForm', 'type' => 'post', 'novalidate' => true, 'inputDefaults' => array(
-                        'label' => false,
-                        'div' => false,
-                        'class' => 'form-control',
-                )
-                   
-                    )
-                        
-                        );
-                echo $this->Form->hidden('model_name', array('id' => 'model_name', 'value' => 'TravelHotelLookup'));
-                ?> 
-            <div class="panel_controls hideform">
 
-                
-                <div class="row spe-row">
-                    <div class="col-sm-4 col-xs-8">
-
-                        <?php echo $this->Form->input('TravelHotelLookup.hotel_name', array('value' => $hotel_name, 'placeholder' => 'Hotel id, Hotel name, hotel code, country, city or area', 'error' => array('class' => 'formerror'))); ?>
-                    </div>
-                    <div class="col-sm-3 col-xs-4">
-                        <?php
-                        echo $this->Form->submit('Hotel Search', array('div' => false, 'class' => 'btn btn-default btn-sm"'));
-                        ?>
-
-                    </div>
-                </div>
-                <div class="row" id="search_panel_controls">
-                    <div class="col-sm-3 col-xs-6">
-                        <label for="un_member">Continent:</label>
-                        <?php echo $this->Form->input('TravelHotelLookup.continent_id', array('options' => $TravelLookupContinents, 'empty' => '--Select--', 'value' => $continent_id)); ?>
-                    </div>
-                    <div class="col-sm-3 col-xs-6">
-                        <label for="un_member">Country:</label>
-                        <?php echo $this->Form->input('TravelHotelLookup.country_id', array('options' => $TravelCountries, 'empty' => '--Select--', 'value' => $country_id)); ?>
-                    </div>
-                    <div class="col-sm-3 col-xs-6">
-                        <label for="un_member">Province:</label>
-                        <?php echo $this->Form->input('TravelHotelLookup.province_id', array('options' => $Provinces, 'empty' => '--Select--', 'value' => $province_id)); ?>
-                    </div>
-                    <div class="col-sm-3 col-xs-6">
-                        <label for="un_member">City:</label>
-                        <?php echo $this->Form->input('TravelHotelLookup.city_id', array('options' => $TravelCities, 'empty' => '--Select--', 'value' => $city_id)); ?>
-                    </div>
-                    <div class="col-sm-3 col-xs-6">
-                        <label for="un_member">Suburb:</label>
-                        <?php echo $this->Form->input('TravelHotelLookup.suburb_id', array('options' => $TravelSuburbs, 'empty' => '--Select--', 'value' => $suburb_id)); ?>
-                    </div>
-                    <div class="col-sm-3 col-xs-6">
-                        <label for="un_member">Area:</label>
-                        <?php echo $this->Form->input('TravelHotelLookup.area_id', array('options' => $TravelAreas, 'empty' => '--Select--', 'value' => $area_id)); ?>
-                    </div>
-                    <div class="col-sm-3 col-xs-6">
-                        <label for="un_member">Chain:</label>
-                        <?php echo $this->Form->input('TravelHotelLookup.chain_id', array('options' => $TravelChains, 'empty' => '--Select--', 'value' => $chain_id)); ?>
-                    </div>
-                    <div class="col-sm-3 col-xs-6">
-                        <label for="un_member">Brand:</label>
-                        <?php echo $this->Form->input('TravelHotelLookup.brand_id', array('options' => $TravelBrands, 'empty' => '--Select--', 'value' => $brand_id)); ?>
-                    </div>                
-                    <div class="col-sm-3 col-xs-6">
-                        <label for="un_member">Status:</label>
-                        <?php echo $this->Form->input('TravelHotelLookup.status', array('options' => array('1' => 'Submitted For Approval', '2' => 'Approved', '3' => 'Returned', '4' => 'Change Submitted', '5' => 'Rejected', '7' => 'Duplicated'), 'empty' => '--Select--', 'value' => $status)); ?>
-                    </div>
-                    <div class="col-sm-3 col-xs-6">
-                        <label for="un_member">WTB Status:</label>
-                        <?php echo $this->Form->input('TravelHotelLookup.wtb_status', array('options' => array('1' => 'OK', '2' => 'ERROR'), 'empty' => '--Select--', 'value' => $wtb_status)); ?>
-                    </div>
-                    <div class="col-sm-3 col-xs-6">
-                        <label for="un_member">Active?</label>
-                        <?php echo $this->Form->input('TravelHotelLookup.active', array('options' => array('TRUE' => 'TRUE', 'FALSE' => 'FALSE'), 'empty' => '--Select--', 'value' => $active)); ?>
-                    </div>
-
-
-                    <div class="col-sm-3 col-xs-6">
-                        <label>&nbsp;</label>
-                        <?php
-                        echo $this->Form->submit('Filter', array('div' => false, 'class' => 'btn btn-default btn-sm"'));
-                        // echo $this->Form->button('Reset', array('type' => 'reset', 'class' => 'btn btn-default btn-sm"'));
-                        ?>
-
-                    </div>
-                    
-                </div>
-               
-            </div>
-
- <?php echo $this->Form->end(); ?>
            <?php
                 echo $this->Form->create('Report', array('controller' => 'reports','action' => 'hotel_delete','onsubmit' => 'return ChkCheckbox()','class' => 'quick_search', 'id' => 'SearchForm', 'type' => 'post', 'novalidate' => true, 'inputDefaults' => array(
                         'label' => false,
