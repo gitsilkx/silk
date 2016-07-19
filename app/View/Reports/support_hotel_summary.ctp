@@ -37,7 +37,7 @@ else
 
 ?></div>
     </div> 
-        <?php echo $this->Html->link('Duplicate Hotel','/reports/support_hotel_summary/'.$hotel_id, array('class' => 'act-ico', 'escape' => false));  ?>     
+        <?php echo $this->Html->link('Duplicate Hotel','/reports/support_hotel_summary/'.$hotel_id, array('class' => 'success btn', 'escape' => false));  ?>     
             <table border="0" cellpadding="0" cellspacing="0" id="resp_table" class="table toggle-square myclitb" data-filter="#table_search" data-page-size="500">
                
                 <thead>
