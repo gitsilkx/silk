@@ -1308,6 +1308,7 @@ class ReportsController extends AppController {
         // $city_id = $this->Auth->user('city_id');
         $user_id = $this->Auth->user('id');
         $search_condition = array();
+        $TravelHotelLookups = array();
 
 
         $this->TravelHotelLookup->bindModel(array(
@@ -1324,7 +1325,28 @@ class ReportsController extends AppController {
         
         if($id){
             array_push($search_condition, array('TravelHotelLookup.id' => $id));
-            //array_push($search_condition, array('TravelHotelLookup.id' => $suburb_id));
+            $TravelHotelLookup = $this->TravelHotelLookup->findById($id);
+            $continent_id = $TravelHotelLookup['TravelHotelLookup']['continent_id'];
+            $country_id = $TravelHotelLookup['TravelHotelLookup']['country_id'];
+            $province_id = $TravelHotelLookup['TravelHotelLookup']['province_id'];
+            $city_id = $TravelHotelLookup['TravelHotelLookup']['city_id'];
+            $hotel_name = $TravelHotelLookup['TravelHotelLookup']['hotel_name'];
+            
+            for ($indexOfFirstLetter = 0; $indexOfFirstLetter <= strlen($hotel_name); $indexOfFirstLetter++) {
+                for ($indexOfLastLetter = $indexOfFirstLetter + 1; $indexOfLastLetter <= strlen($hotel_name); $indexOfLastLetter++) {
+                    $new_arr[] = substr($hotel_name, $indexOfFirstLetter, 4);
+                  
+                    if (strlen($new_arr[$indexOfFirstLetter]) == '4') {
+                        array_push($condition, array("TravelHotelLookup.hotel_name LIKE '%$new_arr[$indexOfFirstLetter]%'"));
+                    }
+                  
+                    $indexOfFirstLetter++;
+                }
+            }
+            
+            
+            //array_push($search_condition, array('OR' => $condition, 'TravelHotelLookup.country_id' => $country_id, 'TravelHotelLookup.city_id' => $city_id, 'TravelHotelLookup.province_id' => $province_id, 'TravelHotelLookup.city_id' => $city_id));
+            
         }
         else{
             if (count($this->params['pass'])) {
@@ -1347,11 +1369,11 @@ class ReportsController extends AppController {
    
        
         //array_push($search_condition, array('TravelHotelLookup.country_id' => '220'));
-
+        $TravelHotelLookups = $this->TravelHotelLookup->find('all',array('conditions' => $search_condition));
         $this->paginate['order'] = array('TravelHotelLookup.city_code' => 'asc');
         $this->set('TravelHotelLookups', $this->paginate("TravelHotelLookup", $search_condition));
         
-        $this->set(compact('id'));
+        $this->set(compact('id','TravelHotelLookups'));
         //$log = $this->TravelHotelLookup->getDataSource()->getLog(false, false);       
        // debug($log);
         //die;

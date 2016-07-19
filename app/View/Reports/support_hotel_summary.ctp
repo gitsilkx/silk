@@ -51,31 +51,17 @@ else
                    
                     <tr>
                         <th data-hide="phone" data-group="group1" width="2%" data-sort-ignore="true"><input type="checkbox" class="mbox_select_all" name="msg_sel_all"></th>
-                        <th data-toggle="phone" data-sort-ignore="true" width="3%" data-group="group1"><?php echo $this->Paginator->sort('id', 'Id');
-                echo ($sort == 'id') ? ($direction == 'asc') ? " <i class='icon-caret-up'></i>" : " <i class='icon-caret-down'></i>"  : " <i class='icon-sort'></i>"; ?></th>
-                        <th data-hide="phone" data-group="group9" width="10%" data-sort-ignore="true"><?php echo $this->Paginator->sort('continent_name', 'Continent');
-                echo ($sort == 'continent_name') ? ($direction == 'asc') ? " <i class='icon-caret-up'></i>" : " <i class='icon-caret-down'></i>"  : " <i class='icon-sort'></i>"; ?></th>
-                        <th data-hide="phone" data-group="group9" width="10%" data-sort-ignore="true"><?php echo $this->Paginator->sort('country_name', 'Country');
-                echo ($sort == 'country_name') ? ($direction == 'asc') ? " <i class='icon-caret-up'></i>" : " <i class='icon-caret-down'></i>"  : " <i class='icon-sort'></i>"; ?></th>
-                        <th data-hide="phone" data-group="group9" width="10%" data-sort-ignore="true"><?php echo $this->Paginator->sort('province_name', 'Province');
-                echo ($sort == 'province_name') ? ($direction == 'asc') ? " <i class='icon-caret-up'></i>" : " <i class='icon-caret-down'></i>"  : " <i class='icon-sort'></i>"; ?></th>
-                        <th data-hide="phone" data-group="group9" width="8%" data-sort-ignore="true"><?php echo $this->Paginator->sort('city_name', 'City');
-                echo ($sort == 'city_name') ? ($direction == 'asc') ? " <i class='icon-caret-up'></i>" : " <i class='icon-caret-down'></i>"  : " <i class='icon-sort'></i>"; ?></th>
-                        <th data-hide="phone" data-group="group9" width="8%" data-sort-ignore="true"><?php echo $this->Paginator->sort('suburb_name', 'Suburb');
-                echo ($sort == 'suburb_name') ? ($direction == 'asc') ? " <i class='icon-caret-up'></i>" : " <i class='icon-caret-down'></i>"  : " <i class='icon-sort'></i>"; ?></th>
-                        <th data-hide="phone" data-group="group9" width="5%" data-sort-ignore="true"><?php echo $this->Paginator->sort('area_name', 'Area');
-                echo ($sort == 'area_name') ? ($direction == 'asc') ? " <i class='icon-caret-up'></i>" : " <i class='icon-caret-down'></i>"  : " <i class='icon-sort'></i>"; ?></th>
-                        <th data-toggle="phone" data-sort-ignore="true" width="10%" data-group="group1"><?php echo $this->Paginator->sort('hotel_name', 'Hotel');
-                echo ($sort == 'hotel_name') ? ($direction == 'asc') ? " <i class='icon-caret-up'></i>" : " <i class='icon-caret-down'></i>"  : " <i class='icon-sort'></i>"; ?></th>
-                        <th data-toggle="phone" data-group="group1" width="3%" data-sort-ignore="true"><?php echo $this->Paginator->sort('hotel_code', 'Hotel Code');
-                echo ($sort == 'hotel_code') ? ($direction == 'asc') ? " <i class='icon-caret-up'></i>" : " <i class='icon-caret-down'></i>"  : " <i class='icon-sort'></i>"; ?></th>                    
-                        <th data-hide="phone" data-group="group1" width="10%" data-sort-ignore="true"><?php echo $this->Paginator->sort('brand_name', 'Brand');
-                echo ($sort == 'brand_name') ? ($direction == 'asc') ? " <i class='icon-caret-up'></i>" : " <i class='icon-caret-down'></i>"  : " <i class='icon-sort'></i>"; ?></th>
-                        <th data-hide="phone" data-group="group1" width="10%" data-sort-ignore="true"><?php echo $this->Paginator->sort('chain_name', 'Chain');
-                echo ($sort == 'chain_name') ? ($direction == 'asc') ? " <i class='icon-caret-up'></i>" : " <i class='icon-caret-down'></i>"  : " <i class='icon-sort'></i>"; ?></th>
-                       
-                        
-
+                        <th data-toggle="phone" data-sort-ignore="true" width="3%" data-group="group1">Id</th>
+                        <th data-hide="phone" data-group="group9" width="10%" data-sort-ignore="true">Continent</th>
+                        <th data-hide="phone" data-group="group9" width="10%" data-sort-ignore="true">Country</th>
+                        <th data-hide="phone" data-group="group9" width="10%" data-sort-ignore="true">Province</th>
+                        <th data-hide="phone" data-group="group9" width="8%" data-sort-ignore="true">City</th>
+                        <th data-hide="phone" data-group="group9" width="8%" data-sort-ignore="true">Suburb</th>
+                        <th data-hide="phone" data-group="group9" width="5%" data-sort-ignore="true">Area</th>
+                        <th data-toggle="phone" data-sort-ignore="true" width="10%" data-group="group1">Hotel</th>
+                        <th data-toggle="phone" data-group="group1" width="3%" data-sort-ignore="true">Hotel Code</th>                    
+                        <th data-hide="phone" data-group="group1" width="10%" data-sort-ignore="true">Brand</th>
+                        <th data-hide="phone" data-group="group1" width="10%" data-sort-ignore="true">Chain</th>
 
                         <th data-hide="phone" data-group="group10" width="5%" data-sort-ignore="true">Silkrouters</th>
                         <th data-hide="phone" data-group="group10" width="2%" data-sort-ignore="true">WTB</th>
@@ -136,9 +122,6 @@ else
                                 <td class="tablebody"><?php echo $TravelHotelLookup['TravelHotelLookup']['brand_name']; ?></td>
                                 <td class="tablebody"><?php echo $TravelHotelLookup['TravelHotelLookup']['chain_name']; ?></td>
 
-                                
-                                
-
                                 <td class="sub-tablebody"><?php echo $status_txt; ?></td>
                                 <td class="sub-tablebody"><?php echo $wtb_status; ?></td>
                                 <td class="sub-tablebody"><?php echo $TravelHotelLookup['TravelHotelLookup']['active']; ?></td>   
@@ -157,7 +140,7 @@ else
                         <?php endforeach; ?>
 
                         <?php
-                        echo $this->element('paginate');
+                        //echo $this->element('paginate');
                     else:
                         echo '<tr><td colspan="43" class="norecords">No Records Found</td></tr>';
 
