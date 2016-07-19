@@ -150,6 +150,7 @@ else
             </table>           
             <?php echo $this->Form->end(); ?>
             <div class="clear" style="clear: both; margin-bottom: 10px;"></div>
+            <?php if($display == 'TRUE'){ ?>
                 <div class="col-sm-12" style="background-color: rgb(100, 233, 300);overflow:hidden;padding: 15px">
                     <h4>Existing Hotels for this WTB HOTEL</h4>
                     <table border="0" cellpadding="0" cellspacing="0" id="resp_table" class="table toggle-square myclitb" data-filter="#table_search" data-page-size="3000">
@@ -220,7 +221,7 @@ if (isset($DuplicateData) && count($DuplicateData) > 0):
                         </tbody>
                     </table>                 
                 </div>
-            
+            <?php }?>
             
             
         </div>

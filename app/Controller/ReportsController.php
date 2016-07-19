@@ -1312,7 +1312,7 @@ class ReportsController extends AppController {
         $condition = array();
         $dataConArray = array();
         $DuplicateData = array();
-
+        $display = 'FALSE';
 
         $this->TravelHotelLookup->bindModel(array(
             'hasMany' => array(
@@ -1327,6 +1327,7 @@ class ReportsController extends AppController {
         ));
         
         if($id){
+            $display = 'TRUE';
             array_push($search_condition, array('TravelHotelLookup.id' => $id));
             $TravelHotelLookup = $this->TravelHotelLookup->findById($id);
             $continent_id = $TravelHotelLookup['TravelHotelLookup']['continent_id'];
@@ -1379,7 +1380,7 @@ class ReportsController extends AppController {
         $this->paginate['order'] = array('TravelHotelLookup.city_code' => 'asc');
         $this->set('TravelHotelLookups', $this->paginate("TravelHotelLookup", $search_condition));
         
-        $this->set(compact('id','TravelHotelLookups'));
+        $this->set(compact('id','TravelHotelLookups','display'));
         //$log = $this->TravelHotelLookup->getDataSource()->getLog(false, false);       
        // debug($log);
         //die;
