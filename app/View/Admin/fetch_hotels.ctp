@@ -95,12 +95,18 @@ if (isset($TravelFetchTables) && count($TravelFetchTables) > 0):
         $id = $TravelFetchTable['TravelFetchTable']['id'];
 
         $type = $TravelFetchTable['TravelFetchTable']['type_id'];
-        if($type == '1')
+        if($type == '1'){
             $type = 'Hotel';
-        elseif($type == '2')
+            $isertVolumUrl = 'supplier_hotels/fetch_id:' . $id;
+        }
+        elseif($type == '2'){
             $type = 'Country';
-        elseif($type == '3')
+            $isertVolumUrl = 'supplier_country/fetch_id:' . $id;
+        }
+        elseif($type == '3'){
             $type = 'City';
+            $isertVolumUrl = 'supplier_city/fetch_id:' . $id;
+        }
          $status = ($TravelFetchTable['TravelFetchTable']['status'] == '1') ? 'OK' : 'ERROR';
         ?>
                     <tr>
@@ -113,7 +119,11 @@ if (isset($TravelFetchTables) && count($TravelFetchTables) > 0):
                         <td><?php if($TravelFetchTable['TravelFetchTable']['country_id']) echo $this->Custom->getSupplierCountryName($TravelFetchTable['TravelFetchTable']['country_id']); ?></td>
                         <td><?php if($TravelFetchTable['TravelFetchTable']['city_id']) echo $this->Custom->getSupplierCityName($TravelFetchTable['TravelFetchTable']['city_id']);?></td>
                         <td><?php echo $TravelFetchTable['TravelFetchTable']['total_volume']; ?></td>
-                        <td><?php echo $TravelFetchTable['TravelFetchTable']['inserted_volume']; ?></td>
+                        <td><?php  if($TravelFetchTable['TravelFetchTable']['inserted_volume'] > 0){ 
+                               
+                                echo $this->Html->link($TravelFetchTable['TravelFetchTable']['inserted_volume'], array('controller' => 'admin', 'action' => $isertVolumUrl), array('class' => 'act-ico', 'escape' => false,'target' => '_blank')); 
+                        }
+                            else echo '&nbsp;0'; ?></td>
                         <td><?php echo $status; ?></td>
                     </tr>
         <?php endforeach; ?>

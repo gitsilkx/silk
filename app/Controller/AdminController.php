@@ -440,6 +440,22 @@ class AdminController extends AppController {
     public function supplier_country() {
 
         $search_condition = array();
+        
+        if (count($this->params['pass'])) {
+
+           foreach ($this->params['pass'] as $key => $value) {
+                array_push($search_condition, array('SupplierCountry.' . $key => $value));
+                
+            }                
+        } elseif (count($this->params['named'])) {
+
+            foreach ($this->params['named'] as $key => $value) {
+                array_push($search_condition, array('SupplierCountry.' . $key => $value));
+               
+            }
+        }
+        
+        
         $this->paginate['order'] = array('SupplierCountry.id' => 'asc');
         $this->set('SupplierCountries', $this->paginate("SupplierCountry", $search_condition));
 
@@ -575,6 +591,21 @@ class AdminController extends AppController {
     public function supplier_city() {
 
         $search_condition = array();
+        
+        if (count($this->params['pass'])) {
+
+           foreach ($this->params['pass'] as $key => $value) {
+                array_push($search_condition, array('SupplierCity.' . $key => $value));
+                
+            }                
+        } elseif (count($this->params['named'])) {
+
+            foreach ($this->params['named'] as $key => $value) {
+                array_push($search_condition, array('SupplierCity.' . $key => $value));
+               
+            }
+        }
+        
         $this->paginate['order'] = array('SupplierCity.id' => 'asc');
         $this->set('SupplierCities', $this->paginate("SupplierCity", $search_condition));
 

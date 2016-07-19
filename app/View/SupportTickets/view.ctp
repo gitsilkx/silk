@@ -113,7 +113,7 @@ echo $this->Form->create('SupportTicket', array('method' => 'post', 'enctype' =>
                                      //$id =   end(explode(" | ", $this->data['SupportTicket']['about']));
                                      $about_link = '';
                                      if($this->data['SupportTicket']['screen'] == '1')
-                                        $about_link = $this->Html->link($this->data['SupportTicket']['about'], array('controller' => 'reports', 'action' => 'hotel_summary/id:'.$id), array('class' => 'act-ico', 'escape' => false,'target' => '_blank'));
+                                        $about_link = $this->Html->link($this->data['SupportTicket']['about'], array('controller' => 'reports', 'action' => 'support_hotel_summary/id:'.$id), array('class' => 'act-ico', 'escape' => false,'target' => '_blank'));
                                      elseif($this->data['SupportTicket']['screen'] == '4')
                                          $about_link = $this->Html->link($this->data['SupportTicket']['about'], array('controller' => 'admin', 'action' => 'hotel_add/'.$id), array('class' => 'act-ico', 'escape' => false,'target' => '_blank'));
                                      elseif($this->data['SupportTicket']['screen'] == '5')
@@ -258,7 +258,7 @@ echo $this->Form->create('SupportTicket', array('method' => 'post', 'enctype' =>
                                     <?php 
                                     if($this->data['SupportTicket']['answer'] == '27'){
                                          $duplicate_id =   $this->Custom->after_last(' ',$this->data['SupportTicket']['answer1']);
-                                        echo $this->Html->link($this->data['SupportTicket']['about'], array('controller' => 'reports', 'action' => 'hotel_summary/id:'.$duplicate_id), array('class' => 'act-ico', 'escape' => false,'target' => '_blank'));
+                                        echo $this->Html->link($this->data['SupportTicket']['about'], array('controller' => 'reports', 'action' => 'support_hotel_summary/id:'.$duplicate_id), array('class' => 'act-ico', 'escape' => false,'target' => '_blank'));
                                     }
                                     else{
                                         echo $this->data['SupportTicket']['answer1'];
