@@ -176,7 +176,7 @@ else
                                 <th data-hide="all" data-group="group2" data-sort-ignore="true">Chain</th>
                                 <th data-hide="all" data-group="group2" data-sort-ignore="true">Brand</th>
                                 <th data-hide="all" data-group="group2" data-sort-ignore="true">Address</th>
-                                <th data-group="group4" data-hide="phone" data-sort-ignore="true" width="3%">Action</th>        
+                                
                             </tr>
                         </thead>
                         <tbody>
@@ -206,13 +206,7 @@ if (isset($DuplicateData) && count($DuplicateData) > 0):
                                 <td class="sub-tablebody"><?php echo $TravelHotelLookup['TravelHotelLookup']['chain_name']; ?></td>
                                 <td class="sub-tablebody"><?php echo $TravelHotelLookup['TravelHotelLookup']['brand_name']; ?></td>
                                 <td class="sub-tablebody"><?php echo $TravelHotelLookup['TravelHotelLookup']['address']; ?></td>
-                                <td width="10%" valign="middle" align="center">
-                                    <?php 
-                                        $options=array($id=>'');
-                                        $attributes=array('legend'=>false, 'hiddenField' => false,'label' => false,'div' => false,'class' => 'attrInputs');
-                                        echo $this->Form->radio('Common.hotel_id',$options,$attributes);
-                                        ?>                                
-                                </td>
+                                
                             </tr>
         <?php endforeach; ?>
 
