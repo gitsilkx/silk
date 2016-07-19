@@ -17,7 +17,7 @@ if (!empty($this->request->params['named']['country_id'])) {
             //$country_id = $this->request->params['named']['country_id'];
         }   
 
-        pr($this->data);
+        pr($this->request->params['named']);
 ?>    
 
 <div class="row">
