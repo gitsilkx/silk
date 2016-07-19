@@ -17,7 +17,7 @@ if (!empty($this->request->params['named']['country_id'])) {
             //$country_id = $this->request->params['named']['country_id'];
         }   
 
-        pr($this->request->params['named']);
+        
 ?>    
 
 <div class="row">
@@ -116,11 +116,7 @@ if (!empty($this->request->params['named']['country_id'])) {
                 </div>
                
             </div>
-            <div class="row" style="padding: 15px;">
-        <div class="col-sm-12">
-            <?php echo $this->Html->link('Duplicate Hotel', array('controller' => 'admin', 'action' => ''), array('class' => 'act-ico', 'escape' => false));  ?>
-        </div>
-    </div> 
+
  <?php echo $this->Form->end(); ?>
            <?php
                 echo $this->Form->create('Report', array('controller' => 'reports','action' => 'hotel_delete','onsubmit' => 'return ChkCheckbox()','class' => 'quick_search', 'id' => 'SearchForm', 'type' => 'post', 'novalidate' => true, 'inputDefaults' => array(
@@ -139,7 +135,7 @@ if (!empty($this->request->params['named']['country_id'])) {
 
 ?></div>
     </div> 
-            
+        <?php echo $this->Html->link('Duplicate Hotel','/admin/support_hotel_summary/id:'.$this->request->params['named']['id'].'/type:1', array('class' => 'act-ico', 'escape' => false));  ?>     
             <table border="0" cellpadding="0" cellspacing="0" id="resp_table" class="table toggle-square myclitb" data-filter="#table_search" data-page-size="500">
                
                 <thead>
