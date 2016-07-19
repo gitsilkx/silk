@@ -158,9 +158,9 @@ else
                             <tr class="footable-group-row">
                                 <th data-group="group1" colspan="9" class="nodis">Hotel Information</th>
 
-                                <th data-group="group2" colspan="3">Hotel Information</th>
+                                <th data-group="group2" colspan="5">Hotel Information</th>
 
-                                <th data-group="group4" class="nodis">Hotel Action</th>
+                               
                             </tr>
                             <tr>
                                 <th data-toggle="true" data-group="group1" width="5%">Id</th>  
