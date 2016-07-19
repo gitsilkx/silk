@@ -789,6 +789,7 @@ class TravelHotelLookupsController extends AppController {
         $TravelAreas = array();
         $TravelBrands = array();
         $Provinces=array();
+        $ConArry = array();
 
         $arr = explode('_', $id);
         $id = $arr[0];
@@ -818,6 +819,13 @@ class TravelHotelLookupsController extends AppController {
             $flag = 1;
             $TravelActionItems = $this->TravelActionItem->findById($actio_itme_id);
             $next_action_by = $TravelActionItems['TravelActionItem']['next_action_by'];
+            
+        }
+        else{
+            $proArr = array();
+            if($this->checkProvince())
+            $proArr = $this->checkProvince();
+            $ConArry = array('Province.id' => $proArr);
         }
 
         //echo $next_action_by;
@@ -983,17 +991,15 @@ class TravelHotelLookupsController extends AppController {
             ));
             $TravelCities = Set::combine($TravelCities, '{n}.TravelCity.id', array('%s - %s', '{n}.TravelCity.city_code', '{n}.TravelCity.city_name'));
         
-            $proArr = array();
-            if($this->checkProvince())
-            $proArr = $this->checkProvince();
+            
             $Provinces = $this->Province->find('list', array(
                 'conditions' => array(
                     'Province.country_id' => $TravelHotelLookups['TravelHotelLookup']['country_id'],
                     'Province.continent_id' => $TravelHotelLookups['TravelHotelLookup']['continent_id'],
                     'Province.status' => '1',
                     'Province.wtb_status' => '1',
-                    'Province.active' => 'TRUE',
-                    'Province.id' => $proArr
+                    'Province.active' => 'TRUE',$ConArry
+                    //'Province.id' => $proArr
                 ),
                 'fields' => array('Province.id', 'Province.name'),
                 'order' => 'Province.name ASC'
