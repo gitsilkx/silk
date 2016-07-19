@@ -1309,6 +1309,9 @@ class ReportsController extends AppController {
         $user_id = $this->Auth->user('id');
         $search_condition = array();
         $TravelHotelLookups = array();
+        $condition = array();
+        $dataConArray = array();
+        $DuplicateData = array();
 
 
         $this->TravelHotelLookup->bindModel(array(
@@ -1345,7 +1348,10 @@ class ReportsController extends AppController {
             }
             
             
-            //array_push($search_condition, array('OR' => $condition, 'TravelHotelLookup.country_id' => $country_id, 'TravelHotelLookup.city_id' => $city_id, 'TravelHotelLookup.province_id' => $province_id, 'TravelHotelLookup.city_id' => $city_id));
+            array_push($dataConArray, array('OR' => $condition, 'TravelHotelLookup.country_id' => $country_id, 'TravelHotelLookup.city_id' => $city_id, 'TravelHotelLookup.province_id' => $province_id, 'TravelHotelLookup.city_id' => $city_id, 'TravelHotelLookup.id !=' => $id));
+            
+            $this->paginate['order'] = array('TravelHotelLookup.hotel_name' => 'asc');
+            $this->set('DuplicateData', $this->paginate("TravelHotelLookup", $dataConArray));
             
         }
         else{
