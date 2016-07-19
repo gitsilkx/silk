@@ -1350,7 +1350,8 @@ class ReportsController extends AppController {
 
         $this->paginate['order'] = array('TravelHotelLookup.city_code' => 'asc');
         $this->set('TravelHotelLookups', $this->paginate("TravelHotelLookup", $search_condition));
-
+        
+        $this->set(compact('id'));
         //$log = $this->TravelHotelLookup->getDataSource()->getLog(false, false);       
        // debug($log);
         //die;

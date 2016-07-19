@@ -3,20 +3,10 @@ $this->Html->addCrumb('My Hotels', 'javascript:void(0);', array('class' => 'brea
 App::import('Model', 'TravelActionItem');
 $TravelActionItem = new TravelActionItem();
 //pr($this->params['named']);
-$url = '/';
-if (!empty($this->request->params['named']['continent_id'])) {
-            $url .= 'continent_id:'.$this->request->params['named']['continent_id'].'/';
-        }
- if (!empty($this->request->params['named']['province_id'])) {
-        $url .= 'province_id:'.$this->request->params['named']['province_id'].'/';
-            //$province_id = $this->request->params['named']['province_id'];
-        }
-        
-if (!empty($this->request->params['named']['country_id'])) {
-        $url .= 'country_id:'.$this->request->params['named']['country_id'];
-            //$country_id = $this->request->params['named']['country_id'];
-        }   
-
+if(isset($this->request->params['named']['id']))
+    $hotel_id = $this->request->params['named']['id'];
+else
+    $hotel_id = $id;
         
 ?>    
 
