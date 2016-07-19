@@ -1302,7 +1302,7 @@ class ReportsController extends AppController {
                 'TravelChains', 'TravelBrands', 'TravelLookupValueContractStatuses', 'TravelLookupContinents', 'Provinces', 'province_id'));
     }
     
-    public function support_hotel_summary() {
+    public function support_hotel_summary($id=null, $type=null) {
 
 
         // $city_id = $this->Auth->user('city_id');
