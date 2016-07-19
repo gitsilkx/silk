@@ -1529,25 +1529,7 @@ class ReportsController extends AppController {
                     'fields' => 'HotelPending.id',
                     'conditions' => array('HotelPending.level_id' => '7', 'HotelPending.action_item_active' => 'Yes', 'HotelPending.next_action_by != "NULL"')
                 ),
-            /*
-              'MappingPending' => array(
-              'className' => 'TravelActionItem',
-              'fields' => 'MappingPending.id',
-              'foreignKey' => false,
-              'conditions' => array('MappingPending.hotel_supplier_id' => '{$ __cakeID__ $}','MappingPending.level_id' => '4','MappingPending.action_item_active' => 'Yes', 'MappingPending.next_action_by != NULL')  // 1 for client table of  lookup_value_activity_levels
-              ),
-
-              'MappingPending' => array(
-              'className' => 'TravelActionItem',
-              'foreignKey' => false,
-              'fields' => 'MappingPending.id',
-              'conditions' => array('MappingPending.level_id' => '4', 'MappingPending.action_item_active' => 'Yes'),
-              'finderQuery'   => 'select * from travel_hotel_room_suppliers as `Action` where
-              `Action`.`hotel_id` = {$__cakeID__$} ',
-
-              ),
-             * 
-             */
+        
             )
         ));
         
@@ -1571,7 +1553,9 @@ class ReportsController extends AppController {
                 }
             }
         }
-
+        
+        pr($search_condition);
+        die;
 
 
         /*
