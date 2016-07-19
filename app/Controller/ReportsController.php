@@ -1535,6 +1535,7 @@ class ReportsController extends AppController {
         
         if($id){
             array_push($search_condition, array('TravelHotelLookup.id' => $id));
+            //array_push($search_condition, array('TravelHotelLookup.id' => $suburb_id));
         }
         else{
             if (count($this->params['pass'])) {
@@ -1554,8 +1555,8 @@ class ReportsController extends AppController {
             }
         }
         
-        pr($search_condition);
-        die;
+       // pr($search_condition);
+        //die;
 
 
         /*
