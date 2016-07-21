@@ -2315,14 +2315,11 @@ class TravelHotelLookupsController extends AppController {
                 $actiontype = 'Update';
             else
                 $actiontype = 'AddNew';
-            
-            pr($this->request->data['TravelHotelLookup']);
-            die;
+          
             
             $this->TravelHotelLookup->id = $id;
             $this->TravelHotelLookup->save($this->request->data['TravelHotelLookup']); 
-            
-             $content_xml_str = '<soap:Body>
+                 $content_xml_str = '<soap:Body>
                                         <ProcessXML xmlns="http://www.travel.domain/">
                                             <RequestInfo>
                                                 <ResourceDataRequest>
