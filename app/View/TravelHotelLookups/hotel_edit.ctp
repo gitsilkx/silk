@@ -406,8 +406,8 @@ $this->Js->get('#TravelHotelLookupCountryId')->event('change', $this->Js->reques
     $('#TravelHotelLookupCityId').change(function() {
             var str = $('#TravelHotelLookupCityId option:selected').text();
             var res = str.split("-");          
-            $('#TravelHotelLookupCityCode').val(res[1]);
-            $('#TravelHotelLookupCityName').val(res[0]);
+            $('#TravelHotelLookupCityCode').val(res[0]);
+            $('#TravelHotelLookupCityName').val(res[1]);
         });
         
         $('#TravelHotelLookupCountryId').change(function() {
