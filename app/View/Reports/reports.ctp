@@ -149,8 +149,8 @@ echo $this->Form->end();
                     $sum4 = 0;
                     if (isset($TravelCities) && count($TravelCities) > 0):
                         foreach ($TravelCities as $value):                       
-                         $CityStatus = $value['TravelCity']['city_status'] ? 'OK' : 'ERROR';
-                         $WTBStatus = $value['TravelCity']['wtb_status'] ? 'OK' : 'ERROR';
+                         $CityStatus = ($value['TravelCity']['city_status'] == '1') ? 'OK' : 'ERROR';
+                         $WTBStatus = ($value['TravelCity']['wtb_status'] == '1') ? 'OK' : 'ERROR';
                             ?>
                             <tr>
                                 <td class="tablebody"><?php											
