@@ -902,6 +902,68 @@ class ReportsController extends AppController {
 
         $this->set(compact('TravelCountries', 'country_id', 'TravelHotelLookups'));
     }
+    
+    public function mismatch_country() {
+
+        $TravelCities = array();
+        $country_id = '220';
+
+        if ($this->request->is('post') || $this->request->is('put')) {
+            $country_id = $this->data['Report']['country_id'];
+        }
+
+
+
+
+        $this->TravelHotelLookup->unbindModel(
+                array('hasMany' => array('TravelHotelRoomSupplier'))
+        );
+
+
+        //SELECT `city_name`,count(`id`) FROM `travel_hotel_lookups` WHERE `country_id`='220' and `city_id` not in(select id from travel_cities where country_id='220') group by `city_id` 
+//$TravelHotelLookups = $this->TravelHotelLookup->query("SELECT `city_name`,count(`id`) FROM `travel_hotel_lookups` WHERE `country_id`='220' and `city_id` not in(select id from travel_cities where country_id='220') group by `city_id` ");
+
+        $TravelHotelLookups = $this->TravelHotelLookup->find
+                (
+                'all', array
+            (
+            'fields' => array('TravelHotelLookup.city_name', 'TravelHotelLookup.city_id', 'TravelHotelLookup.country_id', 'TravelHotelLookup.city_code', 'TravelCity.city_name', 'TravelCity.country_name', 'TravelCity.continent_name', 'TravelHotelLookup.country_name', 'COUNT(TravelHotelLookup.city_id) AS cnt'),
+            'joins' => array(
+                array(
+                    'table' => 'travel_cities',
+                    'alias' => 'TravelCity',
+                    'conditions' => array(
+                        'TravelCity.id = TravelHotelLookup.city_id'
+                    )
+                )
+            ),
+            'conditions' => array
+                (
+                'TravelHotelLookup.city_id NOT IN (SELECT id FROM travel_cities WHERE country_id = "' . $country_id . '")',
+                'TravelHotelLookup.country_id' => $country_id
+            ),
+            'group' => 'TravelHotelLookup.city_id',
+            'order' => 'TravelHotelLookup.city_name ASC'
+                )
+        );
+
+//pr($TravelHotelLookups);
+        //$log = $this->TravelHotelLookup->getDataSource()->getLog(false, false);       
+        //debug($log);
+        //pr($TravelHotelLookups);
+        //die;
+        /*
+          $TravelCities = $this->TravelCity->find('all', array(
+          'conditions' => array('TravelCity.country_id' => $country_id),
+          'fields' => array('id', 'city_name','country_name','city_code')
+          ));
+         * 
+         */
+
+        $TravelCountries = $this->TravelCountry->find('list', array('fields' => 'id,country_name', 'order' => 'country_name ASC'));
+
+        $this->set(compact('TravelCountries', 'country_id', 'TravelHotelLookups'));
+    }
 
     public function hotel_summary() {
 

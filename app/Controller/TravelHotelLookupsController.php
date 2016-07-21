@@ -2738,7 +2738,7 @@ class TravelHotelLookupsController extends AppController {
                 'fields' => array('TravelCity.id', 'TravelCity.city_name', 'TravelCity.city_code'),
                 'order' => 'TravelCity.city_name ASC'
             ));
-            $TravelCities = Set::combine($TravelCities, '{n}.TravelCity.id', array('%s - %s', '{n}.TravelCity.city_name', '{n}.TravelCity.city_code'));
+            $TravelCities = Set::combine($TravelCities, '{n}.TravelCity.id', array('%s - %s', '{n}.TravelCity.city_code', '{n}.TravelCity.city_name'));
             
             $Provinces = $this->Province->find('list', array(
                 'conditions' => array(
