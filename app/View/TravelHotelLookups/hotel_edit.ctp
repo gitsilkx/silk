@@ -27,17 +27,17 @@ $this->Html->addCrumb('Edit Hotel', 'javascript:void(0);', array('class' => 'bre
                         )
                     ));
          
-                    echo $this->Form->hidden('continent_name');
-                    echo $this->Form->hidden('continent_code');
-                    echo $this->Form->hidden('country_code');
-                    echo $this->Form->hidden('country_name');
-                    echo $this->Form->hidden('city_name');
-                    echo $this->Form->hidden('suburb_name');
-                    echo $this->Form->hidden('area_name');
-                    echo $this->Form->hidden('chain_name');
-                    echo $this->Form->hidden('brand_name');
-                    echo $this->Form->hidden('city_code');
-                    echo $this->Form->hidden('province_name');
+                    echo $this->Form->text('continent_name');
+                    echo $this->Form->text('continent_code');
+                    echo $this->Form->text('country_code');
+                    echo $this->Form->text('country_name');
+                    echo $this->Form->text('city_name');
+                    echo $this->Form->text('suburb_name');
+                    echo $this->Form->text('area_name');
+                    echo $this->Form->text('chain_name');
+                    echo $this->Form->text('brand_name');
+                    echo $this->Form->text('city_code');
+                    echo $this->Form->text('province_name');
                     ?> 
                     
                    
@@ -406,8 +406,8 @@ $this->Js->get('#TravelHotelLookupCountryId')->event('change', $this->Js->reques
     $('#TravelHotelLookupCityId').change(function() {
             var str = $('#TravelHotelLookupCityId option:selected').text();
             var res = str.split("-");          
-            $('#TravelHotelLookupCityCode').val(res[0]);
-            $('#TravelHotelLookupCityName').val(res[1]);
+            $('#TravelHotelLookupCityCode').val(res[1]);
+            $('#TravelHotelLookupCityName').val(res[0]);
         });
         
         $('#TravelHotelLookupCountryId').change(function() {
