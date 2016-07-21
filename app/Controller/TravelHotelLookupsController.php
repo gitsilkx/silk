@@ -2316,6 +2316,9 @@ class TravelHotelLookupsController extends AppController {
             else
                 $actiontype = 'AddNew';
             
+            pr($this->request->data['TravelHotelLookup']);
+            die;
+            
             $this->TravelHotelLookup->id = $id;
             $this->TravelHotelLookup->save($this->request->data['TravelHotelLookup']); 
             
