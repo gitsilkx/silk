@@ -25,6 +25,8 @@ if (count($this->passedArgs)) {
                }
             }                
         }
+        
+        echo $url;
  ?>
  	
 
