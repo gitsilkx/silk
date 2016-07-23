@@ -4,7 +4,9 @@
 $modelArr = array_keys($this->params['paging']);
  $model = $modelArr[0];
 //$model = Inflector::classify($this->params['controller']);
-echo $this->data[$model]['page'];
+
+ 
+
  ?>
  	
 
@@ -37,8 +39,9 @@ echo $this->data[$model]['page'];
             <td width="10%"> <?php
 					
                                 $options = array( 10 => '10', 20 => '20',30 => '30', 50 => '50', 100 => '100' , 500 => '500' );
-                                echo $this->Form->create(array('url' => $_SERVER['REQUEST_URI'],'type'=>'get'));
-                               
+                                echo $this->Form->create(array('url' => '/'.$this->params->url,'type'=>'get'));
+                                if(isset($this->params['url']['page']))
+                                   echo $this->Form->hidden('page',array('value' => $this->params['url']['page']));
                                 echo $this->Form->select('limit', $options, array(
                                 'value'=>$this->params['paging'][$model]['limit'], 
                                 'empty' => FALSE, 
