@@ -252,7 +252,7 @@ if (!empty($this->request->params['named']['country_id'])) {
                         <?php endforeach; ?>
 
                         <?php
-                        echo $this->element('paginate');
+                        
                     else:
                         echo '<tr><td colspan="43" class="norecords">No Records Found</td></tr>';
 
@@ -260,7 +260,9 @@ if (!empty($this->request->params['named']['country_id'])) {
                     ?>
                 </tbody>
             </table>           
-            <?php echo $this->Form->end(); ?>
+            <?php echo $this->Form->end(); 
+            echo $this->element('paginate');
+            ?>
         </div>
     </div>
 </div>
