@@ -30,6 +30,7 @@ if (!empty($this->request->params['named']['country_id'])) {
         </div>
         <div class="panel panel-default">
 <?php
+/*
                 echo $this->Form->create('Report', array('controller' => 'reports','action' => 'hotel_summary','class' => 'quick_search', 'id' => 'SearchForm','type'=>'get', 'novalidate' => true, 'inputDefaults' => array(
                         'label' => false,
                         'div' => false,
@@ -39,6 +40,9 @@ if (!empty($this->request->params['named']['country_id'])) {
                     )
                         
                         );
+ * 
+ */
+echo $this->Form->create(array('type'=>'get'));
                 echo $this->Form->hidden('model_name', array('id' => 'model_name', 'value' => 'TravelHotelLookup'));
                 ?> 
             <div class="panel_controls hideform">
