@@ -4,7 +4,7 @@
 $modelArr = array_keys($this->params['paging']);
  $model = $modelArr[0];
 //$model = Inflector::classify($this->params['controller']);
-echo $_SERVER['REQUEST_URI'];
+echo $this->data[$model]['page'];
  ?>
  	
 
@@ -38,7 +38,7 @@ echo $_SERVER['REQUEST_URI'];
 					
                                 $options = array( 10 => '10', 20 => '20',30 => '30', 50 => '50', 100 => '100' , 500 => '500' );
                                 echo $this->Form->create(array('url' => $_SERVER['REQUEST_URI'],'type'=>'get'));
-                                
+                               
                                 echo $this->Form->select('limit', $options, array(
                                 'value'=>$this->params['paging'][$model]['limit'], 
                                 'empty' => FALSE, 
