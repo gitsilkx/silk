@@ -41,7 +41,7 @@ if (!empty($this->request->params['named']['country_id'])) {
                         
                         );
 
-                echo $this->Form->hidden('model_name', array('id' => 'model_name', 'value' => 'TravelHotelLookup'));
+                //echo $this->Form->hidden('model_name', array('id' => 'model_name', 'value' => 'TravelHotelLookup'));
                 ?> 
             <div class="panel_controls hideform">
 
