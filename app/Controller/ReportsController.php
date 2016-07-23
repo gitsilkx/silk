@@ -1262,38 +1262,48 @@ class ReportsController extends AppController {
 
 
         if (!isset($this->passedArgs['hotel_name']) && empty($this->passedArgs['hotel_name'])) {
-            $this->passedArgs['hotel_name'] = (isset($this->data['TravelHotelLookup']['hotel_name'])) ? $this->data['TravelHotelLookup']['hotel_name'] : '';
+            if(isset($this->data['TravelHotelLookup']['hotel_name'])) 
+                $this->passedArgs['hotel_name'] =  $this->data['TravelHotelLookup']['hotel_name'];
         }
         if (!isset($this->passedArgs['continent_id']) && empty($this->passedArgs['continent_id'])) {
-            $this->passedArgs['continent_id'] = (isset($this->data['TravelHotelLookup']['continent_id'])) ? $this->data['TravelHotelLookup']['continent_id'] : '';
+            if(isset($this->data['TravelHotelLookup']['continent_id'])) 
+                $this->passedArgs['continent_id'] =  $this->data['TravelHotelLookup']['continent_id'];
         }
         if (!isset($this->passedArgs['country_id']) && empty($this->passedArgs['country_id'])) {
-            $this->passedArgs['country_id'] = (isset($this->data['TravelHotelLookup']['country_id'])) ? $this->data['TravelHotelLookup']['country_id'] : '';
+            if(isset($this->data['TravelHotelLookup']['country_id'])) 
+                $this->passedArgs['country_id'] =  $this->data['TravelHotelLookup']['country_id'];
         }
         if (!isset($this->passedArgs['province_id']) && empty($this->passedArgs['province_id'])) {
              if(isset($this->data['TravelHotelLookup']['province_id'])) 
                  $this->passedArgs['province_id'] = $this->data['TravelHotelLookup']['province_id'];
         }
         if (!isset($this->passedArgs['city_id']) && empty($this->passedArgs['city_id'])) {
-            $this->passedArgs['city_id'] = (isset($this->data['TravelHotelLookup']['city_id'])) ? $this->data['TravelHotelLookup']['city_id'] : '';
+            if(isset($this->data['TravelHotelLookup']['city_id'])) 
+                $this->passedArgs['city_id'] =  $this->data['TravelHotelLookup']['city_id'];
         }
         if (!isset($this->passedArgs['suburb_id']) && empty($this->passedArgs['suburb_id'])) {
-            $this->passedArgs['suburb_id'] = (isset($this->data['TravelHotelLookup']['suburb_id'])) ? $this->data['TravelHotelLookup']['suburb_id'] : '';
+            if(isset($this->data['TravelHotelLookup']['suburb_id'])) 
+                $this->passedArgs['suburb_id'] = $this->data['TravelHotelLookup']['suburb_id'];
         }
         if (!isset($this->passedArgs['area_id']) && empty($this->passedArgs['area_id'])) {
-            $this->passedArgs['area_id'] = (isset($this->data['TravelHotelLookup']['area_id'])) ? $this->data['TravelHotelLookup']['area_id'] : '';
+            if(isset($this->data['TravelHotelLookup']['area_id'])) 
+                $this->passedArgs['area_id'] =  $this->data['TravelHotelLookup']['area_id'];
         }
         if (!isset($this->passedArgs['chain_id']) && empty($this->passedArgs['chain_id'])) {
-            $this->passedArgs['chain_id'] = (isset($this->data['TravelHotelLookup']['chain_id'])) ? $this->data['TravelHotelLookup']['chain_id'] : '';
+            if(isset($this->data['TravelHotelLookup']['chain_id'])) 
+                $this->passedArgs['chain_id'] =  $this->data['TravelHotelLookup']['chain_id'];
         }
         if (!isset($this->passedArgs['brand_id']) && empty($this->passedArgs['brand_id'])) {
-            $this->passedArgs['brand_id'] = (isset($this->data['TravelHotelLookup']['brand_id'])) ? $this->data['TravelHotelLookup']['brand_id'] : '';
+            if(isset($this->data['TravelHotelLookup']['brand_id'])) 
+                $this->passedArgs['brand_id'] =  $this->data['TravelHotelLookup']['brand_id'];
         }
         if (!isset($this->passedArgs['status']) && empty($this->passedArgs['status'])) {
-            $this->passedArgs['status'] = (isset($this->data['TravelHotelLookup']['status'])) ? $this->data['TravelHotelLookup']['status'] : '';
+            if(isset($this->data['TravelHotelLookup']['status'])) 
+                $this->passedArgs['status'] =  $this->data['TravelHotelLookup']['status'];
         }
         if (!isset($this->passedArgs['wtb_status']) && empty($this->passedArgs['wtb_status'])) {
-            $this->passedArgs['wtb_status'] = (isset($this->data['TravelHotelLookup']['wtb_status'])) ? $this->data['TravelHotelLookup']['wtb_status'] : '';
+            if(isset($this->data['TravelHotelLookup']['wtb_status'])) 
+                $this->passedArgs['wtb_status'] =  $this->data['TravelHotelLookup']['wtb_status'];
         }
         if (!isset($this->passedArgs['active']) && empty($this->passedArgs['active'])) {
              if(isset($this->data['TravelHotelLookup']['active'])) 
