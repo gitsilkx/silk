@@ -1,11 +1,20 @@
 <?php $this->Paginator->options(array('url' => $this->passedArgs));
-//pr($this->params);
-//pr($this->passedArgs);
+
 $modelArr = array_keys($this->params['paging']);
  $model = $modelArr[0];
+ $url = $this->params['controller'].'/'.$this->params['action'];
 //$model = Inflector::classify($this->params['controller']);
 
- 
+if (count($this->passedArgs)) {
+
+           foreach ($this->passedArgs as $key => $value) {
+               if($value){
+                    $url .= $key.':'.$value;
+                    $url .= '/';
+               }
+            }                
+        }
+
 
  ?>
  	
@@ -39,7 +48,7 @@ $modelArr = array_keys($this->params['paging']);
             <td width="10%"> <?php
 					
                                 $options = array( 10 => '10', 20 => '20',30 => '30', 50 => '50', 100 => '100' , 500 => '500' );
-                                echo $this->Form->create(array('url' => $this->passedArgs,'type'=>'get'));
+                                echo $this->Form->create(array('url' => $url,'type'=>'get'));
                                 if(isset($this->params['url']['page']))
                                    echo $this->Form->hidden('page',array('value' => $this->params['url']['page']));
                                 echo $this->Form->select('limit', $options, array(
