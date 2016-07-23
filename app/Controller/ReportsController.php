@@ -939,8 +939,8 @@ class ReportsController extends AppController {
             ),
             'conditions' => array
                 (
-                'TravelHotelLookup.city_id NOT IN (SELECT id FROM travel_cities WHERE country_id = "' . $country_id . '")',
-                'TravelHotelLookup.country_id' => $country_id
+                'TravelHotelLookup.city_id IN (SELECT id FROM travel_cities WHERE country_id = "' . $country_id . '")',
+                'TravelHotelLookup.country_id !=' => $country_id
             ),
             'group' => 'TravelHotelLookup.city_id',
             'order' => 'TravelHotelLookup.city_name ASC'
