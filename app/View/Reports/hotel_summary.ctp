@@ -30,7 +30,7 @@ if (!empty($this->request->params['named']['country_id'])) {
         </div>
         <div class="panel panel-default">
 <?php
-                echo $this->Form->create('Report', array('controller' => 'reports','action' => 'hotel_summary','class' => 'quick_search', 'id' => 'SearchForm', 'type' => 'post', 'novalidate' => true, 'inputDefaults' => array(
+                echo $this->Form->create('Report', array('controller' => 'reports','action' => 'hotel_summary','class' => 'quick_search', 'id' => 'SearchForm','type'=>'get', 'novalidate' => true, 'inputDefaults' => array(
                         'label' => false,
                         'div' => false,
                         'class' => 'form-control',
