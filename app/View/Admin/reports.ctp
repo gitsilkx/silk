@@ -73,7 +73,7 @@
                     </div>
                     <div class="info-details">
         <?php
-        echo $this->Html->link('<h4>Hotel Summary Report (Mismatched)<span class="pull-right"></span></h4><h6>By City</h6>', '/reports/mismatch_country', array('data-toggle' => 'tooltip', 'data-placement' => 'right', 'title' => 'My Tumblr', 'escape' => false));        
+        echo $this->Html->link('<h4>Hotel Summary Report (Mismatched)<span class="pull-right"></span></h4><h6>By Country Reverse</h6>', '/reports/mismatch_country', array('data-toggle' => 'tooltip', 'data-placement' => 'right', 'title' => 'My Tumblr', 'escape' => false));        
         ?>
                     </div>
                 </div>
