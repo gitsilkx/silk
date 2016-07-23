@@ -1,5 +1,6 @@
 <?php $this->Paginator->options(array('url' => $this->passedArgs));
 //pr($this->params);
+echo $this->passedArgs;
 $modelArr = array_keys($this->params['paging']);
  $model = $modelArr[0];
 //$model = Inflector::classify($this->params['controller']);
