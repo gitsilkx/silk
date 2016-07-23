@@ -13,7 +13,7 @@ $modelArr = array_keys($this->params['paging']);
      $action = $arr[1];
  }
 
- echo $url = $this->params['controller'].'/a'.$action.'/';
+$url = $this->params['controller'].'/a'.$action.'/';
 //$model = Inflector::classify($this->params['controller']);
 
 if (count($this->passedArgs)) {
@@ -26,7 +26,7 @@ if (count($this->passedArgs)) {
             }                
         }
 echo $url;
-die;
+
 
  ?>
  	
