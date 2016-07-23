@@ -2,7 +2,18 @@
 
 $modelArr = array_keys($this->params['paging']);
  $model = $modelArr[0];
- $url = $this->params['controller'].'/'.$this->params['action'].'/';
+ $pos = strpos($this->params['action'], '/');
+ if ($pos === false) {
+     
+     $action = $this->params['action'];     
+ }
+ else {
+     
+     $arr = explode('/', $this->params['action']);
+     $action = $arr[1];
+ }
+
+ echo $url = $this->params['controller'].'/a'.$action.'/';
 //$model = Inflector::classify($this->params['controller']);
 
 if (count($this->passedArgs)) {
@@ -14,7 +25,8 @@ if (count($this->passedArgs)) {
                }
             }                
         }
-
+echo $url;
+die;
 
  ?>
  	
