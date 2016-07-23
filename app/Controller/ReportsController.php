@@ -1271,7 +1271,8 @@ class ReportsController extends AppController {
             $this->passedArgs['country_id'] = (isset($this->data['TravelHotelLookup']['country_id'])) ? $this->data['TravelHotelLookup']['country_id'] : '';
         }
         if (!isset($this->passedArgs['province_id']) && empty($this->passedArgs['province_id'])) {
-            $this->passedArgs['province_id'] = (isset($this->data['TravelHotelLookup']['province_id'])) ? $this->data['TravelHotelLookup']['province_id'] : '';
+             if(isset($this->data['TravelHotelLookup']['province_id'])) 
+                 $this->passedArgs['province_id'] = $this->data['TravelHotelLookup']['province_id'];
         }
         if (!isset($this->passedArgs['city_id']) && empty($this->passedArgs['city_id'])) {
             $this->passedArgs['city_id'] = (isset($this->data['TravelHotelLookup']['city_id'])) ? $this->data['TravelHotelLookup']['city_id'] : '';
