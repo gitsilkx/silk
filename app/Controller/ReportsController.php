@@ -1306,7 +1306,7 @@ class ReportsController extends AppController {
                 $this->passedArgs['wtb_status'] =  $this->data['TravelHotelLookup']['wtb_status'];
         }
         if (!isset($this->passedArgs['active']) && empty($this->passedArgs['active'])) {
-             if(isset($this->data['TravelHotelLookup']['active'])) 
+             if(isset($this->data['TravelHotelLookup']['active']) && !empty($this->data['TravelHotelLookup']['active'])) 
                  $this->passedArgs['active'] = $this->data['TravelHotelLookup']['active'] ;
         }
 
