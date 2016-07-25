@@ -84,7 +84,7 @@ echo $this->Form->end();
               ?>
                     <div class="row" style="padding: 10px;">
         <div class="col-sm-12">
-            <?php echo $this->Form->submit('Delete', array('class' => 'success btn', 'div' => false, 'id' => 'udate_unit')); ?><?php
+            <?php //echo $this->Form->submit('Delete', array('class' => 'success btn', 'div' => false, 'id' => 'udate_unit')); ?><?php
 
 ?></div>
     </div> 
@@ -98,7 +98,7 @@ echo $this->Form->end();
                         
                     </tr>       
                     <tr>
-                        <th data-hide="phone" data-sort-ignore="true" data-group="group1"><input type="checkbox" class="mbox_select_all" name="msg_sel_all"></th>
+                        <!--<th data-hide="phone" data-sort-ignore="true" data-group="group1"><input type="checkbox" class="mbox_select_all" name="msg_sel_all"></th>-->
                         <th data-hide="phone" data-group="group1">Id</th>
                         
                         <th data-hide="phone" data-group="group1">Continent</th>
@@ -139,9 +139,9 @@ echo $this->Form->end();
                          $continent_id = $value['TravelLookupContinent']['id'];
                             ?>
                             <tr>
-                                <td class="tablebody"><?php											
+                                <!--<td class="tablebody"><?php											
                                 echo $this->Form->checkbox('check', array('name' => 'data[TravelLookupContinent][check][]','class' => 'msg_select','readonly' => true,'hiddenField' => false,'value' => $value['TravelLookupContinent']['id']));
-                                ?></td>
+                                ?></td>-->
                                 <td><?php echo $continent_id;?></td> 
                               
                                 <td><?php echo $value['TravelLookupContinent']['continent_name']; ?></td>
