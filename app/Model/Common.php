@@ -101,5 +101,53 @@ class Common extends AppModel {
         $DataArray = ClassRegistry::init('SupplierHotel')->find('first', array('fields' => array('hotel_code'), 'conditions' => array('SupplierHotel.id' => $supplier_hotel_id)));
         return $DataArray['SupplierHotel']['hotel_code'];
     }
+    
+    public function checkAreaExistsHotel($area_id){
+        return ClassRegistry::init('TravelHotelLookup')->find('count', array('fields' => array('TravelHotelLookup.id'), 'conditions' => array('TravelHotelLookup.area_id' => $area_id)));    
+    }
+    
+    public function checkSuburbExistsHotel($suburb_id){
+        return ClassRegistry::init('TravelHotelLookup')->find('count', array('fields' => array('TravelHotelLookup.id'), 'conditions' => array('TravelHotelLookup.suburb_id' => $suburb_id)));    
+    }
+    
+    public function checkSuburbExistsArea($suburb_id){
+        return ClassRegistry::init('TravelArea')->find('count', array('fields' => array('TravelArea.id'), 'conditions' => array('TravelArea.suburb_id' => $suburb_id)));    
+    }
+    
+    public function checkHotelExistsHotelMapping($hotel_id){
+        return ClassRegistry::init('TravelHotelRoomSupplier')->find('count', array('fields' => array('TravelHotelRoomSupplier.id'), 'conditions' => array('TravelHotelRoomSupplier.hotel_id' => $hotel_id)));    
+    }
+    
+    public function checkCityExistsCityMapping($city_id){
+        return ClassRegistry::init('TravelCitySupplier')->find('count', array('fields' => array('TravelCitySupplier.id'), 'conditions' => array('TravelCitySupplier.city_id' => $city_id)));    
+    }
+    
+    public function checkCityExistsSuburb($city_id){
+        return ClassRegistry::init('TravelSuburb')->find('count', array('fields' => array('TravelSuburb.id'), 'conditions' => array('TravelSuburb.city_id' => $city_id)));    
+    }
+    
+    public function checkCityExistsArea($city_id){
+        return ClassRegistry::init('TravelArea')->find('count', array('fields' => array('TravelArea.id'), 'conditions' => array('TravelArea.city_id' => $city_id)));    
+    }
+    
+    public function checkCityExistsHotel($city_id){
+        return ClassRegistry::init('TravelHotelLookup')->find('count', array('fields' => array('TravelHotelLookup.id'), 'conditions' => array('TravelHotelLookup.city_id' => $city_id)));    
+    }
+    
+    public function checkProvinceExistsHotel($province_id){
+        return ClassRegistry::init('TravelHotelLookup')->find('count', array('fields' => array('TravelHotelLookup.id'), 'conditions' => array('TravelHotelLookup.province_id' => $province_id)));    
+    }
+    
+    public function checkProvinceExistsCity($province_id){
+        return ClassRegistry::init('TravelCitySupplier')->find('count', array('fields' => array('TravelCitySupplier.id'), 'conditions' => array('TravelCitySupplier.province_id' => $province_id)));    
+    }
+    
+    public function checkProvinceExistsSuburb($province_id){
+        return ClassRegistry::init('TravelSuburb')->find('count', array('fields' => array('TravelSuburb.id'), 'conditions' => array('TravelSuburb.province_id' => $province_id)));    
+    }
+    
+    public function checkProvinceExistsArea($province_id){
+        return ClassRegistry::init('TravelArea')->find('count', array('fields' => array('TravelArea.id'), 'conditions' => array('TravelArea.province_id' => $province_id)));    
+    }
 }
 ?>

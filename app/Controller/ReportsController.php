@@ -712,6 +712,23 @@ class ReportsController extends AppController {
 
 
         $TravelCities = $this->TravelCity->findById($id);
+        $city_name = $TravelCities['TravelCity']['city_name'];
+         if ($this->Common->checkCityExistsCityMapping($id)) {
+                $this->Session->setFlash($city_name.' city can not deleted, '.$city_name.' exists in city mapping table', 'failure');
+                return $this->redirect(array('controller' => 'reports', 'action' => 'city_reports'));
+            }
+            elseif($this->Common->checkCityExistsSuburb($id)) {
+                $this->Session->setFlash($city_name.' city can not deleted, '.$city_name.' exists in suburb table', 'failure');
+                return $this->redirect(array('controller' => 'reports', 'action' => 'city_reports'));
+            }
+            elseif($this->Common->checkCityExistsArea($id)) {
+                $this->Session->setFlash($city_name.' city can not deleted, '.$city_name.' exists in area table', 'failure');
+                return $this->redirect(array('controller' => 'reports', 'action' => 'city_reports'));
+            }
+            elseif($this->Common->checkCityExistsHotel($id)) {
+                $this->Session->setFlash($city_name.' city can not deleted, '.$city_name.' exists in hotel table', 'failure');
+                return $this->redirect(array('controller' => 'reports', 'action' => 'city_reports'));
+            }
 
         $this->request->data['DeleteTravelCity']['id'] = $TravelCities['TravelCity']['id'];
         $this->request->data['DeleteTravelCity']['city_name'] = $TravelCities['TravelCity']['city_name'];
@@ -1549,6 +1566,16 @@ class ReportsController extends AppController {
             $CreatedBy = $TravelHotelLookups['TravelHotelLookup']['created_by'];
             $Created = $TravelHotelLookups['TravelHotelLookup']['created'];
             $Modified = $TravelHotelLookups['TravelHotelLookup']['modified'];
+            
+            /*
+             * Hotel exists in other tables
+             */
+            
+            if ($this->Common->checkHotelExistsHotelMapping($HotelId)) {
+                $this->Session->setFlash($HotelName.' hotel can not deleted, '.$HotelName.' exists in hotel mapping table', 'failure');
+                return $this->redirect(array('controller' => 'reports', 'action' => 'hotel_summary'));
+            }
+          
 
             $save[] = array('DeleteTravelHotelLookup' => array(
                     'id' => $HotelId,
@@ -2149,6 +2176,23 @@ class ReportsController extends AppController {
             $modified = $TravelCities['TravelCity']['modified'];
             $WtbStatus = $TravelCities['TravelCity']['wtb_status'];
             $CityStatus = $TravelCities['TravelCity']['city_status'];
+            
+            if ($this->Common->checkCityExistsCityMapping($CityId)) {
+                $this->Session->setFlash($CityName.' city can not deleted, '.$CityName.' exists in city mapping table', 'failure');
+                return $this->redirect(array('controller' => 'reports', 'action' => 'city_reports'));
+            }
+            elseif($this->Common->checkCityExistsSuburb($id)) {
+                $this->Session->setFlash($CityName.' city can not deleted, '.$CityName.' exists in suburb table', 'failure');
+                return $this->redirect(array('controller' => 'reports', 'action' => 'city_reports'));
+            }
+            elseif($this->Common->checkCityExistsArea($id)) {
+                $this->Session->setFlash($CityName.' city can not deleted, '.$CityName.' exists in area table', 'failure');
+                return $this->redirect(array('controller' => 'reports', 'action' => 'city_reports'));
+            }
+            elseif($this->Common->checkCityExistsHotel($id)) {
+                $this->Session->setFlash($CityName.' city can not deleted, '.$CityName.' exists in hotel table', 'failure');
+                return $this->redirect(array('controller' => 'reports', 'action' => 'city_reports'));
+            }
 
             $save[] = array('DeleteTravelCity' => array(
                     'id' => $CityId,
@@ -2692,6 +2736,15 @@ class ReportsController extends AppController {
             $modified = $TravelSuburbs['TravelSuburb']['modified'];
             $approved_by = $TravelSuburbs['TravelSuburb']['approved_by'];
             $approved_date = $TravelSuburbs['TravelSuburb']['approved_date'];
+            
+            if ($this->Common->checkSuburbExistsHotel($SuburbId)) {
+                $this->Session->setFlash($SuburbName.' suburb can not deleted, '.$SuburbName.' exists in hotel table', 'failure');
+                return $this->redirect(array('controller' => 'reports', 'action' => 'suburb_list'));
+            }
+            elseif($this->Common->checkSuburbExistsArea($SuburbId)) {
+                $this->Session->setFlash($SuburbName.' suburb can not deleted, '.$SuburbName.' exists in area table', 'failure');
+                return $this->redirect(array('controller' => 'reports', 'action' => 'suburb_list'));
+            }
 
 
             $save[] = array('DeleteTravelSuburb' => array(
@@ -2838,11 +2891,13 @@ class ReportsController extends AppController {
         $user_id = $this->Auth->user('id');
         $CreatedDate = date('Y-m-d') . 'T' . date('h:i:s');
         $flag = 0;
+       
         foreach ($this->data['TravelArea']['check'] as $val) {
 
             $TravelAreas = $this->TravelArea->findById($val);
 
             $AreaId = $TravelAreas['TravelArea']['id'];
+           
             $AreaName = $TravelAreas['TravelArea']['area_name'];
             $SuburbId = $TravelAreas['TravelArea']['suburb_id'];
             $SuburbName = $TravelAreas['TravelArea']['suburb_name'];
@@ -2866,6 +2921,17 @@ class ReportsController extends AppController {
             $created = $TravelAreas['TravelArea']['created'];
             $modified = $TravelAreas['TravelArea']['modified'];
 
+           
+            
+            if ($this->Common->checkAreaExistsHotel($AreaId)) {
+                $this->Session->setFlash($AreaName.' area not deleted, '.$AreaName.' exists in hotel table', 'failure');
+                return $this->redirect(array('controller' => 'reports', 'action' => 'area_list'));
+            }
+            
+            
+            //$log = $this->TravelHotelLookup->getDataSource()->getLog(false, false);       
+        //debug($log);
+        //die;
 
             $save[] = array('DeleteTravelArea' => array(
                     'id' => $AreaId,
@@ -2893,8 +2959,10 @@ class ReportsController extends AppController {
                     'modified' => $modified,
             ));
 
+            
 
             if ($this->TravelArea->delete($val)) {
+              
                 $content_xml_str = '<soap:Body>
                                         <ProcessXML xmlns="http://www.travel.domain/">
                                             <RequestInfo>
@@ -5168,6 +5236,23 @@ class ReportsController extends AppController {
             $created = $Provinces['Province']['created'];
             $modified = $Provinces['Province']['modified'];
             $Active = $Provinces['Province']['active'];
+            
+            if ($this->Common->checkProvinceExistsHotel($ProvinceId)) {
+                $this->Session->setFlash($ProvinceName.' province can not deleted, '.$ProvinceName.' exists in hotel table', 'failure');
+                return $this->redirect(array('controller' => 'reports', 'action' => 'province_reports'));
+            }
+            elseif($this->Common->checkProvinceExistsCity($ProvinceId)) {
+                $this->Session->setFlash($ProvinceName.' province can not deleted, '.$ProvinceName.' exists in city table', 'failure');
+                return $this->redirect(array('controller' => 'reports', 'action' => 'province_reports'));
+            }
+            elseif($this->Common->checkProvinceExistsSuburb($ProvinceId)) {
+                $this->Session->setFlash($ProvinceName.' province can not deleted, '.$ProvinceName.' exists in suburb table', 'failure');
+                return $this->redirect(array('controller' => 'reports', 'action' => 'province_reports'));
+            }
+            elseif($this->Common->checkProvinceExistsArea($ProvinceId)) {
+                $this->Session->setFlash($ProvinceName.' province can not deleted, '.$ProvinceName.' exists in area table', 'failure');
+                return $this->redirect(array('controller' => 'reports', 'action' => 'province_reports'));
+            }
 
 
             $save[] = array('DeleteProvince' => array(

@@ -312,7 +312,7 @@ $this->Js->get('#ReportContinentId')->event('change', $this->Js->request(array(
                     
                        var numberOfChecked = $('input:checkbox:checked').length;
                        //alert("WARNING! You are about to delete "+ numberOfChecked +" hotels. Are you sure?");
-                        var agree=confirm("WARNING! You are about to delete "+ numberOfChecked +" cities. Are you sure?");
+                        var agree=confirm("WARNING! You are about to delete "+ numberOfChecked +" provinces. Are you sure?");
                          //bootbox.confirm("Are you sure?", function(result) {
                             if (agree)
                             return true ;
