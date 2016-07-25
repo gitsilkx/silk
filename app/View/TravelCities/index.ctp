@@ -145,6 +145,7 @@
                                     if($TravelCity['TravelCity']['wtb_status'] == '1')
                                         echo $this->Html->link('<span class="icon-pencil"></span>', array('controller' => 'travel_cities', 'action' => 'edit', 'slug' => $TravelCity['TravelCity']['city_name'] . '-' . $TravelCity['TravelCity']['continent_name']. '-' . $TravelCity['TravelCity']['country_name'], 'id' => base64_encode($id), 'mode' => '1'), array('class' => 'act-ico', 'escape' => false));
                                     }
+                                    echo $this->Html->link('<span class="icon-pencil"></span>', array('controller' => 'travel_cities', 'action' => 'edit', 'slug' => $TravelCity['TravelCity']['city_name'] . '-' . $TravelCity['TravelCity']['continent_name']. '-' . $TravelCity['TravelCity']['country_name'], 'id' => base64_encode($id), 'mode' => '1'), array('class' => 'act-ico', 'escape' => false));
                                     echo $this->Html->link('<span class="icon-eye-open"></span>', array('controller' => 'travel_cities', 'action' => 'edit', 'slug' => $TravelCity['TravelCity']['city_name'] . '-' . $TravelCity['TravelCity']['continent_name']. '-' . $TravelCity['TravelCity']['country_name'], 'id' => base64_encode($id), 'mode' => '2'), array('class' => 'act-ico', 'escape' => false));
                                     ?>
                                 </td>
