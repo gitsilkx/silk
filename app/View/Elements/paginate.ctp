@@ -48,7 +48,7 @@ if (count($this->passedArgs)) {
             </td>
             <td width="10%"> <?php
 					
-                                $options = array( 10 => '10', 20 => '20',30 => '30', 50 => '50', 100 => '100' , 500 => '500' );
+                                $options = array( 10 => '10', 20 => '20',30 => '30', 50 => '50', 100 => '100' , 500 => '500' , 1000 => '1000' );
                                 echo $this->Form->create(array('url' => $url,'type'=>'get'));
                                 if(isset($this->params['url']['page']))
                                    echo $this->Form->hidden('page',array('value' => $this->params['url']['page']));

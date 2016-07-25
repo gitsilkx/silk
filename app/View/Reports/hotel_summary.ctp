@@ -135,7 +135,7 @@ if (!empty($this->request->params['named']['country_id'])) {
 ?></div>
     </div> 
             
-            <table border="0" cellpadding="0" cellspacing="0" id="resp_table" class="table toggle-square myclitb" data-filter="#table_search" data-page-size="500">
+            <table border="0" cellpadding="0" cellspacing="0" id="resp_table" class="table toggle-square myclitb" data-filter="#table_search" data-page-size="2000">
                
                 <thead>
                     <tr class="footable-group-row">
