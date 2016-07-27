@@ -220,5 +220,32 @@ class CustomHelper extends Helper {
          $supplier_city_code = $dataArray['TravelCitySupplier']['supplier_city_code'];
          return ClassRegistry::init('SupplierHotel')->find('count', array('fields' => array('id'),'conditions' => array('SupplierHotel.country_code' => $supplier_country_code,'SupplierHotel.city_code' => $supplier_city_code,'SupplierHotel.status' => array('3','7'))));
     }
+    
+    public function getDuplicateHotel($continent_id,$country_id,$province_id,$city_id,$hotel_name){
+        
+        $search_condition = array();
+        $condition = array();
+        
+        ClassRegistry::init('TravelHotelLookup')->unbindModel(
+                array('hasMany' => array('TravelHotelRoomSupplier'))
+        );
+        
+        for ($indexOfFirstLetter = 0; $indexOfFirstLetter <= strlen($hotel_name); $indexOfFirstLetter++) {
+                for ($indexOfLastLetter = $indexOfFirstLetter + 1; $indexOfLastLetter <= strlen($hotel_name); $indexOfLastLetter++) {
+                    $new_arr[] = substr($hotel_name, $indexOfFirstLetter, 8);
+                  
+                    if (strlen($new_arr[$indexOfFirstLetter]) == '8') {
+                        array_push($condition, array("TravelHotelLookup.hotel_name LIKE '%". mysql_escape_string(trim(strip_tags($new_arr[$indexOfFirstLetter]))) ."%'"));
+                    }
+                  
+                    $indexOfFirstLetter++;
+                }
+            }
+           
+            array_push($search_condition, array('OR' => $condition, 'TravelHotelLookup.continent_id' => $continent_id, 'TravelHotelLookup.country_id' => $country_id, 'TravelHotelLookup.province_id' => $province_id, 'TravelHotelLookup.city_id' => $city_id));
+           //return $this->paginate(ClassRegistry::init('TravelHotelLookup'), $search_condition);
+         return ClassRegistry::init('TravelHotelLookup')->find('all', array('conditions' => $search_condition));
+         
+    }
   
 }
