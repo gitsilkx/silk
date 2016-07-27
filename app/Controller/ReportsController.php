@@ -5668,7 +5668,7 @@ class ReportsController extends AppController {
         $search_condition = array();
         $flag = 0;
 
-        if ($this->request->is('post') || $this->request->is('put')) {
+        if ($this->request->is('post')) {
             
             
             if (!empty($this->data['Report']['continent_id'])) {
@@ -5715,7 +5715,7 @@ class ReportsController extends AppController {
             
             
         }
-        elseif ($this->request->is('get')) {
+        elseif ($this->request->is('put')) {
 
            
 
@@ -5759,6 +5759,7 @@ class ReportsController extends AppController {
             }
             $flag = 1;
         }
+       
         if($flag == 1){
             
             $this->paginate['order'] = array('TravelHotelLookup.city_code' => 'asc');
