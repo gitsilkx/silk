@@ -5666,9 +5666,13 @@ class ReportsController extends AppController {
         $TravelCountries = array();
         $Provinces= array();
         $search_condition = array();
+        $continent_id = '';
+        $country_id = '';
+        $province_id = '';
+        $city_id = '';
         $flag = 0;
 
-        if ($this->request->is('post')) {
+        if ($this->request->is('post') || $this->request->is('put')) {
             
             
             if (!empty($this->data['Report']['continent_id'])) {
@@ -5711,11 +5715,13 @@ class ReportsController extends AppController {
                 $city_id = $this->data['Report']['city_id'];
                 array_push($search_condition, array('TravelHotelLookup.city_id' => $city_id));
             }
-            $flag = 1;
+            $this->paginate['order'] = array('TravelHotelLookup.city_code' => 'asc');
+            $this->paginate['limit'] = '50';
+            $this->set('TravelHotelLookups', $this->paginate("TravelHotelLookup", $search_condition));
             
             
         }
-        elseif ($this->request->is('put')) {
+        elseif ($this->request->is('get')) {
 
            
 
@@ -5757,17 +5763,11 @@ class ReportsController extends AppController {
                 array_push($search_condition, array('TravelHotelLookup.city_id' => $city_id));
                 
             }
-            $flag = 1;
-        }
-       
-        if($flag == 1){
-            
             $this->paginate['order'] = array('TravelHotelLookup.city_code' => 'asc');
             $this->paginate['limit'] = '50';
             $this->set('TravelHotelLookups', $this->paginate("TravelHotelLookup", $search_condition));
-            
-            
-        }
+        }      
+      
         
         if (!isset($this->passedArgs['continent_id']) && empty($this->passedArgs['continent_id'])) {
             if(isset($this->data['Report']['continent_id']) && !empty($this->data['Report']['continent_id'])) 
@@ -5798,6 +5798,7 @@ class ReportsController extends AppController {
         
         $TravelLookupContinents = $this->TravelLookupContinent->find('list', array('fields' => 'id,continent_name', 'conditions' => array('continent_status' => 1, 'wtb_status' => 1, 'active' => 'TRUE'), 'order' => 'continent_name ASC'));
         
-        $this->set(compact('TravelLookupContinents','TravelCountries','TravelCities','Provinces'));
+        $this->set(compact('TravelLookupContinents','TravelCountries','TravelCities','Provinces',
+                'continent_id','country_id','province_id','city_id'));
     }
 }

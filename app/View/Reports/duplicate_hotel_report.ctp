@@ -29,7 +29,7 @@ $this->Html->addCrumb('My Duplicate Hotels', 'javascript:void(0);', array('class
                             <span class="colon">:</span>
                             <div class="col-sm-10">
                                 <?php                              
-                                echo $this->Form->input('continent_id', array('options' => $TravelLookupContinents,'empty' => '--Select--'));
+                                echo $this->Form->input('continent_id', array('options' => $TravelLookupContinents,'empty' => '--Select--','selected' => $continent_id));
                                 ?></div>
                         </div>
                         <div class="form-group">
@@ -37,7 +37,7 @@ $this->Html->addCrumb('My Duplicate Hotels', 'javascript:void(0);', array('class
                             <span class="colon">:</span>
                             <div class="col-sm-10">
                                 <?php                              
-                                echo $this->Form->input('province_id', array('options' => $Provinces,'empty' => '--Select--'));
+                                echo $this->Form->input('province_id', array('options' => $Provinces,'empty' => '--Select--','selected' => $province_id));
                                 ?></div>
                         </div>
                
@@ -48,7 +48,7 @@ $this->Html->addCrumb('My Duplicate Hotels', 'javascript:void(0);', array('class
                             <span class="colon">:</span>
                             <div class="col-sm-10">
                                 <?php                              
-                                echo $this->Form->input('country_id', array('options' =>$TravelCountries,'empty' => '--Select--'));
+                                echo $this->Form->input('country_id', array('options' =>$TravelCountries,'empty' => '--Select--','selected' => $country_id));
                                 ?></div>
                         </div>
                         <div class="form-group">
@@ -56,7 +56,7 @@ $this->Html->addCrumb('My Duplicate Hotels', 'javascript:void(0);', array('class
                             <span class="colon">:</span>
                             <div class="col-sm-10">
                                 <?php                              
-                                echo $this->Form->input('city_id', array('options' => $TravelCities,'empty' => '--Select--'));
+                                echo $this->Form->input('city_id', array('options' => $TravelCities,'empty' => '--Select--','selected' => $city_id));
                                 ?></div>
                         </div>
                     </div>
