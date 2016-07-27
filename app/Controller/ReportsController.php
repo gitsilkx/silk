@@ -5666,7 +5666,7 @@ class ReportsController extends AppController {
         $TravelCountries = array();
         $Provinces= array();
         $search_condition = array();
-        
+        $flag = 0;
 
         if ($this->request->is('post') || $this->request->is('put')) {
             
@@ -5711,6 +5711,55 @@ class ReportsController extends AppController {
                 $city_id = $this->data['Report']['city_id'];
                 array_push($search_condition, array('TravelHotelLookup.city_id' => $city_id));
             }
+            $flag = 1;
+            
+            
+        }
+        elseif ($this->request->is('get')) {
+
+           
+
+            if (!empty($this->request->params['named']['continent_id'])) {
+                $continent_id = $this->request->params['named']['continent_id'];
+                array_push($search_condition, array('TravelHotelLookup.continent_id' => $continent_id));
+                $TravelCountries = $this->TravelCountry->find('list', array('fields' => 'id, country_name', 'conditions' => array('TravelCountry.continent_id' => $continent_id,
+                        'TravelCountry.country_status' => '1',
+                        'TravelCountry.wtb_status' => '1',
+                        'TravelCountry.active' => 'TRUE'), 'order' => 'country_name ASC'));
+            }
+
+            if (!empty($this->request->params['named']['country_id'])) {
+                $country_id = $this->request->params['named']['country_id'];
+                $province_id = $this->request->params['named']['province_id'];
+                array_push($search_condition, array('TravelHotelLookup.country_id' => $country_id));
+                $TravelCities = $this->TravelCity->find('list', array('fields' => 'id, city_name', 'conditions' => array('TravelCity.province_id' => $province_id,
+                       ), 'order' => 'city_name ASC'));
+            }
+            if (!empty($this->request->params['named']['province_id'])) {
+
+                array_push($search_condition, array('TravelHotelLookup.province_id' => $province_id));
+                $Provinces = $this->Province->find('list', array(
+                'conditions' => array(
+                    'Province.country_id' => $country_id,
+                    'Province.continent_id' => $continent_id,
+                    'Province.status' => '1',
+                    'Province.wtb_status' => '1',
+                    'Province.active' => 'TRUE',
+                    
+                ),
+                'fields' => array('Province.id', 'Province.name'),
+                'order' => 'Province.name ASC'
+            ));
+            }
+
+            if (!empty($this->request->params['named']['city_id'])) {
+                $city_id = $this->request->params['named']['city_id'];
+                array_push($search_condition, array('TravelHotelLookup.city_id' => $city_id));
+                
+            }
+            $flag = 1;
+        }
+        if($flag == 1){
             
             $this->paginate['order'] = array('TravelHotelLookup.city_code' => 'asc');
             $this->paginate['limit'] = '50';
