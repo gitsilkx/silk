@@ -5765,7 +5765,35 @@ class ReportsController extends AppController {
             $this->paginate['limit'] = '50';
             $this->set('TravelHotelLookups', $this->paginate("TravelHotelLookup", $search_condition));
             
+            
         }
+        
+        if (!isset($this->passedArgs['continent_id']) && empty($this->passedArgs['continent_id'])) {
+            if(isset($this->data['Report']['continent_id']) && !empty($this->data['Report']['continent_id'])) 
+                $this->passedArgs['continent_id'] =  $this->data['Report']['continent_id'];
+        }
+        if (!isset($this->passedArgs['country_id']) && empty($this->passedArgs['country_id'])) {
+            if(isset($this->data['Report']['country_id']) && !empty($this->data['Report']['country_id'])) 
+                $this->passedArgs['country_id'] =  $this->data['Report']['country_id'];
+        }
+        if (!isset($this->passedArgs['province_id']) && empty($this->passedArgs['province_id'])) {
+             if(isset($this->data['Report']['province_id']) && !empty($this->data['Report']['province_id'])) 
+                 $this->passedArgs['province_id'] = $this->data['Report']['province_id'];
+        }
+        if (!isset($this->passedArgs['city_id']) && empty($this->passedArgs['city_id'])) {
+            if(isset($this->data['Report']['city_id']) && !empty($this->data['Report']['city_id'])) 
+                $this->passedArgs['city_id'] =  $this->data['Report']['city_id'];
+        }
+        
+        if (!isset($this->data) && empty($this->data)) {
+           
+            $this->data['Report']['continent_id'] = $this->passedArgs['continent_id'];
+            $this->data['Report']['country_id'] = $this->passedArgs['country_id'];
+            $this->data['Report']['province_id'] = $this->passedArgs['province_id'];
+            $this->data['Report']['city_id'] = $this->passedArgs['city_id'];
+            
+        }
+        
         
         $TravelLookupContinents = $this->TravelLookupContinent->find('list', array('fields' => 'id,continent_name', 'conditions' => array('continent_status' => 1, 'wtb_status' => 1, 'active' => 'TRUE'), 'order' => 'continent_name ASC'));
         
