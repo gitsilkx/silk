@@ -1,5 +1,5 @@
 <?php
-$this->Html->addCrumb('My Hotels', 'javascript:void(0);', array('class' => 'breadcrumblast'));
+$this->Html->addCrumb('My Duplicate Hotels', 'javascript:void(0);', array('class' => 'breadcrumblast'));
 ?>    
 <div class="col-sm-12" id="mycl-det">
     <div class="panel panel-default">

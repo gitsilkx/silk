@@ -5713,6 +5713,7 @@ class ReportsController extends AppController {
             }
             
             $this->paginate['order'] = array('TravelHotelLookup.city_code' => 'asc');
+            $this->paginate['limit'] = '50';
             $this->set('TravelHotelLookups', $this->paginate("TravelHotelLookup", $search_condition));
             
         }
