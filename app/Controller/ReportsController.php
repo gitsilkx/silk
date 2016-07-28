@@ -5666,10 +5666,10 @@ class ReportsController extends AppController {
         $TravelCountries = array();
         $Provinces= array();
         $search_condition = array();
-        $continent_id = '';
-        $country_id = '';
-        $province_id = '';
-        $city_id = '';
+        $continent_id = '2';
+        $country_id = '220';
+        $province_id = '2';
+        $city_id = '1256';
         $flag = 0;
 
         if ($this->request->is('post') || $this->request->is('put')) {
@@ -5715,13 +5715,10 @@ class ReportsController extends AppController {
                 $city_id = $this->data['Report']['city_id'];
                 array_push($search_condition, array('TravelHotelLookup.city_id' => $city_id));
             }
-            $this->paginate['order'] = array('TravelHotelLookup.city_code' => 'asc');
-            $this->paginate['limit'] = '50';
-            $this->set('TravelHotelLookups', $this->paginate("TravelHotelLookup", $search_condition));
             
             
         }
-        /*
+       
         elseif ($this->request->is('get')) {
 
            
@@ -5764,11 +5761,13 @@ class ReportsController extends AppController {
                 array_push($search_condition, array('TravelHotelLookup.city_id' => $city_id));
                 
             }
-            $this->paginate['order'] = array('TravelHotelLookup.city_code' => 'asc');
+            
+        } 
+        
+        $this->paginate['order'] = array('TravelHotelLookup.city_code' => 'asc');
             $this->paginate['limit'] = '50';
             $this->set('TravelHotelLookups', $this->paginate("TravelHotelLookup", $search_condition));
-        }   
-        */
+        
       
         
         if (!isset($this->passedArgs['continent_id']) && empty($this->passedArgs['continent_id'])) {
