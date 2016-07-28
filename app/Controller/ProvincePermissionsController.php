@@ -75,9 +75,6 @@ class ProvincePermissionsController extends AppController {
             'order' => 'ProvincePermission.id',
             'group' => array('ProvincePermission.user_id','ProvincePermission.continent_id','ProvincePermission.country_id')));
 
-//pr($ProvincePermissions);
-//die;
-        //$this->set('ProvincePermissions', $this->paginate($ProvincePermissions));
         $this->set(compact('ProvincePermissions'));
     }
 
