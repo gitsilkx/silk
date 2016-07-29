@@ -54,11 +54,12 @@ echo $this->Paginator->counter(array('format' => '{:count}'));
                         <label for="un_member">Active:</label>
 <?php echo $this->Form->input('active', array('options' => array('TRUE' => 'TRUE','FALSE' => 'FALSE'), 'empty' => '--Select--','onchange' => 'chkBottonEvnt()')); ?>
                     </div>
-                    <div class="col-sm-3 col-xs-6">
+                    <div class="col-sm-6 col-xs-6">
                         <label for="un_member">Sequ. No.:</label>
                         <div  id="sequence_no">
                             <?php echo $this->Form->input('sequence_no', array('data-required' => 'true','id' => 'sequence_no')); ?></div>
-                    </div><div class="btn btn-success sticky_success" onclick="GenerateSequenceNo('MassOperation','Hotel Edit - Masss Operation')" style="width:24%">Generate Sequence No.</div>
+                    <div class="btn btn-success sticky_success" onclick="GenerateSequenceNo('MassOperation','Hotel Edit - Masss Operation')" style="width:24%">Generate Sequence No.</div>
+                    </div>
                 </div>               
             </div>
 
