@@ -298,6 +298,7 @@ $this->Js->get('#MassOperationProvinceId')->event('change', $this->Js->request(a
 				});
                                 
     function chkBottonEvnt(){
-        alert('test');
+        $('#udate').css('display','none');
+        $('#generate').css('display','block');
     }
 </script>
