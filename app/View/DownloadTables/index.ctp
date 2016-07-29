@@ -247,7 +247,7 @@ echo $this->Form->submit('Proceed', array('class' => 'btn btn-success sticky_suc
                 <div class="clear" style="clear: both; margin-bottom: 15px"></div>
 <?php if (count($structure) > 0 && !empty($structure)) { ?>
                     <div class="col-sm-12">
-                        <table id="resp_table" class="table toggle-square" data-filter="#table_search" data-page-size="100">
+                        <table id="resp_table" class="table toggle-square" data-filter="#table_search" data-page-size="500">
                             <thead>
                                 <tr>
                                     <th data-toggle="true">Field Name</th>
