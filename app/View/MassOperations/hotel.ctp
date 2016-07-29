@@ -58,7 +58,9 @@ echo $this->Paginator->counter(array('format' => '{:count}'));
 
             <div class="row" style="padding: 15px;">
                 <div class="col-sm-12">
-<?php echo $this->Form->submit('Update', array('class' => 'success btn', 'div' => false, 'id' => 'udate_unit', 'name' => 'update'));
+<?php 
+if($update == true)
+echo $this->Form->submit('Update', array('class' => 'success btn', 'div' => false, 'id' => 'udate_unit', 'name' => 'update'));
     echo $this->Form->submit('SQL Generate', array('class' => 'success btn','style' =>'width:10%', 'div' => false, 'id' => 'udate_unit', 'name' => 'generate', 'value' => 'Generate'));
 ?>
                 
