@@ -80,7 +80,7 @@ echo $this->Form->submit('SQL Generate', array('class' => 'success btn','style' 
                     </tr>
 
                     <tr>
-                        <th data-hide="phone" data-group="group1" width="2%" data-sort-ignore="true"><input type="checkbox" class="mbox_select_all" name="msg_sel_all">  Exclude</th>
+                        <th data-hide="phone" data-group="group1" width="2%" data-sort-ignore="true"><input type="checkbox" class="mbox_select_all" name="msg_sel_all" onclick="chkBottonEvnt()">  Exclude</th>
                         <th data-toggle="phone" data-sort-ignore="true" width="3%" data-group="group1"><?php echo $this->Paginator->sort('id', 'Id');
 echo ($sort == 'id') ? ($direction == 'asc') ? " <i class='icon-caret-up'></i>" : " <i class='icon-caret-down'></i>"  : " <i class='icon-sort'></i>";
 ?></th>
@@ -170,7 +170,7 @@ echo ($sort == 'province_name') ? ($direction == 'asc') ? " <i class='icon-caret
                                         $sele_check = '';
                                    
                                //else $selected='';
-                            echo $this->Form->checkbox('check', array('name' => 'data[MassOperation][check][]', 'class' => 'msg_select', 'readonly' => true, 'hiddenField' => false, 'value' => $id,$sele_check));
+                            echo $this->Form->checkbox('check', array('name' => 'data[MassOperation][check][]', 'class' => 'msg_select','onclick' => 'chkBottonEvnt()', 'readonly' => true, 'hiddenField' => false, 'value' => $id,$sele_check));
                             ?> </td>
                                 <td class="tablebody"><?php echo $id; ?></td>
                                 <td class="sub-tablebody"><?php echo $TravelHotelLookup['TravelHotelLookup']['continent_name']; ?></td>                                 
