@@ -61,7 +61,7 @@ echo $this->Paginator->counter(array('format' => '{:count}'));
 <?php 
 if($update == true)
 echo $this->Form->submit('Update', array('class' => 'success btn', 'div' => false, 'id' => 'udate', 'name' => 'update'));
-else    
+   
 echo $this->Form->submit('SQL Generate', array('class' => 'success btn','style' =>'width:10%', 'div' => false, 'id' => 'generate', 'name' => 'generate', 'value' => 'Generate'));
 ?>
                 
