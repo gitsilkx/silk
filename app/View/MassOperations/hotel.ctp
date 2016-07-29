@@ -35,15 +35,15 @@ echo $this->Paginator->counter(array('format' => '{:count}'));
                     
                     <div class="col-sm-3 col-xs-6">
                         <label for="un_member" class="req">Continent:</label>
-<?php echo $this->Form->input('continent_id', array('options' => $TravelLookupContinents, 'empty' => '--Select--','data-required' => 'true')); ?>
+<?php echo $this->Form->input('continent_id', array('options' => $TravelLookupContinents, 'empty' => '--Select--','data-required' => 'true','onchange' => 'chkBottonEvnt()')); ?>
                     </div>
                     <div class="col-sm-3 col-xs-6">
                         <label for="un_member" class="req">Country:</label>
-<?php echo $this->Form->input('country_id', array('options' => $TravelCountries, 'empty' => '--Select--','data-required' => 'true')); ?>
+<?php echo $this->Form->input('country_id', array('options' => $TravelCountries, 'empty' => '--Select--','data-required' => 'true','onchange' => 'chkBottonEvnt()')); ?>
                     </div>
                     <div class="col-sm-3 col-xs-6">
                         <label for="un_member" class="req">Province:</label>
-<?php echo $this->Form->input('province_id', array('options' => $Provinces, 'empty' => '--Select--','data-required' => 'true')); ?>
+<?php echo $this->Form->input('province_id', array('options' => $Provinces, 'empty' => '--Select--','data-required' => 'true','onchange' => 'chkBottonEvnt()')); ?>
                     </div>
                     <div class="col-sm-3 col-xs-6">
                         <label for="un_member" class="req">City:</label>
@@ -51,7 +51,7 @@ echo $this->Paginator->counter(array('format' => '{:count}'));
                     </div> 
                     <div class="col-sm-3 col-xs-6">
                         <label for="un_member">Active:</label>
-<?php echo $this->Form->input('active', array('options' => array('TRUE' => 'TRUE','FALSE' => 'FALSE'), 'empty' => '--Select--')); ?>
+<?php echo $this->Form->input('active', array('options' => array('TRUE' => 'TRUE','FALSE' => 'FALSE'), 'empty' => '--Select--','onchange' => 'chkBottonEvnt()')); ?>
                     </div>
                 </div>               
             </div>
