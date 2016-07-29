@@ -33,7 +33,7 @@ class AllFunctionsController extends AppController {
     var $uses = array('Project', 'City', 'Builder', 'User', 'LookupPropCategory', 'CwrState', 'LookupValueProjectAttache', 'LookupValueLeadsCountry', 'LookupUnitCommissionBasedOn', 'LookupUnitCommissionEvent', 'Channel', 'LookupValueAmenitie', 'Suburb', 'Area', 'LookupValueReimbursementType_2', 'Event', 'BuilderContact', 'LookupValueActivityDetail', 'LookupCompany', 'Lead', 'ProjectUnit', 'BuilderLegalName', 'ProjectLegalName',
         'TravelCountry', 'TravelCity', 'TravelCitySupplier', 'TravelHotelLookup', 'TravelHotelRoomSupplier', 'TravelSuburb', 'TravelBrand', 'TravelArea',
         'DigMediaProduct', 'DigPerson', 'DigTopic', 'TravelChain', 'DigStructure', 'DigLevel','SightSeeingElement','TransferElement','Province',
-        'LookupQuestion','TravelLookupContinent','SupplierCity','Common');
+        'LookupQuestion','TravelLookupContinent','SupplierCity','Common','TravelLookupSequence');
 
     /**
      * Get DeparmentUniversity ID and Department NAME using AJAX POST method
@@ -2066,6 +2066,16 @@ class AllFunctionsController extends AppController {
        // return $DataArray;
 
         $this->set(compact('DataArray'));
+    }
+    
+    public function generate_sequence_no($model = null,$screen = null){
+        $this->layout = '';
+        //$model = $this->data['model'];
+        $this->request->data['TravelLookupSequence']['screen'] = $screen;
+        $this->TravelLookupSequence->create();
+        $this->TravelLookupSequence->save($this->request->data);       
+        $last_id = $this->TravelLookupSequence->getLastInsertId();
+        $this->set(compact('last_id','model'));
     }
 
 }

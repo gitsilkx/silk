@@ -12,7 +12,9 @@ echo $this->Form->create('InsertTable', array('method' => 'post',
         'class' => 'form-control',
     ),
 ));
+echo $this->Form->hidden('base_url',array('id' => 'hidden_site_baseurl', 'value' => $this->request->base . ((!is_null($this->params['language'])) ? '/' . $this->params['language'] : '')));
 ?>
+
 <div class="col-sm-12" id="mycl-det">
     <div class="panel panel-default">
         <div class="panel-heading">
@@ -32,6 +34,15 @@ echo $this->Form->create('InsertTable', array('method' => 'post',
                                 echo $this->Form->input('table', array('options' => array('Province' => 'Province', 'TravelSuburb' => 'Suburb','TravelArea' => 'Area'), 'empty' => '--Select--', 'data-required' => 'true'));
                                 ?></div>
                         </div>  
+                        <div class="form-group">
+                            <label for="reg_input_name" class="req"  style="margin-left: 14px;">Sequence No.</label>
+                            <span class="colon">:</span>
+                            <div class="col-sm-8" id="sequence_no">
+                                <?php
+// 'TravelHotelLookup' => 'Hotel', 'TravelCountry' => 'Country', 'TravelCity' => 'City', 'TravelCountrySupplier' => 'Mapping Country', 'TravelCitySupplier' => 'Mapping City', 'TravelHotelRoomSupplier' => 'Mapping Hotel'
+                                echo $this->Form->input('sequence_no', array('data-required' => 'true'));
+                                ?></div>
+                        </div>
                         <div class="form-group">
                              <label for="reg_input_name" class="req"  style="margin-left: 14px;">Select File</label>
                             <span class="colon" style="margin-right: 20px">:</span>
@@ -57,9 +68,15 @@ color: red;"></span>
                             
                             </div>
                     </div>
-                    <div class="col-sm-6" id="ajax_Html">
-                       
-                        
+                    <div class="col-sm-6">
+                        <div id="ajax_Html"></div>
+                        <div class="form-group">
+                            
+                            <div class="col-sm-8">
+                                <div class="btn btn-success sticky_success" onclick="GenerateSequenceNo('InsertTable','Masss Insert')" style="width:70%">Generate Sequence No.</div>
+                              
+                               </div>
+                        </div>
                     </div>
 
                 </div>
@@ -87,15 +104,15 @@ echo $this->Form->end();
     $('#InsertTableTable').change(function() {
         var table = $(this).val();
         if(table == 'Province'){
-            $('#ajax_Html').html('<a href="<?php echo $this->webroot . 'uploads/MassOperations/smaple/insert/Province.csv';?>" download> <button type="button" class="btn btn-primary btn-lg btn-block" style="width:100%">Download Province Sample [Note- Do not change column name]</button></a>');
+            $('#ajax_Html').html('<a href="<?php echo $this->webroot . 'uploads/MassOperations/smaple/insert/Province.csv';?>" download> <button type="button" class="btn-primary btn-lg btn-block" style="width:100%">Download Province Sample [Note- Do not change column name]</button></a>');
             $('#fileName').text('[File name should be - '+table+'.csv]');
         }
         else if(table == 'TravelSuburb'){
-            $('#ajax_Html').html('<a href="<?php echo $this->webroot . 'uploads/MassOperations/smaple/insert/TravelSuburb.csv';?>" download> <button type="button" class="btn btn-primary btn-lg btn-block" style="width:100%">Download Suburb Sample [Note- Do not change column name]</button></a>');
+            $('#ajax_Html').html('<a href="<?php echo $this->webroot . 'uploads/MassOperations/smaple/insert/TravelSuburb.csv';?>" download> <button type="button" class="btn-primary btn-lg btn-block" style="width:100%">Download Suburb Sample [Note- Do not change column name]</button></a>');
             $('#fileName').text('[File name should be - '+table+'.csv]');
         }
         else if(table == 'TravelArea'){
-            $('#ajax_Html').html('<a href="<?php echo $this->webroot . 'uploads/MassOperations/smaple/insert/TravelArea.csv';?>" download> <button type="button" class="btn btn-primary btn-lg btn-block" style="width:100%">Download Area Sample [Note- Do not change column name]</button></a>');
+            $('#ajax_Html').html('<a href="<?php echo $this->webroot . 'uploads/MassOperations/smaple/insert/TravelArea.csv';?>" download> <button type="button" class="btn-primary btn-lg btn-block" style="width:100%">Download Area Sample [Note- Do not change column name]</button></a>');
             $('#fileName').text('[File name should be - '+table+'.csv]');
         }
         else{
@@ -103,4 +120,6 @@ echo $this->Form->end();
             $('#fileName').text('');
         }
     })
+    
+    
     </script>

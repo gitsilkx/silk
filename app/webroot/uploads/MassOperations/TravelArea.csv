@@ -1,2 +1,7 @@
 id,area_name,suburb_id,suburb_name,city_id,city_name,country_id,country_name,continent_id,continent_name,area_description,area_active,top_area,area_status,wtb_status,is_update,province_id,province_name,approved_by,approved_date,created_by,created
-NULL,Area Name,11,Bangkok Airport,1256,Bangkok,220,Thailand,12, Asia,Test,FALSE,NULL,1,2,N,2,Bangkok,0,0000-00-00 00:00:00,169,4/1/2016 4:54
+NULL,Area Name,11,Bangkok Airport,1256,Bangkok,220,Thailand,12, Asia,Test,FALSE,NULL,1,2,N,2,Bangkok,0,0000-00-00 00:00:00,169,04-01-2016 4:54
+NULL,Area Name,12,Bangkok Airport,1257,Bangkok,221,Thailand,13, Asia,Test,FALSE,NULL,1,2,N,3,Bangkok,1,0000-00-00 00:00:01,170,05-01-2016 4:54
+NULL,Area Name,13,Bangkok Airport,1258,Bangkok,222,Thailand,14, Asia,Test,FALSE,NULL,1,2,N,4,Bangkok,2,0000-00-00 00:00:02,171,06-01-2016 4:54
+NULL,Area Name,14,Bangkok Airport,1259,Bangkok,223,Thailand,15, Asia,Test,FALSE,NULL,1,2,N,5,Bangkok,3,0000-00-00 00:00:03,172,07-01-2016 4:54
+NULL,Area Name,15,Bangkok Airport,1260,Bangkok,224,Thailand,16, Asia,Test,FALSE,NULL,1,2,N,6,Bangkok,4,0000-00-00 00:00:04,173,08-01-2016 4:54
+NULL,Area Name,16,Bangkok Airport,1261,Bangkok,225,Thailand,17, Asia,Test,FALSE,NULL,1,2,N,7,Bangkok,5,0000-00-00 00:00:05,174,09-01-2016 4:54

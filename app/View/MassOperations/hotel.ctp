@@ -1,4 +1,5 @@
 <?php
+
 $this->Html->addCrumb('Mass Update For Hotel Table', 'javascript:void(0);', array('class' => 'breadcrumblast'));
 
 echo $this->Form->create('MassOperation', array('class' => 'quick_search', 'id' => 'parsley_reg', 'type' => 'post', 'novalidate' => true, 'inputDefaults' => array(
@@ -23,16 +24,16 @@ echo $this->Form->hidden('city_code');
             <h4 class="table-heading-title"><span class="badge badge-circle badge-success"> <?php
 echo $this->Paginator->counter(array('format' => '{:count}'));
 ?></span> Hotels</h4>
-            
-          
+
+
         </div>
         <div class="panel panel-default">
             <h4>Update Fields</h4>
             <div class="panel_controls hideform">
-                
+
 
                 <div class="row spe-row">
-                    
+
                     <div class="col-sm-3 col-xs-6">
                         <label for="un_member" class="req">Continent:</label>
 <?php echo $this->Form->input('continent_id', array('options' => $TravelLookupContinents, 'empty' => '--Select--','data-required' => 'true','onchange' => 'chkBottonEvnt()')); ?>
@@ -53,6 +54,11 @@ echo $this->Paginator->counter(array('format' => '{:count}'));
                         <label for="un_member">Active:</label>
 <?php echo $this->Form->input('active', array('options' => array('TRUE' => 'TRUE','FALSE' => 'FALSE'), 'empty' => '--Select--','onchange' => 'chkBottonEvnt()')); ?>
                     </div>
+                    <div class="col-sm-3 col-xs-6">
+                        <label for="un_member">Sequence No.:</label>
+                        <div  id="sequence_no">
+                            <?php echo $this->Form->input('sequence_no', array('data-required' => 'true','id' => 'sequence_no'); ?></div>
+                    </div><div class="btn btn-success sticky_success" onclick="GenerateSequenceNo('MassOperation','Hotel Edit - Masss Operation')" style="width:70%">Generate Sequence No.</div>
                 </div>               
             </div>
 
@@ -64,7 +70,7 @@ echo $this->Form->submit('Update', array('class' => 'success btn', 'div' => fals
    
 echo $this->Form->submit('SQL Generate', array('class' => 'success btn','style' =>'width:10%', 'div' => false, 'id' => 'generate', 'name' => 'generate', 'value' => 'Generate'));
 ?>
-                
+
                 </div>
             </div> 
 
@@ -160,8 +166,8 @@ echo ($sort == 'province_name') ? ($direction == 'asc') ? " <i class='icon-caret
                             else
                                 $wtb_status = 'ERROR';
                             ?>
-                            <tr>
-                                <td class="tablebody"><?php
+                    <tr>
+                        <td class="tablebody"><?php
                                 
                               
                                     if(in_array($id, $selected))
@@ -172,25 +178,25 @@ echo ($sort == 'province_name') ? ($direction == 'asc') ? " <i class='icon-caret
                                //else $selected='';
                             echo $this->Form->checkbox('check', array('name' => 'data[MassOperation][check][]', 'class' => 'msg_select','onclick' => 'chkBottonEvnt()', 'readonly' => true, 'hiddenField' => false, 'value' => $id,$sele_check));
                             ?> </td>
-                                <td class="tablebody"><?php echo $id; ?></td>
-                                <td class="sub-tablebody"><?php echo $TravelHotelLookup['TravelHotelLookup']['continent_name']; ?></td>                                 
-                                <td class="sub-tablebody"><?php echo $TravelHotelLookup['TravelHotelLookup']['country_name']; ?></td>
-                                <td class="sub-tablebody"><?php echo $TravelHotelLookup['TravelHotelLookup']['province_name']; ?></td>
-                                <td class="sub-tablebody"><?php echo $TravelHotelLookup['TravelHotelLookup']['city_name']; ?></td>
-                                <td class="sub-tablebody"><?php echo $TravelHotelLookup['TravelHotelLookup']['suburb_name']; ?></td>
-                                <td class="sub-tablebody"><?php echo $TravelHotelLookup['TravelHotelLookup']['area_name']; ?></td>
-                                <td class="tablebody"><?php echo $TravelHotelLookup['TravelHotelLookup']['hotel_name']; ?></td>               
-                                <td class="tablebody"><?php echo $TravelHotelLookup['TravelHotelLookup']['hotel_code']; ?></td>                                                               
-                                <td class="tablebody"><?php echo $TravelHotelLookup['TravelHotelLookup']['brand_name']; ?></td>
-                                <td class="tablebody"><?php echo $TravelHotelLookup['TravelHotelLookup']['chain_name']; ?></td>
+                        <td class="tablebody"><?php echo $id; ?></td>
+                        <td class="sub-tablebody"><?php echo $TravelHotelLookup['TravelHotelLookup']['continent_name']; ?></td>                                 
+                        <td class="sub-tablebody"><?php echo $TravelHotelLookup['TravelHotelLookup']['country_name']; ?></td>
+                        <td class="sub-tablebody"><?php echo $TravelHotelLookup['TravelHotelLookup']['province_name']; ?></td>
+                        <td class="sub-tablebody"><?php echo $TravelHotelLookup['TravelHotelLookup']['city_name']; ?></td>
+                        <td class="sub-tablebody"><?php echo $TravelHotelLookup['TravelHotelLookup']['suburb_name']; ?></td>
+                        <td class="sub-tablebody"><?php echo $TravelHotelLookup['TravelHotelLookup']['area_name']; ?></td>
+                        <td class="tablebody"><?php echo $TravelHotelLookup['TravelHotelLookup']['hotel_name']; ?></td>               
+                        <td class="tablebody"><?php echo $TravelHotelLookup['TravelHotelLookup']['hotel_code']; ?></td>                                                               
+                        <td class="tablebody"><?php echo $TravelHotelLookup['TravelHotelLookup']['brand_name']; ?></td>
+                        <td class="tablebody"><?php echo $TravelHotelLookup['TravelHotelLookup']['chain_name']; ?></td>
 
 
 
 
-                                <td class="sub-tablebody"><?php echo $status_txt; ?></td>
-                                <td class="sub-tablebody"><?php echo $wtb_status; ?></td>
-                                <td class="sub-tablebody"><?php echo $TravelHotelLookup['TravelHotelLookup']['active']; ?></td>   
-                            </tr>
+                        <td class="sub-tablebody"><?php echo $status_txt; ?></td>
+                        <td class="sub-tablebody"><?php echo $wtb_status; ?></td>
+                        <td class="sub-tablebody"><?php echo $TravelHotelLookup['TravelHotelLookup']['active']; ?></td>   
+                    </tr>
                         <?php endforeach; ?>
 
                         <?php
@@ -259,46 +265,48 @@ $this->Js->get('#MassOperationProvinceId')->event('change', $this->Js->request(a
 );
 ?>
 <script>
-    $('#MassOperationContinentId').change(function() {
-            var str = $('#MassOperationContinentId option:selected').text();
-            var res = str.split("-");          
-            $('#MassOperationContinentCode').val(res[0]);
-            $('#MassOperationContinentName').val(res[1]);
-        });
-        
-    $('#MassOperationCountryId').change(function() {
-            var str = $('#MassOperationCountryId option:selected').text();
-            var res = str.split("-");          
-            $('#MassOperationCountryCode').val(res[0]);
-            $('#MassOperationCountryName').val(res[1]);
-        });  
-        
-     $('#MassOperationCityId').change(function() {
-            var str = $('#MassOperationCityId option:selected').text();
-            var res = str.split("-");          
-            $('#MassOperationCityCode').val(res[0]);
-            $('#MassOperationCityName').val(res[1]);
-        });   
+    $('#MassOperationContinentId').change(function () {
+        var str = $('#MassOperationContinentId option:selected').text();
+        var res = str.split("-");
+        $('#MassOperationContinentCode').val(res[0]);
+        $('#MassOperationContinentName').val(res[1]);
+    });
 
-    $('#MassOperationProvinceId').change(function() {
+    $('#MassOperationCountryId').change(function () {
+        var str = $('#MassOperationCountryId option:selected').text();
+        var res = str.split("-");
+        $('#MassOperationCountryCode').val(res[0]);
+        $('#MassOperationCountryName').val(res[1]);
+    });
+
+    $('#MassOperationCityId').change(function () {
+        var str = $('#MassOperationCityId option:selected').text();
+        var res = str.split("-");
+        $('#MassOperationCityCode').val(res[0]);
+        $('#MassOperationCityName').val(res[1]);
+    });
+
+    $('#MassOperationProvinceId').change(function () {
         $('#MassOperationProvinceName').val($('#MassOperationProvinceId option:selected').text());
     });
-    
+
     $('.mbox_select_all').click(function () {
-					var $this = $(this);
-					
-					$('#resp_table').find('.msg_select').filter(':visible').each(function() {
-						if($this.is(':checked')) {
-							$(this).prop('checked',true).closest('tr').addClass('active')
-						} else {
-							$(this).prop('checked',false).closest('tr').removeClass('active')
-						}
-					})
-					
-				});
-                                
-    function chkBottonEvnt(){
-        $('#udate').css('display','none');
-        $('#generate').css('display','block');
+        var $this = $(this);
+
+        $('#resp_table').find('.msg_select').filter(':visible').each(function () {
+            if ($this.is(':checked')) {
+                $(this).prop('checked', true).closest('tr').addClass('active')
+            } else {
+                $(this).prop('checked', false).closest('tr').removeClass('active')
+            }
+        })
+
+    });
+
+    function chkBottonEvnt() {
+        $('#udate').css('display', 'none');
+        $('#generate').css('display', 'block');
     }
+
+  
 </script>

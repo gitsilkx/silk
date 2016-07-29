@@ -247,5 +247,6 @@ class CustomHelper extends Helper {
          return ClassRegistry::init('TravelHotelLookup')->find('all', array('conditions' => $search_condition));
          
     }
+ 
   
 }
