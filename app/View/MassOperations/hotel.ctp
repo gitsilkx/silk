@@ -47,7 +47,7 @@ echo $this->Paginator->counter(array('format' => '{:count}'));
                     </div>
                     <div class="col-sm-3 col-xs-6">
                         <label for="un_member" class="req">City:</label>
-<?php echo $this->Form->input('city_id', array('options' => $TravelCities, 'empty' => '--Select--','data-required' => 'true')); ?>
+<?php echo $this->Form->input('city_id', array('options' => $TravelCities, 'empty' => '--Select--','data-required' => 'true','onchange' => 'chkBottonEvnt()')); ?>
                     </div> 
                     <div class="col-sm-3 col-xs-6">
                         <label for="un_member">Active:</label>
@@ -60,9 +60,9 @@ echo $this->Paginator->counter(array('format' => '{:count}'));
                 <div class="col-sm-12">
 <?php 
 if($update == true)
-echo $this->Form->submit('Update', array('class' => 'success btn', 'div' => false, 'id' => 'udate_unit', 'name' => 'update'));
+echo $this->Form->submit('Update', array('class' => 'success btn', 'div' => false, 'id' => 'udate', 'name' => 'update'));
 else    
-echo $this->Form->submit('SQL Generate', array('class' => 'success btn','style' =>'width:10%', 'div' => false, 'id' => 'udate_unit', 'name' => 'generate', 'value' => 'Generate'));
+echo $this->Form->submit('SQL Generate', array('class' => 'success btn','style' =>'width:10%', 'div' => false, 'id' => 'generate', 'name' => 'generate', 'value' => 'Generate'));
 ?>
                 
                 </div>
@@ -296,4 +296,8 @@ $this->Js->get('#MassOperationProvinceId')->event('change', $this->Js->request(a
 					})
 					
 				});
+                                
+    function chkBottonEvnt(){
+        alert('test');
+    }
 </script>
