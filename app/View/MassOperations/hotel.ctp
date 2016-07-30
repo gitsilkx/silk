@@ -17,6 +17,7 @@ echo $this->Form->hidden('country_code');
 echo $this->Form->hidden('province_name');
 echo $this->Form->hidden('city_name');
 echo $this->Form->hidden('city_code');
+echo $this->Form->hidden('sequence_no',array('value' => $sequence_no));
 ?> 
 <div class="row">
     <div class="col-sm-12">
@@ -57,10 +58,11 @@ echo $this->Paginator->counter(array('format' => '{:count}'));
                     <div class="col-sm-3 col-xs-6">
                         <label for="un_member">Sequ. No.:</label>
                         
-                            <?php echo $this->Form->input('sequence_no', array('id' => 'sequence_no','data-required' => 'true','value' => $sequence_no,'disabled' => 'true')); ?>
+                            <?php echo $this->Form->input('seq_no', array('id' => 'sequence_no','data-required' => 'true','value' => $sequence_no,'disabled' => 'true')); ?>
                     
                     
-                </div>               
+                </div>  
+                    </div> 
             </div>
 
             <div class="row" style="padding: 15px;">
