@@ -56,12 +56,10 @@ echo $this->Paginator->counter(array('format' => '{:count}'));
                     </div>
                     <div class="col-sm-3 col-xs-6">
                         <label for="un_member">Sequ. No.:</label>
-                        <div  id="sequence_no" style="float:left">
-                            <?php echo $this->Form->input('sequence_no', array('id' => 'sequence_no')); ?></div>
-                    </div>
-                    <?php if($sqn_generate_btt == true){?>
-                    <div class="btn btn-success sticky_success" id="sqn_generate_btt" onclick="GenerateSequenceNo('MassOperation','Hotel Edit - Masss Operation')" style="width:24%">Generate Sequence No.</div>
-                    <?php }?>
+                        
+                            <?php echo $this->Form->input('sequence_no', array('id' => 'sequence_no','data-required' => 'true','value' => $sequence_no,'disabled' => 'true')); ?>
+                    
+                    
                 </div>               
             </div>
 
