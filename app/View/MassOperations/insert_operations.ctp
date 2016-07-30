@@ -73,7 +73,7 @@ color: red;"></span>
                         <div class="form-group">
                             
                             <div class="col-sm-8">
-                                <div class="btn btn-success sticky_success" onclick="GenerateSequenceNo('InsertTable','Masss Insert')" style="width:70%">Generate Sequence No.</div>
+                                <div class="btn btn-success sticky_success" id="sqn_generate_btt" onclick="GenerateSequenceNo('InsertTable','Masss Insert')" style="width:70%">Generate Sequence No.</div>
                               
                                </div>
                         </div>

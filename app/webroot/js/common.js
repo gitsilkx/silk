@@ -213,7 +213,7 @@ function GenerateSequenceNo(model,screen){
         //var model = 'InsertTable';
         var FULL_BASE_URL = $('#hidden_site_baseurl').val(); 
         var dataString = '';
-       
+        $('#sqn_generate_btt').addClass("not-active");
         $.ajax({
             type: "POST",
             data: dataString,
