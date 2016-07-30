@@ -67,7 +67,9 @@ echo $this->Paginator->counter(array('format' => '{:count}'));
                 <div class="col-sm-12">
 <?php 
 if($update == true)
-echo $this->Form->submit('Update', array('class' => 'success btn', 'div' => false, 'id' => 'udate', 'name' => 'update'));
+echo $this->Form->submit('WTB Update', array('class' => 'success btn', 'div' => false, 'id' => 'udate', 'name' => 'update','value' => 'Update'));
+if($local_udate == true)
+echo $this->Form->submit('Local Update', array('class' => 'success btn', 'div' => false, 'id' => 'local_udate', 'name' => 'local_update','value' => 'local_update'));
    
 echo $this->Form->submit('SQL Generate', array('class' => 'success btn','style' =>'width:10%', 'div' => false, 'id' => 'generate', 'name' => 'generate', 'value' => 'Generate'));
 ?>
@@ -306,6 +308,7 @@ $this->Js->get('#MassOperationProvinceId')->event('change', $this->Js->request(a
 
     function chkBottonEvnt() {
         $('#udate').css('display', 'none');
+        $('#local_udate').css('display', 'none');
         $('#generate').css('display', 'block');
     }
 
