@@ -1,5 +1,6 @@
 <?php
- echo $this->Html->css(array('/bootstrap/css/bootstrap.min','popup',
+
+echo $this->Html->css(array('/bootstrap/css/bootstrap.min','popup',
 									
 									'font-awesome/css/font-awesome.min',
 									
@@ -40,19 +41,19 @@ echo $this->Form->hidden('base_url', array('id' => 'hidden_site_baseurl', 'value
 <style>
     .loader{
         width: 100%;
-	opacity: 0.4;
-	height: 471px;
-	background-color: #000;
-	position: absolute;
-	z-index: 99999;
-	float: left;
+        opacity: 0.4;
+        height: 471px;
+        background-color: #000;
+        position: absolute;
+        z-index: 99999;
+        float: left;
     }
-    </style>
+</style>
 <div class="content">
-     <div class="pop-up-hdng">Create Support Ticket</div>
+    <div class="pop-up-hdng">Create Support Ticket</div>
 
-<div class="col-sm-12">
-    <div id="ajax"></div>
+    <div class="col-sm-12">
+        <div id="ajax"></div>
         <div class="col-sm-12">
             <div class="form-group">
                 <label class="req">Screen</label>
@@ -66,9 +67,9 @@ echo $this->Form->hidden('base_url', array('id' => 'hidden_site_baseurl', 'value
                 <span class="colon">:</span>
                 <div class="col-sm-10" style="padding-top:6px;">
                     <?php echo $this->Form->input('about', array('options' => $TravelHotelLookup)); ?>
-            
+
                 </div>
-            
+
             </div>
             <div class="form-group">
                 <label class="req">Urgency</label>
@@ -77,15 +78,212 @@ echo $this->Form->hidden('base_url', array('id' => 'hidden_site_baseurl', 'value
                     <?php echo $this->Form->input('urgency', array('options' => $LookupTicketUrgency,'class' => 'pointer', 'empty' => '--Select--', 'data-required' => 'true')); ?>            
                 </div>            
             </div>
-            
-        	<div class="form-group">
+
+            <div class="form-group">
                 <label class="req">What is the issue?</label>
                 <span class="colon">:</span>
                 <div class="col-sm-10" style="padding-top:6px;">
-                    <?php echo $this->Form->input('answer', array('id' => 'SupportTicketQuestionId','options' => $LookupQuestion,'class' => 'pointer', 'empty' => '--Select--', 'data-required' => 'true')); ?>            
+                    <?php echo $this->Form->input('answer', array('options' => $LookupQuestion,'class' => 'pointer', 'empty' => '--Select--', 'data-required' => 'true')); ?>            
                 </div>            
-            </div>  
-            <div id="question_ajax"></div>
+            </div>
+
+            <?php if($display == true){?>
+
+            <?php 
+//pr($DataArray);
+$i=1;
+foreach($DataArray as $values){
+    
+    echo $this->Form->hidden('question_id'.$i,array('value' => $values['LookupQuestion']['question']));
+    $i++;
+    ?>
+            <!--
+            <div class="col-sm-6">
+            <div class="form-group">
+                <span><?php echo $values['LookupQuestion']['question'];?></span>          
+                        </div>
+                </div>
+            -->
+            <div class="form-group">
+
+                <label class="req"><?php echo $values['LookupQuestion']['question'];?></label>          
+                <span class="colon">:</span>         
+    <?php 
+    if($values['LookupQuestion']['id'] == '9' || $values['LookupQuestion']['id'] == '11'){
+    ?>
+
+                <div class="col-sm-10" style="padding-top:6px;">
+                    <?php echo $this->Form->input('answer1', array('label'=> false,'id' => 'continetId','div'=>false,'options'=>$TravelLookupContinent,'empty'=>'--Select--')); ?>            
+                </div>           
+
+    <?php }
+    elseif($values['LookupQuestion']['id'] == '10' || $values['LookupQuestion']['id'] == '12'){
+        ?>
+
+
+                <div class="col-sm-10" style="padding-top:6px;">
+                    <?php echo $this->Form->input('answer2', array('label'=> false,'id' => 'countryId','div'=>false,'options'=>array(),'empty'=>'--Select--')); ?>            
+                </div>           
+
+    <?php
+    }
+    elseif($values['LookupQuestion']['id'] == '13'){
+        ?>
+
+
+                <div class="col-sm-10" style="padding-top:6px;">
+                    <?php echo $this->Form->input('answer1', array('label'=> false,'id' => 'ProvinceCountry','div'=>false,'options'=>$TravelCountries,'empty'=>'--Select--')); ?>            
+                </div>           
+    <?php
+    }
+    elseif($values['LookupQuestion']['id'] == '14'){
+        ?>
+
+
+                <div class="col-sm-10" style="padding-top:6px;">
+                    <?php echo $this->Form->input('answer2', array('label'=> false,'id' => 'Province','div'=>false,'options'=>array(),'empty'=>'--Select--')); ?>            
+                </div>           
+    <?php
+    }
+    elseif($values['LookupQuestion']['id'] == '15'){
+        ?>
+
+
+                <div class="col-sm-10" style="padding-top:6px;">
+                    <?php echo $this->Form->input('answer1', array('label'=> false,'id' => 'ProvinceCity','div'=>false,'options'=>$Provinces,'empty'=>'--Select--')); ?>            
+                </div>           
+    <?php
+    }
+    elseif($values['LookupQuestion']['id'] == '16'){
+        ?>
+
+
+                <div class="col-sm-10" style="padding-top:6px;">
+                    <?php echo $this->Form->input('answer2', array('label'=> false,'id' => 'City','div'=>false,'options'=>array(),'empty'=>'--Select--')); ?>            
+                </div>           
+    <?php
+    }
+    elseif($values['LookupQuestion']['id'] == '17'){
+        ?>
+
+
+                <div class="col-sm-10" style="padding-top:6px;">
+                    <?php echo $this->Form->input('answer1', array('label'=> false,'div'=>false,'options'=>$TravelCities,'empty'=>'--Select--')); ?>            
+                </div>           
+    <?php
+    }
+    elseif($values['LookupQuestion']['id'] == '19'){
+        ?>
+
+
+                <div class="col-sm-10" style="padding-top:6px;">
+                    <?php echo $this->Form->input('answer1', array('label'=> false,'div'=>false,'options'=>$TravelSuburbs,'empty'=>'--Select--')); ?>            
+                </div>           
+
+    <?php
+    }
+    elseif($values['LookupQuestion']['id'] == '18' || $values['LookupQuestion']['id'] == '20'){
+        ?>
+
+
+                <div class="col-sm-10" style="padding-top:6px;">
+                    <?php echo $this->Form->input('answer2', array('label'=> false,'div'=>false,'type' => 'text','placeholder' => 'Type the name here')); ?>            
+                </div>           
+    <?php
+    }
+    elseif($values['LookupQuestion']['id'] == '21'){
+        ?>
+
+
+                <div class="col-sm-10" style="padding-top:6px;">
+                    <?php echo $this->Form->input('answer1', array('label'=> false,'div'=>false,'options'=>$TechnicalIssue,'empty'=>'--Select--'));  ?>            
+                </div>           
+    <?php
+    }
+    elseif($values['LookupQuestion']['id'] == '25'){
+        ?>
+
+
+                <div class="col-sm-10" style="padding-top:6px;">
+                    <?php echo $this->Form->input('answer1', array('label'=> false,'div'=>false,'type' => 'text','placeholder' => 'Type the description here'));  ?>            
+                </div>           
+    <?php
+    }
+    elseif($values['LookupQuestion']['id'] == '26'){
+        ?>
+
+
+                <div class="col-sm-10" style="padding-top:6px;">
+                    <?php echo $this->Form->input('answer2', array('label'=> false,'div'=>false,'type' => 'text','placeholder' => 'Type the description here'));  ?>            
+                </div>           
+    <?php
+    }
+    elseif($values['LookupQuestion']['id'] == '28'){
+        ?>
+
+
+                <div class="col-sm-10" style="padding-top:6px;">
+                    <?php echo $this->Form->input('answer1', array('label'=> false,'div'=>false,'options'=>$TravelHotelLookups,'empty'=>'--Select--'));  ?>            
+                </div>           
+    <?php
+    }
+    elseif($values['LookupQuestion']['id'] == '31'){
+        ?>
+
+
+                <div class="col-sm-10" style="padding-top:6px;">
+                    <?php echo $this->Form->input('answer1', array('label'=> false,'div'=>false,'type' => 'text'));  ?>            
+                </div>           
+    <?php
+    }
+    elseif($values['LookupQuestion']['id'] == '32'){
+        ?>
+
+
+                <div class="col-sm-10" style="padding-top:6px;">
+                    <?php echo $this->Form->input('answer2', array('label'=> false,'div'=>false,'type' => 'text'));  ?>            
+                </div>           
+    <?php
+    }
+    elseif($values['LookupQuestion']['id'] == '33'){
+        ?>
+
+
+                <div class="col-sm-10" style="padding-top:6px;">
+                    <?php echo $this->Form->input('answer1', array('label'=> false,'div'=>false,'options'=>$TravelChains,'empty'=>'--Select--'));  ?>            
+                </div>           
+    <?php
+    }
+    elseif($values['LookupQuestion']['id'] == '34'){
+        ?>
+
+
+                <div class="col-sm-10" style="padding-top:6px;">
+                    <?php echo $this->Form->input('answer2', array('label'=> false,'div'=>false,'type' => 'text'));  ?>            
+                </div>           
+    <?php
+    }
+
+    ?>
+
+
+            </div>
+<?php
+}
+
+?>
+
+
+
+
+
+
+
+
+
+
+
+
             <div class="form-group">
                 <label>How Many Hotels Here (approx)?</label>
                 <span class="colon">:</span>
@@ -107,22 +305,26 @@ echo $this->Form->hidden('base_url', array('id' => 'hidden_site_baseurl', 'value
                 <?php 
                 echo $this->Form->input('description', array('type' => 'textarea','style' => 'width:100%;height:100px'));
                 ?>
-                <?php echo $this->Form->submit('Add', array('class' => 'success btn', 'div' => false, 'id' => 'udate_unit','style'=>'width:20% !important')); ?>
+                    <?php echo $this->Form->submit('Add', array('class' => 'success btn', 'div' => false, 'name' => 'add','style'=>'width:20% !important')); ?>
                 </div>
             </div>
-           </div>  
-	</div>
-<!--     <div class="col-sm-12">
-         <div style="clear: both;"></div>
-            <div id="question_ajax"></div>
-     </div>-->
-     <div class="col-sm-12 fullrow evt">
+            <?php }else{?>
+            <?php echo $this->Form->submit('Go', array('class' => 'success btn', 'div' => false, 'name' => 'issue','style'=>'width:20% !important')); 
+            }
+            ?>
+        </div>  
+    </div>
+    <!--     <div class="col-sm-12">
+             <div style="clear: both;"></div>
+                <div id="question_ajax"></div>
+         </div>-->
+    <div class="col-sm-12 fullrow evt">
 
     </div>
-<!--     <div class="row">
-        <div class="col-sm-12" style="text-align:center;"><?php
+    <!--     <div class="row">
+            <div class="col-sm-12" style="text-align:center;"><?php
 ?></div>
-    </div> -->
+        </div> -->
 
 </div>	
 <?php echo $this->Form->end();
@@ -130,9 +332,9 @@ echo $this->Form->hidden('base_url', array('id' => 'hidden_site_baseurl', 'value
 <script>
     var FULL_BASE_URL = $('#hidden_site_baseurl').val(); // For base path of value;
     var model = 'SupportTicket';
-    
-    var Question = function(){
-        
+
+    var Question = function () {
+
         var question_id = $(this).val();
         var continent_id = $('#SupportTicketContinentId').val();
         var country_id = $('#SupportTicketCountryId').val();
@@ -143,189 +345,186 @@ echo $this->Form->hidden('base_url', array('id' => 'hidden_site_baseurl', 'value
         var chain_id = $('#SupportTicketChainId').val();
         var brand_id = $('#SupportTicketBrandId').val();
 
-        var dataString = 'question_id=' + question_id + '&model=' + model + '&continent_id=' + continent_id + '&country_id=' + country_id + '&province_id=' + province_id + '&city_id=' + city_id + '&suburb_id=' + suburb_id + '&hotel_id=' + hotel_id+ '&chain_id=' + chain_id+ '&brand_id=' + brand_id;
-        $('#ajax').addClass('loader');  
+        var dataString = 'question_id=' + question_id + '&model=' + model + '&continent_id=' + continent_id + '&country_id=' + country_id + '&province_id=' + province_id + '&city_id=' + city_id + '&suburb_id=' + suburb_id + '&hotel_id=' + hotel_id + '&chain_id=' + chain_id + '&brand_id=' + brand_id;
+        $('#ajax').addClass('loader');
         $.ajax({
             type: "POST",
             data: dataString,
             url: FULL_BASE_URL + '/all_functions/get_list_question_by_question_id',
-            beforeSend: function() {
+            beforeSend: function () {
                 $('#SupportTicketQuestionId1').attr('disabled', 'disabled');
                 $('#ajax').addClass('loader');
                 //return false;
             },
-            success: function(return_data) {
-                
+            success: function (return_data) {
+
                 $('#SupportTicketQuestionId1').removeAttr('disabled');
                 $('#question_ajax').html(return_data);
-                $('#SupportTicketQuestionId,#continetId,#ProvinceCountry','#ProvinceCity').unbind('change');
-		$('#SupportTicketQuestionId').bind('change',Question);
-		$('#continetId').bind('change',Country);
-                $('#ProvinceCountry').bind('change',ProvinceCountry);
-                $('#ProvinceCity').bind('change',ProvinceCity);
+                $('#SupportTicketQuestionId,#continetId,#ProvinceCountry', '#ProvinceCity').unbind('change');
+                $('#SupportTicketQuestionId').bind('change', Question);
+                $('#continetId').bind('change', Country);
+                $('#ProvinceCountry').bind('change', ProvinceCountry);
+                $('#ProvinceCity').bind('change', ProvinceCity);
                 $('#ajax').removeClass('loader');
             }
-        });      
+        });
     }
-    
-       var Country = function(){
 
-        var continent_id = $(this).val();       
+    var Country = function () {
+
+        var continent_id = $(this).val();
         var dataString = 'continent_id=' + continent_id + '&model=' + model;
 
         $.ajax({
             type: "POST",
             data: dataString,
             url: FULL_BASE_URL + '/all_functions/ajax_get_travel_country_by_continent_id',
-            
-            beforeSend: function() {
+            beforeSend: function () {
                 $('#countryId').attr('disabled', 'disabled');
                 //return false;
             },
-            success: function(return_data) {
-            $('#countryId').removeAttr('disabled');
+            success: function (return_data) {
+                $('#countryId').removeAttr('disabled');
                 $('#countryId').html(return_data);
-                $('#SupportTicketQuestionId,#continetId,#ProvinceCountry','#ProvinceCity').unbind('change');
-                $('#SupportTicketQuestionId').bind('change',Question);
-                $('#continetId').bind('change',Country);
-			 
-            }
-        });      
-    }
-    
-    var ProvinceCountry = function(){
+                $('#SupportTicketQuestionId,#continetId,#ProvinceCountry', '#ProvinceCity').unbind('change');
+                $('#SupportTicketQuestionId').bind('change', Question);
+                $('#continetId').bind('change', Country);
 
-        var country_id = $(this).val();       
+            }
+        });
+    }
+
+    var ProvinceCountry = function () {
+
+        var country_id = $(this).val();
         var dataString = 'country_id=' + country_id + '&model=' + model;
 
         $.ajax({
             type: "POST",
             data: dataString,
             url: FULL_BASE_URL + '/all_functions/ajax_get_province_by_country_id',
-            
-            beforeSend: function() {
+            beforeSend: function () {
                 $('#Province').attr('disabled', 'disabled');
                 //return false;
             },
-            success: function(return_data) {
-            $('#Province').removeAttr('disabled');
+            success: function (return_data) {
+                $('#Province').removeAttr('disabled');
                 $('#Province').html(return_data);
                 $('#SupportTicketQuestionId,#continetId,#ProvinceCountry').unbind('change');
-                $('#SupportTicketQuestionId').bind('change',Question);
-                $('#continetId').bind('change',Country);
-		$('#ProvinceCountry').bind('change',ProvinceCountry);	 
+                $('#SupportTicketQuestionId').bind('change', Question);
+                $('#continetId').bind('change', Country);
+                $('#ProvinceCountry').bind('change', ProvinceCountry);
             }
-        });      
+        });
     }
-    
-    var ProvinceCity = function(){
 
-        var province_id = $(this).val();       
+    var ProvinceCity = function () {
+
+        var province_id = $(this).val();
         var dataString = 'province_id=' + province_id + '&model=' + model;
 
         $.ajax({
             type: "POST",
             data: dataString,
             url: FULL_BASE_URL + '/all_functions/ajax_get_travel_city_by_province',
-            
-            beforeSend: function() {
+            beforeSend: function () {
                 $('#City').attr('disabled', 'disabled');
                 //return false;
             },
-            success: function(return_data) {
-            $('#City').removeAttr('disabled');
+            success: function (return_data) {
+                $('#City').removeAttr('disabled');
                 $('#City').html(return_data);
-                $('#SupportTicketQuestionId,#continetId,#ProvinceCountry','#ProvinceCity').unbind('change');
-                $('#SupportTicketQuestionId').bind('change',Question);
-                $('#continetId').bind('change',Country);
-		$('#ProvinceCountry').bind('change',ProvinceCountry);	
-                $('#ProvinceCity').bind('change',ProvinceCity);
-            }
-        });      
-    }
-    
-    
-    $('#SupportTicketQuestionId').bind('change',Question);
-    $('#continetId').bind('change',Country);
-    $('#ProvinceCountry').bind('change',ProvinceCountry);
-    $('#ProvinceCity').bind('change',ProvinceCity);
-    
-    function validation() {
-    
-    var QuestionId = $('#SupportTicketQuestionId').val();
-            if(QuestionId == '5' || QuestionId == '6'){
-                
-                if ($('#SupportTicketHotelRange').val() == '')
-                {
-                    alert('Please select how many hotels here');
-                    return false;
-                }
-            }
-        if ($('#continetId').val() == '')
-                {
-                    alert('Please select continent');
-                    return false;
-                }
-          if ($('#countryId').val() == '')
-                {
-                    alert('Please select country');
-                    return false;
-                } 
-           if ($('#ProvinceCountry').val() == '')
-                {
-                    alert('Please select country');
-                    return false;
-                }
-             if ($('#Province').val() == '')
-                {
-                    alert('Please select province');
-                    return false;
-                }   
-              if ($('#ProvinceCity').val() == '')
-                {
-                    alert('Please select province');
-                    return false;
-                }
-                if ($('#City').val() == '')
-                {
-                    alert('Please select city');
-                    return false;
-                }
-                if ($('#SupportTicketAnswer1').val() == '')
-                {
-                    alert('Please select answer');
-                    return false;
-                }
-                if ($('#SupportTicketAnswer2').val() == '')
-                {
-                    alert('Please select answer');
-                    return false;
-                }
-        }
-    
-    /*
-    $('#SupportTicketQuestionId').change(function() {
-        var question_id = $(this).val();
-        var model = 'SupportTicket';
-
-        var dataString = 'question_id=' + question_id + '&model=' + model;
-        //$('#ReimbursementReimbursementType2').attr('disabled', 'disabled');
-        $.ajax({
-            type: "POST",
-            data: dataString,
-            url: FULL_BASE_URL + '/all_functions/get_list_question_by_question_id',
-            beforeSend: function() {
-                $('#SupportTicketQuestionId1').attr('disabled', 'disabled');
-                //return false;
-            },
-            success: function(return_data) {
-                $('#SupportTicketQuestionId1').removeAttr('disabled');
-                $('#question_ajax').html(return_data);
+                $('#SupportTicketQuestionId,#continetId,#ProvinceCountry', '#ProvinceCity').unbind('change');
+                $('#SupportTicketQuestionId').bind('change', Question);
+                $('#continetId').bind('change', Country);
+                $('#ProvinceCountry').bind('change', ProvinceCountry);
+                $('#ProvinceCity').bind('change', ProvinceCity);
             }
         });
+    }
 
-    });
-    */
-    
 
-    </script>
+    $('#SupportTicketQuestionId').bind('change', Question);
+    $('#continetId').bind('change', Country);
+    $('#ProvinceCountry').bind('change', ProvinceCountry);
+    $('#ProvinceCity').bind('change', ProvinceCity);
+
+    function validation() {
+
+        var QuestionId = $('#SupportTicketQuestionId').val();
+        if (QuestionId == '5' || QuestionId == '6') {
+
+            if ($('#SupportTicketHotelRange').val() == '')
+            {
+                alert('Please select how many hotels here');
+                return false;
+            }
+        }
+        if ($('#continetId').val() == '')
+        {
+            alert('Please select continent');
+            return false;
+        }
+        if ($('#countryId').val() == '')
+        {
+            alert('Please select country');
+            return false;
+        }
+        if ($('#ProvinceCountry').val() == '')
+        {
+            alert('Please select country');
+            return false;
+        }
+        if ($('#Province').val() == '')
+        {
+            alert('Please select province');
+            return false;
+        }
+        if ($('#ProvinceCity').val() == '')
+        {
+            alert('Please select province');
+            return false;
+        }
+        if ($('#City').val() == '')
+        {
+            alert('Please select city');
+            return false;
+        }
+        if ($('#SupportTicketAnswer1').val() == '')
+        {
+            alert('Please select answer');
+            return false;
+        }
+        if ($('#SupportTicketAnswer2').val() == '')
+        {
+            alert('Please select answer');
+            return false;
+        }
+    }
+
+    /*
+     $('#SupportTicketQuestionId').change(function() {
+     var question_id = $(this).val();
+     var model = 'SupportTicket';
+     
+     var dataString = 'question_id=' + question_id + '&model=' + model;
+     //$('#ReimbursementReimbursementType2').attr('disabled', 'disabled');
+     $.ajax({
+     type: "POST",
+     data: dataString,
+     url: FULL_BASE_URL + '/all_functions/get_list_question_by_question_id',
+     beforeSend: function() {
+     $('#SupportTicketQuestionId1').attr('disabled', 'disabled');
+     //return false;
+     },
+     success: function(return_data) {
+     $('#SupportTicketQuestionId1').removeAttr('disabled');
+     $('#question_ajax').html(return_data);
+     }
+     });
+     
+     });
+     */
+
+
+</script>
