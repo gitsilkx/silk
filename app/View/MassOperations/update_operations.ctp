@@ -20,6 +20,8 @@ echo $this->Form->hidden('update_country_code');
 echo $this->Form->hidden('update_country_name');
 echo $this->Form->hidden('city_code');
 echo $this->Form->hidden('city_name');
+echo $this->Form->hidden('sequence_no',array('value' => $sequence_no));
+echo $this->Form->hidden('tot_cnt',array('value' => $tot_cnt));
 ?>
 <div class="col-sm-12" id="mycl-det">
     <div class="panel panel-default">
@@ -111,7 +113,14 @@ echo $this->Form->hidden('city_name');
                                 echo $this->Form->input('city_id', array('options' => $UpdateTravelCities, 'empty' => '--Select--'));
                                 ?>
                             </div>
-                        </div>                          
+                        </div>  
+                        <div class="form-group">
+                            <label for="reg_input_name" style="margin-left: 14px;">Sequence No.</label>
+                            <span class="colon">:</span>
+                            <div class="col-sm-8">
+                                 <?php echo $this->Form->input('seq', array('value' => $sequence_no,'disabled' => 'true')); ?>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="clear" style="clear: both;"></div>
@@ -141,14 +150,19 @@ echo $this->Form->hidden('city_name');
                             echo $this->Form->submit('Proceed', array('class' => 'btn btn-success sticky_success', 'name' => 'proceed'));
                             ?>
                         </div>
-                        <div class="col-sm-1" style="<?php echo $update; ?>">
+                        <div class="col-sm-1" style="<?php echo $local_update; ?>">
                             <?php
-                            echo $this->Form->submit('Update', array('class' => 'btn btn-success sticky_success', 'name' => 'update'));
+                            echo $this->Form->submit('Local Update', array('class' => 'btn btn-success sticky_success', 'name' => 'update'));
                             ?>
                         </div>
                         <div class="col-sm-2" style="<?php echo $generate; ?>">
                             <?php
                             echo $this->Form->submit('SQL Generate', array('class' => 'btn btn-success sticky_success','style' =>'width:100%', 'name' => 'generate', 'value' => 'Generate'));
+                            ?>
+                        </div>
+                        <div class="col-sm-2" style="<?php echo $wtb_update; ?>">
+                            <?php
+                            echo $this->Form->submit('WTB Update', array('class' => 'btn btn-success sticky_success','style' =>'width:100%', 'name' => 'wtb_update', 'value' => 'Generate'));
                             ?>
                         </div>
                     </div>
