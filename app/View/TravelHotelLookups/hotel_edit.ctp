@@ -1,5 +1,11 @@
 <?php
 $this->Html->addCrumb('Edit Hotel', 'javascript:void(0);', array('class' => 'breadcrumblast'));
+if($actio_itme_id <> '')
+    $screen = '7';
+else 
+    $screen = '1';
+
+echo $screen;
 ?>
 
 <div class="col-sm-12" id="mycl-det">
