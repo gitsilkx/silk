@@ -258,7 +258,7 @@ echo $this->Form->create('SupportTicket', array('method' => 'post', 'enctype' =>
                                     <?php 
                                     if($this->data['SupportTicket']['answer'] == '27'){
                                          $duplicate_id =   $this->Custom->after_last(' ',$this->data['SupportTicket']['answer1']);
-                                        echo $this->Html->link($this->data['SupportTicket']['about'], array('controller' => 'reports', 'action' => 'support_hotel_summary/id:'.$duplicate_id), array('class' => 'act-ico', 'escape' => false,'target' => '_blank'));
+                                        echo $this->Html->link($this->data['SupportTicket']['answer1'], array('controller' => 'reports', 'action' => 'support_hotel_summary/id:'.$duplicate_id), array('class' => 'act-ico', 'escape' => false,'target' => '_blank'));
                                     }
                                     else{
                                         echo $this->data['SupportTicket']['answer1'];
