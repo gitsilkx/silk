@@ -5,13 +5,13 @@ if($actio_itme_id <> '')
 else 
     $screen = '1';
 
-echo $screen;
+
 ?>
 
 <div class="col-sm-12" id="mycl-det">
     <div class="table-heading">
              
-            <span class="badge badge-circle add-client nomrgn"><i class="icon-plus"></i> <?php echo $this->Html->link('Open New Ticket', '/support_tickets/add/1/'.$this->data['TravelHotelLookup']['id'],array('class' => 'act-ico open-popup-link add-btn','escape' => false,'data-placement' => "left", 'title' => "Create New Ticket",'data-toggle' => "tooltip")) ?></span>
+            <span class="badge badge-circle add-client nomrgn"><i class="icon-plus"></i> <?php echo $this->Html->link('Open New Ticket', '/support_tickets/add/'.$screen.'/'.$this->data['TravelHotelLookup']['id'],array('class' => 'act-ico open-popup-link add-btn','escape' => false,'data-placement' => "left", 'title' => "Create New Ticket",'data-toggle' => "tooltip")) ?></span>
           
         </div>
     <div class="panel panel-default">
