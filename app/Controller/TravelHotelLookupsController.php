@@ -1057,7 +1057,7 @@ class TravelHotelLookupsController extends AppController {
         $TravelLookupPropertyTypes = $this->TravelLookupPropertyType->find('list', array('fields' => 'id,value','order' => 'value ASC'));
         $TravelLookupRateTypes = $this->TravelLookupRateType->find('list', array('fields' => 'id,value','order' => 'value ASC'));
         $TravelHotelRoomSuppliers = $this->TravelHotelRoomSupplier->find('all', array('conditions' => array('TravelHotelRoomSupplier.hotel_id' => $id)));
-        $this->set(compact('TravelBrands', 'TravelHotelRoomSuppliers','Provinces','TravelLookupPropertyTypes','TravelLookupRateTypes'));
+        $this->set(compact('TravelBrands','actio_itme_id', 'TravelHotelRoomSuppliers','Provinces','TravelLookupPropertyTypes','TravelLookupRateTypes'));
         
 
         $this->request->data = $TravelHotelLookups;
