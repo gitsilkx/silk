@@ -452,7 +452,7 @@ $this->Js->get('#DownloadTableHotelCountryId')->event('change', $this->Js->reque
 
             }
             else {
-                $('.download').css('display', 'none');
+                //$('.download').css('display', 'none');
                 $('.country').css('display', 'none');
                 $('.city').css('display', 'none');
                 $('.country_mapping').css('display', 'none');
@@ -463,7 +463,7 @@ $this->Js->get('#DownloadTableHotelCountryId')->event('change', $this->Js->reque
             }
         }
         else {
-            $('.download').css('display', 'none');
+            //$('.download').css('display', 'none');
             $('.country').css('display', 'none');
             $('.city').css('display', 'none');
             $('.country_mapping').css('display', 'none');
@@ -527,7 +527,7 @@ $this->Js->get('#DownloadTableHotelCountryId')->event('change', $this->Js->reque
 
             }
             else {
-                $('.download').css('display', 'none');
+               // $('.download').css('display', 'none');
                 $('.country').css('display', 'none');
                 $('.city').css('display', 'none');
                 $('.country_mapping').css('display', 'none');
