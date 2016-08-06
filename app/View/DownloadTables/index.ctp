@@ -222,7 +222,7 @@ echo $this->Form->input('active', array('options' => array('TRUE' => 'TRUE', 'FA
 ?></div>
                         </div>
 
-                        <div class="form-group download" style="display:<?php echo $download; ?>">
+                        <div class="form-group cc" style="display:<?php echo $download; ?>">
                             <label for="reg_input_name">Start on</label>
                             <span class="colon">:</span>
                             <div class="col-sm-8">
@@ -401,7 +401,7 @@ $this->Js->get('#DownloadTableHotelCountryId')->event('change', $this->Js->reque
 
             }
             else {
-                $('.download').css('display', 'none');
+                //$('.download').css('display', 'none');
                 $('.country').css('display', 'none');
                 $('.city').css('display', 'none');
                 $('.country_mapping').css('display', 'none');
