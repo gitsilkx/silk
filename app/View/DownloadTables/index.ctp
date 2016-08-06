@@ -486,6 +486,7 @@ $this->Js->get('#DownloadTableHotelCountryId')->event('change', $this->Js->reque
         var table = $(this).val();
         var value = $('#DownloadTableOperation').val();
         if (value == '2') {
+            
             $('.download').css('display', 'block');
 
             if (table == 'TravelCity') {
@@ -577,7 +578,7 @@ $this->Js->get('#DownloadTableHotelCountryId')->event('change', $this->Js->reque
 
             }
             else {
-                $('.download').css('display', 'none');
+                //$('.download').css('display', 'none');
                 $('.country').css('display', 'none');
                 $('.city').css('display', 'none');
                 $('.country_mapping').css('display', 'none');
