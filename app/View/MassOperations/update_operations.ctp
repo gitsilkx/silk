@@ -153,7 +153,7 @@ echo $this->Form->hidden('tot_cnt',array('value' => $tot_cnt));
                         </div>
                         <div class="col-sm-1" id="local_update" style="<?php echo $local_update; ?>">
                             <?php
-                            echo $this->Form->submit('Local Update', array('class' => 'btn btn-success sticky_success', 'name' => 'update'));
+                            echo $this->Form->submit('Local Update', array('class' => 'btn btn-success sticky_success', 'name' => 'update','style' =>'width:100%'));
                             ?>
                         </div>
                         <div class="col-sm-2" id="generate" style="<?php echo $generate; ?>">
