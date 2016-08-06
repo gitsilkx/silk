@@ -142,12 +142,12 @@ if ($operation == '2') { // download
 echo $this->Form->input('operation', array('options' => array('1' => 'Table Structure', '2' => 'Data Download', '3' => 'Data Count'), 'empty' => '--Select--', 'data-required' => 'true'));
 ?></div>
                         </div>
-                        <div class="form-group country" style="display:<?php echo $country; ?>">
-                            <label for="reg_input_name" class="req" style="margin-left: 14px;">Select Country</label>
+                        <div class="form-group city" style="display:<?php echo $city; ?>">
+                            <label for="reg_input_name" class="req">Select City</label>
                             <span class="colon">:</span>
                             <div class="col-sm-8">
 <?php
-echo $this->Form->input('country_id', array('options' => $TravelCountries, 'empty' => '--Select--'));
+echo $this->Form->input('city_id', array('options' => $DataArray, 'empty' => '--Select--'));
 ?></div>
                         </div>
                         <div class="form-group country_mapping" style="display:<?php echo $country_mapping; ?>">
@@ -196,15 +196,15 @@ echo $this->Form->input('wtb_status', array('options' => array('1' => 'OK', '2' 
 echo $this->Form->input('table', array('options' => $tableOption, 'empty' => '--Select--', 'data-required' => 'true'));
 ?></div>
                         </div>
-                        
-                        <div class="form-group city" style="display:<?php echo $city; ?>">
-                            <label for="reg_input_name" class="req">Select City</label>
+                        <div class="form-group country" style="display:<?php echo $country; ?>">
+                            <label for="reg_input_name" class="req" style="margin-left: 14px;">Select Country</label>
                             <span class="colon">:</span>
                             <div class="col-sm-8">
 <?php
-echo $this->Form->input('city_id', array('options' => $DataArray, 'empty' => '--Select--'));
+echo $this->Form->input('country_id', array('options' => $TravelCountries, 'empty' => '--Select--'));
 ?></div>
                         </div>
+                        
                         <div class="form-group city_mapping" style="display:<?php echo $city_mapping; ?>">
                             <label for="reg_input_name" class="req">Select City</label>
                             <span class="colon">:</span>
