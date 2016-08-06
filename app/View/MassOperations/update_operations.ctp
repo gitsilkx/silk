@@ -37,7 +37,7 @@ echo $this->Form->hidden('tot_cnt',array('value' => $tot_cnt));
                             <span class="colon">:</span>
                             <div class="col-sm-8">
                                 <?php
-                                echo $this->Form->input('table', array('options' => array('TravelCity' => 'City', 'TravelHotelLookup' => 'Hotel', 'TravelSuburb' => 'Suburb', 'TravelArea' => 'Area'), 'empty' => '--Select--', 'data-required' => 'true','onchange' => 'chkBottonEvnt()'));
+                                echo $this->Form->input('table', array('options' => array('TravelCity' => 'City', 'TravelHotelLookup' => 'Hotel', 'TravelSuburb' => 'Suburb', 'TravelArea' => 'Area'), 'empty' => '--Select--', 'data-required' => 'true'));
                                 ?>
                             </div>
                         </div>
