@@ -486,7 +486,7 @@ $this->Js->get('#DownloadTableHotelCountryId')->event('change', $this->Js->reque
         var table = $(this).val();
         var value = $('#DownloadTableOperation').val();
         if (value == '2') {
-            
+            alert(value);
             $('.download').css('display', 'block');
 
             if (table == 'TravelCity') {
