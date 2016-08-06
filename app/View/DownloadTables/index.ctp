@@ -188,7 +188,7 @@ echo $this->Form->input('wtb_status', array('options' => array('1' => 'OK', '2' 
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
-                            <label for="reg_input_name" class="req"  style="margin-left: 14px;">Select Table</label>
+                            <label for="reg_input_name" class="req">Select Table</label>
                             <span class="colon">:</span>
                             <div class="col-sm-8">
 <?php
