@@ -143,7 +143,7 @@ echo $this->Form->input('operation', array('options' => array('1' => 'Table Stru
 ?></div>
                         </div>
                         <div class="form-group city" style="display:<?php echo $city; ?>">
-                            <label for="reg_input_name" class="req">Select City</label>
+                            <label for="reg_input_name" style="margin-left: 14px;">Select City</label>
                             <span class="colon">:</span>
                             <div class="col-sm-8">
 <?php
@@ -151,7 +151,7 @@ echo $this->Form->input('city_id', array('options' => $DataArray, 'empty' => '--
 ?></div>
                         </div>
                         <div class="form-group country_mapping" style="display:<?php echo $country_mapping; ?>">
-                            <label for="reg_input_name" class="req" style="margin-left: 14px;">Select Country</label>
+                            <label for="reg_input_name" style="margin-left: 14px;">Select Country</label>
                             <span class="colon">:</span>
                             <div class="col-sm-8">
 <?php
@@ -197,7 +197,7 @@ echo $this->Form->input('table', array('options' => $tableOption, 'empty' => '--
 ?></div>
                         </div>
                         <div class="form-group country" style="display:<?php echo $country; ?>">
-                            <label for="reg_input_name" class="req" style="margin-left: 14px;">Select Country</label>
+                            <label for="reg_input_name">Select Country</label>
                             <span class="colon">:</span>
                             <div class="col-sm-8">
 <?php
@@ -206,7 +206,7 @@ echo $this->Form->input('country_id', array('options' => $TravelCountries, 'empt
                         </div>
                         
                         <div class="form-group city_mapping" style="display:<?php echo $city_mapping; ?>">
-                            <label for="reg_input_name" class="req">Select City</label>
+                            <label for="reg_input_name">Select City</label>
                             <span class="colon">:</span>
                             <div class="col-sm-8">
 <?php
