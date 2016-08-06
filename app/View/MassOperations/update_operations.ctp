@@ -41,7 +41,7 @@ echo $this->Form->hidden('tot_cnt',array('value' => $tot_cnt));
                                 ?>
                             </div>
                         </div>
-                        <div class="form-group"  style="<?php echo $common; ?>">
+                        <div class="form-group" id="common"  style="<?php echo $common; ?>">
                             <label for="reg_input_name"  style="margin-left: 14px;">Select City</label>
                             <span class="colon">:</span>
                             <div class="col-sm-8">
@@ -64,7 +64,7 @@ echo $this->Form->hidden('tot_cnt',array('value' => $tot_cnt));
                     </div>
                 </div>
                 <div class="clear" style="clear: both;"></div>
-                <div class="col-sm-12"  style="<?php echo $update; ?>">
+                <div class="col-sm-12" id="update"  style="<?php echo $update; ?>">
                     <h4>Update fields</h4>
                     <div class="col-sm-6">
                         <div class="form-group">
@@ -81,7 +81,7 @@ echo $this->Form->hidden('tot_cnt',array('value' => $tot_cnt));
                             <span class="colon">:</span>
                             <div class="col-sm-8">
                                 <?php
-                                echo $this->Form->input('province_id', array('options' => $Provinces, 'empty' => '--Select--'));
+                                echo $this->Form->input('province_id', array('options' => $Provinces, 'empty' => '--Select--','onchange' => 'chkBottonEvnt()'));
                                 ?>
                             </div>
                         </div>
@@ -90,7 +90,7 @@ echo $this->Form->hidden('tot_cnt',array('value' => $tot_cnt));
                             <span class="colon">:</span>
                             <div class="col-sm-8">
                                 <?php
-                                echo $this->Form->input('active', array('options' => array('TRUE' => 'TRUE','FALSE' => 'FALSE'), 'empty' => '--Select--'));
+                                echo $this->Form->input('active', array('options' => array('TRUE' => 'TRUE','FALSE' => 'FALSE'), 'empty' => '--Select--','onchange' => 'chkBottonEvnt()'));
                                 ?>
                             </div>
                         </div>
@@ -101,7 +101,7 @@ echo $this->Form->hidden('tot_cnt',array('value' => $tot_cnt));
                             <span class="colon">:</span>
                             <div class="col-sm-8">
                                 <?php
-                                echo $this->Form->input('update_country_id', array('options' => $TravelCountries, 'empty' => '--Select--'));
+                                echo $this->Form->input('update_country_id', array('options' => $TravelCountries, 'empty' => '--Select--','onchange' => 'chkBottonEvnt()'));
                                 ?>
                             </div>
                         </div> 
@@ -110,7 +110,7 @@ echo $this->Form->hidden('tot_cnt',array('value' => $tot_cnt));
                             <span class="colon">:</span>
                             <div class="col-sm-8">
                                 <?php
-                                echo $this->Form->input('city_id', array('options' => $UpdateTravelCities, 'empty' => '--Select--'));
+                                echo $this->Form->input('city_id', array('options' => $UpdateTravelCities, 'empty' => '--Select--','onchange' => 'chkBottonEvnt()'));
                                 ?>
                             </div>
                         </div>  
@@ -124,7 +124,7 @@ echo $this->Form->hidden('tot_cnt',array('value' => $tot_cnt));
                     </div>
                 </div>
                 <div class="clear" style="clear: both;"></div>
-                <div class="form-group" style="<?php echo $list_city; ?>">
+                <div class="form-group" id="list_city" style="<?php echo $list_city; ?>">
                     <div class="col-sm-12">
                         <div class="checkbox three-column">
                             <div class="list-checkbox checkboxBlank">
@@ -136,6 +136,7 @@ echo $this->Form->hidden('tot_cnt',array('value' => $tot_cnt));
                                     'multiple' => 'checkbox',
                                     'options' => $TravelCities,
                                     'selected' => $selected,
+                                    'onclick' => 'chkBottonEvnt()',
                                     'hiddenField' => false
                                 ));
                                 ?>
@@ -253,5 +254,15 @@ $this->Js->get('#InsertTableProvinceId')->event('change', $this->Js->request(arr
         $('#local_udate').css('display', 'none');
         $('#wtb_update').css('display', 'none');
         $('#generate').css('display', 'block');
+    }
+    
+    function chkProceedBottonEvnt() {
+        $('#proceed').css('display', 'block');
+        $('#common').css('display', 'none');
+        $('#update').css('display', 'none');
+        $('#list_city').css('display', 'none');
+        $('#local_udate').css('display', 'none');
+        $('#wtb_update').css('display', 'none');
+        $('#generate').css('display', 'none');
     }
 </script>
