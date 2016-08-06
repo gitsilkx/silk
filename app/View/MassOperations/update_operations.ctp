@@ -37,7 +37,7 @@ echo $this->Form->hidden('tot_cnt',array('value' => $tot_cnt));
                             <span class="colon">:</span>
                             <div class="col-sm-8">
                                 <?php
-                                echo $this->Form->input('table', array('options' => array('TravelCity' => 'City', 'TravelHotelLookup' => 'Hotel', 'TravelSuburb' => 'Suburb', 'TravelArea' => 'Area'), 'empty' => '--Select--', 'data-required' => 'true'));
+                                echo $this->Form->input('table', array('options' => array('TravelCity' => 'City', 'TravelHotelLookup' => 'Hotel', 'TravelSuburb' => 'Suburb', 'TravelArea' => 'Area'), 'empty' => '--Select--', 'data-required' => 'true','onchange' => 'chkBottonEvnt()'));
                                 ?>
                             </div>
                         </div>
@@ -72,7 +72,7 @@ echo $this->Form->hidden('tot_cnt',array('value' => $tot_cnt));
                             <span class="colon">:</span>
                             <div class="col-sm-8">
                                 <?php
-                                echo $this->Form->input('continent_id', array('options' => $TravelLookupContinents, 'empty' => '--Select--'));
+                                echo $this->Form->input('continent_id', array('options' => $TravelLookupContinents, 'empty' => '--Select--','onchange' => 'chkBottonEvnt()'));
                                 ?>
                             </div>
                         </div>
@@ -145,22 +145,22 @@ echo $this->Form->hidden('tot_cnt',array('value' => $tot_cnt));
                 </div>
                 <div class="col-sm-12">
                     <div class="row">
-                        <div class="col-sm-1" style="<?php echo $proceed; ?>">
+                        <div class="col-sm-1" id="proceed" style="<?php echo $proceed; ?>">
                             <?php
                             echo $this->Form->submit('Proceed', array('class' => 'btn btn-success sticky_success', 'name' => 'proceed'));
                             ?>
                         </div>
-                        <div class="col-sm-1" style="<?php echo $local_update; ?>">
+                        <div class="col-sm-1" id="local_update" style="<?php echo $local_update; ?>">
                             <?php
                             echo $this->Form->submit('Local Update', array('class' => 'btn btn-success sticky_success', 'name' => 'update'));
                             ?>
                         </div>
-                        <div class="col-sm-2" style="<?php echo $generate; ?>">
+                        <div class="col-sm-2" id="generate" style="<?php echo $generate; ?>">
                             <?php
                             echo $this->Form->submit('SQL Generate', array('class' => 'btn btn-success sticky_success','style' =>'width:100%', 'name' => 'generate', 'value' => 'Generate'));
                             ?>
                         </div>
-                        <div class="col-sm-2" style="<?php echo $wtb_update; ?>">
+                        <div class="col-sm-2" id="wtb_update" style="<?php echo $wtb_update; ?>">
                             <?php
                             echo $this->Form->submit('WTB Update', array('class' => 'btn btn-success sticky_success','style' =>'width:100%', 'name' => 'wtb_update', 'value' => 'Generate'));
                             ?>
@@ -247,4 +247,11 @@ $this->Js->get('#InsertTableProvinceId')->event('change', $this->Js->request(arr
     $('#InsertTableProvinceId').change(function() {
         $('#InsertTableProvinceName').val($('#InsertTableProvinceId option:selected').text());
     });
+    
+    function chkBottonEvnt() {
+        $('#proceed').css('display', 'none');
+        $('#local_udate').css('display', 'none');
+        $('#wtb_update').css('display', 'none');
+        $('#generate').css('display', 'block');
+    }
 </script>
