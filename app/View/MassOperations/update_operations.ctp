@@ -133,7 +133,7 @@ echo $this->Form->hidden('tot_cnt',array('value' => $tot_cnt));
                                     'label' => false,
                                     'div' => array('class' => 'list-checkbox checkboxBlank'),
                                     'type' => 'select',
-                                    'multiple' => 'checkbox',
+                                    'type' => 'checkbox',
                                     'options' => $TravelCities,
                                     'selected' => $selected,
                                     'onClick' => 'chkBottonEvnt()',
