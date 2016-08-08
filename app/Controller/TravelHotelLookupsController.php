@@ -2319,7 +2319,10 @@ class TravelHotelLookupsController extends AppController {
             
             $this->TravelHotelLookup->id = $id;
             $this->TravelHotelLookup->save($this->request->data['TravelHotelLookup']); 
-                 $content_xml_str = '<soap:Body>
+              
+            /*
+            
+            $content_xml_str = '<soap:Body>
                                         <ProcessXML xmlns="http://www.travel.domain/">
                                             <RequestInfo>
                                                 <ResourceDataRequest>
@@ -2475,9 +2478,7 @@ class TravelHotelLookupsController extends AppController {
                 $Email->template('XML/xml', 'default')->emailFormat('html')->to($to)->cc($cc)->from('admin@silkrouters.com')->subject('XML Error [' . $log_call_screen . '] Log Id [' . $LogId . '] Open By [' . $this->User->Username($user_id) . '] Date [' . date("m/d/Y H:i:s", $date->format('U')) . ']')->send();
             }
 
-            /**
-             * Hotel mapping update section.
-             */
+            
             $xml_error = 'FALSE';
             
             
@@ -2699,10 +2700,12 @@ class TravelHotelLookupsController extends AppController {
                             
                         }
                 }
-                
                 $this->Session->setFlash($xml_msg.'<br> Local record has been successfully updated.', 'success');
+                */
+                
+                $this->Session->setFlash('Local record has been successfully updated.', 'success');
                 //$this->redirect(array('reports/hotel_summary?city_id='.$CityId));
-                $this->redirect(array('controller' => 'reports', 'action' => 'hotel_summary?city_id='.$CityId));
+                $this->redirect(array('controller' => 'reports', 'action' => 'hotel_summary'));
         }
         
         $TravelLookupContinents = $this->TravelLookupContinent->find('all', array('fields' => array('TravelLookupContinent.id','TravelLookupContinent.continent_name','TravelLookupContinent.continent_code'), 'conditions' => array('TravelLookupContinent.continent_status' => 1, 'TravelLookupContinent.wtb_status' => 1), 'order' => 'TravelLookupContinent.continent_name ASC'));
