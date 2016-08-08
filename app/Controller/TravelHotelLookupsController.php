@@ -2891,7 +2891,7 @@ class TravelHotelLookupsController extends AppController {
             
 
         if ($this->TravelHotelLookup->delete($id)) {
-            
+            /*
             $content_xml_str = '<soap:Body>
                                         <ProcessXML xmlns="http://www.travel.domain/">
                                             <RequestInfo>
@@ -2985,6 +2985,9 @@ class TravelHotelLookupsController extends AppController {
             $this->DeleteTravelHotelLookup->create();
             $this->DeleteTravelHotelLookup->save($this->request->data['DeleteTravelHotelLookup']);
             $this->Session->setFlash($message, 'success');
+            */
+            $this->Session->setFlash('Local record has been successfully deleted.', 'success');
+            
             //$this->redirect(array('action' => 'index'));
         } else {
             $this->Session->setFlash('Unable to delete Hotel.', 'failure');
