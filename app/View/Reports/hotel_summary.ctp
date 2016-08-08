@@ -150,6 +150,7 @@ if (!empty($this->request->params['named']['country_id'])) {
                         <th data-hide="phone" data-group="group1" width="2%" data-sort-ignore="true"><input type="checkbox" class="mbox_select_all" name="msg_sel_all"></th>
                         <th data-toggle="phone" data-sort-ignore="true" width="3%" data-group="group1"><?php echo $this->Paginator->sort('id', 'Id');
                 echo ($sort == 'id') ? ($direction == 'asc') ? " <i class='icon-caret-up'></i>" : " <i class='icon-caret-down'></i>"  : " <i class='icon-sort'></i>"; ?></th>
+                        <th data-group="group8" data-hide="phone" data-sort-ignore="true" width="7%">Action</th>
                         <th data-hide="phone" data-group="group9" width="10%" data-sort-ignore="true"><?php echo $this->Paginator->sort('continent_name', 'Continent');
                 echo ($sort == 'continent_name') ? ($direction == 'asc') ? " <i class='icon-caret-up'></i>" : " <i class='icon-caret-down'></i>"  : " <i class='icon-sort'></i>"; ?></th>
                         <th data-hide="phone" data-group="group9" width="10%" data-sort-ignore="true"><?php echo $this->Paginator->sort('country_name', 'Country');
@@ -179,7 +180,7 @@ if (!empty($this->request->params['named']['country_id'])) {
                         <th data-hide="phone" data-group="group10" width="5%" data-sort-ignore="true">Active?</th>
                         <th data-hide="phone" data-group="group10" width="5%" data-sort-ignore="true">No. Of Mapping</th>
                         <th data-hide="phone" data-group="group10" width="5%" data-sort-ignore="true">Pending Action</th>
-                        <th data-group="group8" data-hide="phone" data-sort-ignore="true" width="7%">Action</th> 
+                         
 
                     </tr>
                 </thead>
@@ -222,6 +223,13 @@ if (!empty($this->request->params['named']['country_id'])) {
                                 echo $this->Form->checkbox('check', array('name' => 'data[TravelHotelLookup][check][]','class' => 'msg_select','readonly' => true,'hiddenField' => false,'value' => $id));
                                 ?></td>
                                 <td class="tablebody"><?php echo $id; ?></td>
+                                <td valign="middle" align="center">
+
+                                    <?php                                    
+                                    echo $this->Html->link('<span class="icon-pencil"></span>', array('controller' => 'travel_hotel_lookups', 'action' => 'hotel_edit/' . $id,), array('class' => 'act-ico', 'escape' => false));
+                                    echo $this->Html->link('<span class="icon-remove"></span>', array('controller' => 'travel_hotel_lookups', 'action' => 'delete', $id), array('class' => 'act-ico', 'escape' => false), "Are you sure you wish to delete this hotel?");
+                                    ?>
+                                </td>
                                 <td class="sub-tablebody"><?php echo $TravelHotelLookup['TravelHotelLookup']['continent_name']; ?></td>                                 
                                 <td class="sub-tablebody"><?php echo $TravelHotelLookup['TravelHotelLookup']['country_name']; ?></td>
                                 <td class="sub-tablebody"><?php echo $TravelHotelLookup['TravelHotelLookup']['province_name']; ?></td>
@@ -242,13 +250,7 @@ if (!empty($this->request->params['named']['country_id'])) {
                                 <td class="sub-tablebody"><?php if(count($TravelHotelLookup['TravelHotelRoomSupplier']) > 0) echo $this->Html->link(count($TravelHotelLookup['TravelHotelRoomSupplier']), array('controller' => 'travel_hotel_lookups', 'action' => 'view_mapping/' . $id), array('class' => 'act-ico open-popup-link add-btn', 'escape' => false)); else echo '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0'; ?></td>
                                 <td class="sub-tablebody"><?php if(count($TravelHotelLookup['HotelPending']) > 0 || $mappingcount > 0) echo $this->Html->link(count($TravelHotelLookup['HotelPending']) + $mappingcount, array('controller' => 'reports', 'action' => 'view_action/' . $id.'/'.$TravelHotelLookup['TravelHotelRoomSupplier'][0]['id']), array('class' => 'act-ico open-popup-link add-btn', 'escape' => false)); else echo '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0'; ?></td>
 
-                                <td valign="middle" align="center">
-
-                                    <?php                                    
-                                    echo $this->Html->link('<span class="icon-pencil"></span>', array('controller' => 'travel_hotel_lookups', 'action' => 'hotel_edit/' . $id,), array('class' => 'act-ico', 'escape' => false));
-                                    echo $this->Html->link('<span class="icon-remove"></span>', array('controller' => 'travel_hotel_lookups', 'action' => 'delete', $id), array('class' => 'act-ico', 'escape' => false), "Are you sure you wish to delete this hotel?");
-                                    ?>
-                                </td>
+                                
 
                             </tr>
                         <?php endforeach; ?>
