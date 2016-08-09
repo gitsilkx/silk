@@ -39,8 +39,8 @@ class TestsController extends AppController {
         
         parent::beforeFilter();
         $this->Auth->allow(array('shorturl', 'convert', 'getShortenedURLFromID','index'));
-        $this->uploadDir = ROOT . DS . APP_DIR . DS . WEBROOT_DIR . '/uploads/hotels';
-        //$this->uploadDir = 'imageius.com/uploads/hotels';
+        //$this->uploadDir = ROOT . DS . APP_DIR . DS . WEBROOT_DIR . '/uploads/hotels';
+        $this->uploadDir = 'imageius.com/uploads/hotels';
     }
 
     public function index() {
