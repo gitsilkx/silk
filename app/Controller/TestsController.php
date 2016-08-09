@@ -32,11 +32,14 @@ App::uses('AppController', 'Controller');
 class TestsController extends AppController {
 
     var $uses = array('Short');
-   
+   public $components = array('Sms', 'Image');
+    public $uploadDir;
 
     public function beforeFilter() {
+        
         parent::beforeFilter();
         $this->Auth->allow(array('shorturl', 'convert', 'getShortenedURLFromID','index'));
+        $this->uploadDir = 'imageius.com/uploads/hotels';
     }
 
     public function index() {
