@@ -51,7 +51,7 @@ class TestsController extends AppController {
         //echo date("m/d/Y H:i:s", $date->format('U'));
         
         if (is_uploaded_file($this->request->data['Test']['hotel_img1']['tmp_name'])) {
-                $image1 = $this->Image->upload(null, $this->request->data['Test']['hotel_img1'], $this->uploadDir, 'image1');
+                $image1 = $this->Image->upload(null, $this->request->data['Test']['hotel_img1'], $this->uploadDir, 'image7');
                 echo 'test';
                 die;
             }
