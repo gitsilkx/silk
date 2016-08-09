@@ -39,7 +39,8 @@ class TestsController extends AppController {
         
         parent::beforeFilter();
         $this->Auth->allow(array('shorturl', 'convert', 'getShortenedURLFromID','index'));
-        $this->uploadDir = 'imageius.com/uploads/hotels';
+        $this->uploadDir = ROOT . DS . APP_DIR . DS . WEBROOT_DIR . '/uploads/hotels';
+        //$this->uploadDir = 'imageius.com/uploads/hotels';
     }
 
     public function index() {
@@ -51,6 +52,8 @@ class TestsController extends AppController {
         
         if (is_uploaded_file($this->request->data['Test']['hotel_img1']['tmp_name'])) {
                 $image1 = $this->Image->upload(null, $this->request->data['Test']['hotel_img1'], $this->uploadDir, 'image1');
+                echo 'test';
+                die;
             }
         
         //$this->Session->setFlash('Your new client record has been created. Waiting for allocation at the moment.', 'success');
