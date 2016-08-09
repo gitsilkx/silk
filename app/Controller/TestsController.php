@@ -47,7 +47,11 @@ class TestsController extends AppController {
        // die;
         $a =  date('m/d/Y H:i:s', strtotime('-1 hour'));
         $date = new DateTime($a, new DateTimeZone('Asia/Kolkata'));
-        echo date("m/d/Y H:i:s", $date->format('U'));
+        //echo date("m/d/Y H:i:s", $date->format('U'));
+        
+        if (is_uploaded_file($this->request->data['Test']['hotel_img1']['tmp_name'])) {
+                $image1 = $this->Image->upload(null, $this->request->data['Test']['hotel_img1'], $this->uploadDir, 'image1');
+            }
         
         //$this->Session->setFlash('Your new client record has been created. Waiting for allocation at the moment.', 'success');
          

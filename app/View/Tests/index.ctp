@@ -37,7 +37,31 @@ echo $this->Form->create('Test', array('enctype' => 'multipart/form-data', 'meth
                             echo $this->Form->input('task_url_description2', array('type' => 'textarea', 'style' => 'width:122%;height:100px','value' => $output_txt));
                             ?></div>
                     </div>
+                    <div class="form-group">
+                                            <div class="col-sm-10 editable txtbox">
+                                                <label>Picture1</label>
+                                                <span class="colon">:</span>
+                                                <div class="fileupload fileupload-new" data-provides="fileupload">
+                                                    <div class="fileupload-new img-thumbnail" style="width: 178px; height: 120px;">
+                                                        <?php
+                                                       
+                                                            $image1 = $this->webroot . "img/no_img_180.png";
+                                                       
+                                                        ?>
+                                                        <img src="<?php echo $image1; ?>" height="200" width="170" />
 
+                                                    </div>
+                                                    <div class="fileupload-preview fileupload-exists img-thumbnail" style="width: 178px; height: 120px"></div>
+                                                    <div>
+                                                        <span class="btn btn-default btn-file"><span class="fileupload-new">Select image</span><span class="fileupload-exists">Change</span>
+                                                            <input type="file" name="data[Test][hotel_img1]" />
+
+                                                        </span>
+                                                        <a href="#" class="btn btn-default fileupload-exists" data-dismiss="fileupload">Remove</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
 
                 </div>
 
