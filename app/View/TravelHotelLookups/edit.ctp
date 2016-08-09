@@ -923,7 +923,11 @@ $this->Js->get('#TravelHotelLookupCountryId')->event('change', $this->Js->reques
             $('#TravelHotelLookupContinentName').val(res[1]);
         });
     
-  
+    $('#TravelHotelLookupNoRoom').change(function(event) {
+        //alert('asd');
+        this.value = parseFloat(this.value).toFixed(0);
+        //  this.value = this.value.replace (/(\.\d\d)\d+|([\d.]*)[^\d.]/, '$1$2');
+    })
     });
 
 </script>    
