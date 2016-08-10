@@ -3,10 +3,10 @@
  * and open the template in the editor.
  */
 
-var FULL_BASE_URL = $('#hidden_site_baseurl').val(); // For base path of value;
+
 $(document).ready(function() {
 
-    
+    var FULL_BASE_URL = $('#hidden_site_baseurl').val(); // For base path of value;
     var SITE_PUBLIC_URL = $('#hidden_site_public_url').val();// exp- http://lserver/project/cramdude/web/
 	
 	$('.open-popup-link').magnificPopup({type:'iframe',
@@ -207,27 +207,6 @@ function loading_img(id)
 {
 	$('#'+id).addClass('loader');
 }
-
-function GenerateSequenceNo(model,screen){ 
-    
-        //var model = 'InsertTable';
-        var FULL_BASE_URL = $('#hidden_site_baseurl').val(); 
-        var dataString = '';
-        $('#sqn_generate_btt').addClass("not-active");
-        $.ajax({
-            type: "POST",
-            data: dataString,
-            url: FULL_BASE_URL + '/all_functions/generate_sequence_no/'+model+'/'+screen,
-            beforeSend: function () {
-
-                //return false;
-            },
-            success: function (return_data) {
-                
-                $('#sequence_no').html(return_data);
-            }
-        });
-    }
 
 function loaded_img(id)
 {
