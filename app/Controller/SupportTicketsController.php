@@ -246,7 +246,7 @@ class SupportTicketsController extends AppController {
                     'order' => 'TravelHotelLookup.hotel_name ASC'
                         )
                 );
-                $TravelHotelLookups = Set::combine($TravelHotelLookups, '{n}.TravelHotelLookup.id', array('%s | Code:%s | Id:%s', '{n}.TravelHotelLookup.hotel_name', '{n}.TravelHotelLookup.hotel_code', '{n}.TravelHotelLookup.id'));
+                $TravelHotelLookups = Set::combine($TravelHotelLookups, '{n}.TravelHotelLookup.id', array('%s | Code: %s | Id: %s', '{n}.TravelHotelLookup.hotel_name', '{n}.TravelHotelLookup.hotel_code', '{n}.TravelHotelLookup.id'));
 
                 $TechnicalIssue = $this->LookupQuestion->find('list', array(
                     'conditions' => array('LookupQuestion.parent_id' => 21),
