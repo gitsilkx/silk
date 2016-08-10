@@ -41,6 +41,8 @@ class TestsController extends AppController {
         $this->Auth->allow(array('shorturl', 'convert', 'getShortenedURLFromID','index'));
         //$this->uploadDir = ROOT . DS . APP_DIR . DS . WEBROOT_DIR . '/uploads/hotels';
         $this->uploadDir = 'imageius.com/uploads/hotels';
+        
+        
     }
 
     public function index() {
@@ -49,7 +51,10 @@ class TestsController extends AppController {
         $a =  date('m/d/Y H:i:s', strtotime('-1 hour'));
         $date = new DateTime($a, new DateTimeZone('Asia/Kolkata'));
         //echo date("m/d/Y H:i:s", $date->format('U'));
-        
+        $srcfile= $this->uploadDir.'/1470747593image7.jpg';
+$dstfile='imageius.com/uploads/hotels/1470747593image7.jpg';
+//mkdir(dirname($dstfile), 0777, true);
+copy($srcfile, $dstfile);
         if (is_uploaded_file($this->request->data['Test']['hotel_img1']['tmp_name'])) {
                 $image1 = $this->Image->upload(null, $this->request->data['Test']['hotel_img1'], $this->uploadDir, 'image7');
                 echo 'test';
