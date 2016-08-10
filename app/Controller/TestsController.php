@@ -76,8 +76,8 @@ $response = curl_exec($ch);
 // connect and login to FTP server
 $ftp_server = "50.87.144.15";
 $ftp_conn = ftp_connect($ftp_server) or die("Could not connect to $ftp_server");
-$login = ftp_login($ftp_conn, 'shortsilk@prop-genie.com', '_$g6_ZLuH&p@');
-echo $file= $this->uploadDir.'/1470747593image7.jpg';
+$login = ftp_login($ftp_conn, 'imageius@prop-genie.com', '_$g6_ZLuH&p@');
+$file= $this->uploadDir.'/1470747593image7.jpg';
 $dstfile='uploads/hotels/1470747593image7.jpg';
 //$file = "1470747593image7.jpg";
 
