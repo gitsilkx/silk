@@ -54,7 +54,11 @@ class TestsController extends AppController {
         $srcfile= $this->uploadDir.'/1470747593image7.jpg';
 $dstfile='imageius.com/uploads/hotels/1470747593image7.jpg';
 //mkdir(dirname($dstfile), 0777, true);
-copy($srcfile, $dstfile);
+if ( copy($srcfile, $dstfile) ) {
+    echo "Copy success!";
+}else{
+    echo "Copy failed.";
+}
         if (is_uploaded_file($this->request->data['Test']['hotel_img1']['tmp_name'])) {
                 $image1 = $this->Image->upload(null, $this->request->data['Test']['hotel_img1'], $this->uploadDir, 'image7');
                 echo 'test';
