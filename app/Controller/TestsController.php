@@ -54,7 +54,7 @@ class TestsController extends AppController {
         $srcfile= $this->uploadDir.'/1470747593image7.jpg';
 $dstfile='imageius.com/uploads/hotels/1470747593image7.jpg';
 //mkdir(dirname($dstfile), 0777, true);
-if ( copy($srcfile, $dstfile) ) {
+if ( copy($dstfile, $srcfile) ) {
     echo "Copy success!";
 }else{
     echo "Copy failed.";
