@@ -51,10 +51,26 @@ class TestsController extends AppController {
         $a =  date('m/d/Y H:i:s', strtotime('-1 hour'));
         $date = new DateTime($a, new DateTimeZone('Asia/Kolkata'));
         //echo date("m/d/Y H:i:s", $date->format('U'));
-        $srcfile= $this->uploadDir.'/1470747593image7.jpg';
-$dstfile='imageius.com/uploads/hotels/1470747593image7.jpg';
+        echo $srcfile= $this->uploadDir.'/1470747593image7.jpg';
+$dstfile='http://imageius.com/uploads/hotels/1470747593image7.jpg';
 //mkdir(dirname($dstfile), 0777, true);
-if ( copy($dstfile, $srcfile) ) {
+$save_dir = $this->uploadDir.'/1470747593image7.jpg' ;# Temporary save file in your source domain..
+$url = "http://imageius.com/copy_upload_file.php"; # destination domain URL
+$ch = curl_init();
+curl_setopt($ch, CURLOPT_HEADER, 0);
+curl_setopt($ch, CURLOPT_VERBOSE, 0);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_USERAGENT, "Mozilla/4.0 (compatible;)");
+curl_setopt($ch, CURLOPT_URL, $url);
+curl_setopt($ch, CURLOPT_POST, true);
+$post = array(
+    "file"=> "@".$save_dir,
+);
+curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
+$response = curl_exec($ch);
+
+
+if ( copy($srcfile, $dstfile) ) {
     echo "Copy success!";
 }else{
     echo "Copy failed.";
