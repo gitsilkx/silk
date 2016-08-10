@@ -82,7 +82,7 @@ $dstfile='uploads/hotels/1470747593image7.jpg';
 $file = "1470747593image7.jpg";
 
 // upload file
-if (ftp_put($ftp_conn, $dstfile, $srcfile, FTP_ASCII))
+if (ftp_put($ftp_conn, $srcfile, $dstfile, FTP_ASCII))
   {
   echo "Successfully uploaded $file.";
   }
