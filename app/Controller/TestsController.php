@@ -51,6 +51,7 @@ class TestsController extends AppController {
         $a =  date('m/d/Y H:i:s', strtotime('-1 hour'));
         $date = new DateTime($a, new DateTimeZone('Asia/Kolkata'));
         //echo date("m/d/Y H:i:s", $date->format('U'));
+        /*
         echo $srcfile= $this->uploadDir.'/1470747593image7.jpg';
 $dstfile='http://imageius.com/uploads/hotels/1470747593image7.jpg';
 //mkdir(dirname($dstfile), 0777, true);
@@ -68,6 +69,30 @@ $post = array(
 );
 curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
 $response = curl_exec($ch);
+         * 
+         */
+
+ 
+// connect and login to FTP server
+$ftp_server = "50.87.144.15";
+$ftp_conn = ftp_connect($ftp_server) or die("Could not connect to $ftp_server");
+$login = ftp_login($ftp_conn, 'shortsilk@prop-genie.com', '_$g6_ZLuH&p@');
+$srcfile= $this->uploadDir.'/1470747593image7.jpg';
+$dstfile='uploads/hotels/1470747593image7.jpg';
+$file = "1470747593image7.jpg";
+
+// upload file
+if (ftp_put($ftp_conn, $dstfile, $srcfile, FTP_ASCII))
+  {
+  echo "Successfully uploaded $file.";
+  }
+else
+  {
+  echo "Error uploading $file.";
+  }
+
+// close connection
+ftp_close($ftp_conn);
 
 
 if ( copy($srcfile, $dstfile) ) {
