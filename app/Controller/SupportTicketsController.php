@@ -241,7 +241,7 @@ class SupportTicketsController extends AppController {
                     'fields' => array('TravelHotelLookup.id', 'TravelHotelLookup.hotel_name', 'TravelHotelLookup.hotel_code'),
                     'conditions' => array
                         (
-                        'TravelHotelLookup.active' => 'TRUE', 'TravelHotelLookup.wtb_status' => '1', 'TravelHotelLookup.status' => '2', $hotel_con
+                         $hotel_con
                     ),
                     'order' => 'TravelHotelLookup.hotel_name ASC'
                         )
