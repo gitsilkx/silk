@@ -133,7 +133,7 @@ echo $this->Form->input('TravelHotelRoomSupplier.supplier_code', array('id' => '
                             <label for="reg_input_name" class="req">Province</label>
                             <span class="colon">:</span>
                             <div class="col-sm-10"><?php
-                                echo $this->Form->input('TravelHotelRoomSupplier.hotel_province_id', array('id' => 'hotel_province_id','options' => $Provinces,'empty' => '--Select--','disabled' => true));
+                                echo $this->Form->input('TravelHotelRoomSupplier.province_id', array('id' => 'hotel_province_id','options' => $Provinces,'empty' => '--Select--','disabled' => true));
                                 ?></div>
                         </div>
                         <div class="form-group">
