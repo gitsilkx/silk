@@ -131,7 +131,7 @@ class SupportTicketsController extends AppController {
         $chain_con = array();
         $LookupQuestion = array();
         $TravelHotelLookup = array();
-        if ($screen == '1') { // Hotel Edit
+        if ($screen == '1' || $screen == '7') { // Hotel Edit
             $TravelHotelLookup = $this->TravelHotelLookup->find('all', array('fields' => array('TravelHotelLookup.id', 'TravelHotelLookup.hotel_name', 'TravelHotelLookup.hotel_code'), 'conditions' => array('TravelHotelLookup.id' => $action_id)));
 
             $TravelHotelLookup = Set::combine($TravelHotelLookup, '{n}.TravelHotelLookup.id', array('%s | %s | %s', '{n}.TravelHotelLookup.hotel_name', '{n}.TravelHotelLookup.hotel_code', '{n}.TravelHotelLookup.id'));
