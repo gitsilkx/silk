@@ -293,7 +293,7 @@ class SupportTicketsController extends AppController {
                  * 
                  */
 
-                if ($screen == '1') { // Hotel Edit
+                if ($screen == '1' || $screen == '7') { // Hotel Edit
                     $this->request->data['SupportTicket']['about'] = $this->SupportTicket->getHotelNameByHotelId($about);
                 }
                 if ($answer == '1' || $answer == '2') {
@@ -333,7 +333,7 @@ class SupportTicketsController extends AppController {
         //pr($TravelHotelLookup);
 
         $LookupScreen = $this->LookupScreen->find('list', array('fields' => 'id, value', 'conditions' => array('id' => $screen), 'order' => 'value ASC'));
-        $LookupQuestion = $this->LookupQuestion->find('list', array('fields' => 'LookupQuestion.id, LookupQuestion.question', 'conditions' => array('LookupQuestion.screen' => $screen, 'LookupQuestion.parent_id' => null), 'order' => 'LookupQuestion.id ASC'));
+        $LookupQuestion = $this->LookupQuestion->find('list', array('fields' => 'LookupQuestion.id, LookupQuestion.question', 'conditions' => array( 'LookupQuestion.parent_id' => null), 'order' => 'LookupQuestion.id ASC'));
         $CommonQuestion = $this->LookupQuestion->find('list', array('fields' => 'LookupQuestion.id, LookupQuestion.question', 'conditions' => array('LookupQuestion.id' => array('7', '8')), 'order' => 'LookupQuestion.id ASC'));
         $LookupTicketUrgency = $this->LookupTicketUrgency->find('list', array('fields' => 'LookupTicketUrgency.id, LookupTicketUrgency.value', 'order' => 'LookupTicketUrgency.value ASC'));
         $LookupQuestion = $LookupQuestion + $CommonQuestion;
