@@ -40,6 +40,8 @@ class TestsController extends AppController {
         parent::beforeFilter();
         $this->Auth->allow(array('shorturl', 'convert', 'getShortenedURLFromID','index'));
         $this->uploadDir = ROOT . DS . APP_DIR . DS . WEBROOT_DIR . '/uploads/hotels';
+        $this->Width = '200';
+        $this->Height = '200';
         //$this->uploadDir = 'imageius.com/uploads/hotels';
         
         
@@ -48,40 +50,20 @@ class TestsController extends AppController {
     public function index() {
         //echo $this->GoogleApi->send('google.com');
        // die;
-        $a =  date('m/d/Y H:i:s', strtotime('-1 hour'));
+        echo $a =  date('m/d/Y H:i:s', strtotime('-1 hour'));
         $date = new DateTime($a, new DateTimeZone('Asia/Kolkata'));
         //echo date("m/d/Y H:i:s", $date->format('U'));
-        /*
-        echo $srcfile= $this->uploadDir.'/1470747593image7.jpg';
-$dstfile='http://imageius.com/uploads/hotels/1470747593image7.jpg';
-//mkdir(dirname($dstfile), 0777, true);
-$save_dir = $this->uploadDir.'/1470747593image7.jpg' ;# Temporary save file in your source domain..
-$url = "http://imageius.com/copy_upload_file.php"; # destination domain URL
-$ch = curl_init();
-curl_setopt($ch, CURLOPT_HEADER, 0);
-curl_setopt($ch, CURLOPT_VERBOSE, 0);
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-curl_setopt($ch, CURLOPT_USERAGENT, "Mozilla/4.0 (compatible;)");
-curl_setopt($ch, CURLOPT_URL, $url);
-curl_setopt($ch, CURLOPT_POST, true);
-$post = array(
-    "file"=> "@".$save_dir,
-);
-curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
-$response = curl_exec($ch);
-         * 
-         */
+        
 
- 
+
+ /*
 // connect and login to FTP server
 $ftp_server = "50.87.144.15";
 $ftp_conn = ftp_connect($ftp_server) or die("Could not connect to $ftp_server");
 $login = ftp_login($ftp_conn, 'imageius@prop-genie.com', '_$g6_ZLuH&p@');
 $file= $this->uploadDir.'/1470747593image7.jpg';
 $dstfile='uploads/hotels/1470747593image7.jpg';
-//$file = "1470747593image7.jpg";
 
-// upload file
 if (ftp_put($ftp_conn, $dstfile, $file, FTP_ASCII))
   {
   echo "Successfully uploaded $file.";
@@ -93,12 +75,18 @@ else
 
 // close connection
 ftp_close($ftp_conn);
+  * 
+  */
 
 
 
         if (is_uploaded_file($this->request->data['Test']['hotel_img1']['tmp_name'])) {
-                $image1 = $this->Image->upload(null, $this->request->data['Test']['hotel_img1'], $this->uploadDir, 'image7');
-                echo 'test';
+           // echo $this->uploadDir.'/1470914687image7.jpg';
+           // die;
+            
+                $image = $this->Image->upload(null, $this->request->data['Test']['hotel_img1'], $this->uploadDir, 'image7');
+                $this->Image->thumbnail($this->uploadDir.'/'.$image,'thumbs',100,100);
+                
                 die;
             }
         
