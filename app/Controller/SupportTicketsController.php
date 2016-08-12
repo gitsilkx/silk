@@ -114,6 +114,10 @@ class SupportTicketsController extends AppController {
         $chain_id = '';
         $brand_id = '';
         $hotel_id = '';
+        $question_id1 = '';
+        $question_id2 = '';
+        $answer1 = '';
+        $answer2 = '';
         $user_id = $this->Auth->user('id');
         $upload_picture = '';
         $display = false;
@@ -183,6 +187,19 @@ class SupportTicketsController extends AppController {
                     $suburb_con = array('city_id' => $city_id);
                 } elseif ($answer == '27') {
                     $hotel_con = array('continent_id' => $continent_id, 'country_id' => $country_id, 'province_id' => $province_id, 'city_id' => $city_id, '`TravelHotelLookup`.`id` !=' . $hotel_id);
+                    $TravelHotelLookups = $this->TravelHotelLookup->find
+                        (
+                        'all', array
+                    (
+                    'fields' => array('TravelHotelLookup.id', 'TravelHotelLookup.hotel_name', 'TravelHotelLookup.hotel_code'),
+                    'conditions' => array
+                        (
+                         $hotel_con
+                    ),
+                    'order' => 'TravelHotelLookup.hotel_name ASC'
+                        )
+                );
+                $TravelHotelLookups = Set::combine($TravelHotelLookups, '{n}.TravelHotelLookup.id', array('%s | Code: %s | Id: %s', '{n}.TravelHotelLookup.hotel_name', '{n}.TravelHotelLookup.hotel_code', '{n}.TravelHotelLookup.id'));
                 } elseif ($answer == '30') {
                     $chain_con = array('id' => $chain_id);
                 }
@@ -234,19 +251,7 @@ class SupportTicketsController extends AppController {
                     'order' => 'TravelChain.chain_name ASC'
                 ));
 
-                $TravelHotelLookups = $this->TravelHotelLookup->find
-                        (
-                        'all', array
-                    (
-                    'fields' => array('TravelHotelLookup.id', 'TravelHotelLookup.hotel_name', 'TravelHotelLookup.hotel_code'),
-                    'conditions' => array
-                        (
-                         $hotel_con
-                    ),
-                    'order' => 'TravelHotelLookup.hotel_name ASC'
-                        )
-                );
-                $TravelHotelLookups = Set::combine($TravelHotelLookups, '{n}.TravelHotelLookup.id', array('%s | Code: %s | Id: %s', '{n}.TravelHotelLookup.hotel_name', '{n}.TravelHotelLookup.hotel_code', '{n}.TravelHotelLookup.id'));
+                
 
                 $TechnicalIssue = $this->LookupQuestion->find('list', array(
                     'conditions' => array('LookupQuestion.parent_id' => 21),
