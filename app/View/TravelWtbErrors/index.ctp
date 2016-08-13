@@ -89,7 +89,7 @@
                         <th data-hide="phone" data-sort-ignore="true" data-group="group1">Fixed Time</th>
                         <th data-hide="phone" data-sort-ignore="true" data-group="group1">Log Id</th>
                         <th data-hide="phone" data-sort-ignore="true" data-group="group1">Status</th> 
-                        <th data-hide="phone" data-sort-ignore="true" data-group="group1">Error Entity/th> 
+                        <th data-hide="phone" data-sort-ignore="true" data-group="group1">Error Entity</th> 
                           
 
                     </tr>
@@ -111,7 +111,7 @@
                                 <td><?php echo $TravelWtbError['TravelWtbError']['fixed_time']; ?></td>
                                 <td><?php echo $TravelWtbError['TravelWtbError']['log_id']; ?></td>
                                 
-                                <td><?php echo $TravelWtbError['TravelWtbError']['error_status']; ?></td>
+                                <td><?php echo $TravelWtbError['TravelLookupErrorStatus']['value']; ?></td>
 
                                 <td width="10%" valign="middle" align="center">
 
