@@ -80,6 +80,10 @@ class CustomHelper extends Helper {
         return $user['User']['fname'] . ' ' . $user['User']['mname'] . ' ' . $user['User']['lname'];
     }
     
+    public function getContinentName($continent_id) {
+        $DataArray = ClassRegistry::init('TravelLookupContinent')->find('first', array('fields' => array('continent_name'), 'conditions' => array('TravelLookupContinent.id' => $continent_id)));
+        return $DataArray['TravelLookupContinent']['continent_name'];
+    }
     public function getCountryName($country_id) {
         $DataArray = ClassRegistry::init('TravelCountry')->find('first', array('fields' => array('country_name'), 'conditions' => array('TravelCountry.id' => $country_id)));
         return $DataArray['TravelCountry']['country_name'];
@@ -88,6 +92,16 @@ class CustomHelper extends Helper {
     public function getProvinceName($province_id) {
         $DataArray = ClassRegistry::init('Province')->find('first', array('fields' => array('name'), 'conditions' => array('Province.id' => $province_id)));
         return $DataArray['Province']['name'];
+    }
+    
+    public function getHotelName($hotel_id) {
+        $DataArray = ClassRegistry::init('TravelHotelLookup')->find('first', array('fields' => array('hotel_name'), 'conditions' => array('TravelHotelLookup.id' => $hotel_id)));
+        return $DataArray['TravelHotelLookup']['hotel_name'];
+    }
+    
+    public function getHotelMappingName($hotel_mapping_id) {
+        $DataArray = ClassRegistry::init('TravelHotelRoomSupplier')->find('first', array('fields' => array('hotel_mapping_name'), 'conditions' => array('TravelHotelRoomSupplier.id' => $hotel_mapping_id)));
+        return $DataArray['TravelHotelRoomSupplier']['hotel_mapping_name'];
     }
     
    

@@ -99,14 +99,15 @@
                     if (isset($TravelWtbErrors) && count($TravelWtbErrors) > 0):
                         foreach ($TravelWtbErrors as $TravelWtbError):
                             $id = $TravelWtbError['TravelWtbError']['id'];
-                           
+                            $error_entity = $TravelWtbError['TravelWtbError']['error_entity'];
+                            $error_type = $TravelWtbError['TravelWtbError']['error_type'];
                             ?>
                             <tr>
                                <td><?php echo $id; ?></td>
                                 <td><?php echo $TravelWtbError['TravelLookupErrorTopic']['value']; ?></td>
-                                <td><?php echo $TravelWtbError['TravelWtbError']['error_by']; ?></td>
+                                <td><?php echo $this->Custom->Username($TravelWtbError['TravelWtbError']['error_by']); ?></td>
                                 <td><?php echo $TravelWtbError['TravelWtbError']['error_time']; ?></td>
-                                <td><?php echo $TravelWtbError['TravelWtbError']['fixed_by']; ?></td>
+                                <td><?php if($TravelWtbError['TravelWtbError']['fixed_by']) echo $this->Custom->Username($TravelWtbError['TravelWtbError']['fixed_by']); ?></td>
 
                                 <td><?php echo $TravelWtbError['TravelWtbError']['fixed_time']; ?></td>
                                 <td><?php echo $TravelWtbError['TravelWtbError']['log_id']; ?></td>
@@ -116,7 +117,13 @@
                                 <td width="10%" valign="middle" align="center">
 
                                     <?php
-                                    echo $this->Html->link('<span class="icon-list"></span>', array('controller' => 'travel_suburbs', 'action' => 'retry/' . $id), array('class' => 'act-ico','data-toggle' => 'tooltip', 'data-placement' => 'left', 'title' => 'Re-try Operation', 'escape' => false));
+                                    if($error_type == '1') //continent
+                                        echo $this->Html->link($this->Custom->getContinentName($error_entity), array('controller' => 'travel_lookup_continents', 'action' => 'retry/' . $error_entity), array('class' => 'act-ico','data-toggle' => 'tooltip', 'data-placement' => 'left', 'title' => 'Re-try Operation', 'escape' => false));
+                                    elseif($error_type == '9') //Hotel
+                                        echo $this->Html->link($this->Custom->getHotelName($error_entity), array('controller' => 'travel_hotel_lookups', 'action' => 'retry/' . $error_entity), array('class' => 'act-ico','data-toggle' => 'tooltip', 'data-placement' => 'left', 'title' => 'Re-try Operation', 'escape' => false));
+                                    elseif($error_type == '10') //Hotel MApping
+                                         echo $this->Html->link($this->Custom->getHotelMappingName($error_entity), array('controller' => 'mappinges', 'action' => 'edit/' . $error_entity . '/TravelHotelRoomSupplier'), array('class' => 'act-ico', 'data-toggle' => 'tooltip', 'data-placement' => 'left', 'title' => 'Re-try Mapping', 'escape' => false));
+                                        //echo $this->Html->link($this->Custom->getHotelMappingName($error_entity), array('controller' => 'travel_lookup_continents', 'action' => 'retry/' . $error_entity), array('class' => 'act-ico','data-toggle' => 'tooltip', 'data-placement' => 'left', 'title' => 'Re-try Operation', 'escape' => false));
                                        ?>
                                 </td>
 
