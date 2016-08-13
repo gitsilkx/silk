@@ -39,7 +39,7 @@ class TravelActionItemsController extends AppController {
     var $uses = array('TravelActionItem', 'User', 'TravelSupplier', 'TravelCountry', 'TravelActionItemType', 'DuplicateMappinge', 'Agent', 'TravelRemark', 'LookupValueActionItemRejection', 'LookupValueActionItemReturn',
         'TravelCountrySupplier', 'TravelCitySupplier', 'TravelHotelRoomSupplier', 'LogCall', 'Mappinge', 'TravelCity',
         'TravelHotelLookup', 'TravelBrand', 'TravelChain', 'TravelSuburb', 'TravelArea', 'Province', 'TravelLookupContinent', 'SupplierCountry',
-        'SupplierCity', 'SupplierHotel', 'Common', 'SupportTicket');
+        'SupplierCity', 'SupplierHotel', 'Common', 'SupportTicket','TravelWtbError');
 
     public function index() {
 
@@ -1265,6 +1265,9 @@ class TravelActionItemsController extends AppController {
 
                 $log_call_screen = 'Approval - Supplier Country Mapping';
                 $RESOURCEDATA = 'RESOURCEDATA_COUNTRYMAPPING';
+                $error_topic = '29';
+                $error_entity =  $TravelCountrySuppliers['TravelCountrySupplier']['id'];
+                $error_type = '12';
                 /*                 * *******************End XML************************************** */
             } elseif ($flag == '23' || $flag == '33') { // city mapping & city return
                 $table = 'TravelCitySupplier';
@@ -1347,6 +1350,9 @@ class TravelActionItemsController extends AppController {
 
                 $log_call_screen = 'Approval - Supplier City Mapping';
                 $RESOURCEDATA = 'RESOURCEDATA_CITYMAPPING';
+                $error_topic = '28';
+                $error_entity =  $TravelCitySuppliers['TravelCitySupplier']['id'];
+                $error_type = '11';
 
                 /*                 * *******************End XML************************************** */
             } elseif ($flag == '24' || $flag == '34') { // hotel mapping & hotel return
@@ -1440,10 +1446,14 @@ class TravelActionItemsController extends AppController {
                                     </soap:Body>';
 
 
-
+                
+                
                 $log_call_screen = 'Approval - Supplier Hotel Mapping';
                 $RESOURCEDATA = 'RESOURCEDATA_HOTELMAPPING';
-
+                $error_topic = '27';
+                $error_entity =  $TravelHotelRoomSuppliers['TravelHotelRoomSupplier']['id'];
+                $error_type = '10';
+                
                 /*                 * *******************End XML************************************** */
             } elseif ($flag == '534') {
                 $this->TravelActionItem->updateAll(array('TravelActionItem.action_item_active' => "'No'"), array('TravelActionItem.id' => $actio_itme_id));
@@ -1515,6 +1525,19 @@ class TravelActionItemsController extends AppController {
                     $cc = 'infra@sumanus.com';
 
                     $Email->template('XML/xml', 'default')->emailFormat('html')->to($to)->cc($cc)->from('admin@silkrouters.com')->subject('XML Error [' . $log_call_screen . '] Log Id [' . $LogId . '] Open By [' . $this->User->Username($user_id) . '] Date [' . date("m/d/Y H:i:s", $date->format('U')) . ']')->send();
+                    
+                    /*
+                         * WTB Error Information
+                         */
+                        $this->request->data['TravelWtbError']['error_topic'] = $error_topic;
+                        $this->request->data['TravelWtbError']['error_by'] = $user_id;
+                        $this->request->data['TravelWtbError']['error_time'] = $this->Common->GetIndiaTime();                        
+                        $this->request->data['TravelWtbError']['log_id'] = $LogId;
+                        $this->request->data['TravelWtbError']['error_entity'] = $error_entity;
+                        $this->request->data['TravelWtbError']['error_type'] = $error_type;
+                        $this->request->data['TravelWtbError']['error_status'] = '1';    
+                        $this->TravelWtbError->create();
+                        $this->TravelWtbError->save($this->request->data['TravelWtbError']);
                 }
             }
 
@@ -2366,6 +2389,19 @@ class TravelActionItemsController extends AppController {
                     $cc = 'infra@sumanus.com';
 
                     $Email->template('XML/xml', 'default')->emailFormat('html')->to($to)->cc($cc)->from('admin@silkrouters.com')->subject('XML Error [' . $log_call_screen . '] Log Id [' . $LogId . '] Open By [' . $this->User->Username($user_id) . '] Date [' . date("m/d/Y H:i:s", $date->format('U')) . ']')->send();
+                    
+                     /*
+                         * WTB Error Information
+                         */
+                        $this->request->data['TravelWtbError']['error_topic'] = '1';
+                        $this->request->data['TravelWtbError']['error_by'] = $user_id;
+                        $this->request->data['TravelWtbError']['error_time'] = $this->Common->GetIndiaTime();                        
+                        $this->request->data['TravelWtbError']['log_id'] = $LogId;
+                        $this->request->data['TravelWtbError']['error_entity'] = $HotelId;
+                        $this->request->data['TravelWtbError']['error_type'] = '9'; //hotel
+                        $this->request->data['TravelWtbError']['error_status'] = '1';    
+                        $this->TravelWtbError->create();
+                        $this->TravelWtbError->save($this->request->data['TravelWtbError']);
                 }
 
                 /**

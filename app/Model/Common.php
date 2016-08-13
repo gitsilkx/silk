@@ -149,5 +149,9 @@ class Common extends AppModel {
     public function checkProvinceExistsArea($province_id){
         return ClassRegistry::init('TravelArea')->find('count', array('fields' => array('TravelArea.id'), 'conditions' => array('TravelArea.province_id' => $province_id)));    
     }
+    
+    Public function GetIndiaTime(){
+        return date('m/d/Y H:i:s', strtotime('+10 hour 30 minutes'));
+    }
 }
 ?>

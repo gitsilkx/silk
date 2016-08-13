@@ -35,7 +35,7 @@ App::uses('AppController', 'Controller');
  */
 class TravelSuburbsController extends AppController {
 
-    var $uses = array('TravelSuburb', 'TravelCity', 'TravelCountry', 'LookupValueStatus', 'TravelLookupContinent', 'LogCall','Province');
+    var $uses = array('TravelSuburb','User','TravelWtbError','Common', 'TravelCity', 'TravelCountry', 'LookupValueStatus', 'TravelLookupContinent', 'LogCall','Province');
 
     public function index() {
 
@@ -479,6 +479,7 @@ class TravelSuburbsController extends AppController {
                     $this->request->data['LogCall']['log_call_counterparty'] = 'WTBNETWORKS';
                     $this->request->data['LogCall']['log_call_by'] = $user_id;
                     $this->LogCall->save($this->request->data['LogCall']);
+                    $log_id = $this->LogCall->getLastInsertId();
                     $message = 'Local record has been successfully updated.<br />' . $xml_msg;
                     $a = date('m/d/Y H:i:s', strtotime('-1 hour'));
                     $date = new DateTime($a, new DateTimeZone('Asia/Calcutta'));
@@ -495,6 +496,19 @@ class TravelSuburbsController extends AppController {
                         $cc = 'infra@sumanus.com';
 
                         $Email->template('XML/xml', 'default')->emailFormat('html')->to($to)->cc($cc)->from('admin@silkrouters.com')->subject('XML Error [' . $log_call_screen . '] Open By [' . $this->User->Username($user_id) . '] Date [' . date("m/d/Y H:i:s", $date->format('U')) . ']')->send();
+                        
+                        /*
+                         * WTB Error Information
+                         */
+                        $this->request->data['TravelWtbError']['error_topic'] = '12';
+                        $this->request->data['TravelWtbError']['error_by'] = $user_id;
+                        $this->request->data['TravelWtbError']['error_time'] = $this->Common->GetIndiaTime();                        
+                        $this->request->data['TravelWtbError']['log_id'] = $log_id;
+                        $this->request->data['TravelWtbError']['error_entity'] = $SuburbId;
+                        $this->request->data['TravelWtbError']['error_type'] = '5'; // suburb
+                        $this->request->data['TravelWtbError']['error_status'] = '1';    
+                        $this->TravelWtbError->create();
+                        $this->TravelWtbError->save($this->request->data['TravelWtbError']);
                     }
                     $this->Session->setFlash($message, 'success');
                     $this->redirect(array('action' => 'index'));

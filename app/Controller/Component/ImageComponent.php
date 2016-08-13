@@ -7,6 +7,7 @@ class ImageComponent extends Component {
 
     var $cacheDir = 'imagecache'; // relative to $uploadDir path
     var $uploadDir = 'uploads/';
+    
 
     /**
      * Automatically upload an image and returns new image name
@@ -83,21 +84,26 @@ class ImageComponent extends Component {
     function resize($path, $width, $height, $aspect = true, $crop = false, $cropvars = array(), $autocrop = false, $htmlAttributes = array(), $return = false, $webrootPath, $onlyPath = false) {
 
         $types = array(1 => "gif", "jpeg", "png", "swf", "psd", "wbmp"); // used to determine image type
-
-        $fullpath = ROOT . DS . APP_DIR . DS . WEBROOT_DIR . DS . $this->themeWeb . $this->uploadDir;
-
+       
+         $fullpath = ROOT . DS . APP_DIR . DS . WEBROOT_DIR . DS . $this->themeWeb . $this->uploadDir;
+         echo WWW_ROOT.'uploads'.DS.'hotels'.DS.$upload_dir;
+         die;
         //$url = $fullpath.$path;
         //$url = "img/" . $path;
-        $url = $path;
+       $url = $path;
+       // $webrootPath =  ROOT . DS . APP_DIR . DS . WEBROOT_DIR;
+       echo $webrootPath = FULL_BASE_URL . '/silk/';
+
 
 
         if (!($size = getimagesize($url)))
             return; // image doesn't exist
 
         if ($width == $size[0] && $height == $size[1]) {
-            $webrootPath = FULL_BASE_URL . '/' . $webrootPath;
+            //$webrootPath = FULL_BASE_URL . '/' . $webrootPath;
             $newPath = explode("$this->uploadDir", $path);
-            $relfile = $webrootPath . $this->uploadDir . $newPath[1];
+            $relfile = $webrootPath . $this->uploadDir . 'thumbs';
+            //$relfile = $webrootPath . $this->uploadDir . $newPath[1];
         } else {
             if ($autocrop) {
                 $multiplier = 1.0;
@@ -297,6 +303,201 @@ class ImageComponent extends Component {
         }
         return $imageArray['name'];
     }
+    
+    	/**
+	 * Creates resized copies of input image
+	 * E.g;
+	 *	 $this->Attachment->thumbnail($this->data['Model']['Attachment'], $upload_dir, 640, 480, false);
+	 *
+	 * @param $tmpfile array The image data array from the form
+	 * @param upload_dir string The name of the parent folder of the images
+	 * @param $maxw int Maximum width for resizing thumbnails
+	 * @param $maxh int Maximum height for resizing thumbnails
+	 * @param $crop string either 'resize', 'resizeCrop' or 'crop'
+	 */
+	public function thumbnail($tmpfile, $upload_dir, $maxw, $maxh, $crop = 'resize') {
+		// Make sure the required directory exist; create it if necessary
+            
+		$upload_dir = WWW_ROOT.'uploads'.DS.'hotels'.DS.$upload_dir;
+		if (!is_dir($upload_dir)) mkdir($upload_dir, 0755, true);
+		/* Directory Separator for windows users */
+		//$ds = (strcmp('\\', DS) == 0) ? '\\\\' : DS;
+                $file_name = end(explode('/', $tmpfile));
+                
+                
+		$this->resize_image($crop, $tmpfile, $upload_dir, $file_name, $maxw, $maxh, 85);
+	}
+        
+        /*
+	* Creates resized image copy
+	*
+	* Parameters:
+	* cType: Conversion type {resize (default) | resizeCrop (square) | crop (from center)}
+	* tmpfile: original (tmp) file name
+	* newName: include extension (if desired)
+	* newWidth: the max width or crop width
+	* newHeight: the max height or crop height
+	* quality: the quality of the image
+	*/
+	public function resize_image($cType = 'resize', $tmpfile, $dst_folder, $dstname = false, $newWidth=false, $newHeight=false, $quality = 75) {
+		$srcimg = $tmpfile;
+               // $srcimg = 'C:\xampp\htdocs\silk\app\webroot/uploads/hotels/1470914687image7.jpg';
+		list($oldWidth, $oldHeight, $type) = getimagesize($srcimg);
+		$ext = $this->image_type_to_extension($type);
+		// If file is writeable, create destination (tmp) image
+		if (is_writeable($dst_folder)) {
+			$dstimg = $dst_folder.DS.$dstname;
+		} else {
+			// if dst_folder not writeable, let developer know
+			debug('You must allow proper permissions for image processing. And the folder has to be writable.');
+			debug("Run 'chmod 755 $dst_folder', and make sure the web server is it's owner.");
+			return $this->log_cakephp_error_and_return('No write permissions on attachments folder.');
+		}
+		/* Check if something is requested, otherwise do not resize */
+		if ($newWidth or $newHeight) {
+			/* Delete tmp file if it exists */
+			if (file_exists($dstimg)) {
+				unlink($dstimg);
+			} else {
+				switch ($cType) {
+				default:
+				case 'resize':
+					// Maintains the aspect ratio of the image and makes sure
+					// that it fits within the maxW and maxH
+					$widthScale  = 2;
+					$heightScale = 2;
+					/* Check if we're overresizing (or set new scale) */
+					if ($newWidth) {
+						if ($newWidth > $oldWidth) $newWidth = $oldWidth;
+						$widthScale = $newWidth / $oldWidth;
+					}
+					if ($newHeight) {
+						if ($newHeight > $oldHeight) $newHeight = $oldHeight;
+						$heightScale = $newHeight / $oldHeight;
+					}
+					if ($widthScale < $heightScale) {
+						$maxWidth  = $newWidth;
+						$maxHeight = false;
+					} elseif ($widthScale > $heightScale ) {
+						$maxHeight = $newHeight;
+						$maxWidth  = false;
+					} else {
+						$maxHeight = $newHeight;
+						$maxWidth  = $newWidth;
+					}
+					if ($maxWidth > $maxHeight){
+						$applyWidth  = $maxWidth;
+						$applyHeight = ($oldHeight*$applyWidth)/$oldWidth;
+					} elseif ($maxHeight > $maxWidth) {
+						$applyHeight = $maxHeight;
+						$applyWidth  = ($applyHeight*$oldWidth)/$oldHeight;
+					} else {
+						$applyWidth  = $maxWidth;
+						$applyHeight = $maxHeight;
+					}
+					$startX = 0;
+					$startY = 0;
+					break;
+				case 'resizeCrop':
+					/* Check if we're overresizing (or set new scale) */
+					/* resize to max, then crop to center */
+					if ($newWidth > $oldWidth) $newWidth = $oldWidth;
+						$ratioX = $newWidth / $oldWidth;
+					if ($newHeight > $oldHeight) $newHeight = $oldHeight;
+						$ratioY = $newHeight / $oldHeight;
+					if ($ratioX < $ratioY) {
+						$startX = round(($oldWidth - ($newWidth / $ratioY))/2);
+						$startY = 0;
+						$oldWidth  = round($newWidth / $ratioY);
+						$oldHeight = $oldHeight;
+					} else {
+						$startX = 0;
+						$startY = round(($oldHeight - ($newHeight / $ratioX))/2);
+						$oldWidth  = $oldWidth;
+						$oldHeight = round($newHeight / $ratioX);
+					}
+					$applyWidth  = $newWidth;
+					$applyHeight = $newHeight;
+					break;
+				case 'crop':
+					// straight centered crop
+					$startY = ($oldHeight - $newHeight)/2;
+					$startX = ($oldWidth - $newWidth)/2;
+					$oldHeight   = $newHeight;
+					$applyHeight = $newHeight;
+					$oldWidth    = $newWidth;
+					$applyWidth  = $newWidth;
+					break;
+				}
+				switch($ext) {
+				case 'gif' :
+					$oldImage = imagecreatefromgif($srcimg);
+					break;
+				case 'png' :
+					$oldImage = imagecreatefrompng($srcimg);
+					break;
+				case 'jpg' :
+				case 'jpeg' :
+					$oldImage = imagecreatefromjpeg($srcimg);
+					break;
+				default :
+					// image type is not a possible option
+					return false;
+					break;
+				}
+				// Create new image
+				$newImage = imagecreatetruecolor($applyWidth, $applyHeight);
+				// Put old image on top of new image
+				imagealphablending($newImage, false);
+				imagesavealpha($newImage, true);
+				imagecopyresampled($newImage, $oldImage, 0, 0, $startX, $startY, $applyWidth, $applyHeight, $oldWidth, $oldHeight);
+				switch($ext) {
+				case 'gif' :
+					imagegif($newImage, $dstimg, $quality);
+					break;
+				case 'png' :
+					imagepng($newImage, $dstimg, round($quality/10));
+					break;
+				case 'jpg' :
+				case 'jpeg' :
+					imagejpeg($newImage, $dstimg, $quality);
+					break;
+				default :
+					return false;
+					break;
+				}
+				imagedestroy($newImage);
+				imagedestroy($oldImage);
+				return true;
+			}
+		} else { /* Nothing requested */
+			return false;
+		}
+	}
+        
+       public function image_type_to_extension($imagetype) {
+		if (empty($imagetype)) return false;
+		switch($imagetype) {
+			case IMAGETYPE_TIFF_II : return 'tiff';
+			case IMAGETYPE_TIFF_MM : return 'tiff';
+			case IMAGETYPE_GIF  : return 'gif';
+			case IMAGETYPE_JPEG : return 'jpg';
+			case IMAGETYPE_PNG  : return 'png';
+			case IMAGETYPE_SWF  : return 'swf';
+			case IMAGETYPE_PSD  : return 'psd';
+			case IMAGETYPE_BMP  : return 'bmp';
+			case IMAGETYPE_JPC  : return 'jpc';
+			case IMAGETYPE_JP2  : return 'jp2';
+			case IMAGETYPE_JPX  : return 'jpf';
+			case IMAGETYPE_JB2  : return 'jb2';
+			case IMAGETYPE_SWC  : return 'swc';
+			case IMAGETYPE_IFF  : return 'aiff';
+			case IMAGETYPE_WBMP : return 'wbmp';
+			case IMAGETYPE_XBM  : return 'xbm';
+			default             : return false;
+		}
+	}
+
 
 }
 

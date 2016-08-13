@@ -50,8 +50,8 @@ class TestsController extends AppController {
     public function index() {
         //echo $this->GoogleApi->send('google.com');
        // die;
-        echo $a =  date('m/d/Y H:i:s', strtotime('+10 hour 30 minutes'));
-        $date = new DateTime($a, new DateTimeZone('Asia/Kolkata'));
+       // echo $a =  date('m/d/Y H:i:s', strtotime('+10 hour 30 minutes'));
+        //$date = new DateTime($a, new DateTimeZone('Asia/Kolkata'));
         //echo date("m/d/Y H:i:s", $date->format('U'));
         
 
