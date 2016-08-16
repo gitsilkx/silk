@@ -144,7 +144,7 @@
                                        ?>
                                 </td>
                                 <td>
-                                    <?php if($TravelWtbError['TravelWtbError']['value'] == 'N'){
+                                    <?php if($TravelWtbError['TravelWtbError']['is_fixed'] == 'N'){
                                         if($error_type == '1') //continent
                                         echo $this->Html->link('<span class="icon-list"></span>', array('controller' => 'travel_lookup_continents', 'action' => 'retry/' . $error_entity), array('class' => 'act-ico','data-toggle' => 'tooltip', 'data-placement' => 'left', 'title' => 'Re-try Operation', 'escape' => false));
                                     elseif($error_type == '2') //Country
