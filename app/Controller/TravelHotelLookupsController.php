@@ -1882,6 +1882,7 @@ class TravelHotelLookupsController extends AppController {
             /**
              * Hotel mapping update section.
              */
+            /*
             $xml_error = 'FALSE';
 
             if ($actiontype == 'Update') {
@@ -2083,6 +2084,7 @@ class TravelHotelLookupsController extends AppController {
                     }
                 }
             }
+            */
             $this->Session->setFlash($message, 'success');
             $this->redirect(array('action' => 'index'));
         }
