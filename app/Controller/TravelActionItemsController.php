@@ -2407,6 +2407,7 @@ class TravelActionItemsController extends AppController {
                 /**
                  * Hotel mapping update section.
                  */
+                /*
                 $xml_error = 'FALSE';
 
                 if ($actiontype == 'Update') {
@@ -2612,6 +2613,8 @@ class TravelActionItemsController extends AppController {
                         }
                     }
                 }
+                
+                */
 
                 //$this->TravelHotelLookup->updateAll(array('TravelHotelLookup.is_updated' => "'Y'"), array('TravelHotelLookup.id' => $HotelId));
 //$log = $this->Agent->getDataSource()->getLog(false, false);
