@@ -151,7 +151,7 @@ class Common extends AppModel {
     }
     
     Public function GetIndiaTime(){
-        return date('m/d/Y H:i:s', strtotime('+10 hour 30 minutes'));
+        return date('Y-m-d H:i:s', strtotime('+10 hour 30 minutes'));
     }
 }
 ?>
