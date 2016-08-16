@@ -34,7 +34,7 @@ App::uses('AppController', 'Controller');
  */
 class ProvincesController extends AppController {
 
-    var $uses = array('TravelCountry', 'Province', 'TravelLookupContinent','LogCall','User');
+    var $uses = array('TravelCountry', 'Province', 'TravelLookupContinent','LogCall','User','TravelWtbError','Common');
 
     public function index() {
 
@@ -270,6 +270,7 @@ class ProvincesController extends AppController {
                 $this->request->data['LogCall']['log_call_by'] = $user_id;
 
                 $this->LogCall->save($this->request->data['LogCall']);
+                $log_id = $this->LogCall->getLastInsertId();
                 if ($xml_error == 'TRUE') {
                     $Email = new CakeEmail();
 
@@ -283,6 +284,19 @@ class ProvincesController extends AppController {
                     $cc = 'infra@sumanus.com';
 
                     $Email->template('XML/xml', 'default')->emailFormat('html')->to($to)->cc($cc)->from('admin@silkrouters.com')->subject('XML Error [' . $log_call_screen . '] Open By [' . $this->User->Username($user_id) . '] Date [' . date('d/m/y H:i:s') . ']')->send();
+                    
+                    /*
+                         * WTB Error Information
+                         */
+                        $this->request->data['TravelWtbError']['error_topic'] = '32'; //travel_lookup_error_topics
+                        $this->request->data['TravelWtbError']['error_by'] = $user_id;
+                        $this->request->data['TravelWtbError']['error_time'] = $this->Common->GetIndiaTime();                        
+                        $this->request->data['TravelWtbError']['log_id'] = $log_id;
+                        $this->request->data['TravelWtbError']['error_entity'] = $ProvinceId;
+                        $this->request->data['TravelWtbError']['error_type'] = '5'; // suburb
+                        $this->request->data['TravelWtbError']['error_status'] = '3';   // Structuretravel_lookup_error_statuses  
+                        $this->TravelWtbError->create();
+                        $this->TravelWtbError->save($this->request->data['TravelWtbError']);
                 }
 
 

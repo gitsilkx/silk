@@ -119,11 +119,29 @@
                                     <?php
                                     if($error_type == '1') //continent
                                         echo $this->Html->link($this->Custom->getContinentName($error_entity), array('controller' => 'travel_lookup_continents', 'action' => 'retry/' . $error_entity), array('class' => 'act-ico','data-toggle' => 'tooltip', 'data-placement' => 'left', 'title' => 'Re-try Operation', 'escape' => false));
+                                    if($error_type == '2') //Country
+                                        echo $this->Html->link($this->Custom->getCountryName($error_entity), array('controller' => 'travel_lookup_continents', 'action' => 'retry/' . $error_entity), array('class' => 'act-ico','data-toggle' => 'tooltip', 'data-placement' => 'left', 'title' => 'Re-try Operation', 'escape' => false));
+                                    if($error_type == '3') //Province
+                                        echo $this->Html->link($this->Custom->getProvinceName($error_entity), array('controller' => 'travel_lookup_continents', 'action' => 'retry/' . $error_entity), array('class' => 'act-ico','data-toggle' => 'tooltip', 'data-placement' => 'left', 'title' => 'Re-try Operation', 'escape' => false));
+                                    if($error_type == '4') //City
+                                        echo $this->Html->link($this->Custom->getCitytName($error_entity), array('controller' => 'travel_lookup_continents', 'action' => 'retry/' . $error_entity), array('class' => 'act-ico','data-toggle' => 'tooltip', 'data-placement' => 'left', 'title' => 'Re-try Operation', 'escape' => false));
+                                    if($error_type == '5') //Suburb
+                                        echo $this->Html->link($this->Custom->getSuburbName($error_entity), array('controller' => 'travel_lookup_continents', 'action' => 'retry/' . $error_entity), array('class' => 'act-ico','data-toggle' => 'tooltip', 'data-placement' => 'left', 'title' => 'Re-try Operation', 'escape' => false));
+                                    if($error_type == '6') //Area
+                                        echo $this->Html->link($this->Custom->getAreaName($error_entity), array('controller' => 'travel_lookup_continents', 'action' => 'retry/' . $error_entity), array('class' => 'act-ico','data-toggle' => 'tooltip', 'data-placement' => 'left', 'title' => 'Re-try Operation', 'escape' => false));
+                                    if($error_type == '7') //Chain
+                                        echo $this->Html->link($this->Custom->getChainName($error_entity), array('controller' => 'travel_lookup_continents', 'action' => 'retry/' . $error_entity), array('class' => 'act-ico','data-toggle' => 'tooltip', 'data-placement' => 'left', 'title' => 'Re-try Operation', 'escape' => false));
+                                    if($error_type == '8') //Brand
+                                        echo $this->Html->link($this->Custom->getBrandName($error_entity), array('controller' => 'travel_lookup_continents', 'action' => 'retry/' . $error_entity), array('class' => 'act-ico','data-toggle' => 'tooltip', 'data-placement' => 'left', 'title' => 'Re-try Operation', 'escape' => false));
                                     elseif($error_type == '9') //Hotel
-                                        echo $this->Html->link($this->Custom->getHotelName($error_entity), array('controller' => 'travel_hotel_lookups', 'action' => 'retry/' . $error_entity), array('class' => 'act-ico','data-toggle' => 'tooltip', 'data-placement' => 'left', 'title' => 'Re-try Operation', 'escape' => false));
+                                        echo $this->Html->link($this->Custom->getHotelName($error_entity), array('controller' => 'travel_hotel_lookups', 'action' => 'retry/' . $error_entity.'/'.$id), array('class' => 'act-ico','data-toggle' => 'tooltip', 'data-placement' => 'left', 'title' => 'Re-try Operation', 'escape' => false));
                                     elseif($error_type == '10') //Hotel MApping
                                          echo $this->Html->link($this->Custom->getHotelMappingName($error_entity), array('controller' => 'mappinges', 'action' => 'edit/' . $error_entity . '/TravelHotelRoomSupplier'), array('class' => 'act-ico', 'data-toggle' => 'tooltip', 'data-placement' => 'left', 'title' => 'Re-try Mapping', 'escape' => false));
-                                        //echo $this->Html->link($this->Custom->getHotelMappingName($error_entity), array('controller' => 'travel_lookup_continents', 'action' => 'retry/' . $error_entity), array('class' => 'act-ico','data-toggle' => 'tooltip', 'data-placement' => 'left', 'title' => 'Re-try Operation', 'escape' => false));
+                                    elseif($error_type == '11') //Country MApping
+                                         echo $this->Html->link($this->Custom->getCountryMappingName($error_entity), array('controller' => 'mappinges', 'action' => 'edit/' . $error_entity . '/TravelHotelRoomSupplier'), array('class' => 'act-ico', 'data-toggle' => 'tooltip', 'data-placement' => 'left', 'title' => 'Re-try Mapping', 'escape' => false));
+                                    elseif($error_type == '12') //City MApping
+                                         echo $this->Html->link($this->Custom->getCityMappingName($error_entity), array('controller' => 'mappinges', 'action' => 'edit/' . $error_entity . '/TravelHotelRoomSupplier'), array('class' => 'act-ico', 'data-toggle' => 'tooltip', 'data-placement' => 'left', 'title' => 'Re-try Mapping', 'escape' => false));
+                                        
                                        ?>
                                 </td>
 

@@ -37,7 +37,7 @@ class TravelHotelLookupsController extends AppController {
 
     public $uses = array('TravelHotelLookup', 'TravelHotelRoomSupplier', 'TravelCountry', 'TravelLookupContinent', 'TravelLookupValueContractStatus', 'TravelCity', 'TravelChain',
         'TravelSuburb', 'TravelArea', 'TravelBrand', 'TravelActionItem', 'TravelRemark', 'LogCall','User','Province','ProvincePermission', 'DeleteTravelHotelLookup', 'DeleteLogTable',
-        'TravelLookupRateType','TravelLookupPropertyType','TravelCitySupplier');
+        'TravelLookupRateType','TravelLookupPropertyType','TravelCitySupplier','Common','TravelWtbError');
     public $components = array('Sms', 'Image');
     public $uploadDir;
 
@@ -1615,7 +1615,7 @@ class TravelHotelLookupsController extends AppController {
         $this->request->data = $TravelHotelLookups;
     }
 
-    public function retry($id = null) {
+    public function retry($id = null,$wtb_error_id = null) {
 
         $location_URL = 'http://dev.wtbnetworks.com/TravelXmlManagerv001/ProEngine.Asmx';
         $action_URL = 'http://www.travel.domain/ProcessXML';
@@ -1627,6 +1627,7 @@ class TravelHotelLookupsController extends AppController {
         $TravelBrands = array();
         $Provinces = array();
         $xml_error = 'FALSE';
+        echo $this->Common->GetIndiaTime();
 
         if (!$id) {
             throw new NotFoundException(__('Invalid Hotel'));
@@ -1834,6 +1835,8 @@ class TravelHotelLookupsController extends AppController {
                     $log_call_status_message = $xml_arr['SOAP:ENVELOPE']['SOAP:BODY']['PROCESSXMLRESPONSE']['PROCESSXMLRESULT']['RESOURCEDATA_HOTEL']['RESPONSEAUDITINFO']['UPDATEINFO']['STATUS'][0];
                     $xml_msg = "Foreign record has been successfully created [Code:$log_call_status_code]";
                     $this->TravelHotelLookup->updateAll(array('TravelHotelLookup.wtb_status' => "'1'", 'TravelHotelLookup.is_updated' => "'Y'"), array('TravelHotelLookup.id' => $HotelId));
+                    if($wtb_error_id)
+                    $this->TravelWtbError->updateAll(array('TravelWtbError.fixed_by' => "'".$user_id."'", 'TravelWtbError.fixed_time' => "'".$this->Common->GetIndiaTime()."'"), array('TravelWtbError.id' => $wtb_error_id));
                 } else {
 
                     $log_call_status_message = $xml_arr['SOAP:ENVELOPE']['SOAP:BODY']['PROCESSXMLRESPONSE']['PROCESSXMLRESULT']['RESOURCEDATA_HOTEL']['RESPONSEAUDITINFO']['ERRORINFO']['ERROR'][0];
@@ -2320,7 +2323,7 @@ class TravelHotelLookupsController extends AppController {
             $this->TravelHotelLookup->id = $id;
             $this->TravelHotelLookup->save($this->request->data['TravelHotelLookup']); 
               
-            /*
+            
             
             $content_xml_str = '<soap:Body>
                                         <ProcessXML xmlns="http://www.travel.domain/">
@@ -2701,9 +2704,9 @@ class TravelHotelLookupsController extends AppController {
                         }
                 }
                 $this->Session->setFlash($xml_msg.'<br> Local record has been successfully updated.', 'success');
-                */
+               
                 
-                $this->Session->setFlash('Local record has been successfully updated.', 'success');
+                //$this->Session->setFlash('Local record has been successfully updated.', 'success');
                 //$this->redirect(array('reports/hotel_summary?city_id='.$CityId));
                 $this->redirect(array('controller' => 'reports', 'action' => 'hotel_summary'));
         }
@@ -2891,7 +2894,7 @@ class TravelHotelLookupsController extends AppController {
             
 
         if ($this->TravelHotelLookup->delete($id)) {
-            /*
+            
             $content_xml_str = '<soap:Body>
                                         <ProcessXML xmlns="http://www.travel.domain/">
                                             <RequestInfo>
@@ -2985,8 +2988,8 @@ class TravelHotelLookupsController extends AppController {
             $this->DeleteTravelHotelLookup->create();
             $this->DeleteTravelHotelLookup->save($this->request->data['DeleteTravelHotelLookup']);
             $this->Session->setFlash($message, 'success');
-            */
-            $this->Session->setFlash('Local record has been successfully deleted.', 'success');
+            
+            //$this->Session->setFlash('Local record has been successfully deleted.', 'success');
             
             //$this->redirect(array('action' => 'index'));
         } else {

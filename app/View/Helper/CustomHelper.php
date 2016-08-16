@@ -94,6 +94,31 @@ class CustomHelper extends Helper {
         return $DataArray['Province']['name'];
     }
     
+    public function getCitytName($city_id) {
+        $DataArray = ClassRegistry::init('TravelCity')->find('first', array('fields' => array('city_name'), 'conditions' => array('TravelCity.id' => $city_id)));
+        return $DataArray['TravelCity']['city_name'];
+    }
+    
+    public function getSuburbName($suburb_id) {
+        $DataArray = ClassRegistry::init('TravelSuburb')->find('first', array('fields' => array('name'), 'conditions' => array('TravelSuburb.id' => $suburb_id)));
+        return $DataArray['TravelSuburb']['name'];
+    }
+    
+    public function getAreaName($area_id) {
+        $DataArray = ClassRegistry::init('TravelArea')->find('first', array('fields' => array('area_name'), 'conditions' => array('TravelArea.id' => $area_id)));
+        return $DataArray['TravelArea']['area_name'];
+    }
+    
+    public function getChainName($chain_id) {
+        $DataArray = ClassRegistry::init('TravelChain')->find('first', array('fields' => array('chain_name'), 'conditions' => array('TravelChain.id' => $chain_id)));
+        return $DataArray['TravelChain']['chain_name'];
+    }
+    
+    public function getBrandName($brand_id) {
+        $DataArray = ClassRegistry::init('TravelBrand')->find('first', array('fields' => array('brand_name'), 'conditions' => array('TravelBrand.id' => $brand_id)));
+        return $DataArray['TravelBrand']['brand_name'];
+    }
+    
     public function getHotelName($hotel_id) {
         $DataArray = ClassRegistry::init('TravelHotelLookup')->find('first', array('fields' => array('hotel_name'), 'conditions' => array('TravelHotelLookup.id' => $hotel_id)));
         return $DataArray['TravelHotelLookup']['hotel_name'];
@@ -102,6 +127,16 @@ class CustomHelper extends Helper {
     public function getHotelMappingName($hotel_mapping_id) {
         $DataArray = ClassRegistry::init('TravelHotelRoomSupplier')->find('first', array('fields' => array('hotel_mapping_name'), 'conditions' => array('TravelHotelRoomSupplier.id' => $hotel_mapping_id)));
         return $DataArray['TravelHotelRoomSupplier']['hotel_mapping_name'];
+    }
+    
+    public function getCountryMappingName($country_mapping_id) {
+        $DataArray = ClassRegistry::init('TravelCountrySupplier')->find('first', array('fields' => array('country_mapping_name'), 'conditions' => array('TravelCountrySupplier.id' => $country_mapping_id)));
+        return $DataArray['TravelCountrySupplier']['country_mapping_name'];
+    }
+    
+    public function getCityMappingName($city_mapping_id) {
+        $DataArray = ClassRegistry::init('TravelCitySupplier')->find('first', array('fields' => array('city_mapping_name'), 'conditions' => array('TravelCitySupplier.id' => $hotel_mapping_id)));
+        return $DataArray['TravelCitySupplier']['city_mapping_name'];
     }
     
    

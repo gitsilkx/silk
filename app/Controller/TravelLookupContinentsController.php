@@ -35,7 +35,7 @@ App::uses('AppController', 'Controller');
  */
 class TravelLookupContinentsController extends AppController {
 
-    var $uses = array('TravelLookupContinent', 'LogCall');
+    var $uses = array('TravelLookupContinent', 'LogCall','TravelWtbError','Common');
 
     public function index() {
 
@@ -219,6 +219,7 @@ class TravelLookupContinentsController extends AppController {
                 $this->request->data['LogCall']['log_call_counterparty'] = 'WTBNETWORKS';
                 $this->request->data['LogCall']['log_call_by'] = $user_id;
                 $this->LogCall->save($this->request->data['LogCall']);
+                $log_id = $this->LogCall->getLastInsertId();
                 $a = date('m/d/Y H:i:s', strtotime('-1 hour'));
                 $date = new DateTime($a, new DateTimeZone('Asia/Calcutta'));
                 $message = 'Local record has been successfully created.<br />' . $xml_msg;
@@ -235,6 +236,19 @@ class TravelLookupContinentsController extends AppController {
                     $cc = 'infra@sumanus.com';
 
                     $Email->template('XML/xml', 'default')->emailFormat('html')->to($to)->cc($cc)->from('admin@silkrouters.com')->subject('XML Error [' . $log_call_screen . '] Open By [' . $this->User->Username($user_id) . '] Date [' . date("m/d/Y H:i:s", $date->format('U')) . ']')->send();
+                    
+                    /*
+                         * WTB Error Information
+                         */
+                        $this->request->data['TravelWtbError']['error_topic'] = '30';
+                        $this->request->data['TravelWtbError']['error_by'] = $user_id;
+                        $this->request->data['TravelWtbError']['error_time'] = $this->Common->GetIndiaTime();                        
+                        $this->request->data['TravelWtbError']['log_id'] = $log_id;
+                        $this->request->data['TravelWtbError']['error_entity'] = $ContinentId;
+                        $this->request->data['TravelWtbError']['error_type'] = '1'; // continent
+                        $this->request->data['TravelWtbError']['error_status'] = '1';    
+                        $this->TravelWtbError->create();
+                        $this->TravelWtbError->save($this->request->data['TravelWtbError']);
                 }
                 $this->Session->setFlash($message, 'success');
                 $this->redirect(array('action' => 'index'));
@@ -365,6 +379,7 @@ class TravelLookupContinentsController extends AppController {
                     $this->request->data['LogCall']['log_call_counterparty'] = 'WTBNETWORKS';
                     $this->request->data['LogCall']['log_call_by'] = $user_id;
                     $this->LogCall->save($this->request->data['LogCall']);
+                    $log_id = $this->LogCall->getLastInsertId();
                     $message = 'Local record has been successfully updated.<br />' . $xml_msg;
                     $a = date('m/d/Y H:i:s', strtotime('-1 hour'));
                     $date = new DateTime($a, new DateTimeZone('Asia/Calcutta'));
@@ -381,6 +396,19 @@ class TravelLookupContinentsController extends AppController {
                         $cc = 'infra@sumanus.com';
 
                         $Email->template('XML/xml', 'default')->emailFormat('html')->to($to)->cc($cc)->from('admin@silkrouters.com')->subject('XML Error [' . $log_call_screen . '] Open By [' . $this->User->Username($user_id) . '] Date [' . date("m/d/Y H:i:s", $date->format('U')) . ']')->send();
+                        
+                        /*
+                         * WTB Error Information
+                         */
+                        $this->request->data['TravelWtbError']['error_topic'] = '31';
+                        $this->request->data['TravelWtbError']['error_by'] = $user_id;
+                        $this->request->data['TravelWtbError']['error_time'] = $this->Common->GetIndiaTime();                        
+                        $this->request->data['TravelWtbError']['log_id'] = $log_id;
+                        $this->request->data['TravelWtbError']['error_entity'] = $ContinentId;
+                        $this->request->data['TravelWtbError']['error_type'] = '1'; // continent
+                        $this->request->data['TravelWtbError']['error_status'] = '1';    
+                        $this->TravelWtbError->create();
+                        $this->TravelWtbError->save($this->request->data['TravelWtbError']);
                     }
                     $this->Session->setFlash($message, 'success');
                     $this->redirect(array('action' => 'index'));
@@ -557,7 +585,7 @@ class TravelLookupContinentsController extends AppController {
         $this->request->data = $TravelCountries;
     }
 
-    public function retry($id = null) {
+    public function retry($id = null,$wtb_error_id = null) {
 
         $location_URL = 'http://dev.wtbnetworks.com/TravelXmlManagerv001/ProEngine.Asmx';
         $action_URL = 'http://www.travel.domain/ProcessXML';
@@ -651,6 +679,8 @@ class TravelLookupContinentsController extends AppController {
                     $log_call_status_message = $xml_arr['SOAP:ENVELOPE']['SOAP:BODY']['PROCESSXMLRESPONSE']['PROCESSXMLRESULT']['RESOURCEDATA_CONTINENT']['RESPONSEAUDITINFO']['UPDATEINFO']['STATUS'][0];
                     $xml_msg = "Foreign record has been successfully updated [Code:$log_call_status_code]";
                     $this->TravelLookupContinent->updateAll(array('TravelLookupContinent.wtb_status' => "'1'", 'TravelLookupContinent.is_update' => "'Y'"), array('TravelLookupContinent.id' => $ContinentId));
+                    if($wtb_error_id)
+                        $this->TravelWtbError->updateAll(array('TravelWtbError.fixed_by' => "'".$user_id."'", 'TravelWtbError.fixed_time' => "'".$this->Common->GetIndiaTime()."'"), array('TravelWtbError.id' => $wtb_error_id));
                 } else {
 
                     $log_call_status_message = $xml_arr['SOAP:ENVELOPE']['SOAP:BODY']['PROCESSXMLRESPONSE']['PROCESSXMLRESULT']['RESOURCEDATA_CONTINENT']['RESPONSEAUDITINFO']['ERRORINFO']['ERROR'][0];
