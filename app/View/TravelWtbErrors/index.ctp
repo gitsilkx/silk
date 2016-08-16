@@ -80,17 +80,17 @@
                         
                     </tr>
                     <tr>
-                        <th data-toggle="phone" data-sort-ignore="true" data-group="group1"><?php echo $this->Paginator->sort('id', 'Error Id'); echo ($sort == 'id') ? ($direction == 'asc') ? " <i class='icon-caret-up'></i>" : " <i class='icon-caret-down'></i>" : " <i class='icon-sort'></i>"; ?></th>
-                        <th data-toggle="phone" data-sort-ignore="true" data-group="group1"><?php echo $this->Paginator->sort('error_topic', 'Error Topic'); echo ($sort == 'error_topic') ? ($direction == 'asc') ? " <i class='icon-caret-up'></i>" : " <i class='icon-caret-down'></i>" : " <i class='icon-sort'></i>"; ?></th>
-                        <th data-hide="phone" data-sort-ignore="true" data-group="group1"><?php echo $this->Paginator->sort('error_by', 'Error By'); echo ($sort == 'error_by') ? ($direction == 'asc') ? " <i class='icon-caret-up'></i>" : " <i class='icon-caret-down'></i>" : " <i class='icon-sort'></i>"; ?></th>
-                        <th data-hide="phone" data-sort-ignore="true" data-group="group1"><?php echo $this->Paginator->sort('error_time', 'Error Time'); echo ($sort == 'error_time') ? ($direction == 'asc') ? " <i class='icon-caret-up'></i>" : " <i class='icon-caret-down'></i>" : " <i class='icon-sort'></i>"; ?></th>
-                        <th data-hide="phone" data-sort-ignore="true" data-group="group1"><?php echo $this->Paginator->sort('fixed_by', 'Fixed By'); echo ($sort == 'fixed_by') ? ($direction == 'asc') ? " <i class='icon-caret-up'></i>" : " <i class='icon-caret-down'></i>" : " <i class='icon-sort'></i>"; ?></th>           
+                        <th data-toggle="phone" data-sort-ignore="true" width="5%" data-group="group1"><?php echo $this->Paginator->sort('id', 'Error Id'); echo ($sort == 'id') ? ($direction == 'asc') ? " <i class='icon-caret-up'></i>" : " <i class='icon-caret-down'></i>" : " <i class='icon-sort'></i>"; ?></th>
+                        <th data-toggle="phone" data-sort-ignore="true" width="5%" data-group="group1"><?php echo $this->Paginator->sort('error_topic', 'Error Topic'); echo ($sort == 'error_topic') ? ($direction == 'asc') ? " <i class='icon-caret-up'></i>" : " <i class='icon-caret-down'></i>" : " <i class='icon-sort'></i>"; ?></th>
+                        <th data-hide="phone" data-sort-ignore="true" width="10%" data-group="group1"><?php echo $this->Paginator->sort('error_by', 'Error By'); echo ($sort == 'error_by') ? ($direction == 'asc') ? " <i class='icon-caret-up'></i>" : " <i class='icon-caret-down'></i>" : " <i class='icon-sort'></i>"; ?></th>
+                        <th data-hide="phone" data-sort-ignore="true" width="8%" data-group="group1"><?php echo $this->Paginator->sort('error_time', 'Error Time'); echo ($sort == 'error_time') ? ($direction == 'asc') ? " <i class='icon-caret-up'></i>" : " <i class='icon-caret-down'></i>" : " <i class='icon-sort'></i>"; ?></th>
+                        <th data-hide="phone" data-sort-ignore="true" width="10%" data-group="group1"><?php echo $this->Paginator->sort('fixed_by', 'Fixed By'); echo ($sort == 'fixed_by') ? ($direction == 'asc') ? " <i class='icon-caret-up'></i>" : " <i class='icon-caret-down'></i>" : " <i class='icon-sort'></i>"; ?></th>           
 
-                        <th data-hide="phone" data-sort-ignore="true" data-group="group1">Fixed Time</th>
-                        <th data-hide="phone" data-sort-ignore="true" data-group="group1">Log Id</th>
-                        <th data-hide="phone" data-sort-ignore="true" data-group="group1">Status</th> 
-                        <th data-hide="phone" data-sort-ignore="true" data-group="group1">Error Entity</th> 
-                        <th data-hide="phone" data-sort-ignore="true" data-group="group1">Action</th>  
+                        <th data-hide="phone" data-sort-ignore="true" width="8%" data-group="group1">Fixed Time</th>
+                        <th data-hide="phone" data-sort-ignore="true" width="5%" data-group="group1">Log Id</th>
+                        <th data-hide="phone" data-sort-ignore="true" width="5%" data-group="group1">Status</th> 
+                        <th data-hide="phone" data-sort-ignore="true" width="15%" data-group="group1">Error Entity</th> 
+                        <th data-hide="phone" data-sort-ignore="true" width="5%" data-group="group1">Action</th>  
 
                     </tr>
                 </thead>
