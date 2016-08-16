@@ -1836,7 +1836,7 @@ class TravelHotelLookupsController extends AppController {
                     $xml_msg = "Foreign record has been successfully created [Code:$log_call_status_code]";
                     $this->TravelHotelLookup->updateAll(array('TravelHotelLookup.wtb_status' => "'1'", 'TravelHotelLookup.is_updated' => "'Y'"), array('TravelHotelLookup.id' => $HotelId));
                     if($wtb_error_id)
-                    $this->TravelWtbError->updateAll(array('TravelWtbError.fixed_by' => "'".$user_id."'", 'TravelWtbError.fixed_time' => "'".$this->Common->GetIndiaTime()."'", 'TravelWtbError.is_fixed' => "'Y'"), array('TravelWtbError.id' => $wtb_error_id));
+                    $this->TravelWtbError->updateAll(array('TravelWtbError.fixed_by' => "'".$user_id."'", 'TravelWtbError.fixed_time' => "'".$this->Common->GetIndiaTime()."'", 'TravelWtbError.error_status' => "'2'"), array('TravelWtbError.id' => $wtb_error_id));
                 } else {
 
                     $log_call_status_message = $xml_arr['SOAP:ENVELOPE']['SOAP:BODY']['PROCESSXMLRESPONSE']['PROCESSXMLRESULT']['RESOURCEDATA_HOTEL']['RESPONSEAUDITINFO']['ERRORINFO']['ERROR'][0];

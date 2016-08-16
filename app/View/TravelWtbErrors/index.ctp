@@ -82,11 +82,11 @@
                     <tr>
                         <th data-toggle="phone" data-sort-ignore="true" width="5%" data-group="group1"><?php echo $this->Paginator->sort('id', 'Error Id'); echo ($sort == 'id') ? ($direction == 'asc') ? " <i class='icon-caret-up'></i>" : " <i class='icon-caret-down'></i>" : " <i class='icon-sort'></i>"; ?></th>
                         <th data-toggle="phone" data-sort-ignore="true" width="10%" data-group="group1"><?php echo $this->Paginator->sort('error_topic', 'Error Topic'); echo ($sort == 'error_topic') ? ($direction == 'asc') ? " <i class='icon-caret-up'></i>" : " <i class='icon-caret-down'></i>" : " <i class='icon-sort'></i>"; ?></th>
-                        <th data-hide="phone" data-sort-ignore="true" width="10%" data-group="group1"><?php echo $this->Paginator->sort('error_by', 'Error By'); echo ($sort == 'error_by') ? ($direction == 'asc') ? " <i class='icon-caret-up'></i>" : " <i class='icon-caret-down'></i>" : " <i class='icon-sort'></i>"; ?></th>
-                        <th data-hide="phone" data-sort-ignore="true" width="8%" data-group="group1"><?php echo $this->Paginator->sort('error_time', 'Error Time'); echo ($sort == 'error_time') ? ($direction == 'asc') ? " <i class='icon-caret-up'></i>" : " <i class='icon-caret-down'></i>" : " <i class='icon-sort'></i>"; ?></th>
-                        <th data-hide="phone" data-sort-ignore="true" width="10%" data-group="group1"><?php echo $this->Paginator->sort('fixed_by', 'Fixed By'); echo ($sort == 'fixed_by') ? ($direction == 'asc') ? " <i class='icon-caret-up'></i>" : " <i class='icon-caret-down'></i>" : " <i class='icon-sort'></i>"; ?></th>           
+                        <th data-hide="phone" data-sort-ignore="true" width="8%" data-group="group1"><?php echo $this->Paginator->sort('error_by', 'Error By'); echo ($sort == 'error_by') ? ($direction == 'asc') ? " <i class='icon-caret-up'></i>" : " <i class='icon-caret-down'></i>" : " <i class='icon-sort'></i>"; ?></th>
+                        <th data-hide="phone" data-sort-ignore="true" width="10%" data-group="group1"><?php echo $this->Paginator->sort('error_time', 'Error Time'); echo ($sort == 'error_time') ? ($direction == 'asc') ? " <i class='icon-caret-up'></i>" : " <i class='icon-caret-down'></i>" : " <i class='icon-sort'></i>"; ?></th>
+                        <th data-hide="phone" data-sort-ignore="true" width="8%" data-group="group1"><?php echo $this->Paginator->sort('fixed_by', 'Fixed By'); echo ($sort == 'fixed_by') ? ($direction == 'asc') ? " <i class='icon-caret-up'></i>" : " <i class='icon-caret-down'></i>" : " <i class='icon-sort'></i>"; ?></th>           
 
-                        <th data-hide="phone" data-sort-ignore="true" width="8%" data-group="group1">Fixed Time</th>
+                        <th data-hide="phone" data-sort-ignore="true" width="10%" data-group="group1">Fixed Time</th>
                         <th data-hide="phone" data-sort-ignore="true" width="5%" data-group="group1">Log Id</th>
                         <th data-hide="phone" data-sort-ignore="true" width="5%" data-group="group1">Status</th> 
                         <th data-hide="phone" data-sort-ignore="true" width="15%" data-group="group1">Error Entity</th> 
@@ -144,7 +144,7 @@
                                        ?>
                                 </td>
                                 <td>
-                                    <?php if($TravelWtbError['TravelWtbError']['is_fixed'] == 'N'){
+                                    <?php if($TravelWtbError['TravelWtbError']['error_status'] == '1'){
                                         if($error_type == '1') //continent
                                         echo $this->Html->link('<span class="icon-list"></span>', array('controller' => 'travel_lookup_continents', 'action' => 'retry/' . $error_entity), array('class' => 'act-ico','data-toggle' => 'tooltip', 'data-placement' => 'left', 'title' => 'Re-try Operation', 'escape' => false));
                                     elseif($error_type == '2') //Country
@@ -170,8 +170,6 @@
                                     elseif($error_type == '12') //City MApping
                                          echo $this->Html->link('<span class="icon-list"></span>', array('controller' => 'mappinges', 'action' => 'edit/' . $error_entity . '/TravelHotelRoomSupplier'), array('class' => 'act-ico', 'data-toggle' => 'tooltip', 'data-placement' => 'left', 'title' => 'Re-try Mapping', 'escape' => false));
                                         
-                                    }else{
-                                        echo '<span style="color:green">Fixed</span>';
                                     }
                                     ?>
                                 </td>
