@@ -1627,7 +1627,7 @@ class TravelHotelLookupsController extends AppController {
         $TravelBrands = array();
         $Provinces = array();
         $xml_error = 'FALSE';
-        echo $this->Common->GetIndiaTime();
+        
 
         if (!$id) {
             throw new NotFoundException(__('Invalid Hotel'));
