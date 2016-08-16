@@ -2086,6 +2086,9 @@ class TravelHotelLookupsController extends AppController {
             }
             */
             $this->Session->setFlash($message, 'success');
+            if($wtb_error_id)
+                $this->redirect(array('controller' => 'travel_wtb_errors','action' => 'index'));
+            else
             $this->redirect(array('action' => 'index'));
         }
 
