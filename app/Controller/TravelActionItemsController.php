@@ -2223,8 +2223,8 @@ class TravelActionItemsController extends AppController {
                 $PropertyType = $HotelArray['TravelHotelLookup']['property_type'];
                 $TopHotel = strtolower($HotelArray['TravelHotelLookup']['top_hotel']);
                 $CreatedDate = date('Y-m-d') . 'T' . date('h:i:s');
-                $date = explode(' ', $HotelArray['TravelHotelRoomSupplier']['created']);
-                $CreatedBy = $HotelArray['TravelHotelRoomSupplier']['created_by'];
+                $date = explode(' ', $HotelArray['TravelHotelLookup']['created']);
+                $CreatedBy = $HotelArray['TravelHotelLookup']['created_by'];
                 $created = $date[0] . 'T' . $date[1];
 
                 $is_update = $HotelArray['TravelHotelLookup']['is_updated'];
