@@ -2336,7 +2336,7 @@ class TravelActionItemsController extends AppController {
                                     </soap:Body>';
 
 
-                $log_call_screen = 'Hotel - ' . $ACTIVE_MSG;
+                $log_call_screen = '[Approval] Hotel - ' . $ACTIVE_MSG;
 
                 $xml_string = Configure::read('travel_start_xml_str') . $content_xml_str . Configure::read('travel_end_xml_str');
                 $client = new SoapClient(null, array(
