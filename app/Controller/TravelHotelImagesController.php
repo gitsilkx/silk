@@ -537,7 +537,7 @@ class TravelHotelImagesController extends AppController {
                   }
 
                 // close connection
-                ftp_close($ftp_conn);
+                //ftp_close($ftp_conn);
                 $this->Image->delete($image1,$this->uploadDir);
                 $this->Image->delete($image1,$this->uploadDir.'/thumbs/');
  
@@ -568,7 +568,7 @@ class TravelHotelImagesController extends AppController {
                   }
 
                 // close connection
-                ftp_close($ftp_conn);
+                //ftp_close($ftp_conn);
                 $this->Image->delete($image2,$this->uploadDir);
                 $this->Image->delete($image2,$this->uploadDir.'/thumbs/');
             } else {
@@ -598,7 +598,7 @@ class TravelHotelImagesController extends AppController {
                   }
 
                 // close connection
-                ftp_close($ftp_conn);
+                //ftp_close($ftp_conn);
                 $this->Image->delete($image3,$this->uploadDir);
                 $this->Image->delete($image3,$this->uploadDir.'/thumbs/');
             } else {
