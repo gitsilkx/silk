@@ -700,13 +700,25 @@ class TravelHotelImagesController extends AppController {
             } else {
                 unset($this->request->data['TravelHotelLookup']['image6']);
             }
-            ftp_close($ftp_conn);
+           
             if ($error_msg <> '') {
                 $er_msg = 'Wrong image type/size (File size should be <= 3 mb) - '.$error_msg;
                 $this->Session->setFlash($er_msg, 'failure');
+                $this->Image->delete($image1, 'http://imageius.com/uploads/hotels/');
+                $this->Image->delete($image1, 'http://imageius.com/uploads/hotels/thumbs/');
+                $this->Image->delete($image2, 'http://imageius.com/uploads/hotels/');
+                $this->Image->delete($image2, 'http://imageius.com/uploads/hotels/thumbs/');
+                $this->Image->delete($image3, 'http://imageius.com/uploads/hotels/');
+                $this->Image->delete($image3, 'http://imageius.com/uploads/hotels/thumbs/');
+                $this->Image->delete($image4, 'http://imageius.com/uploads/hotels/');
+                $this->Image->delete($image4, 'http://imageius.com/uploads/hotels/thumbs/');
+                $this->Image->delete($image5, 'http://imageius.com/uploads/hotels/');
+                $this->Image->delete($image5, 'http://imageius.com/uploads/hotels/thumbs/');
+                $this->Image->delete($image6, 'http://imageius.com/uploads/hotels/');
+                $this->Image->delete($image6, 'http://imageius.com/uploads/hotels/thumbs/');
                 $this->redirect(array('action' => 'edit/' . $id));
             }
-
+             ftp_close($ftp_conn);
             $HotelId = $id;
             $HotelCode = $TravelHotelLookups['TravelHotelLookup']['hotel_code'];
 
