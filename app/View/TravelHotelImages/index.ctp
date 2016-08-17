@@ -16,11 +16,12 @@ $this->Html->addCrumb('My Hotels', 'javascript:void(0);', array('class' => 'brea
             <div class="panel_controls hideform">
 
                 <?php
-                echo $this->Form->create('TravelHotelLookup', array('controller' => 'travel_hotel_images','paramType' => 'querystring', 'action' => 'index', 'class' => 'quick_search', 'id' => 'SearchForm', 'type' => 'post', 'novalidate' => true, 'inputDefaults' => array(
+                echo $this->Form->create('TravelHotelLookup', array('paramType' => 'querystring', 'class' => 'quick_search', 'id' => 'SearchForm', 'type' => 'post', 'novalidate' => true, 'inputDefaults' => array(
                         'label' => false,
                         'div' => false,
                         'class' => 'form-control',
-                )));
+                ),array('controller' => 'travel_hotel_images', 'action' => 'index'),
+                    ));
                 echo $this->Form->hidden('model_name', array('id' => 'model_name', 'value' => 'TravelHotelLookup'));
                 ?> 
                 <div class="row spe-row">
