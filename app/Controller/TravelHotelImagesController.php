@@ -692,89 +692,88 @@ class TravelHotelImagesController extends AppController {
                                                     <RequestParameters>                        
                                                         <ResourceData>
                                                             <ResourceDetailsData srno="1" actiontype="' . $actiontype . '">
-                                                                <HotelId>34985</HotelId>
-                                <HotelCode><![CDATA[ISTASP]]></HotelCode>
-                                <HotelName><![CDATA[Aspen Hotel Istanbul]]></HotelName>
-                                <AreaId>5414</AreaId>
-                                <AreaCode><![CDATA[ISTCEN  ]]></AreaCode>
-                                <AreaName><![CDATA[Aksaray]]></AreaName>
-                                <SuburbId>503</SuburbId>
+                                                                <HotelId>' . $HotelId . '</HotelId>
+                                <HotelCode><![CDATA[' . $HotelCode . ']]></HotelCode>
+                                <HotelName><![CDATA[' . $HotelName . ']]></HotelName>
+                                <AreaId>' . $AreaId . '</AreaId>
+                                <AreaCode>NA</AreaCode>
+                                <AreaName><![CDATA[' . $AreaName . ']]></AreaName>
+                                <SuburbId>' . $SuburbId . '</SuburbId>
                                 <SuburbCode>NA</SuburbCode>
-                                <SuburbName><![CDATA[Fatih ]]></SuburbName>
-                                <CityId>7211</CityId>
-                                <CityCode><![CDATA[IST]]></CityCode>
-                                <CityName><![CDATA[ Istanbul]]></CityName>
-                                <CountryId>225</CountryId>
-                                <CountryCode><![CDATA[TR ]]></CountryCode>
-                                <CountryName><![CDATA[ Turkey]]></CountryName>
-                                <ContinentId>4</ContinentId>
-                                <ContinentCode><![CDATA[EU ]]></ContinentCode>
-                                <ContinentName><![CDATA[ Europe]]></ContinentName>
-                                <ProvinceId>345</ProvinceId>
-                                <ProvinceName>Istanbul </ProvinceName>
-                                <BrandId>1</BrandId>
-                                <BrandName><![CDATA[No Brand]]></BrandName>
-                                <ChainId>1</ChainId>
-                                <ChainName><![CDATA[No Chain]]></ChainName>
-                                <HotelComment></HotelComment>
-                                <Star>3</Star>
-                                <Keyword><![CDATA[]]></Keyword>
-                                <StandardRating />
-                                <HotelRating>0</HotelRating>
-                                <FoodRating />
-                                <ServiceRating />
-                                <LocationRating />
-                                <ValueRating />
-                                <OverallRating />
+                                <SuburbName><![CDATA[' . $SuburbName . ']]></SuburbName>
+                                <CityId>' . $CityId . '</CityId>
+                                <CityCode><![CDATA[' . $CityCode . ']]></CityCode>
+                                <CityName><![CDATA[' . $CityName . ']]></CityName>
+                                <CountryId>' . $CountryId . '</CountryId>
+                                <CountryCode><![CDATA[' . $CountryCode . ']]></CountryCode>
+                                <CountryName><![CDATA[' . $CountryName . ']]></CountryName>
+                                <ContinentId>' . $ContinentId . '</ContinentId>
+                                <ContinentCode><![CDATA[' . $ContinentCode . ']]></ContinentCode>
+                                <ContinentName><![CDATA[' . $ContinentName . ']]></ContinentName>
+                                <ProvinceId>'.$ProvinceId.'</ProvinceId>
+                                <ProvinceName><![CDATA['.$ProvinceName.']]></ProvinceName>
+                                <BrandId>' . $BrandId . '</BrandId>
+                                <BrandName><![CDATA[' . $BrandName . ']]></BrandName>
+                                <ChainId>' . $ChainId . '</ChainId>
+                                <ChainName><![CDATA[' . $ChainName . ']]></ChainName>
+                                <HotelComment><![CDATA[' . $HotelComment . ']]></HotelComment>
+                                <Star>' . $Star . '</Star>
+                                <Keyword><![CDATA[' . $Keyword . ']]></Keyword>
+                                <StandardRating>' . $StandardRating . '</StandardRating>
+                                <HotelRating>' . $StandardRating . '</HotelRating>                                
+                                <FoodRating>' . $FoodRating . '</FoodRating>
+                                <ServiceRating>' . $ServiceRating . '</ServiceRating>
+                                <LocationRating>' . $LocationRating . '</LocationRating>
+                                <ValueRating>' . $ValueRating . '</ValueRating>
+                                <OverallRating>' . $OverallRating . '</OverallRating>
 
-                                <HotelImage1Full />
-                                <HotelImage2Full />
-                                <HotelImage3Full />
-                                <HotelImage4Full />
-                                <HotelImage5Full />
-                                <HotelImage6Full />
+                                <HotelImage1Full><![CDATA[' .$HotelImage1. ']]><HotelImage1Full />
+                                <HotelImage2Full>'.$HotelImage2.'<HotelImage2Full />
+                                <HotelImage3Full>'.$HotelImage3.'<HotelImage3Full />
+                                <HotelImage4Full>'.$HotelImage4.'<HotelImage4Full />
+                                <HotelImage5Full>'.$HotelImage5.'<HotelImage5Full />
+                                <HotelImage6Full>'.$HotelImage6.'<HotelImage6Full />
 
-                                <HotelImage1Thumb />
-                                <HotelImage2Thumb />
-                                <HotelImage3Thumb />
-                                <HotelImage4Thumb />
-                                <HotelImage5Thumb />
-                                <HotelImage6Thumb />
+                                <HotelImage1Thumb><![CDATA[' .$ThumbImage1. ']]><HotelImage1Thumb />
+                                <HotelImage2Thumb>'.$ThumbImage2.'<HotelImage2Thumb />
+                                <HotelImage3Thumb>'.$ThumbImage3.'<HotelImage3Thumb />
+                                <HotelImage4Thumb>'.$ThumbImage4.'<HotelImage4Thumb />
+                                <HotelImage5Thumb>'.$ThumbImage5.'<HotelImage5Thumb />
+                                <HotelImage6Thumb>'.$ThumbImage6.'<HotelImage6Thumb />
 
                                 <IsImage>false</IsImage>
                                 <IsPage>false</IsPage>
 
-                                <Logo />
-                                <Logo1 />
-                                <BusinessCenter />
-                                <MeetingFacilities />
-                                <DiningFacilities />
-                                <BarLounge />
-                                <FitnessCenter />
-                                <Pool />
-                                <Golf />
-                                <Tennis />
-                                <Kids />
-                                <Handicap />
-                                <URLHotel><![CDATA[http://www.aspenhotelistanbul.com/]]></URLHotel>
-                                <Address><![CDATA[Aksaray Avenue No.25, Laleli, Fatih, Istanbul, Turkey 34150]]></Address>
-                                <PostCode>34150</PostCode>
-                                <NoRoom>63</NoRoom>
-                                <Active>1</Active>
-
-                                <ReservationEmail><![CDATA[]]></ReservationEmail>
-                                <ReservationContact><![CDATA[]]></ReservationContact>
-                                <EmergencyContactName><![CDATA[]]></EmergencyContactName>
-                                <ReservationDeskNumber><![CDATA[+90 212 518 5361]]></ReservationDeskNumber>
-                                <EmergencyContactNumber><![CDATA[+90 212 518 5361]]></EmergencyContactNumber>
-                                <GPSPARAM1>41.0082997</GPSPARAM1>
-                                <GPSPARAM2>28.9562657</GPSPARAM2>
-                                <TopHotel />
-                                <PropertyType>1</PropertyType>
-                                <ApprovedBy>0</ApprovedBy>
-                                <ApprovedDate>1111-01-01T00:00:00</ApprovedDate>
-                                <CreatedBy>181</CreatedBy>
-                                <CreatedDate>2016-08-16T06:03:24</CreatedDate>
+                                <Logo>' . $Logo . '</Logo>
+                                                                <Logo1>' . $Logo1 . '</Logo1>
+                                                                <BusinessCenter>' . $BusinessCenter . '</BusinessCenter>
+                                                                <MeetingFacilities>' . $MeetingFacilities . '</MeetingFacilities>
+                                                                <DiningFacilities>' . $DiningFacilities . '</DiningFacilities>
+                                                                <BarLounge>' . $BarLounge . '</BarLounge>
+                                                                <FitnessCenter>' . $FitnessCenter . '</FitnessCenter>
+                                                                <Pool>' . $Pool . '</Pool>
+                                                                <Golf>' . $Golf . '</Golf>
+                                                                <Tennis>' . $Tennis . '</Tennis>
+                                                                <Kids>' . $Kids . '</Kids>
+                                                                <Handicap>' . $Handicap . '</Handicap>
+                                                                <URLHotel><![CDATA[' . $URLHotel . ']]></URLHotel>
+                                                                <Address><![CDATA[' . $Address . ']]></Address>
+                                                                <PostCode>' . $PostCode . '</PostCode>
+                                                                <NoRoom>' . $NoRoom . '</NoRoom>
+                                                                <Active>' . $Active . '</Active>
+                                                                <ReservationEmail><![CDATA[' . $ReservationEmail . ']]></ReservationEmail>
+                                                                <ReservationContact><![CDATA[' . $ReservationContact . ']]></ReservationContact>
+                                                                <EmergencyContactName><![CDATA[' . $EmergencyContactName . ']]></EmergencyContactName>
+                                                                <ReservationDeskNumber><![CDATA[' . $ReservationDeskNumber . ']]></ReservationDeskNumber>
+                                                                <EmergencyContactNumber><![CDATA[' . $EmergencyContactNumber . ']]></EmergencyContactNumber>
+                                                                <GPSPARAM1>' . $GPSPARAM1 . '</GPSPARAM1>
+                                                                <GPSPARAM2>' . $GPSPARAM2 . '</GPSPARAM2>
+                                                                <TopHotel>' . $TopHotel . '</TopHotel> 
+                                                                <PropertyType>'.$PropertyType.'</PropertyType>
+                                                                <ApprovedBy>0</ApprovedBy>
+                                                                <ApprovedDate>1111-01-01T00:00:00</ApprovedDate>
+                                                                <CreatedBy>' . $user_id . '</CreatedBy>
+                                                                <CreatedDate>' . $CreatedDate . '</CreatedDate>
                                                             </ResourceDetailsData>
                          
                                                     </ResourceData>
