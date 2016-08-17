@@ -189,9 +189,8 @@ $this->Html->addCrumb('Edit Hotel', 'javascript:void(0);', array('class' => 'bre
                                                 <div class="fileupload fileupload-new" data-provides="fileupload">
                                                     <div class="fileupload-new img-thumbnail" style="width: 178px; height: 120px;">
                                                         <?php
-                                                        if ($this->data['TravelHotelLookup']['full_img1']) {
-                                                            $imagePath = $this->webroot . 'uploads/hotels';
-                                                            $image1 = $imagePath . '/' . $this->data['TravelHotelLookup']['full_img1'];
+                                                        if ($this->data['TravelHotelLookup']['full_img1']) {                                                            
+                                                            $image1 = $this->data['TravelHotelLookup']['full_img1'];
                                                         } else {
                                                             $image1 = $this->webroot . "img/no_img_180.png";
                                                         }
