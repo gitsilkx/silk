@@ -696,7 +696,7 @@ class TravelHotelImagesController extends AppController {
                                 <HotelCode><![CDATA[' . $HotelCode . ']]></HotelCode>
                                 <HotelName><![CDATA[' . $HotelName . ']]></HotelName>
                                 <AreaId>' . $AreaId . '</AreaId>
-                                <AreaCode><![CDATA[' . $AreaCode . ']]></AreaCode>
+                                <AreaCode>NA</AreaCode>
                                 <AreaName><![CDATA[' . $AreaName . ']]></AreaName>
                                 <SuburbId>' . $SuburbId . '</SuburbId>
                                 <SuburbCode>NA</SuburbCode>
