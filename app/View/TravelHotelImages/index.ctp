@@ -8,7 +8,7 @@ $this->Html->addCrumb('My Hotels', 'javascript:void(0);', array('class' => 'brea
             <h4 class="table-heading-title"><span class="badge badge-circle badge-success"> <?php
                     echo $this->Paginator->counter(array('format' => '{:count}'));
                     ?></span> My Hotels</h4>
-            <span class="badge badge-circle add-client nomrgn"><i class="icon-plus"></i> <?php echo $this->Html->link('Add Hotel', '/travel_hotel_lookups/add') ?></span>
+            
             <span class="search_panel_icon"><i class="icon-plus" id="toggle_search_panel"></i></span>
         </div>
         <div class="panel panel-default">
@@ -211,8 +211,8 @@ $this->Html->addCrumb('My Hotels', 'javascript:void(0);', array('class' => 'brea
                     endif;
                     ?>
                 </tbody>
-            </table>           
-            <span class="badge badge-circle add-client"><i class="icon-plus"></i> <?php echo $this->Html->link('Add Hotel', '/travel_hotel_lookups/add') ?></span>
+            </table>          
+            
         </div>
     </div>
 </div>
