@@ -517,7 +517,7 @@ class TravelHotelImagesController extends AppController {
             if (is_uploaded_file($this->request->data['TravelHotelLookup']['image1']['tmp_name'])) {   
                 
               
-                $image1 = $this->Image->upload($TravelHotelLookups['TravelHotelLookup']['full_img1'], $this->request->data['TravelHotelLookup']['image1'], $this->uploadDir, $ImageName.'_1');
+                $image1 = $this->Image->upload($TravelHotelLookups['TravelHotelLookup']['full_img1'], $this->request->data['TravelHotelLookup']['image1'], $this->uploadDir, $ImageName.'-1');
                 $this->request->data['TravelHotelLookup']['full_img1'] = 'http://imageius.com/uploads/hotels/'.$image1;
                 $this->request->data['TravelHotelLookup']['thumb_img1'] = 'http://imageius.com/uploads/hotels/thumbs/'.$image1;
                 $this->Image->thumbnail($this->uploadDir.'/'.$image1,'thumbs',$this->Width,$this->Height);
@@ -548,7 +548,7 @@ class TravelHotelImagesController extends AppController {
             }
 
             if (is_uploaded_file($this->request->data['TravelHotelLookup']['image2']['tmp_name'])) {
-                $image2 = $this->Image->upload($TravelHotelLookups['TravelHotelLookup']['full_img2'], $this->request->data['TravelHotelLookup']['image2'], $this->uploadDir, $ImageName.'_2');
+                $image2 = $this->Image->upload($TravelHotelLookups['TravelHotelLookup']['full_img2'], $this->request->data['TravelHotelLookup']['image2'], $this->uploadDir, $ImageName.'-2');
                 $this->request->data['TravelHotelLookup']['full_img2'] = 'http://imageius.com/uploads/hotels/'.$image2;
                 $this->request->data['TravelHotelLookup']['thumb_img2'] = 'http://imageius.com/uploads/hotels/thumbs/'.$image2;
                 $this->Image->thumbnail($this->uploadDir.'/'.$image2,'thumbs',$this->Width,$this->Height);
@@ -578,7 +578,7 @@ class TravelHotelImagesController extends AppController {
             }
 
             if (is_uploaded_file($this->request->data['TravelHotelLookup']['image3']['tmp_name'])) {
-                $image3 = $this->Image->upload($TravelHotelLookups['TravelHotelLookup']['full_img3'], $this->request->data['TravelHotelLookup']['image3'], $this->uploadDir, $ImageName.'_3');
+                $image3 = $this->Image->upload($TravelHotelLookups['TravelHotelLookup']['full_img3'], $this->request->data['TravelHotelLookup']['image3'], $this->uploadDir, $ImageName.'-3');
                 $this->request->data['TravelHotelLookup']['full_img3'] = 'http://imageius.com/uploads/hotels/'.$image3;
                 $this->request->data['TravelHotelLookup']['thumb_img3'] = 'http://imageius.com/uploads/hotels/thumbs/'.$image3;
                 $this->Image->thumbnail($this->uploadDir.'/'.$image3,'thumbs',$this->Width,$this->Height);
@@ -608,26 +608,98 @@ class TravelHotelImagesController extends AppController {
             }
 
             if (is_uploaded_file($this->request->data['TravelHotelLookup']['image4']['tmp_name'])) {
-                $image2 = $this->Image->upload($TravelHotelLookups['TravelHotelLookup']['hotel_img4'], $this->request->data['TravelHotelLookup']['image4'], $this->uploadDir, 'image4');
-                $this->request->data['TravelHotelLookup']['hotel_img4'] = $image2;
+                $image4 = $this->Image->upload($TravelHotelLookups['TravelHotelLookup']['full_img4'], $this->request->data['TravelHotelLookup']['image4'], $this->uploadDir, $ImageName.'-4');
+               $this->request->data['TravelHotelLookup']['full_img4'] = 'http://imageius.com/uploads/hotels/'.$image4;
+                $this->request->data['TravelHotelLookup']['thumb_img4'] = 'http://imageius.com/uploads/hotels/thumbs/'.$image4;
+                $this->Image->thumbnail($this->uploadDir.'/'.$image4,'thumbs',$this->Width,$this->Height);
+                 
+                $file_thum= $this->uploadDir.'/thumbs/'.$image4;
+                $dstfile_thum='uploads/hotels/thumbs/'.$image4;
+                
+                $file= $this->uploadDir.'/'.$image4;
+                $dstfile='uploads/hotels/'.$image4;
+
+                if (ftp_put($ftp_conn, $dstfile, $file, FTP_ASCII))
+                  {
+                    ftp_put($ftp_conn, $dstfile_thum, $file_thum, FTP_ASCII);
+                  //echo "Successfully uploaded $file.";
+                  }
+                else
+                  {
+                  echo "Error uploading $file.";
+                  }
+
+                // close connection
+                //ftp_close($ftp_conn);
+                $this->Image->delete($image4,$this->uploadDir);
+                $this->Image->delete($image4,$this->uploadDir.'/thumbs/');
+
             } else {
                 unset($this->request->data['TravelHotelLookup']['image4']);
             }
 
             if (is_uploaded_file($this->request->data['TravelHotelLookup']['image5']['tmp_name'])) {
-                $image2 = $this->Image->upload($TravelHotelLookups['TravelHotelLookup']['hotel_img5'], $this->request->data['TravelHotelLookup']['image5'], $this->uploadDir, 'image5');
-                $this->request->data['TravelHotelLookup']['hotel_img5'] = $image2;
+                $image5 = $this->Image->upload($TravelHotelLookups['TravelHotelLookup']['full_img5'], $this->request->data['TravelHotelLookup']['image5'], $this->uploadDir, $ImageName.'-3');
+                $this->request->data['TravelHotelLookup']['full_img5'] = 'http://imageius.com/uploads/hotels/'.$image5;
+                $this->request->data['TravelHotelLookup']['thumb_img5'] = 'http://imageius.com/uploads/hotels/thumbs/'.$image5;
+                $this->Image->thumbnail($this->uploadDir.'/'.$image5,'thumbs',$this->Width,$this->Height);
+                 
+                $file_thum= $this->uploadDir.'/thumbs/'.$image5;
+                $dstfile_thum='uploads/hotels/thumbs/'.$image5;
+                
+                $file= $this->uploadDir.'/'.$image5;
+                $dstfile='uploads/hotels/'.$image5;
+
+                if (ftp_put($ftp_conn, $dstfile, $file, FTP_ASCII))
+                  {
+                    ftp_put($ftp_conn, $dstfile_thum, $file_thum, FTP_ASCII);
+                  //echo "Successfully uploaded $file.";
+                  }
+                else
+                  {
+                  echo "Error uploading $file.";
+                  }
+
+                // close connection
+                //ftp_close($ftp_conn);
+                $this->Image->delete($image5,$this->uploadDir);
+                $this->Image->delete($image5,$this->uploadDir.'/thumbs/');
+
             } else {
                 unset($this->request->data['TravelHotelLookup']['image5']);
             }
 
             if (is_uploaded_file($this->request->data['TravelHotelLookup']['image6']['tmp_name'])) {
-                $image2 = $this->Image->upload($TravelHotelLookups['TravelHotelLookup']['hotel_img6'], $this->request->data['TravelHotelLookup']['image6'], $this->uploadDir, 'image6');
-                $this->request->data['TravelHotelLookup']['hotel_img6'] = $image2;
+                $image6 = $this->Image->upload($TravelHotelLookups['TravelHotelLookup']['full_img6'], $this->request->data['TravelHotelLookup']['image6'], $this->uploadDir, $ImageName.'-6');
+                $this->request->data['TravelHotelLookup']['full_img6'] = 'http://imageius.com/uploads/hotels/'.$image6;
+                $this->request->data['TravelHotelLookup']['thumb_img6'] = 'http://imageius.com/uploads/hotels/thumbs/'.$image6;
+                $this->Image->thumbnail($this->uploadDir.'/'.$image6,'thumbs',$this->Width,$this->Height);
+                 
+                $file_thum= $this->uploadDir.'/thumbs/'.$image6;
+                $dstfile_thum='uploads/hotels/thumbs/'.$image6;
+                
+                $file= $this->uploadDir.'/'.$image6;
+                $dstfile='uploads/hotels/'.$image6;
+
+                if (ftp_put($ftp_conn, $dstfile, $file, FTP_ASCII))
+                  {
+                    ftp_put($ftp_conn, $dstfile_thum, $file_thum, FTP_ASCII);
+                  //echo "Successfully uploaded $file.";
+                  }
+                else
+                  {
+                  echo "Error uploading $file.";
+                  }
+
+                // close connection
+                //ftp_close($ftp_conn);
+                $this->Image->delete($image6,$this->uploadDir);
+                $this->Image->delete($image6,$this->uploadDir.'/thumbs/');
+
             } else {
                 unset($this->request->data['TravelHotelLookup']['image6']);
             }
-
+            ftp_close($ftp_conn);
       
              $HotelId = $id;
             $HotelCode = $TravelHotelLookups['TravelHotelLookup']['hotel_code'];
