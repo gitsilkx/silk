@@ -973,7 +973,7 @@ class TravelHotelImagesController extends AppController {
                 $this->Session->setFlash($message, 'success');
             }
 
-          
+            $this->redirect(array('action' => 'index'));
             // $this->redirect(array('controller' => 'messages','action' => 'index','properties','my-properties'));
         }
 
