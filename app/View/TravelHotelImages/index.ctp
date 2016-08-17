@@ -98,14 +98,9 @@ echo $this->element('Hotel/top_menu');
                 <thead>
                     <tr class="footable-group-row">
                         <th data-group="group1" colspan="5" class="nodis">Hotel Information</th>
-                        <th data-group="group9" colspan="6">Hotel Location</th>
-                        <th data-group="group10" colspan="4">Hotel Status</th>
-                        <th data-group="group2" colspan="8">Hotel Information</th>
-                        <th data-group="group3" colspan="11">Hotel Facilities</th>
-                        <th data-group="group4" colspan="1">Room Facilities</th>
-                        <!--<th data-group="group5" colspan="6">Hotel Ratings</th>-->
-                        <th data-group="group6" colspan="5">Hotel Contacts</th>
-                        <th data-group="group7" colspan="2">Other Information</th>
+                        <th data-group="group9" colspan="5">Hotel Location</th>
+                        <th data-group="group10" colspan="3">Hotel Status</th>
+                        
                         <th data-group="group8" class="nodis">Hotel Action</th>
                     </tr>
                     <tr>
@@ -136,46 +131,7 @@ echo $this->element('Hotel/top_menu');
                         <th data-hide="phone" data-group="group10" width="5%" data-sort-ignore="true">Silkrouters</th>
                         <th data-hide="phone" data-group="group10" width="2%" data-sort-ignore="true">WTB</th>
                         <th data-hide="phone" data-group="group10" width="5%" data-sort-ignore="true">Active?</th>
-                        <th data-hide="phone" data-group="group10" width="5%" data-sort-ignore="true">No. Of Mapping</th>
-
-                        <th data-hide="all" data-group="group2" data-sort-ignore="true">Logo</th>
-                        <th data-hide="all" data-group="group2" data-sort-ignore="true">Logo1</th>
-                        <th data-hide="all" data-group="group2" data-sort-ignore="true">Hotel_img1</th>
-                        <th data-hide="all" data-group="group2" data-sort-ignore="true">Hotel_img2</th>
-                        <th data-hide="all" data-group="group2" data-sort-ignore="true">Address</th>
-                        <th data-hide="all" data-group="group2" data-sort-ignore="true">Hotel_Comment</th>
-                        <th data-hide="all" data-group="group2" data-sort-ignore="true">IsSendPromo</th>
-                        <th data-hide="all" data-group="group2" data-sort-ignore="true">PromoText</th>
-
-                        <th data-hide="all" data-group="group3" data-sort-ignore="true">Business_Center</th>
-                        <th data-hide="all" data-group="group3" data-sort-ignore="true">Meeting_Facilities</th>
-                        <th data-hide="all" data-group="group3" data-sort-ignore="true">Dining_Facilities</th>
-                        <th data-hide="all" data-group="group3" data-sort-ignore="true">Bar_Lounge</th>
-                        <th data-hide="all" data-group="group3" data-sort-ignore="true">Fitness_Center</th>
-                        <th data-hide="all" data-group="group3" data-sort-ignore="true">Pool</th>
-                        <th data-hide="all" data-group="group3" data-sort-ignore="true">Golf</th>
-                        <th data-hide="all" data-group="group3" data-sort-ignore="true">Tennis</th>
-                        <th data-hide="all" data-group="group3" data-sort-ignore="true">Kids</th>
-                        <th data-hide="all" data-group="group3" data-sort-ignore="true">Handicap</th>
-                        <th data-hide="all" data-group="group3" data-sort-ignore="true">Hotel_Facility</th>
-
-                        <th data-hide="all" data-group="group4" data-sort-ignore="true">Room_Detail</th>
-<!--
-                        <th data-hide="all" data-group="group5" data-sort-ignore="true">HotelRating</th>
-                        <th data-hide="all" data-group="group5" data-sort-ignore="true">FoodRating</th>
-                        <th data-hide="all" data-group="group5" data-sort-ignore="true">ServiceRating</th>
-                        <th data-hide="all" data-group="group5" data-sort-ignore="true">LocationRating</th>
-                        <th data-hide="all" data-group="group5" data-sort-ignore="true">ValueRating</th>
-                        <th data-hide="all" data-group="group5" data-sort-ignore="true">OverallRating</th>-->
-
-                        <th data-hide="all" data-group="group6" data-sort-ignore="true">ReservationEmail</th>
-                        <th data-hide="all" data-group="group6" data-sort-ignore="true">ReservationContact</th>
-                        <th data-hide="all" data-group="group6" data-sort-ignore="true">EmergencyContactName</th>
-                        <th data-hide="all" data-group="group6" data-sort-ignore="true">ReservationDeskNumber</th>
-                        <th data-hide="all" data-group="group6" data-sort-ignore="true">EmergencyContactNumber</th>
-
-                        <th data-hide="all" data-group="group7" data-sort-ignore="true">No_Room</th>
-                        <th data-hide="all" data-group="group7" data-sort-ignore="true">IsOffline</th>
+                        
                         <th data-group="group8" data-hide="phone" data-sort-ignore="true" width="7%">Action</th> 
 
                     </tr>
@@ -232,68 +188,12 @@ echo $this->element('Hotel/top_menu');
                                 <td class="sub-tablebody"><?php echo $status_txt; ?></td>
                                 <td class="sub-tablebody"><?php echo $wtb_status; ?></td>
                                 <td class="sub-tablebody"><?php echo $TravelHotelLookup['TravelHotelLookup']['active']; ?></td>   
-                                <td class="sub-tablebody"><?php if(count($TravelHotelLookup['TravelHotelRoomSupplier']) > 0) echo $this->Html->link(count($TravelHotelLookup['TravelHotelRoomSupplier']), array('controller' => 'travel_hotel_lookups', 'action' => 'view_mapping/' . $id), array('class' => 'act-ico open-popup-link add-btn', 'escape' => false)); else echo '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0'; ?></td>
-
-
-                                <td class="sub-tablebody"><?php echo $TravelHotelLookup['TravelHotelLookup']['logo']; ?></td>
-                                <td class="sub-tablebody"><?php echo $TravelHotelLookup['TravelHotelLookup']['logo1']; ?></td>
-                                <td class="sub-tablebody"><?php echo $TravelHotelLookup['TravelHotelLookup']['hotel_img1']; ?></td>
-                                <td class="sub-tablebody"><?php echo $TravelHotelLookup['TravelHotelLookup']['hotel_img2']; ?></td>
-                                <td class="sub-tablebody"><?php echo $TravelHotelLookup['TravelHotelLookup']['address']; ?></td>
-                                <td class="sub-tablebody"><?php echo $TravelHotelLookup['TravelHotelLookup']['hotel_comment']; ?></td>
-                                <td class="sub-tablebody"><?php echo $TravelHotelLookup['TravelHotelLookup']['is_send_promo']; ?></td>
-                                <td class="sub-tablebody"><?php echo $TravelHotelLookup['TravelHotelLookup']['promo_text']; ?></td>
-
-
-                                <td class="sub-tablebody"><?php echo $TravelHotelLookup['TravelHotelLookup']['business_center']; ?></td>
-                                <td class="sub-tablebody"><?php echo $TravelHotelLookup['TravelHotelLookup']['meeting_facilities']; ?></td>
-                                <td class="sub-tablebody"><?php echo $TravelHotelLookup['TravelHotelLookup']['dining_facilities']; ?></td>
-                                <td class="sub-tablebody"><?php echo $TravelHotelLookup['TravelHotelLookup']['bar_lounge']; ?></td>
-                                <td class="sub-tablebody"><?php echo $TravelHotelLookup['TravelHotelLookup']['fitness_center']; ?></td>
-                                <td class="sub-tablebody"><?php echo $TravelHotelLookup['TravelHotelLookup']['pool']; ?></td>
-                                <td class="sub-tablebody"><?php echo $TravelHotelLookup['TravelHotelLookup']['golf']; ?></td>
-                                <td class="sub-tablebody"><?php echo $TravelHotelLookup['TravelHotelLookup']['tennis']; ?></td>
-                                <td class="sub-tablebody"><?php echo $TravelHotelLookup['TravelHotelLookup']['kids']; ?></td>
-                                <td class="sub-tablebody"><?php echo $TravelHotelLookup['TravelHotelLookup']['handicap']; ?></td>
-                                <td class="sub-tablebody"><?php echo $TravelHotelLookup['TravelHotelLookup']['hotel_facility']; ?></td>
-
-                                <td class="sub-tablebody"><?php echo $TravelHotelLookup['TravelHotelLookup']['room_detail']; ?></td>
-
-                                <!--
-                                <td class="sub-tablebody"><?php echo $TravelHotelLookup['TravelHotelLookup']['hotel_rating']; ?></td>
-                                <td class="sub-tablebody"><?php echo $TravelHotelLookup['TravelHotelLookup']['food_rating']; ?></td>
-                                <td class="sub-tablebody"><?php echo $TravelHotelLookup['TravelHotelLookup']['service_rating']; ?></td>
-                                <td class="sub-tablebody"><?php echo $TravelHotelLookup['TravelHotelLookup']['location_rating']; ?></td>
-                                <td class="sub-tablebody"><?php echo $TravelHotelLookup['TravelHotelLookup']['value_rating']; ?></td>
-                                <td class="sub-tablebody"><?php echo $TravelHotelLookup['TravelHotelLookup']['overall_rating']; ?></td>-->
-
-                                <td class="sub-tablebody"><?php echo $TravelHotelLookup['TravelHotelLookup']['reservation_email']; ?></td>
-                                <td class="sub-tablebody"><?php echo $TravelHotelLookup['TravelHotelLookup']['reservation_contact']; ?></td>
-                                <td class="sub-tablebody"><?php echo $TravelHotelLookup['TravelHotelLookup']['emergency_contact_name']; ?></td>
-                                <td class="sub-tablebody"><?php echo $TravelHotelLookup['TravelHotelLookup']['reservation_desk_number']; ?></td>
-                                <td class="sub-tablebody"><?php echo $TravelHotelLookup['TravelHotelLookup']['emergency_contact_number']; ?></td>
-
-                                <td class="sub-tablebody"><?php echo $TravelHotelLookup['TravelHotelLookup']['no_room']; ?></td>
-                                <td class="sub-tablebody"><?php echo $TravelHotelLookup['TravelHotelLookup']['is_offline']; ?></td>
+                               
                                 <td valign="middle" align="center">
 
                                     <?php
-                                    
-                                    if ($TravelHotelLookup['TravelHotelLookup']['status'] == '2' && $TravelHotelLookup['TravelHotelLookup']['wtb_status'] == '1' && $TravelHotelLookup['TravelHotelLookup']['active'] == 'TRUE') {
-
-                                        echo $this->Html->link('<span class="icon-list"></span>', array('controller' => 'travel_hotel_lookups', 'action' => 'de_active/' . $id . '/FALSE'), array('class' => 'act-ico', 'data-toggle' => 'tooltip', 'data-placement' => 'left', 'title' => 'Deactivate', 'escape' => false));
-                                    } elseif ($TravelHotelLookup['TravelHotelLookup']['status'] == '2' && $TravelHotelLookup['TravelHotelLookup']['wtb_status'] == '1' && $TravelHotelLookup['TravelHotelLookup']['active'] == 'FALSE') {
-
-                                        echo $this->Html->link('<span class="icon-list"></span>', array('controller' => 'travel_hotel_lookups', 'action' => 'de_active/' . $id . '/TRUE'), array('class' => 'act-ico', 'data-toggle' => 'tooltip', 'data-placement' => 'left', 'title' => 'Activate', 'escape' => false));
-                                    }
-                                    if ($TravelHotelLookup['TravelHotelLookup']['wtb_status'] == '2') {
-
-                                        echo $this->Html->link('<span class="icon-list"></span>', array('controller' => 'travel_hotel_lookups', 'action' => 'retry/' . $id), array('class' => 'act-ico', 'data-toggle' => 'tooltip', 'data-placement' => 'left', 'title' => 'Re-try Operation', 'escape' => false));
-                                    }
-                                    if ($TravelHotelLookup['TravelHotelLookup']['active'] == 'TRUE' && $TravelHotelLookup['TravelHotelLookup']['wtb_status'] == '1')
-                                        echo $this->Html->link('<span class="icon-pencil"></span>', array('controller' => 'travel_hotel_lookups', 'action' => 'edit/' . $id,), array('class' => 'act-ico', 'escape' => false));
-                                    
-                                  
+                                    echo $this->Html->link('<span class="icon-pencil"></span>', array('controller' => 'travel_hotel_images', 'action' => 'edit/' . $id,), array('class' => 'act-ico', 'escape' => false));
+                                   
                                     
                                     //echo $this->Html->link('<span class="icon-pencil"></span>', array('controller' => 'travel_hotel_lookups', 'action' => 'hotel_edit/' . $id,), array('class' => 'act-ico', 'escape' => false));
                                     //echo $this->Html->link('<span class="icon-remove"></span>', array('controller' => 'travel_hotel_lookups', 'action' => 'delete', $id), array('class' => 'act-ico', 'escape' => false), "Are you sure you wish to delete this hotel?");
