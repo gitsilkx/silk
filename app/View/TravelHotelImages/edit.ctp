@@ -216,9 +216,9 @@ $this->Html->addCrumb('Edit Hotel', 'javascript:void(0);', array('class' => 'bre
                                                 <div class="fileupload fileupload-new" data-provides="fileupload">
                                                     <div class="fileupload-new img-thumbnail" style="width: 178px; height: 120px;">
                                                         <?php
-                                                        if ($this->data['TravelHotelLookup']['hotel_img3']) {
-                                                            $imagePath = $this->webroot . 'uploads/hotels';
-                                                            $image3 = $imagePath . '/' . $this->data['TravelHotelLookup']['hotel_img3'];
+                                                        if ($this->data['TravelHotelLookup']['full_img3']) {
+                                                            
+                                                            $image3 = $this->data['TravelHotelLookup']['full_img3'];
                                                         } else {
                                                             $image3 = $this->webroot . "img/no_img_180.png";
                                                         }
@@ -244,9 +244,9 @@ $this->Html->addCrumb('Edit Hotel', 'javascript:void(0);', array('class' => 'bre
                                                 <div class="fileupload fileupload-new" data-provides="fileupload">
                                                     <div class="fileupload-new img-thumbnail" style="width: 178px; height: 120px;">
                                                         <?php
-                                                        if ($this->data['TravelHotelLookup']['hotel_img5']) {
-                                                            $imagePath = $this->webroot . 'uploads/hotels';
-                                                            $image5 = $imagePath . '/' . $this->data['TravelHotelLookup']['hotel_img5'];
+                                                        if ($this->data['TravelHotelLookup']['full_img5']) {
+                                                           
+                                                            $image5 = $this->data['TravelHotelLookup']['full_img5'];
                                                         } else {
                                                             $image5 = $this->webroot . "img/no_img_180.png";
                                                         }
@@ -280,9 +280,9 @@ $this->Html->addCrumb('Edit Hotel', 'javascript:void(0);', array('class' => 'bre
                                                     <div class="fileupload-new img-thumbnail" style="width: 178px; height: 120px;">
 
 <?php
-if ($this->data['TravelHotelLookup']['hotel_img2']) {
-    $imagePath = $this->webroot . 'uploads/hotels';
-    $image2 = $imagePath . '/' . $this->data['TravelHotelLookup']['hotel_img2'];
+if ($this->data['TravelHotelLookup']['full_img2']) {
+    
+    $image2 = $this->data['TravelHotelLookup']['full_img2'];
 } else {
     $image2 = $this->webroot . "img/no_img_180.png";
 }
@@ -309,9 +309,9 @@ if ($this->data['TravelHotelLookup']['hotel_img2']) {
                                                 <div class="fileupload fileupload-new" data-provides="fileupload">
                                                     <div class="fileupload-new img-thumbnail" style="width: 178px; height: 120px;">
                                                         <?php
-                                                        if ($this->data['TravelHotelLookup']['hotel_img4']) {
-                                                            $imagePath = $this->webroot . 'uploads/hotels';
-                                                            $image4 = $imagePath . '/' . $this->data['TravelHotelLookup']['hotel_img4'];
+                                                        if ($this->data['TravelHotelLookup']['full_img4']) {
+                                                           
+                                                            $image4 = $this->data['TravelHotelLookup']['full_img4'];
                                                         } else {
                                                             $image4 = $this->webroot . "img/no_img_180.png";
                                                         }
@@ -337,9 +337,9 @@ if ($this->data['TravelHotelLookup']['hotel_img2']) {
                                                 <div class="fileupload fileupload-new" data-provides="fileupload">
                                                     <div class="fileupload-new img-thumbnail" style="width: 178px; height: 120px;">
                                                         <?php
-                                                        if ($this->data['TravelHotelLookup']['hotel_img6']) {
-                                                            $imagePath = $this->webroot . 'uploads/hotels';
-                                                            $image6 = $imagePath . '/' . $this->data['TravelHotelLookup']['hotel_img6'];
+                                                        if ($this->data['TravelHotelLookup']['full_img6']) {
+                                                            
+                                                            $image6 = $this->data['TravelHotelLookup']['full_img6'];
                                                         } else {
                                                             $image6 = $this->webroot . "img/no_img_180.png";
                                                         }
