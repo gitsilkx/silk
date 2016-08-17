@@ -523,7 +523,7 @@ class TravelHotelImagesController extends AppController {
                 if (ftp_put($ftp_conn, $dstfile, $file, FTP_ASCII))
                   {
                     ftp_put($ftp_conn, $dstfile_thum, $file_thum, FTP_ASCII);
-                  echo "Successfully uploaded $file.";
+                  //echo "Successfully uploaded $file.";
                   }
                 else
                   {
@@ -532,8 +532,8 @@ class TravelHotelImagesController extends AppController {
 
                 // close connection
                 ftp_close($ftp_conn);
-                $this->Image->delete($this->uploadDir,$image1);
-                $this->Image->delete($this->uploadDir.'/thumbs/',$image1);
+                $this->Image->delete($image1,$this->uploadDir);
+                $this->Image->delete($image1,$this->uploadDir.'/thumbs/');
  
             } else {
                 unset($this->request->data['TravelHotelLookup']['image1']);
