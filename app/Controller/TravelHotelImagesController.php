@@ -510,8 +510,8 @@ class TravelHotelImagesController extends AppController {
             if (is_uploaded_file($this->request->data['TravelHotelLookup']['image1']['tmp_name'])) {               
               
                 $image1 = $this->Image->upload($TravelHotelLookups['TravelHotelLookup']['full_img1'], $this->request->data['TravelHotelLookup']['image1'], $this->uploadDir, 'image1');
-                $this->request->data['TravelHotelLookup']['full_img1'] = $image1;
-                $this->request->data['TravelHotelLookup']['thumb_img1'] = $image1;
+                $this->request->data['TravelHotelLookup']['full_img1'] = 'http://imageius.com/uploads/hotels/'.$image1;
+                $this->request->data['TravelHotelLookup']['thumb_img1'] = 'http://imageius.com/uploads/hotels/thumbs/'.$image1;
                 $this->Image->thumbnail($this->uploadDir.'/'.$image1,'thumbs',$this->Width,$this->Height);
                  
                 $file_thum= $this->uploadDir.'/thumbs/'.$image1;
