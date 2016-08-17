@@ -799,8 +799,8 @@ class TravelHotelImagesController extends AppController {
                 $xml_arr = Xml::toArray(Xml::build($order_return));
                 //$xml_arr = $this->xml2array($order_return);
                  //echo htmlentities($xml_string);
-                 //pr($xml_arr);
-                 //die;
+                 pr($xml_arr);
+                 die;
 
                 if ($xml_arr['SOAP:ENVELOPE']['SOAP:BODY']['PROCESSXMLRESPONSE']['PROCESSXMLRESULT']['RESOURCEDATA_HOTEL']['RESPONSEAUDITINFO']['RESPONSEINFO']['RESPONSEID'][0] == '201') {
                     $log_call_status_code = $xml_arr['SOAP:ENVELOPE']['SOAP:BODY']['PROCESSXMLRESPONSE']['PROCESSXMLRESULT']['RESOURCEDATA_HOTEL']['RESPONSEAUDITINFO']['RESPONSEINFO']['RESPONSEID'][0];
