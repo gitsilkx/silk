@@ -511,11 +511,12 @@ class TravelHotelImagesController extends AppController {
             $image4 = '';
 
             $HotelName = $this->data['TravelHotelLookup']['hotel_name'];
+            $ImageName= trim($HotelName);
             
             if (is_uploaded_file($this->request->data['TravelHotelLookup']['image1']['tmp_name'])) {   
                 
               
-                $image1 = $this->Image->upload($TravelHotelLookups['TravelHotelLookup']['full_img1'], $this->request->data['TravelHotelLookup']['image1'], $this->uploadDir, $HotelName.'_1');
+                $image1 = $this->Image->upload($TravelHotelLookups['TravelHotelLookup']['full_img1'], $this->request->data['TravelHotelLookup']['image1'], $this->uploadDir, $ImageName.'_1');
                 $this->request->data['TravelHotelLookup']['full_img1'] = 'http://imageius.com/uploads/hotels/'.$image1;
                 $this->request->data['TravelHotelLookup']['thumb_img1'] = 'http://imageius.com/uploads/hotels/thumbs/'.$image1;
                 $this->Image->thumbnail($this->uploadDir.'/'.$image1,'thumbs',$this->Width,$this->Height);
@@ -546,7 +547,7 @@ class TravelHotelImagesController extends AppController {
             }
 
             if (is_uploaded_file($this->request->data['TravelHotelLookup']['image2']['tmp_name'])) {
-                $image2 = $this->Image->upload($TravelHotelLookups['TravelHotelLookup']['full_img2'], $this->request->data['TravelHotelLookup']['image2'], $this->uploadDir, $HotelName.'_2');
+                $image2 = $this->Image->upload($TravelHotelLookups['TravelHotelLookup']['full_img2'], $this->request->data['TravelHotelLookup']['image2'], $this->uploadDir, $ImageName.'_2');
                 $this->request->data['TravelHotelLookup']['full_img2'] = 'http://imageius.com/uploads/hotels/'.$image2;
                 $this->request->data['TravelHotelLookup']['thumb_img2'] = 'http://imageius.com/uploads/hotels/thumbs/'.$image2;
                 $this->Image->thumbnail($this->uploadDir.'/'.$image2,'thumbs',$this->Width,$this->Height);
@@ -576,7 +577,7 @@ class TravelHotelImagesController extends AppController {
             }
 
             if (is_uploaded_file($this->request->data['TravelHotelLookup']['image3']['tmp_name'])) {
-                $image3 = $this->Image->upload($TravelHotelLookups['TravelHotelLookup']['full_img3'], $this->request->data['TravelHotelLookup']['image3'], $this->uploadDir, $HotelName.'_3');
+                $image3 = $this->Image->upload($TravelHotelLookups['TravelHotelLookup']['full_img3'], $this->request->data['TravelHotelLookup']['image3'], $this->uploadDir, $ImageName.'_3');
                 $this->request->data['TravelHotelLookup']['full_img3'] = 'http://imageius.com/uploads/hotels/'.$image3;
                 $this->request->data['TravelHotelLookup']['thumb_img3'] = 'http://imageius.com/uploads/hotels/thumbs/'.$image3;
                 $this->Image->thumbnail($this->uploadDir.'/'.$image3,'thumbs',$this->Width,$this->Height);
