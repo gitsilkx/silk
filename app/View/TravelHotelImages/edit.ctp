@@ -16,11 +16,12 @@ $this->Html->addCrumb('Edit Hotel', 'javascript:void(0);', array('class' => 'bre
             <div class="row">
                 <div class="col-sm-12">
                     <?php
-                    echo $this->Form->create('TravelHotelLookup', array('enctype' => 'multipart/form-data', 'method' => 'post', 'id' => 'wizard_a', 'novalidate' => true,
+                    echo $this->Form->create('TravelHotelLookup', array('enctype' => 'multipart/form-data', 'method' => 'post', 'id' => 'wizard_b','onsubmit' => 'return imageValidate()', 'novalidate' => true,
                         'inputDefaults' => array(
                             'label' => false,
                             'div' => false,
                             'class' => 'form-control',
+                            
                         )
                     ));
                     echo $this->Form->hidden('full_img1', array('value' => $this->data['TravelHotelLookup']['full_img1']));
@@ -201,7 +202,7 @@ $this->Html->addCrumb('Edit Hotel', 'javascript:void(0);', array('class' => 'bre
                                                     <div class="fileupload-preview fileupload-exists img-thumbnail" style="width: 178px; height: 120px"></div>
                                                     <div>
                                                         <span class="btn btn-default btn-file"><span class="fileupload-new">Select image</span><span class="fileupload-exists">Change</span>
-                                                            <input type="file" name="data[TravelHotelLookup][image1]" data-require="true" />
+                                                            <input type="file" name="data[TravelHotelLookup][image1]" id="image1" data-require="true" />
 
                                                         </span>
                                                         <a href="#" class="btn btn-default fileupload-exists" data-dismiss="fileupload">Remove</a>
@@ -364,6 +365,18 @@ if ($this->data['TravelHotelLookup']['full_img2']) {
                                    
 
                                 </div>
+                                <div class="row">
+                            <div class="col-sm-1">
+                                <?php
+                                echo $this->Form->submit('Submit', array('class' => 'btn btn-success sticky_success'));
+                                ?>
+                                <!--<button type="submit" id="update_buttn" disabled="disabled" class="btn btn-success sticky_success">Update</button>-->
+
+                            </div>
+
+
+
+                        </div>
 
                                 </div>
                             </div>
@@ -529,8 +542,36 @@ $this->Js->get('#TravelHotelLookupCountryId')->event('change', $this->Js->reques
         //  this.value = this.value.replace (/(\.\d\d)\d+|([\d.]*)[^\d.]/, '$1$2');
     })
     
-    
+
     });
+    
+       function imageValidate(){
+       if ($('#image1').get(0).files.length === 0) {
+            alert("Please seclect picture1.");
+            return false;
+        }
+        if ($('#image2').get(0).files.length === 0) {
+            alert("Please seclect picture2.");
+            return false;
+        }
+        if ($('#image3').get(0).files.length === 0) {
+            alert("Please seclect picture3.");
+            return false;
+        }
+        if ($('#image4').get(0).files.length === 0) {
+            alert("Please seclect picture4.");
+            return false;
+        }
+        if ($('#image5').get(0).files.length === 0) {
+            alert("Please seclect picture5.");
+            return false;
+        }
+        if ($('#image6').get(0).files.length === 0) {
+            alert("Please seclect picture6.");
+            return false;
+        }
+       
+   } 
 
 </script>    
 
