@@ -528,6 +528,8 @@ $this->Js->get('#TravelHotelLookupCountryId')->event('change', $this->Js->reques
         this.value = parseFloat(this.value).toFixed(0);
         //  this.value = this.value.replace (/(\.\d\d)\d+|([\d.]*)[^\d.]/, '$1$2');
     })
+    
+    
     });
 
 </script>    

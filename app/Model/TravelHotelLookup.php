@@ -6,6 +6,8 @@ class TravelHotelLookup extends AppModel {
 
     var $name = 'TravelHotelLookup';
     public $validate = array(
+            
+       
     );
     public $belongsTo = array(
         'ContractStatus' => array(

@@ -38,7 +38,7 @@ class TravelHotelImagesController extends AppController {
 
     public $uses = array('TravelHotelLookup', 'TravelHotelRoomSupplier', 'TravelCountry', 'TravelLookupContinent', 'TravelLookupValueContractStatus', 'TravelCity', 'TravelChain',
         'TravelSuburb', 'TravelArea', 'TravelBrand', 'TravelActionItem', 'TravelRemark', 'LogCall', 'User', 'Province', 'ProvincePermission', 'DeleteTravelHotelLookup', 'DeleteLogTable',
-        'TravelLookupRateType', 'TravelLookupPropertyType', 'TravelCitySupplier','TravelHotelImage');
+        'TravelLookupRateType', 'TravelLookupPropertyType', 'TravelCitySupplier', 'TravelHotelImage');
     public $components = array('Sms', 'Image');
     public $uploadDir;
 
@@ -505,30 +505,35 @@ class TravelHotelImagesController extends AppController {
             $image2 = '';
             $image3 = '';
             $image4 = '';
+            $image5 = '';
+            $image6 = '';
+            $error_msg = '';
 
             $HotelName = $this->data['TravelHotelLookup']['hotel_name'];
             $ImageName = trim($HotelName);
             $ImageName = str_replace(' ', '-', $ImageName);
 
             if (is_uploaded_file($this->request->data['TravelHotelLookup']['image1']['tmp_name'])) {
+                $file_type = $this->request->data['TravelHotelLookup']['image1']['type'];
+                $file_size = $this->request->data['TravelHotelLookup']['image1']['size'];
+                if ($this->ImagefileCheck($file_type, $file_size) == 'true') {
+                    $image1 = $this->Image->upload($TravelHotelLookups['TravelHotelLookup']['full_img1'], $this->request->data['TravelHotelLookup']['image1'], $this->uploadDir, $ImageName . '-1');
+                    $this->request->data['TravelHotelLookup']['full_img1'] = 'http://imageius.com/uploads/hotels/' . $image1;
+                    $this->request->data['TravelHotelLookup']['thumb_img1'] = 'http://imageius.com/uploads/hotels/thumbs/' . $image1;
+                    $this->Image->thumbnail($this->uploadDir . '/' . $image1, 'thumbs', $this->Width, $this->Height);
 
+                    $file_thum = $this->uploadDir . '/thumbs/' . $image1;
+                    $dstfile_thum = 'uploads/hotels/thumbs/' . $image1;
 
-                $image1 = $this->Image->upload($TravelHotelLookups['TravelHotelLookup']['full_img1'], $this->request->data['TravelHotelLookup']['image1'], $this->uploadDir, $ImageName . '-1');
-                $this->request->data['TravelHotelLookup']['full_img1'] = 'http://imageius.com/uploads/hotels/' . $image1;
-                $this->request->data['TravelHotelLookup']['thumb_img1'] = 'http://imageius.com/uploads/hotels/thumbs/' . $image1;
-                $this->Image->thumbnail($this->uploadDir . '/' . $image1, 'thumbs', $this->Width, $this->Height);
+                    $file = $this->uploadDir . '/' . $image1;
+                    $dstfile = 'uploads/hotels/' . $image1;
 
-                $file_thum = $this->uploadDir . '/thumbs/' . $image1;
-                $dstfile_thum = 'uploads/hotels/thumbs/' . $image1;
-
-                $file = $this->uploadDir . '/' . $image1;
-                $dstfile = 'uploads/hotels/' . $image1;
-
-                if (ftp_put($ftp_conn, $dstfile, $file, FTP_ASCII)) {
-                    ftp_put($ftp_conn, $dstfile_thum, $file_thum, FTP_ASCII);
-                    //echo "Successfully uploaded $file.";
+                    if (ftp_put($ftp_conn, $dstfile, $file, FTP_ASCII)) {
+                        ftp_put($ftp_conn, $dstfile_thum, $file_thum, FTP_ASCII);
+                        //echo "Successfully uploaded $file.";
+                    }
                 } else {
-                    echo "Error uploading $file.";
+                    $error_msg .= 'Picture1, ';
                 }
 
                 // close connection
@@ -540,22 +545,26 @@ class TravelHotelImagesController extends AppController {
             }
 
             if (is_uploaded_file($this->request->data['TravelHotelLookup']['image2']['tmp_name'])) {
-                $image2 = $this->Image->upload($TravelHotelLookups['TravelHotelLookup']['full_img2'], $this->request->data['TravelHotelLookup']['image2'], $this->uploadDir, $ImageName . '-2');
-                $this->request->data['TravelHotelLookup']['full_img2'] = 'http://imageius.com/uploads/hotels/' . $image2;
-                $this->request->data['TravelHotelLookup']['thumb_img2'] = 'http://imageius.com/uploads/hotels/thumbs/' . $image2;
-                $this->Image->thumbnail($this->uploadDir . '/' . $image2, 'thumbs', $this->Width, $this->Height);
+                $file_type = $this->request->data['TravelHotelLookup']['image2']['type'];
+                $file_size = $this->request->data['TravelHotelLookup']['image2']['size'];
+                if ($this->ImagefileCheck($file_type, $file_size) == 'true') {
+                    $image2 = $this->Image->upload($TravelHotelLookups['TravelHotelLookup']['full_img2'], $this->request->data['TravelHotelLookup']['image2'], $this->uploadDir, $ImageName . '-2');
+                    $this->request->data['TravelHotelLookup']['full_img2'] = 'http://imageius.com/uploads/hotels/' . $image2;
+                    $this->request->data['TravelHotelLookup']['thumb_img2'] = 'http://imageius.com/uploads/hotels/thumbs/' . $image2;
+                    $this->Image->thumbnail($this->uploadDir . '/' . $image2, 'thumbs', $this->Width, $this->Height);
 
-                $file_thum = $this->uploadDir . '/thumbs/' . $image2;
-                $dstfile_thum = 'uploads/hotels/thumbs/' . $image2;
+                    $file_thum = $this->uploadDir . '/thumbs/' . $image2;
+                    $dstfile_thum = 'uploads/hotels/thumbs/' . $image2;
 
-                $file = $this->uploadDir . '/' . $image2;
-                $dstfile = 'uploads/hotels/' . $image2;
+                    $file = $this->uploadDir . '/' . $image2;
+                    $dstfile = 'uploads/hotels/' . $image2;
 
-                if (ftp_put($ftp_conn, $dstfile, $file, FTP_ASCII)) {
-                    ftp_put($ftp_conn, $dstfile_thum, $file_thum, FTP_ASCII);
-                    //echo "Successfully uploaded $file.";
+                    if (ftp_put($ftp_conn, $dstfile, $file, FTP_ASCII)) {
+                        ftp_put($ftp_conn, $dstfile_thum, $file_thum, FTP_ASCII);
+                        //echo "Successfully uploaded $file.";
+                    }
                 } else {
-                    echo "Error uploading $file.";
+                    $error_msg .= 'Picture2, ';
                 }
 
                 // close connection
@@ -567,22 +576,26 @@ class TravelHotelImagesController extends AppController {
             }
 
             if (is_uploaded_file($this->request->data['TravelHotelLookup']['image3']['tmp_name'])) {
-                $image3 = $this->Image->upload($TravelHotelLookups['TravelHotelLookup']['full_img3'], $this->request->data['TravelHotelLookup']['image3'], $this->uploadDir, $ImageName . '-3');
-                $this->request->data['TravelHotelLookup']['full_img3'] = 'http://imageius.com/uploads/hotels/' . $image3;
-                $this->request->data['TravelHotelLookup']['thumb_img3'] = 'http://imageius.com/uploads/hotels/thumbs/' . $image3;
-                $this->Image->thumbnail($this->uploadDir . '/' . $image3, 'thumbs', $this->Width, $this->Height);
+                $file_type = $this->request->data['TravelHotelLookup']['image3']['type'];
+                $file_size = $this->request->data['TravelHotelLookup']['image3']['size'];
+                if ($this->ImagefileCheck($file_type, $file_size) == 'true') {
+                    $image3 = $this->Image->upload($TravelHotelLookups['TravelHotelLookup']['full_img3'], $this->request->data['TravelHotelLookup']['image3'], $this->uploadDir, $ImageName . '-3');
+                    $this->request->data['TravelHotelLookup']['full_img3'] = 'http://imageius.com/uploads/hotels/' . $image3;
+                    $this->request->data['TravelHotelLookup']['thumb_img3'] = 'http://imageius.com/uploads/hotels/thumbs/' . $image3;
+                    $this->Image->thumbnail($this->uploadDir . '/' . $image3, 'thumbs', $this->Width, $this->Height);
 
-                $file_thum = $this->uploadDir . '/thumbs/' . $image3;
-                $dstfile_thum = 'uploads/hotels/thumbs/' . $image3;
+                    $file_thum = $this->uploadDir . '/thumbs/' . $image3;
+                    $dstfile_thum = 'uploads/hotels/thumbs/' . $image3;
 
-                $file = $this->uploadDir . '/' . $image3;
-                $dstfile = 'uploads/hotels/' . $image3;
+                    $file = $this->uploadDir . '/' . $image3;
+                    $dstfile = 'uploads/hotels/' . $image3;
 
-                if (ftp_put($ftp_conn, $dstfile, $file, FTP_ASCII)) {
-                    ftp_put($ftp_conn, $dstfile_thum, $file_thum, FTP_ASCII);
-                    //echo "Successfully uploaded $file.";
+                    if (ftp_put($ftp_conn, $dstfile, $file, FTP_ASCII)) {
+                        ftp_put($ftp_conn, $dstfile_thum, $file_thum, FTP_ASCII);
+                        //echo "Successfully uploaded $file.";
+                    }
                 } else {
-                    echo "Error uploading $file.";
+                    $error_msg .= 'Picture3, ';
                 }
 
                 // close connection
@@ -594,22 +607,27 @@ class TravelHotelImagesController extends AppController {
             }
 
             if (is_uploaded_file($this->request->data['TravelHotelLookup']['image4']['tmp_name'])) {
-                $image4 = $this->Image->upload($TravelHotelLookups['TravelHotelLookup']['full_img4'], $this->request->data['TravelHotelLookup']['image4'], $this->uploadDir, $ImageName . '-4');
-                $this->request->data['TravelHotelLookup']['full_img4'] = 'http://imageius.com/uploads/hotels/' . $image4;
-                $this->request->data['TravelHotelLookup']['thumb_img4'] = 'http://imageius.com/uploads/hotels/thumbs/' . $image4;
-                $this->Image->thumbnail($this->uploadDir . '/' . $image4, 'thumbs', $this->Width, $this->Height);
 
-                $file_thum = $this->uploadDir . '/thumbs/' . $image4;
-                $dstfile_thum = 'uploads/hotels/thumbs/' . $image4;
+                $file_type = $this->request->data['TravelHotelLookup']['image4']['type'];
+                $file_size = $this->request->data['TravelHotelLookup']['image4']['size'];
+                if ($this->ImagefileCheck($file_type, $file_size) == 'true') {
+                    $image4 = $this->Image->upload($TravelHotelLookups['TravelHotelLookup']['full_img4'], $this->request->data['TravelHotelLookup']['image4'], $this->uploadDir, $ImageName . '-4');
+                    $this->request->data['TravelHotelLookup']['full_img4'] = 'http://imageius.com/uploads/hotels/' . $image4;
+                    $this->request->data['TravelHotelLookup']['thumb_img4'] = 'http://imageius.com/uploads/hotels/thumbs/' . $image4;
+                    $this->Image->thumbnail($this->uploadDir . '/' . $image4, 'thumbs', $this->Width, $this->Height);
 
-                $file = $this->uploadDir . '/' . $image4;
-                $dstfile = 'uploads/hotels/' . $image4;
+                    $file_thum = $this->uploadDir . '/thumbs/' . $image4;
+                    $dstfile_thum = 'uploads/hotels/thumbs/' . $image4;
 
-                if (ftp_put($ftp_conn, $dstfile, $file, FTP_ASCII)) {
-                    ftp_put($ftp_conn, $dstfile_thum, $file_thum, FTP_ASCII);
-                    //echo "Successfully uploaded $file.";
+                    $file = $this->uploadDir . '/' . $image4;
+                    $dstfile = 'uploads/hotels/' . $image4;
+
+                    if (ftp_put($ftp_conn, $dstfile, $file, FTP_ASCII)) {
+                        ftp_put($ftp_conn, $dstfile_thum, $file_thum, FTP_ASCII);
+                        //echo "Successfully uploaded $file.";
+                    }
                 } else {
-                    echo "Error uploading $file.";
+                    $error_msg .= 'Picture4, ';
                 }
 
                 // close connection
@@ -621,22 +639,27 @@ class TravelHotelImagesController extends AppController {
             }
 
             if (is_uploaded_file($this->request->data['TravelHotelLookup']['image5']['tmp_name'])) {
-                $image5 = $this->Image->upload($TravelHotelLookups['TravelHotelLookup']['full_img5'], $this->request->data['TravelHotelLookup']['image5'], $this->uploadDir, $ImageName . '-5');
-                $this->request->data['TravelHotelLookup']['full_img5'] = 'http://imageius.com/uploads/hotels/' . $image5;
-                $this->request->data['TravelHotelLookup']['thumb_img5'] = 'http://imageius.com/uploads/hotels/thumbs/' . $image5;
-                $this->Image->thumbnail($this->uploadDir . '/' . $image5, 'thumbs', $this->Width, $this->Height);
 
-                $file_thum = $this->uploadDir . '/thumbs/' . $image5;
-                $dstfile_thum = 'uploads/hotels/thumbs/' . $image5;
+                $file_type = $this->request->data['TravelHotelLookup']['image5']['type'];
+                $file_size = $this->request->data['TravelHotelLookup']['image5']['size'];
+                if ($this->ImagefileCheck($file_type, $file_size) == 'true') {
+                    $image5 = $this->Image->upload($TravelHotelLookups['TravelHotelLookup']['full_img5'], $this->request->data['TravelHotelLookup']['image5'], $this->uploadDir, $ImageName . '-5');
+                    $this->request->data['TravelHotelLookup']['full_img5'] = 'http://imageius.com/uploads/hotels/' . $image5;
+                    $this->request->data['TravelHotelLookup']['thumb_img5'] = 'http://imageius.com/uploads/hotels/thumbs/' . $image5;
+                    $this->Image->thumbnail($this->uploadDir . '/' . $image5, 'thumbs', $this->Width, $this->Height);
 
-                $file = $this->uploadDir . '/' . $image5;
-                $dstfile = 'uploads/hotels/' . $image5;
+                    $file_thum = $this->uploadDir . '/thumbs/' . $image5;
+                    $dstfile_thum = 'uploads/hotels/thumbs/' . $image5;
 
-                if (ftp_put($ftp_conn, $dstfile, $file, FTP_ASCII)) {
-                    ftp_put($ftp_conn, $dstfile_thum, $file_thum, FTP_ASCII);
-                    //echo "Successfully uploaded $file.";
+                    $file = $this->uploadDir . '/' . $image5;
+                    $dstfile = 'uploads/hotels/' . $image5;
+
+                    if (ftp_put($ftp_conn, $dstfile, $file, FTP_ASCII)) {
+                        ftp_put($ftp_conn, $dstfile_thum, $file_thum, FTP_ASCII);
+                        //echo "Successfully uploaded $file.";
+                    }
                 } else {
-                    echo "Error uploading $file.";
+                    $error_msg .= 'Picture5, ';
                 }
 
                 // close connection
@@ -648,22 +671,26 @@ class TravelHotelImagesController extends AppController {
             }
 
             if (is_uploaded_file($this->request->data['TravelHotelLookup']['image6']['tmp_name'])) {
-                $image6 = $this->Image->upload($TravelHotelLookups['TravelHotelLookup']['full_img6'], $this->request->data['TravelHotelLookup']['image6'], $this->uploadDir, $ImageName . '-6');
-                $this->request->data['TravelHotelLookup']['full_img6'] = 'http://imageius.com/uploads/hotels/' . $image6;
-                $this->request->data['TravelHotelLookup']['thumb_img6'] = 'http://imageius.com/uploads/hotels/thumbs/' . $image6;
-                $this->Image->thumbnail($this->uploadDir . '/' . $image6, 'thumbs', $this->Width, $this->Height);
+                $file_type = $this->request->data['TravelHotelLookup']['image6']['type'];
+                $file_size = $this->request->data['TravelHotelLookup']['image6']['size'];
+                if ($this->ImagefileCheck($file_type, $file_size) == 'true') {
+                    $image6 = $this->Image->upload($TravelHotelLookups['TravelHotelLookup']['full_img6'], $this->request->data['TravelHotelLookup']['image6'], $this->uploadDir, $ImageName . '-6');
+                    $this->request->data['TravelHotelLookup']['full_img6'] = 'http://imageius.com/uploads/hotels/' . $image6;
+                    $this->request->data['TravelHotelLookup']['thumb_img6'] = 'http://imageius.com/uploads/hotels/thumbs/' . $image6;
+                    $this->Image->thumbnail($this->uploadDir . '/' . $image6, 'thumbs', $this->Width, $this->Height);
 
-                $file_thum = $this->uploadDir . '/thumbs/' . $image6;
-                $dstfile_thum = 'uploads/hotels/thumbs/' . $image6;
+                    $file_thum = $this->uploadDir . '/thumbs/' . $image6;
+                    $dstfile_thum = 'uploads/hotels/thumbs/' . $image6;
 
-                $file = $this->uploadDir . '/' . $image6;
-                $dstfile = 'uploads/hotels/' . $image6;
+                    $file = $this->uploadDir . '/' . $image6;
+                    $dstfile = 'uploads/hotels/' . $image6;
 
-                if (ftp_put($ftp_conn, $dstfile, $file, FTP_ASCII)) {
-                    ftp_put($ftp_conn, $dstfile_thum, $file_thum, FTP_ASCII);
-                    //echo "Successfully uploaded $file.";
+                    if (ftp_put($ftp_conn, $dstfile, $file, FTP_ASCII)) {
+                        ftp_put($ftp_conn, $dstfile_thum, $file_thum, FTP_ASCII);
+                        //echo "Successfully uploaded $file.";
+                    }
                 } else {
-                    echo "Error uploading $file.";
+                    $error_msg .= 'Picture6';
                 }
 
                 // close connection
@@ -674,6 +701,11 @@ class TravelHotelImagesController extends AppController {
                 unset($this->request->data['TravelHotelLookup']['image6']);
             }
             ftp_close($ftp_conn);
+            if ($error_msg <> '') {
+                $er_msg = 'Wrong image type/size (File size should be <= 3 mb) - '.$error_msg;
+                $this->Session->setFlash($er_msg, 'failure');
+                $this->redirect(array('action' => 'edit/' . $id));
+            }
 
             $HotelId = $id;
             $HotelCode = $TravelHotelLookups['TravelHotelLookup']['hotel_code'];
@@ -775,9 +807,9 @@ class TravelHotelImagesController extends AppController {
 
 
             $this->TravelHotelLookup->id = $id;
-            if ($this->TravelHotelImage->validates() == true) {
-                if ($this->TravelHotelLookup->save($this->request->data['TravelHotelLookup'])) {
-                    $content_xml_str = '<soap:Body>
+
+            if ($this->TravelHotelLookup->save($this->request->data['TravelHotelLookup'])) {
+                $content_xml_str = '<soap:Body>
                                         <ProcessXML xmlns="http://www.travel.domain/">
                                             <RequestInfo>
                                                 <ResourceDataRequest>
@@ -881,73 +913,74 @@ class TravelHotelImagesController extends AppController {
                                     </soap:Body>';
 
 
-                    $log_call_screen = 'Edit - Hotel';
+                $log_call_screen = 'Edit - Hotel';
 
-                    $xml_string = Configure::read('travel_start_xml_str') . $content_xml_str . Configure::read('travel_end_xml_str');
-                    $client = new SoapClient(null, array(
-                        'location' => $location_URL,
-                        'uri' => '',
-                        'trace' => 1,
+                $xml_string = Configure::read('travel_start_xml_str') . $content_xml_str . Configure::read('travel_end_xml_str');
+                $client = new SoapClient(null, array(
+                    'location' => $location_URL,
+                    'uri' => '',
+                    'trace' => 1,
+                ));
+
+                try {
+                    $order_return = $client->__doRequest($xml_string, $location_URL, $action_URL, 1);
+                    //$xml_arr = Xml::toArray(Xml::build($order_return));
+                    $xml_arr = $this->xml2array($order_return);
+                    //echo htmlentities($xml_string);
+                    //pr($xml_arr);
+                    //die;
+
+                    if ($xml_arr['SOAP:ENVELOPE']['SOAP:BODY']['PROCESSXMLRESPONSE']['PROCESSXMLRESULT']['RESOURCEDATA_HOTEL']['RESPONSEAUDITINFO']['RESPONSEINFO']['RESPONSEID'][0] == '201') {
+                        $log_call_status_code = $xml_arr['SOAP:ENVELOPE']['SOAP:BODY']['PROCESSXMLRESPONSE']['PROCESSXMLRESULT']['RESOURCEDATA_HOTEL']['RESPONSEAUDITINFO']['RESPONSEINFO']['RESPONSEID'][0];
+                        $log_call_status_message = $xml_arr['SOAP:ENVELOPE']['SOAP:BODY']['PROCESSXMLRESPONSE']['PROCESSXMLRESULT']['RESOURCEDATA_HOTEL']['RESPONSEAUDITINFO']['UPDATEINFO']['STATUS'][0];
+                        $xml_msg = "Foreign record has been successfully created [Code:$log_call_status_code]";
+                        $this->TravelHotelLookup->updateAll(array('TravelHotelLookup.wtb_status' => "'1'", 'TravelHotelLookup.is_updated' => "'Y'"), array('TravelHotelLookup.id' => $HotelId));
+                    } else {
+
+                        $log_call_status_message = $xml_arr['SOAP:ENVELOPE']['SOAP:BODY']['PROCESSXMLRESPONSE']['PROCESSXMLRESULT']['RESOURCEDATA_HOTEL']['RESPONSEAUDITINFO']['ERRORINFO']['ERROR'][0];
+                        $log_call_status_code = $xml_arr['SOAP:ENVELOPE']['SOAP:BODY']['PROCESSXMLRESPONSE']['PROCESSXMLRESULT']['RESOURCEDATA_HOTEL']['RESPONSEAUDITINFO']['RESPONSEINFO']['RESPONSEID'][0]; // RESPONSEID
+                        $xml_msg = "There was a problem with foreign record creation [Code:$log_call_status_code]";
+                        $this->TravelHotelLookup->updateAll(array('TravelHotelLookup.wtb_status' => "'2'"), array('TravelHotelLookup.id' => $HotelId));
+                        $xml_error = 'TRUE';
+                    }
+                } catch (SoapFault $exception) {
+                    var_dump(get_class($exception));
+                    var_dump($exception);
+                }
+
+
+                $this->request->data['LogCall']['log_call_nature'] = 'Production';
+                $this->request->data['LogCall']['log_call_type'] = 'Outbound';
+                $this->request->data['LogCall']['log_call_parms'] = trim($xml_string);
+                $this->request->data['LogCall']['log_call_status_code'] = $log_call_status_code;
+                $this->request->data['LogCall']['log_call_status_message'] = $log_call_status_message;
+                $this->request->data['LogCall']['log_call_screen'] = $log_call_screen;
+                $this->request->data['LogCall']['log_call_counterparty'] = 'WTBNETWORKS';
+                $this->request->data['LogCall']['log_call_by'] = $user_id;
+                $this->LogCall->save($this->request->data['LogCall']);
+                $LogId = $this->LogCall->getLastInsertId();
+                $message = 'Local record has been successfully updated.<br />' . $xml_msg;
+                $a = date('m/d/Y H:i:s', strtotime('-1 hour'));
+                $date = new DateTime($a, new DateTimeZone('Asia/Calcutta'));
+                if ($xml_error == 'TRUE') {
+                    $Email = new CakeEmail();
+
+                    $Email->viewVars(array(
+                        'request_xml' => trim($xml_string),
+                        'respon_message' => $log_call_status_message,
+                        'respon_code' => $log_call_status_code,
                     ));
 
-                    try {
-                        $order_return = $client->__doRequest($xml_string, $location_URL, $action_URL, 1);
-                        //$xml_arr = Xml::toArray(Xml::build($order_return));
-                        $xml_arr = $this->xml2array($order_return);
-                        //echo htmlentities($xml_string);
-                        //pr($xml_arr);
-                        //die;
+                    $to = 'biswajit@wtbglobal.com';
+                    $cc = 'infra@sumanus.com';
 
-                        if ($xml_arr['SOAP:ENVELOPE']['SOAP:BODY']['PROCESSXMLRESPONSE']['PROCESSXMLRESULT']['RESOURCEDATA_HOTEL']['RESPONSEAUDITINFO']['RESPONSEINFO']['RESPONSEID'][0] == '201') {
-                            $log_call_status_code = $xml_arr['SOAP:ENVELOPE']['SOAP:BODY']['PROCESSXMLRESPONSE']['PROCESSXMLRESULT']['RESOURCEDATA_HOTEL']['RESPONSEAUDITINFO']['RESPONSEINFO']['RESPONSEID'][0];
-                            $log_call_status_message = $xml_arr['SOAP:ENVELOPE']['SOAP:BODY']['PROCESSXMLRESPONSE']['PROCESSXMLRESULT']['RESOURCEDATA_HOTEL']['RESPONSEAUDITINFO']['UPDATEINFO']['STATUS'][0];
-                            $xml_msg = "Foreign record has been successfully created [Code:$log_call_status_code]";
-                            $this->TravelHotelLookup->updateAll(array('TravelHotelLookup.wtb_status' => "'1'", 'TravelHotelLookup.is_updated' => "'Y'"), array('TravelHotelLookup.id' => $HotelId));
-                        } else {
-
-                            $log_call_status_message = $xml_arr['SOAP:ENVELOPE']['SOAP:BODY']['PROCESSXMLRESPONSE']['PROCESSXMLRESULT']['RESOURCEDATA_HOTEL']['RESPONSEAUDITINFO']['ERRORINFO']['ERROR'][0];
-                            $log_call_status_code = $xml_arr['SOAP:ENVELOPE']['SOAP:BODY']['PROCESSXMLRESPONSE']['PROCESSXMLRESULT']['RESOURCEDATA_HOTEL']['RESPONSEAUDITINFO']['RESPONSEINFO']['RESPONSEID'][0]; // RESPONSEID
-                            $xml_msg = "There was a problem with foreign record creation [Code:$log_call_status_code]";
-                            $this->TravelHotelLookup->updateAll(array('TravelHotelLookup.wtb_status' => "'2'"), array('TravelHotelLookup.id' => $HotelId));
-                            $xml_error = 'TRUE';
-                        }
-                    } catch (SoapFault $exception) {
-                        var_dump(get_class($exception));
-                        var_dump($exception);
-                    }
-
-
-                    $this->request->data['LogCall']['log_call_nature'] = 'Production';
-                    $this->request->data['LogCall']['log_call_type'] = 'Outbound';
-                    $this->request->data['LogCall']['log_call_parms'] = trim($xml_string);
-                    $this->request->data['LogCall']['log_call_status_code'] = $log_call_status_code;
-                    $this->request->data['LogCall']['log_call_status_message'] = $log_call_status_message;
-                    $this->request->data['LogCall']['log_call_screen'] = $log_call_screen;
-                    $this->request->data['LogCall']['log_call_counterparty'] = 'WTBNETWORKS';
-                    $this->request->data['LogCall']['log_call_by'] = $user_id;
-                    $this->LogCall->save($this->request->data['LogCall']);
-                    $LogId = $this->LogCall->getLastInsertId();
-                    $message = 'Local record has been successfully updated.<br />' . $xml_msg;
-                    $a = date('m/d/Y H:i:s', strtotime('-1 hour'));
-                    $date = new DateTime($a, new DateTimeZone('Asia/Calcutta'));
-                    if ($xml_error == 'TRUE') {
-                        $Email = new CakeEmail();
-
-                        $Email->viewVars(array(
-                            'request_xml' => trim($xml_string),
-                            'respon_message' => $log_call_status_message,
-                            'respon_code' => $log_call_status_code,
-                        ));
-
-                        $to = 'biswajit@wtbglobal.com';
-                        $cc = 'infra@sumanus.com';
-
-                        $Email->template('XML/xml', 'default')->emailFormat('html')->to($to)->cc($cc)->from('admin@silkrouters.com')->subject('XML Error [' . $log_call_screen . '] Log Id [' . $LogId . '] Open By [' . $this->User->Username($user_id) . '] Date [' . date("m/d/Y H:i:s", $date->format('U')) . ']')->send();
-                    }
-
-                    $this->Session->setFlash($message, 'success');
+                    $Email->template('XML/xml', 'default')->emailFormat('html')->to($to)->cc($cc)->from('admin@silkrouters.com')->subject('XML Error [' . $log_call_screen . '] Log Id [' . $LogId . '] Open By [' . $this->User->Username($user_id) . '] Date [' . date("m/d/Y H:i:s", $date->format('U')) . ']')->send();
                 }
+
+                $this->Session->setFlash($message, 'success');
             }
+
+
 
             $this->redirect(array('action' => 'index'));
             // $this->redirect(array('controller' => 'messages','action' => 'index','properties','my-properties'));
@@ -1059,6 +1092,16 @@ class TravelHotelImagesController extends AppController {
 
 
         $this->request->data = $TravelHotelLookups;
+    }
+
+    public function ImagefileCheck($file_type = null, $file_size = null) {
+        $img_up_type = explode("/", $file_type);
+        echo $img_up_type_firstpart = $img_up_type[0];
+        if (($img_up_type_firstpart == "image" ) && ($file_size < 3000000)) {
+            return 'true';
+        } else {
+            return 'false';
+        }
     }
 
 }
