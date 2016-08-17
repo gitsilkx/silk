@@ -580,7 +580,7 @@ class TravelHotelImagesController extends AppController {
 
       
              $HotelId = $id;
-            $HotelCode = $this->data['TravelHotelLookup']['hotel_code'];
+            $HotelCode = $TravelHotelLookups['TravelHotelLookup']['hotel_code'];
             $HotelName = $this->data['TravelHotelLookup']['hotel_name'];
             $AreaId = $this->data['TravelHotelLookup']['area_id'];
            // $AreaCode = $this->data['TravelHotelLookup']['area_code'];
@@ -596,12 +596,12 @@ class TravelHotelImagesController extends AppController {
            
             $CityName = $this->data['TravelHotelLookup']['city_name'];
             $CityCode = $this->data['TravelHotelLookup']['city_code'];
-            $CountryId = $this->data['TravelHotelLookup']['country_id'];
-            $CountryName = $this->data['TravelHotelLookup']['country_name'];
-            $CountryCode = $this->data['TravelHotelLookup']['country_code'];
-            $ContinentId = $this->data['TravelHotelLookup']['continent_id'];
-            $ContinentName = $this->data['TravelHotelLookup']['continent_name'];
-            $ContinentCode = $this->data['TravelHotelLookup']['continent_code'];
+            $CountryId = $TravelHotelLookups['TravelHotelLookup']['country_id'];
+            $CountryName = $TravelHotelLookups['TravelHotelLookup']['country_name'];
+            $CountryCode = $TravelHotelLookups['TravelHotelLookup']['country_code'];
+            $ContinentId = $TravelHotelLookups['TravelHotelLookup']['continent_id'];
+            $ContinentName = $TravelHotelLookups['TravelHotelLookup']['continent_name'];
+            $ContinentCode = $TravelHotelLookups['TravelHotelLookup']['continent_code'];
             $BrandId = $this->data['TravelHotelLookup']['brand_id'];
             
             $BrandName = $this->data['TravelHotelLookup']['brand_name'];
@@ -646,7 +646,7 @@ class TravelHotelImagesController extends AppController {
             $Address = $this->data['TravelHotelLookup']['address'];
             $PostCode = $TravelHotelLookups['TravelHotelLookup']['post_code'];
             $NoRoom = $TravelHotelLookups['TravelHotelLookup']['no_room'];
-            $Active = $this->data['TravelHotelLookup']['active'];
+            $Active = $TravelHotelLookups['TravelHotelLookup']['active'];
             if ($Active == 'TRUE')
                 $Active = '1';
             else
@@ -658,8 +658,8 @@ class TravelHotelImagesController extends AppController {
             $EmergencyContactNumber = $TravelHotelLookups['TravelHotelLookup']['emergency_contact_number'];
             $GPSPARAM1 = $TravelHotelLookups['TravelHotelLookup']['gps_prm_1'];
             $GPSPARAM2 = $TravelHotelLookups['TravelHotelLookup']['gps_prm_2'];
-            $ProvinceId = $this->data['TravelHotelLookup']['province_id'];
-            $ProvinceName = $this->data['TravelHotelLookup']['province_name'];
+            $ProvinceId = $TravelHotelLookups['TravelHotelLookup']['province_id'];
+            $ProvinceName = $TravelHotelLookups['TravelHotelLookup']['province_name'];
             $TopHotel = strtolower($TravelHotelLookups['TravelHotelLookup']['top_hotel']);
             $PropertyType = $TravelHotelLookups['TravelHotelLookup']['property_type'];
             $CreatedDate = date('Y-m-d') . 'T' . date('h:i:s');
