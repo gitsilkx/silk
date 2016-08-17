@@ -777,19 +777,19 @@ class TravelHotelImagesController extends AppController {
                                 <ValueRating>' . $ValueRating . '</ValueRating>
                                 <OverallRating>' . $OverallRating . '</OverallRating>
 
-                                <HotelImage1Full><![CDATA[' .$HotelImage1. ']]><HotelImage1Full />
-                                <HotelImage2Full>'.$HotelImage2.'<HotelImage2Full />
-                                <HotelImage3Full>'.$HotelImage3.'<HotelImage3Full />
-                                <HotelImage4Full>'.$HotelImage4.'<HotelImage4Full />
-                                <HotelImage5Full>'.$HotelImage5.'<HotelImage5Full />
-                                <HotelImage6Full>'.$HotelImage6.'<HotelImage6Full />
+                                <HotelImage1Full><![CDATA[' .$HotelImage1. ']]></HotelImage1Full>
+                                <HotelImage2Full><![CDATA['.$HotelImage2.']]></HotelImage2Full>
+                                <HotelImage3Full><![CDATA['.$HotelImage3.']]></HotelImage3Full>
+                                <HotelImage4Full><![CDATA['.$HotelImage4.']]></HotelImage4Full>
+                                <HotelImage5Full><![CDATA['.$HotelImage5.']]></HotelImage5Full>
+                                <HotelImage6Full><![CDATA['.$HotelImage6.']]></HotelImage6Full>
 
-                                <HotelImage1Thumb><![CDATA[' .$ThumbImage1. ']]><HotelImage1Thumb />
-                                <HotelImage2Thumb>'.$ThumbImage2.'<HotelImage2Thumb />
-                                <HotelImage3Thumb>'.$ThumbImage3.'<HotelImage3Thumb />
-                                <HotelImage4Thumb>'.$ThumbImage4.'<HotelImage4Thumb />
-                                <HotelImage5Thumb>'.$ThumbImage5.'<HotelImage5Thumb />
-                                <HotelImage6Thumb>'.$ThumbImage6.'<HotelImage6Thumb />
+                                <HotelImage1Thumb><![CDATA[' .$ThumbImage1. ']]></HotelImage1Thumb>
+                                <HotelImage2Thumb><![CDATA['.$ThumbImage2.']]></HotelImage2Thumb>
+                                <HotelImage3Thumb><![CDATA['.$ThumbImage3.']]></HotelImage3Thumb>
+                                <HotelImage4Thumb><![CDATA['.$ThumbImage4.']]></HotelImage4Thumb>
+                                <HotelImage5Thumb><![CDATA['.$ThumbImage5.']]></HotelImage5Thumb>
+                                <HotelImage6Thumb><![CDATA['.$ThumbImage6.']]></HotelImage6Thumb>
 
                                 <IsImage>false</IsImage>
                                 <IsPage>false</IsPage>
