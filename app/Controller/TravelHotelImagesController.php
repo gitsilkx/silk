@@ -458,7 +458,10 @@ class TravelHotelImagesController extends AppController {
 
     public function edit($id) {
 
+        $location_URL = 'http://dev.wtbnetworks.com/TravelXmlManagerv001/ProEngine.Asmx';
+        $action_URL = 'http://www.travel.domain/ProcessXML';
         $user_id = $this->Auth->user('id');
+       
         $role_id = $this->Session->read("role_id");
         $dummy_status = $this->Auth->user('dummy_status');
         $actio_itme_id = '';
@@ -575,6 +578,97 @@ class TravelHotelImagesController extends AppController {
             }
 
       
+             $HotelId = $id;
+            $HotelCode = $this->data['TravelHotelLookup']['hotel_code'];
+            $HotelName = $this->data['TravelHotelLookup']['hotel_name'];
+            $AreaId = $this->data['TravelHotelLookup']['area_id'];
+           // $AreaCode = $this->data['TravelHotelLookup']['area_code'];
+            
+
+            $AreaName = $this->data['TravelHotelLookup']['area_name'];
+            
+            $SuburbId = $this->data['TravelHotelLookup']['suburb_id'];
+           
+            $SuburbName = $this->data['TravelHotelLookup']['suburb_name'];
+
+            $CityId = $this->data['TravelHotelLookup']['city_id'];
+           
+            $CityName = $this->data['TravelHotelLookup']['city_name'];
+            $CityCode = $this->data['TravelHotelLookup']['city_code'];
+            $CountryId = $this->data['TravelHotelLookup']['country_id'];
+            $CountryName = $this->data['TravelHotelLookup']['country_name'];
+            $CountryCode = $this->data['TravelHotelLookup']['country_code'];
+            $ContinentId = $this->data['TravelHotelLookup']['continent_id'];
+            $ContinentName = $this->data['TravelHotelLookup']['continent_name'];
+            $ContinentCode = $this->data['TravelHotelLookup']['continent_code'];
+            $BrandId = $this->data['TravelHotelLookup']['brand_id'];
+            
+            $BrandName = $this->data['TravelHotelLookup']['brand_name'];
+            $ChainId = $this->data['TravelHotelLookup']['chain_id'];
+            
+            $ChainName = $this->data['TravelHotelLookup']['chain_name'];
+            $HotelComment = $this->data['TravelHotelLookup']['hotel_comment'];
+            $Star = $TravelHotelLookups['TravelHotelLookup']['star'];
+            $Keyword = $TravelHotelLookups['TravelHotelLookup']['keyword'];
+            $StandardRating = $TravelHotelLookups['TravelHotelLookup']['standard_rating'];
+            $HotelRating = $TravelHotelLookups['TravelHotelLookup']['hotel_rating'];
+            $FoodRating = $TravelHotelLookups['TravelHotelLookup']['food_rating'];
+            $ServiceRating = $TravelHotelLookups['TravelHotelLookup']['service_rating'];
+            $LocationRating = $TravelHotelLookups['TravelHotelLookup']['location_rating'];
+            $ValueRating = $TravelHotelLookups['TravelHotelLookup']['value_rating'];
+            $OverallRating = $TravelHotelLookups['TravelHotelLookup']['overall_rating'];
+            $HotelImage1 = $this->data['TravelHotelLookup']['full_img1'];
+            $HotelImage2 =$this->data['TravelHotelLookup']['full_img2'];
+            $HotelImage3 = $this->data['TravelHotelLookup']['full_img3'];
+            $HotelImage4 = $this->data['TravelHotelLookup']['full_img4'];
+            $HotelImage5 = $this->data['TravelHotelLookup']['full_img5'];
+            $HotelImage6 = $this->data['TravelHotelLookup']['full_img6'];
+            $ThumbImage1 = $this->data['TravelHotelLookup']['thumb_img1'];
+            $ThumbImage2 = $this->data['TravelHotelLookup']['thumb_img2'];
+            $ThumbImage3 = $this->data['TravelHotelLookup']['thumb_img3'];
+            $ThumbImage4 = $this->data['TravelHotelLookup']['thumb_img4'];
+            $ThumbImage5 = $this->data['TravelHotelLookup']['thumb_img5'];
+            $ThumbImage6 = $this->data['TravelHotelLookup']['thumb_img6'];
+            $Logo = $TravelHotelLookups['TravelHotelLookup']['logo'];
+            $Logo1 = $TravelHotelLookups['TravelHotelLookup']['logo1'];
+            $BusinessCenter = $TravelHotelLookups['TravelHotelLookup']['business_center'];
+            $MeetingFacilities = $TravelHotelLookups['TravelHotelLookup']['meeting_facilities'];
+            $DiningFacilities = $TravelHotelLookups['TravelHotelLookup']['dining_facilities'];
+            $BarLounge = $TravelHotelLookups['TravelHotelLookup']['bar_lounge'];
+            $FitnessCenter = $TravelHotelLookups['TravelHotelLookup']['fitness_center'];
+            $Pool = $TravelHotelLookups['TravelHotelLookup']['pool'];
+            $Golf = $TravelHotelLookups['TravelHotelLookup']['golf'];
+            $Tennis = $TravelHotelLookups['TravelHotelLookup']['tennis'];
+            $Kids = $TravelHotelLookups['TravelHotelLookup']['kids'];
+            $Handicap = $TravelHotelLookups['TravelHotelLookup']['handicap'];
+            $URLHotel = $TravelHotelLookups['TravelHotelLookup']['url_hotel'];
+            $Address = $this->data['TravelHotelLookup']['address'];
+            $PostCode = $TravelHotelLookups['TravelHotelLookup']['post_code'];
+            $NoRoom = $TravelHotelLookups['TravelHotelLookup']['no_room'];
+            $Active = $this->data['TravelHotelLookup']['active'];
+            if ($Active == 'TRUE')
+                $Active = '1';
+            else
+                $Active = '0';
+            $ReservationEmail = $TravelHotelLookups['TravelHotelLookup']['reservation_email'];
+            $ReservationContact = $TravelHotelLookups['TravelHotelLookup']['reservation_contact'];
+            $EmergencyContactName = $TravelHotelLookups['TravelHotelLookup']['emergency_contact_name'];
+            $ReservationDeskNumber = $TravelHotelLookups['TravelHotelLookup']['reservation_desk_number'];
+            $EmergencyContactNumber = $TravelHotelLookups['TravelHotelLookup']['emergency_contact_number'];
+            $GPSPARAM1 = $TravelHotelLookups['TravelHotelLookup']['gps_prm_1'];
+            $GPSPARAM2 = $TravelHotelLookups['TravelHotelLookup']['gps_prm_2'];
+            $ProvinceId = $this->data['TravelHotelLookup']['province_id'];
+            $ProvinceName = $this->data['TravelHotelLookup']['province_name'];
+            $TopHotel = strtolower($TravelHotelLookups['TravelHotelLookup']['top_hotel']);
+            $PropertyType = $TravelHotelLookups['TravelHotelLookup']['property_type'];
+            $CreatedDate = date('Y-m-d') . 'T' . date('h:i:s');
+
+            $is_update = $TravelHotelLookups['TravelHotelLookup']['is_updated'];
+            if ($is_update == 'Y')
+                $actiontype = 'Update';
+            else
+                $actiontype = 'AddNew';
+
 
             //$this->request->data['TravelHotelLookup']['active'] = 'FALSE';
             //$this->request->data['TravelHotelLookup']['created_by'] = $user_id;
@@ -585,8 +679,175 @@ class TravelHotelImagesController extends AppController {
 
             $this->TravelHotelLookup->id = $id;
             if ($this->TravelHotelLookup->save($this->request->data['TravelHotelLookup'])) {
-               
-                $this->Session->setFlash('Your changes have been submitted. Waiting for approval at the moment...', 'success');
+               $content_xml_str = '<soap:Body>
+                                        <ProcessXML xmlns="http://www.travel.domain/">
+                                            <RequestInfo>
+                                                <ResourceDataRequest>
+                                                    <RequestAuditInfo>
+                                                        <RequestType>PXML_WData_Hotel</RequestType>
+                                                        <RequestTime>' . $CreatedDate . '</RequestTime>
+                                                        <RequestResource>Silkrouters</RequestResource>
+                                                    </RequestAuditInfo>
+                                                    <RequestParameters>                        
+                                                        <ResourceData>
+                                                            <ResourceDetailsData srno="1" actiontype="' . $actiontype . '">
+                                                                <HotelId>' . $HotelId . '</HotelId>
+                                <HotelCode><![CDATA[' . $HotelCode . ']]></HotelCode>
+                                <HotelName><![CDATA[' . $HotelName . ']]></HotelName>
+                                <AreaId>' . $AreaId . '</AreaId>
+                                <AreaCode><![CDATA[' . $AreaCode . ']]></AreaCode>
+                                <AreaName><![CDATA[' . $AreaName . ']]></AreaName>
+                                <SuburbId>' . $SuburbId . '</SuburbId>
+                                <SuburbCode>NA</SuburbCode>
+                                <SuburbName><![CDATA[' . $SuburbName . ']]></SuburbName>
+                                <CityId>' . $CityId . '</CityId>
+                                <CityCode><![CDATA[' . $CityCode . ']]></CityCode>
+                                <CityName><![CDATA[' . $CityName . ']]></CityName>
+                                <CountryId>' . $CountryId . '</CountryId>
+                                <CountryCode><![CDATA[' . $CountryCode . ']]></CountryCode>
+                                <CountryName><![CDATA[' . $CountryName . ']]></CountryName>
+                                <ContinentId>' . $ContinentId . '</ContinentId>
+                                <ContinentCode><![CDATA[' . $ContinentCode . ']]></ContinentCode>
+                                <ContinentName><![CDATA[' . $ContinentName . ']]></ContinentName>
+                                <ProvinceId>'.$ProvinceId.'</ProvinceId>
+                                <ProvinceName><![CDATA['.$ProvinceName.']]></ProvinceName>
+                                <BrandId>' . $BrandId . '</BrandId>
+                                <BrandName><![CDATA[' . $BrandName . ']]></BrandName>
+                                <ChainId>' . $ChainId . '</ChainId>
+                                <ChainName><![CDATA[' . $ChainName . ']]></ChainName>
+                                <HotelComment><![CDATA[' . $HotelComment . ']]></HotelComment>
+                                <Star>' . $Star . '</Star>
+                                <Keyword><![CDATA[' . $Keyword . ']]></Keyword>
+                                <StandardRating>' . $StandardRating . '</StandardRating>
+                                <HotelRating>' . $StandardRating . '</HotelRating>                                
+                                <FoodRating>' . $FoodRating . '</FoodRating>
+                                <ServiceRating>' . $ServiceRating . '</ServiceRating>
+                                <LocationRating>' . $LocationRating . '</LocationRating>
+                                <ValueRating>' . $ValueRating . '</ValueRating>
+                                <OverallRating>' . $OverallRating . '</OverallRating>
+
+                                <HotelImage1Full>'.$HotelImage1.'<HotelImage1Full />
+                                <HotelImage2Full>'.$HotelImage2.'<HotelImage2Full />
+                                <HotelImage3Full>'.$HotelImage3.'<HotelImage3Full />
+                                <HotelImage4Full>'.$HotelImage4.'<HotelImage4Full />
+                                <HotelImage5Full>'.$HotelImage5.'<HotelImage5Full />
+                                <HotelImage6Full>'.$HotelImage6.'<HotelImage6Full />
+
+                                <HotelImage1Thumb>'.$ThumbImage1.'<HotelImage1Thumb />
+                                <HotelImage2Thumb>'.$ThumbImage2.'<HotelImage2Thumb />
+                                <HotelImage3Thumb>'.$ThumbImage3.'<HotelImage3Thumb />
+                                <HotelImage4Thumb>'.$ThumbImage4.'<HotelImage4Thumb />
+                                <HotelImage5Thumb>'.$ThumbImage5.'<HotelImage5Thumb />
+                                <HotelImage6Thumb>'.$ThumbImage6.'<HotelImage6Thumb />
+
+                                <IsImage>false</IsImage>
+                                <IsPage>false</IsPage>
+
+                                <Logo>' . $Logo . '</Logo>
+                                                                <Logo1>' . $Logo1 . '</Logo1>
+                                                                <BusinessCenter>' . $BusinessCenter . '</BusinessCenter>
+                                                                <MeetingFacilities>' . $MeetingFacilities . '</MeetingFacilities>
+                                                                <DiningFacilities>' . $DiningFacilities . '</DiningFacilities>
+                                                                <BarLounge>' . $BarLounge . '</BarLounge>
+                                                                <FitnessCenter>' . $FitnessCenter . '</FitnessCenter>
+                                                                <Pool>' . $Pool . '</Pool>
+                                                                <Golf>' . $Golf . '</Golf>
+                                                                <Tennis>' . $Tennis . '</Tennis>
+                                                                <Kids>' . $Kids . '</Kids>
+                                                                <Handicap>' . $Handicap . '</Handicap>
+                                                                <URLHotel><![CDATA[' . $URLHotel . ']]></URLHotel>
+                                                                <Address><![CDATA[' . $Address . ']]></Address>
+                                                                <PostCode>' . $PostCode . '</PostCode>
+                                                                <NoRoom>' . $NoRoom . '</NoRoom>
+                                                                <Active>' . $Active . '</Active>
+                                                                <ReservationEmail><![CDATA[' . $ReservationEmail . ']]></ReservationEmail>
+                                                                <ReservationContact><![CDATA[' . $ReservationContact . ']]></ReservationContact>
+                                                                <EmergencyContactName><![CDATA[' . $EmergencyContactName . ']]></EmergencyContactName>
+                                                                <ReservationDeskNumber><![CDATA[' . $ReservationDeskNumber . ']]></ReservationDeskNumber>
+                                                                <EmergencyContactNumber><![CDATA[' . $EmergencyContactNumber . ']]></EmergencyContactNumber>
+                                                                <GPSPARAM1>' . $GPSPARAM1 . '</GPSPARAM1>
+                                                                <GPSPARAM2>' . $GPSPARAM2 . '</GPSPARAM2>
+                                                                <TopHotel>' . $TopHotel . '</TopHotel> 
+                                                                <PropertyType>'.$PropertyType.'</PropertyType>
+                                                                <ApprovedBy>0</ApprovedBy>
+                                                                <ApprovedDate>1111-01-01T00:00:00</ApprovedDate>
+                                                                <CreatedBy>' . $user_id . '</CreatedBy>
+                                                                <CreatedDate>' . $CreatedDate . '</CreatedDate>
+                                                            </ResourceDetailsData>
+                         
+                                                    </ResourceData>
+                                                    </RequestParameters>
+                                                </ResourceDataRequest>
+                                            </RequestInfo>
+                                        </ProcessXML>
+                                    </soap:Body>';
+
+
+            $log_call_screen = 'Edit - Hotel';
+
+            $xml_string = Configure::read('travel_start_xml_str') . $content_xml_str . Configure::read('travel_end_xml_str');
+            $client = new SoapClient(null, array(
+                'location' => $location_URL,
+                'uri' => '',
+                'trace' => 1,
+            ));
+
+            try {
+                $order_return = $client->__doRequest($xml_string, $location_URL, $action_URL, 1);
+
+                $xml_arr = $this->xml2array($order_return);
+                 echo htmlentities($xml_string);
+                 pr($xml_arr);
+                 die;
+
+                if ($xml_arr['SOAP:ENVELOPE']['SOAP:BODY']['PROCESSXMLRESPONSE']['PROCESSXMLRESULT']['RESOURCEDATA_HOTEL']['RESPONSEAUDITINFO']['RESPONSEINFO']['RESPONSEID'][0] == '201') {
+                    $log_call_status_code = $xml_arr['SOAP:ENVELOPE']['SOAP:BODY']['PROCESSXMLRESPONSE']['PROCESSXMLRESULT']['RESOURCEDATA_HOTEL']['RESPONSEAUDITINFO']['RESPONSEINFO']['RESPONSEID'][0];
+                    $log_call_status_message = $xml_arr['SOAP:ENVELOPE']['SOAP:BODY']['PROCESSXMLRESPONSE']['PROCESSXMLRESULT']['RESOURCEDATA_HOTEL']['RESPONSEAUDITINFO']['UPDATEINFO']['STATUS'][0];
+                    $xml_msg = "Foreign record has been successfully created [Code:$log_call_status_code]";
+                    $this->TravelHotelLookup->updateAll(array('TravelHotelLookup.wtb_status' => "'1'", 'TravelHotelLookup.is_updated' => "'Y'"), array('TravelHotelLookup.id' => $HotelId));
+                } else {
+
+                    $log_call_status_message = $xml_arr['SOAP:ENVELOPE']['SOAP:BODY']['PROCESSXMLRESPONSE']['PROCESSXMLRESULT']['RESOURCEDATA_HOTEL']['RESPONSEAUDITINFO']['ERRORINFO']['ERROR'][0];
+                    $log_call_status_code = $xml_arr['SOAP:ENVELOPE']['SOAP:BODY']['PROCESSXMLRESPONSE']['PROCESSXMLRESULT']['RESOURCEDATA_HOTEL']['RESPONSEAUDITINFO']['RESPONSEINFO']['RESPONSEID'][0]; // RESPONSEID
+                    $xml_msg = "There was a problem with foreign record creation [Code:$log_call_status_code]";
+                    $this->TravelHotelLookup->updateAll(array('TravelHotelLookup.wtb_status' => "'2'"), array('TravelHotelLookup.id' => $HotelId));
+                    $xml_error = 'TRUE';
+                }
+            } catch (SoapFault $exception) {
+                var_dump(get_class($exception));
+                var_dump($exception);
+            }
+
+
+            $this->request->data['LogCall']['log_call_nature'] = 'Production';
+            $this->request->data['LogCall']['log_call_type'] = 'Outbound';
+            $this->request->data['LogCall']['log_call_parms'] = trim($xml_string);
+            $this->request->data['LogCall']['log_call_status_code'] = $log_call_status_code;
+            $this->request->data['LogCall']['log_call_status_message'] = $log_call_status_message;
+            $this->request->data['LogCall']['log_call_screen'] = $log_call_screen;
+            $this->request->data['LogCall']['log_call_counterparty'] = 'WTBNETWORKS';
+            $this->request->data['LogCall']['log_call_by'] = $user_id;
+            $this->LogCall->save($this->request->data['LogCall']);
+            $LogId = $this->LogCall->getLastInsertId();
+            $message = 'Local record has been successfully updated.<br />' . $xml_msg;
+            $a =  date('m/d/Y H:i:s', strtotime('-1 hour'));
+            $date = new DateTime($a, new DateTimeZone('Asia/Calcutta'));
+            if ($xml_error == 'TRUE') {
+                $Email = new CakeEmail();
+
+                $Email->viewVars(array(
+                    'request_xml' => trim($xml_string),
+                    'respon_message' => $log_call_status_message,
+                    'respon_code' => $log_call_status_code,
+                ));
+
+                $to = 'biswajit@wtbglobal.com';
+                $cc = 'infra@sumanus.com';
+
+                $Email->template('XML/xml', 'default')->emailFormat('html')->to($to)->cc($cc)->from('admin@silkrouters.com')->subject('XML Error [' . $log_call_screen . '] Log Id [' . $LogId . '] Open By [' . $this->User->Username($user_id) . '] Date [' . date("m/d/Y H:i:s", $date->format('U')) . ']')->send();
+            }
+
+                $this->Session->setFlash($message, 'success');
             }
 
           
