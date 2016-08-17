@@ -639,7 +639,7 @@ class TravelHotelImagesController extends AppController {
             }
 
             if (is_uploaded_file($this->request->data['TravelHotelLookup']['image5']['tmp_name'])) {
-                $image5 = $this->Image->upload($TravelHotelLookups['TravelHotelLookup']['full_img5'], $this->request->data['TravelHotelLookup']['image5'], $this->uploadDir, $ImageName.'-3');
+                $image5 = $this->Image->upload($TravelHotelLookups['TravelHotelLookup']['full_img5'], $this->request->data['TravelHotelLookup']['image5'], $this->uploadDir, $ImageName.'-5');
                 $this->request->data['TravelHotelLookup']['full_img5'] = 'http://imageius.com/uploads/hotels/'.$image5;
                 $this->request->data['TravelHotelLookup']['thumb_img5'] = 'http://imageius.com/uploads/hotels/thumbs/'.$image5;
                 $this->Image->thumbnail($this->uploadDir.'/'.$image5,'thumbs',$this->Width,$this->Height);
