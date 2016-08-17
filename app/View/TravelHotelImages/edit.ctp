@@ -230,7 +230,7 @@ $this->Html->addCrumb('Edit Hotel', 'javascript:void(0);', array('class' => 'bre
                                                     <div class="fileupload-preview fileupload-exists img-thumbnail" style="width: 178px; height: 120px"></div>
                                                     <div>
                                                         <span class="btn btn-default btn-file"><span class="fileupload-new">Select image</span><span class="fileupload-exists">Change</span>
-                                                            <input type="file" name="data[TravelHotelLookup][image3]" />
+                                                            <input type="file" name="data[TravelHotelLookup][image3]" id="image3" />
 
                                                         </span>
                                                         <a href="#" class="btn btn-default fileupload-exists" data-dismiss="fileupload">Remove</a>
@@ -258,7 +258,7 @@ $this->Html->addCrumb('Edit Hotel', 'javascript:void(0);', array('class' => 'bre
                                                     <div class="fileupload-preview fileupload-exists img-thumbnail" style="width: 178px; height: 120px"></div>
                                                     <div>
                                                         <span class="btn btn-default btn-file"><span class="fileupload-new">Select image</span><span class="fileupload-exists">Change</span>
-                                                            <input type="file" name="data[TravelHotelLookup][image5]" />
+                                                            <input type="file" name="data[TravelHotelLookup][image5]" id="image5" />
 
                                                         </span>
                                                         <a href="#" class="btn btn-default fileupload-exists" data-dismiss="fileupload">Remove</a>
@@ -295,7 +295,7 @@ if ($this->data['TravelHotelLookup']['full_img2']) {
                                                     </div>
                                                     <div>
                                                         <span class="btn btn-default btn-file"><span class="fileupload-new">Select image</span><span class="fileupload-exists">Change</span>
-                                                            <input type="file" name="data[TravelHotelLookup][image2]" />
+                                                            <input type="file" name="data[TravelHotelLookup][image2]" id="image2" />
 
                                                         </span>
                                                         <a href="#" class="btn btn-default fileupload-exists" data-dismiss="fileupload">Remove</a>
@@ -323,7 +323,7 @@ if ($this->data['TravelHotelLookup']['full_img2']) {
                                                     <div class="fileupload-preview fileupload-exists img-thumbnail" style="width: 178px; height: 120px"></div>
                                                     <div>
                                                         <span class="btn btn-default btn-file"><span class="fileupload-new">Select image</span><span class="fileupload-exists">Change</span>
-                                                            <input type="file" name="data[TravelHotelLookup][image4]" />
+                                                            <input type="file" name="data[TravelHotelLookup][image4]" id="image4" />
 
                                                         </span>
                                                         <a href="#" class="btn btn-default fileupload-exists" data-dismiss="fileupload">Remove</a>
@@ -351,7 +351,7 @@ if ($this->data['TravelHotelLookup']['full_img2']) {
                                                     <div class="fileupload-preview fileupload-exists img-thumbnail" style="width: 178px; height: 120px"></div>
                                                     <div>
                                                         <span class="btn btn-default btn-file"><span class="fileupload-new">Select image</span><span class="fileupload-exists">Change</span>
-                                                            <input type="file" name="data[TravelHotelLookup][image6]" />
+                                                            <input type="file" name="data[TravelHotelLookup][image6]" id="image6" />
 
                                                         </span>
                                                         <a href="#" class="btn btn-default fileupload-exists" data-dismiss="fileupload">Remove</a>
