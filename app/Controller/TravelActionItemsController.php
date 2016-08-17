@@ -2223,6 +2223,9 @@ class TravelActionItemsController extends AppController {
                 $PropertyType = $HotelArray['TravelHotelLookup']['property_type'];
                 $TopHotel = strtolower($HotelArray['TravelHotelLookup']['top_hotel']);
                 $CreatedDate = date('Y-m-d') . 'T' . date('h:i:s');
+                $date = explode(' ', $HotelArray['TravelHotelRoomSupplier']['created']);
+                $CreatedBy = $HotelArray['TravelHotelRoomSupplier']['created_by'];
+                $created = $date[0] . 'T' . $date[1];
 
                 $is_update = $HotelArray['TravelHotelLookup']['is_updated'];
                 if ($is_update == 'Y') {
@@ -2263,8 +2266,8 @@ class TravelActionItemsController extends AppController {
                                                                 <ContinentId>' . $ContinentId . '</ContinentId>
                                                                 <ContinentCode><![CDATA[' . $ContinentCode . ']]></ContinentCode>
                                                                 <ContinentName><![CDATA[' . $ContinentName . ']]></ContinentName>
-                                                                <ProvinceId>' . $ProvinceId . '</ProvinceId>
-                                                                <ProvinceName>' . $ProvinceName . '</ProvinceName> 
+                                                                <ProvinceId>'.$ProvinceId.'</ProvinceId>
+                                                                <ProvinceName><![CDATA['.$ProvinceName.']]></ProvinceName>
                                                                 <BrandId>' . $BrandId . '</BrandId>
                                                                 <BrandName><![CDATA[' . $BrandName . ']]></BrandName>
                                                                 <ChainId>' . $ChainId . '</ChainId>
@@ -2273,18 +2276,26 @@ class TravelActionItemsController extends AppController {
                                                                 <Star>' . $Star . '</Star>
                                                                 <Keyword><![CDATA[' . $Keyword . ']]></Keyword>
                                                                 <StandardRating>' . $StandardRating . '</StandardRating>
-                                                                <HotelRating>' . $HotelRating . '</HotelRating>
+                                                                <HotelRating>' . $StandardRating . '</HotelRating>                                
                                                                 <FoodRating>' . $FoodRating . '</FoodRating>
                                                                 <ServiceRating>' . $ServiceRating . '</ServiceRating>
                                                                 <LocationRating>' . $LocationRating . '</LocationRating>
                                                                 <ValueRating>' . $ValueRating . '</ValueRating>
                                                                 <OverallRating>' . $OverallRating . '</OverallRating>
-                                                                <HotelImage1>' . $HotelImage1 . '</HotelImage1>
-                                                                <HotelImage2>' . $HotelImage2 . '</HotelImage2>
-                                                                <HotelImage3>' . $HotelImage3 . '</HotelImage3>
-                                                                <HotelImage4>' . $HotelImage4 . '</HotelImage4>
-                                                                <HotelImage5>' . $HotelImage5 . '</HotelImage5>
-                                                                <HotelImage6>' . $HotelImage6 . '</HotelImage6>
+                                                                <HotelImage1Full />
+                                                                <HotelImage2Full />
+                                                                <HotelImage3Full />
+                                                                <HotelImage4Full />
+                                                                <HotelImage5Full />
+                                                                <HotelImage6Full />
+                                                                <HotelImage1Thumb />
+                                                                <HotelImage2Thumb />
+                                                                <HotelImage3Thumb />
+                                                                <HotelImage4Thumb />
+                                                                <HotelImage5Thumb />
+                                                                <HotelImage6Thumb />
+                                                                <IsImage>false</IsImage>
+                                                                <IsPage>false</IsPage>
                                                                 <Logo>' . $Logo . '</Logo>
                                                                 <Logo1>' . $Logo1 . '</Logo1>
                                                                 <BusinessCenter>' . $BusinessCenter . '</BusinessCenter>
@@ -2302,7 +2313,6 @@ class TravelActionItemsController extends AppController {
                                                                 <PostCode>' . $PostCode . '</PostCode>
                                                                 <NoRoom>' . $NoRoom . '</NoRoom>
                                                                 <Active>' . $Active . '</Active>
-                                                                   
                                                                 <ReservationEmail><![CDATA[' . $ReservationEmail . ']]></ReservationEmail>
                                                                 <ReservationContact><![CDATA[' . $ReservationContact . ']]></ReservationContact>
                                                                 <EmergencyContactName><![CDATA[' . $EmergencyContactName . ']]></EmergencyContactName>
@@ -2310,12 +2320,12 @@ class TravelActionItemsController extends AppController {
                                                                 <EmergencyContactNumber><![CDATA[' . $EmergencyContactNumber . ']]></EmergencyContactNumber>
                                                                 <GPSPARAM1>' . $GPSPARAM1 . '</GPSPARAM1>
                                                                 <GPSPARAM2>' . $GPSPARAM2 . '</GPSPARAM2>
-                                                                <TopHotel>' . $TopHotel . '</TopHotel>  
-                                                                <PropertyType>' . $PropertyType . '</PropertyType>    
-                                                                <ApprovedBy>0</ApprovedBy>
-                                                                <ApprovedDate>1111-01-01T00:00:00</ApprovedDate>
-                                                                <CreatedBy>' . $user_id . '</CreatedBy>
-                                                                <CreatedDate>' . $CreatedDate . '</CreatedDate>
+                                                                <TopHotel>' . $TopHotel . '</TopHotel> 
+                                                                <PropertyType>'.$PropertyType.'</PropertyType>
+                                                                <ApprovedBy>' . $user_id . '</ApprovedBy>
+                                                                <ApprovedDate>' . $CreatedDate . '</ApprovedDate>
+                                                                <CreatedBy>' . $CreatedBy . '</CreatedBy>
+                                                                <CreatedDate>' . $created . '</CreatedDate>
                                                             </ResourceDetailsData>
                          
                                                     </ResourceData>

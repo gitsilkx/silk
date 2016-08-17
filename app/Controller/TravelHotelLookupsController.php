@@ -1189,63 +1189,56 @@ class TravelHotelLookupsController extends AppController {
                                                     </RequestAuditInfo>
                                                     <RequestParameters>                        
                                                         <ResourceData>
-                                                            <ResourceDetailsData srno="1" actiontype="' . $actiontype . '">
-                                                               
-
-
-<HotelId>' . $HotelId . '</HotelId>
-                                <HotelCode><![CDATA[' . $HotelCode . ']]></HotelCode>
-                                <HotelName><![CDATA[' . $HotelName . ']]></HotelName>
-                                <AreaId>' . $AreaId . '</AreaId>
-                                <AreaCode><![CDATA[' . $AreaCode . ']]></AreaCode>
-                                <AreaName><![CDATA[' . $AreaName . ']]></AreaName>
-                                <SuburbId>' . $SuburbId . '</SuburbId>
-                                <SuburbCode>NA</SuburbCode>
-                                <SuburbName><![CDATA[' . $SuburbName . ']]></SuburbName>
-                                <CityId>' . $CityId . '</CityId>
-                                <CityCode><![CDATA[' . $CityCode . ']]></CityCode>
-                                <CityName><![CDATA[' . $CityName . ']]></CityName>
-                                <CountryId>' . $CountryId . '</CountryId>
-                                <CountryCode><![CDATA[' . $CountryCode . ']]></CountryCode>
-                                <CountryName><![CDATA[' . $CountryName . ']]></CountryName>
-                                <ContinentId>' . $ContinentId . '</ContinentId>
-                                <ContinentCode><![CDATA[' . $ContinentCode . ']]></ContinentCode>
-                                <ContinentName><![CDATA[' . $ContinentName . ']]></ContinentName>
-                                <ProvinceId>'.$ProvinceId.'</ProvinceId>
-                                <ProvinceName><![CDATA['.$ProvinceName.']]></ProvinceName>
-                                <BrandId>' . $BrandId . '</BrandId>
-                                <BrandName><![CDATA[' . $BrandName . ']]></BrandName>
-                                <ChainId>' . $ChainId . '</ChainId>
-                                <ChainName><![CDATA[' . $ChainName . ']]></ChainName>
-                                <HotelComment><![CDATA[' . $HotelComment . ']]></HotelComment>
-                                <Star>' . $Star . '</Star>
-                                <Keyword><![CDATA[' . $Keyword . ']]></Keyword>
-                                <StandardRating>' . $StandardRating . '</StandardRating>
-                                <HotelRating>' . $StandardRating . '</HotelRating>                                
-                                <FoodRating>' . $FoodRating . '</FoodRating>
-                                <ServiceRating>' . $ServiceRating . '</ServiceRating>
-                                <LocationRating>' . $LocationRating . '</LocationRating>
-                                <ValueRating>' . $ValueRating . '</ValueRating>
-                                <OverallRating>' . $OverallRating . '</OverallRating>
-
-                                <HotelImage1Full />
-                                <HotelImage2Full />
-                                <HotelImage3Full />
-                                <HotelImage4Full />
-                                <HotelImage5Full />
-                                <HotelImage6Full />
-
-                                <HotelImage1Thumb />
-                                <HotelImage2Thumb />
-                                <HotelImage3Thumb />
-                                <HotelImage4Thumb />
-                                <HotelImage5Thumb />
-                                <HotelImage6Thumb />
-
-                                <IsImage>false</IsImage>
-                                <IsPage>false</IsPage>
-
-                                <Logo>' . $Logo . '</Logo>
+                                                            <ResourceDetailsData srno="1" actiontype="' . $actiontype . '">                                                             
+                                                                <HotelId>' . $HotelId . '</HotelId>
+                                                                <HotelCode><![CDATA[' . $HotelCode . ']]></HotelCode>
+                                                                <HotelName><![CDATA[' . $HotelName . ']]></HotelName>
+                                                                <AreaId>' . $AreaId . '</AreaId>
+                                                                <AreaCode><![CDATA[' . $AreaCode . ']]></AreaCode>
+                                                                <AreaName><![CDATA[' . $AreaName . ']]></AreaName>
+                                                                <SuburbId>' . $SuburbId . '</SuburbId>
+                                                                <SuburbCode>NA</SuburbCode>
+                                                                <SuburbName><![CDATA[' . $SuburbName . ']]></SuburbName>
+                                                                <CityId>' . $CityId . '</CityId>
+                                                                <CityCode><![CDATA[' . $CityCode . ']]></CityCode>
+                                                                <CityName><![CDATA[' . $CityName . ']]></CityName>
+                                                                <CountryId>' . $CountryId . '</CountryId>
+                                                                <CountryCode><![CDATA[' . $CountryCode . ']]></CountryCode>
+                                                                <CountryName><![CDATA[' . $CountryName . ']]></CountryName>
+                                                                <ContinentId>' . $ContinentId . '</ContinentId>
+                                                                <ContinentCode><![CDATA[' . $ContinentCode . ']]></ContinentCode>
+                                                                <ContinentName><![CDATA[' . $ContinentName . ']]></ContinentName>
+                                                                <ProvinceId>'.$ProvinceId.'</ProvinceId>
+                                                                <ProvinceName><![CDATA['.$ProvinceName.']]></ProvinceName>
+                                                                <BrandId>' . $BrandId . '</BrandId>
+                                                                <BrandName><![CDATA[' . $BrandName . ']]></BrandName>
+                                                                <ChainId>' . $ChainId . '</ChainId>
+                                                                <ChainName><![CDATA[' . $ChainName . ']]></ChainName>
+                                                                <HotelComment><![CDATA[' . $HotelComment . ']]></HotelComment>
+                                                                <Star>' . $Star . '</Star>
+                                                                <Keyword><![CDATA[' . $Keyword . ']]></Keyword>
+                                                                <StandardRating>' . $StandardRating . '</StandardRating>
+                                                                <HotelRating>' . $StandardRating . '</HotelRating>                                
+                                                                <FoodRating>' . $FoodRating . '</FoodRating>
+                                                                <ServiceRating>' . $ServiceRating . '</ServiceRating>
+                                                                <LocationRating>' . $LocationRating . '</LocationRating>
+                                                                <ValueRating>' . $ValueRating . '</ValueRating>
+                                                                <OverallRating>' . $OverallRating . '</OverallRating>
+                                                                <HotelImage1Full />
+                                                                <HotelImage2Full />
+                                                                <HotelImage3Full />
+                                                                <HotelImage4Full />
+                                                                <HotelImage5Full />
+                                                                <HotelImage6Full />
+                                                                <HotelImage1Thumb />
+                                                                <HotelImage2Thumb />
+                                                                <HotelImage3Thumb />
+                                                                <HotelImage4Thumb />
+                                                                <HotelImage5Thumb />
+                                                                <HotelImage6Thumb />
+                                                                <IsImage>false</IsImage>
+                                                                <IsPage>false</IsPage>
+                                                                <Logo>' . $Logo . '</Logo>
                                                                 <Logo1>' . $Logo1 . '</Logo1>
                                                                 <BusinessCenter>' . $BusinessCenter . '</BusinessCenter>
                                                                 <MeetingFacilities>' . $MeetingFacilities . '</MeetingFacilities>
@@ -1775,20 +1768,28 @@ class TravelHotelLookupsController extends AppController {
                                                                 <ChainName><![CDATA[' . $ChainName . ']]></ChainName>
                                                                 <HotelComment><![CDATA[' . $HotelComment . ']]></HotelComment>
                                                                 <Star>' . $Star . '</Star>
-                                                                <Keyword>' . $Keyword . '</Keyword>
+                                                                <Keyword><![CDATA[' . $Keyword . ']]></Keyword>
                                                                 <StandardRating>' . $StandardRating . '</StandardRating>
-                                                                <HotelRating>' . $HotelRating . '</HotelRating>
+                                                                <HotelRating>' . $StandardRating . '</HotelRating>                                
                                                                 <FoodRating>' . $FoodRating . '</FoodRating>
                                                                 <ServiceRating>' . $ServiceRating . '</ServiceRating>
                                                                 <LocationRating>' . $LocationRating . '</LocationRating>
                                                                 <ValueRating>' . $ValueRating . '</ValueRating>
                                                                 <OverallRating>' . $OverallRating . '</OverallRating>
-                                                                <HotelImage1>' . $HotelImage1 . '</HotelImage1>
-                                                                <HotelImage2>' . $HotelImage2 . '</HotelImage2>
-                                                                <HotelImage3>' . $HotelImage3 . '</HotelImage3>
-                                                                <HotelImage4>' . $HotelImage4 . '</HotelImage4>
-                                                                <HotelImage5>' . $HotelImage5 . '</HotelImage5>
-                                                                <HotelImage6>' . $HotelImage6 . '</HotelImage6>
+                                                                <HotelImage1Full />
+                                                                <HotelImage2Full />
+                                                                <HotelImage3Full />
+                                                                <HotelImage4Full />
+                                                                <HotelImage5Full />
+                                                                <HotelImage6Full />
+                                                                <HotelImage1Thumb />
+                                                                <HotelImage2Thumb />
+                                                                <HotelImage3Thumb />
+                                                                <HotelImage4Thumb />
+                                                                <HotelImage5Thumb />
+                                                                <HotelImage6Thumb />
+                                                                <IsImage>false</IsImage>
+                                                                <IsPage>false</IsPage>
                                                                 <Logo>' . $Logo . '</Logo>
                                                                 <Logo1>' . $Logo1 . '</Logo1>
                                                                 <BusinessCenter>' . $BusinessCenter . '</BusinessCenter>
@@ -1814,7 +1815,7 @@ class TravelHotelLookupsController extends AppController {
                                                                 <GPSPARAM1>' . $GPSPARAM1 . '</GPSPARAM1>
                                                                 <GPSPARAM2>' . $GPSPARAM2 . '</GPSPARAM2>
                                                                 <TopHotel>' . $TopHotel . '</TopHotel> 
-                                                                <PropertyType>'.$PropertyType.'</PropertyType> 
+                                                                <PropertyType>'.$PropertyType.'</PropertyType>
                                                                 <ApprovedBy>0</ApprovedBy>
                                                                 <ApprovedDate>1111-01-01T00:00:00</ApprovedDate>
                                                                 <CreatedBy>' . $user_id . '</CreatedBy>
@@ -2362,7 +2363,7 @@ class TravelHotelLookupsController extends AppController {
                                                                 <HotelCode><![CDATA[' . $HotelCode . ']]></HotelCode>
                                                                 <HotelName><![CDATA[' . $HotelName . ']]></HotelName>
                                                                 <AreaId>' . $AreaId . '</AreaId>
-                                                                <AreaCode>NA</AreaCode>
+                                                                <AreaCode><![CDATA[' . $AreaCode . ']]></AreaCode>
                                                                 <AreaName><![CDATA[' . $AreaName . ']]></AreaName>
                                                                 <SuburbId>' . $SuburbId . '</SuburbId>
                                                                 <SuburbCode>NA</SuburbCode>
@@ -2384,20 +2385,28 @@ class TravelHotelLookupsController extends AppController {
                                                                 <ChainName><![CDATA[' . $ChainName . ']]></ChainName>
                                                                 <HotelComment><![CDATA[' . $HotelComment . ']]></HotelComment>
                                                                 <Star>' . $Star . '</Star>
-                                                                <Keyword>' . $Keyword . '</Keyword>
+                                                                <Keyword><![CDATA[' . $Keyword . ']]></Keyword>
                                                                 <StandardRating>' . $StandardRating . '</StandardRating>
-                                                                <HotelRating>' . $HotelRating . '</HotelRating>
+                                                                <HotelRating>' . $StandardRating . '</HotelRating>                                
                                                                 <FoodRating>' . $FoodRating . '</FoodRating>
                                                                 <ServiceRating>' . $ServiceRating . '</ServiceRating>
                                                                 <LocationRating>' . $LocationRating . '</LocationRating>
                                                                 <ValueRating>' . $ValueRating . '</ValueRating>
                                                                 <OverallRating>' . $OverallRating . '</OverallRating>
-                                                                <HotelImage1>' . $HotelImage1 . '</HotelImage1>
-                                                                <HotelImage2>' . $HotelImage2 . '</HotelImage2>
-                                                                <HotelImage3>' . $HotelImage3 . '</HotelImage3>
-                                                                <HotelImage4>' . $HotelImage4 . '</HotelImage4>
-                                                                <HotelImage5>' . $HotelImage5 . '</HotelImage5>
-                                                                <HotelImage6>' . $HotelImage6 . '</HotelImage6>
+                                                                <HotelImage1Full />
+                                                                <HotelImage2Full />
+                                                                <HotelImage3Full />
+                                                                <HotelImage4Full />
+                                                                <HotelImage5Full />
+                                                                <HotelImage6Full />
+                                                                <HotelImage1Thumb />
+                                                                <HotelImage2Thumb />
+                                                                <HotelImage3Thumb />
+                                                                <HotelImage4Thumb />
+                                                                <HotelImage5Thumb />
+                                                                <HotelImage6Thumb />
+                                                                <IsImage>false</IsImage>
+                                                                <IsPage>false</IsPage>
                                                                 <Logo>' . $Logo . '</Logo>
                                                                 <Logo1>' . $Logo1 . '</Logo1>
                                                                 <BusinessCenter>' . $BusinessCenter . '</BusinessCenter>
@@ -2502,7 +2511,7 @@ class TravelHotelLookupsController extends AppController {
                 $Email->template('XML/xml', 'default')->emailFormat('html')->to($to)->cc($cc)->from('admin@silkrouters.com')->subject('XML Error [' . $log_call_screen . '] Log Id [' . $LogId . '] Open By [' . $this->User->Username($user_id) . '] Date [' . date("m/d/Y H:i:s", $date->format('U')) . ']')->send();
             }
 
-            
+            /*
             $xml_error = 'FALSE';
             
             
@@ -2724,6 +2733,7 @@ class TravelHotelLookupsController extends AppController {
                             
                         }
                 }
+                */
                 $this->Session->setFlash($xml_msg.'<br> Local record has been successfully updated.', 'success');
                
                 
