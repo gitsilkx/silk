@@ -795,8 +795,8 @@ class TravelHotelImagesController extends AppController {
 
             try {
                 $order_return = $client->__doRequest($xml_string, $location_URL, $action_URL, 1);
-                $xml_arr = Xml::toArray(Xml::build($order_return));
-                //$xml_arr = $this->xml2array($order_return);
+                //$xml_arr = Xml::toArray(Xml::build($order_return));
+                $xml_arr = $this->xml2array($order_return);
                  //echo htmlentities($xml_string);
                  pr($xml_arr);
                  die;
