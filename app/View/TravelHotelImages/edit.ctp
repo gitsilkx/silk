@@ -23,13 +23,18 @@ $this->Html->addCrumb('Edit Hotel', 'javascript:void(0);', array('class' => 'bre
                             'class' => 'form-control',
                         )
                     ));
-                    echo $this->Form->hidden('hotel_img1', array('value' => $this->data['TravelHotelLookup']['hotel_img1']));
-                    echo $this->Form->hidden('hotel_img2', array('value' => $this->data['TravelHotelLookup']['hotel_img2']));
-                    echo $this->Form->hidden('hotel_img3', array('value' => $this->data['TravelHotelLookup']['hotel_img3']));
-                    echo $this->Form->hidden('hotel_img4', array('value' => $this->data['TravelHotelLookup']['hotel_img4']));
-                    echo $this->Form->hidden('hotel_img5', array('value' => $this->data['TravelHotelLookup']['hotel_img5']));
-                    echo $this->Form->hidden('hotel_img6', array('value' => $this->data['TravelHotelLookup']['hotel_img6']));
-
+                    echo $this->Form->hidden('full_img1', array('value' => $this->data['TravelHotelLookup']['full_img1']));
+                    echo $this->Form->hidden('full_img2', array('value' => $this->data['TravelHotelLookup']['full_img2']));
+                    echo $this->Form->hidden('full_img3', array('value' => $this->data['TravelHotelLookup']['full_img3']));
+                    echo $this->Form->hidden('full_img4', array('value' => $this->data['TravelHotelLookup']['full_img4']));
+                    echo $this->Form->hidden('full_img5', array('value' => $this->data['TravelHotelLookup']['full_img5']));
+                    echo $this->Form->hidden('full_img6', array('value' => $this->data['TravelHotelLookup']['full_img6']));
+                    echo $this->Form->hidden('thumb_img1', array('value' => $this->data['TravelHotelLookup']['thumb_img1']));
+                    echo $this->Form->hidden('thumb_img2', array('value' => $this->data['TravelHotelLookup']['thumb_img2']));
+                    echo $this->Form->hidden('thumb_img3', array('value' => $this->data['TravelHotelLookup']['thumb_img3']));
+                    echo $this->Form->hidden('thumb_img4', array('value' => $this->data['TravelHotelLookup']['thumb_img4']));
+                    echo $this->Form->hidden('thumb_img5', array('value' => $this->data['TravelHotelLookup']['thumb_img5']));
+                    echo $this->Form->hidden('thumb_img6', array('value' => $this->data['TravelHotelLookup']['thumb_img6']));
                     //echo $this->Form->hidden('continent_name');
                     //echo $this->Form->hidden('continent_code');
                     //echo $this->Form->hidden('country_code');
