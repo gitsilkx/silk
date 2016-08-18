@@ -109,10 +109,10 @@ echo $this->Form->end();
                         <th data-hide="phone" data-sort-ignore="true" data-group="group1"><input type="checkbox" class="mbox_select_all" name="msg_sel_all"></th>
                         <th data-hide="phone" data-group="group1">Id</th>
                         
-                        <th data-hide="phone" data-group="group1">Country</th>
+                        <th data-hide="phone" data-group="group1" width="5%" >Country</th>
                         
-                        <th data-hide="phone" data-group="group1">City</th>
-                        <th data-hide="phone" data-group="group1">City Code</th>
+                        <th data-hide="phone" data-group="group1" width="7%" >City</th>
+                        <th data-hide="phone" data-group="group1" width="4%" >City Code</th>
                         <th data-hide="phone" data-sort-ignore="true" data-group="group2">Status</th>
                         <th data-hide="phone" data-sort-ignore="true" data-group="group2">Active</th>
                         <th data-hide="phone" data-sort-ignore="true" data-group="group2">WTB Status</th>
@@ -122,7 +122,7 @@ echo $this->Form->end();
                         <th data-hide="phone" width="7%" data-group="group3">Hotel Mapping</th>                      
                         <th data-hide="phone" width="7%" data-group="group3">Suburb Count</th>
                         <th data-hide="phone" width="7%" data-group="group3">Area Count</th>
-                        <th data-hide="phone" data-sort-ignore="true" data-group="group4">Action</th> 
+                        <th data-hide="phone" data-sort-ignore="true" width="13%" data-group="group4">Action</th> 
                     </tr>
                 </thead>
                 <tbody>
