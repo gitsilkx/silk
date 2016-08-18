@@ -3628,9 +3628,9 @@ class ReportsController extends AppController {
         //$this->paginate['order'] = array('TravelSuburb.name' => 'asc');
         //$this->set('TravelSuburbs', $this->paginate("TravelSuburb", $search_condition));
 
-        //log = $this->TravelSuburb->getDataSource()->getLog(false, false);       
-        //debug($log);
-        //die;
+        $log = $this->TravelSuburb->getDataSource()->getLog(false, false);       
+        debug($log);
+        die;
 
 
         if (!isset($this->passedArgs['name']) && empty($this->passedArgs['name'])) {
