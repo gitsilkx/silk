@@ -106,8 +106,8 @@ echo $this->Form->end();
                         <th data-group="group4" class="nodis">Action</th>
                     </tr>       
                     <tr>
-                        <th data-hide="phone" data-sort-ignore="true" data-group="group1"><input type="checkbox" class="mbox_select_all" name="msg_sel_all"></th>
-                        <th data-hide="phone" data-group="group1">Id</th>
+                        <th data-hide="phone" data-sort-ignore="true" width="2%" data-group="group1"><input type="checkbox" class="mbox_select_all" name="msg_sel_all"></th>
+                        <th data-hide="phone" data-group="group1" width="3%">Id</th>
                         
                         <th data-hide="phone" data-group="group1" width="5%" >Country</th>
                         
@@ -116,12 +116,12 @@ echo $this->Form->end();
                         <th data-hide="phone" data-sort-ignore="true" width="4%" data-group="group2">Status</th>
                         <th data-hide="phone" data-sort-ignore="true" width="4%" data-group="group2">Active</th>
                         <th data-hide="phone" data-sort-ignore="true" width="4%" data-group="group2">WTB Status</th>
-                        <th data-hide="phone" width="7%" data-group="group3">City Mapping</th>
-                        <th data-hide="phone" width="7%" data-group="group3">Hotel</th> 
+                        <th data-hide="phone" width="7%" data-group="group3" width="4%">City Mapping</th>
+                        <th data-hide="phone" width="7%" data-group="group3" width="4%">Hotel</th> 
                         
-                        <th data-hide="phone" width="7%" data-group="group3">Hotel Mapping</th>                      
-                        <th data-hide="phone" width="7%" data-group="group3">Suburb Count</th>
-                        <th data-hide="phone" width="7%" data-group="group3">Area Count</th>
+                        <th data-hide="phone" width="7%" data-group="group3" width="4%">Hotel Mapping</th>                      
+                        <th data-hide="phone" width="7%" data-group="group3" width="4%">Suburb Count</th>
+                        <th data-hide="phone" width="7%" data-group="group3" width="4%">Area Count</th>
                         <th data-hide="phone" data-sort-ignore="true" width="15%" data-group="group4">Action</th> 
                     </tr>
                 </thead>
