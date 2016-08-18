@@ -181,7 +181,8 @@ echo $this->Html->link(count($value['TravelArea']), array('controller' => 'repor
                                    echo $this->Html->link('<span class="icon-pencil"></span>', array('controller' => 'reports', 'action' => 'city_edit/' . $value['TravelCity']['id']), array('class' => 'act-ico', 'escape' => false));
                                    echo $this->Html->link('<span class="icon-remove"></span>', array('controller' => 'reports', 'action' => 'delete', $value['TravelCity']['id']), array('class' => 'act-ico', 'escape' => false), "Are you sure you wish to delete this city?");
                                    echo $this->Html->link('Hotel Count','/reports/mismatch_hotel_count/'.$value['TravelCity']['country_id'].'/'.$value['TravelCity']['id'], array('class' => 'act-ico open-popup-link add-btn','escape' => false,'data-placement' => "left", 'title' => "Hotel Count",'data-toggle' => "tooltip"));
-                                    ?>
+                                   echo $this->Html->link('Mass Update', '/mass_operations/hotel/city_id:'.$value['TravelCity']['id'].'/country_id:'.$value['TravelCity']['country_id'],array('class' => 'act-ico', 'escape' => false,'target' => '_blank'))
+?>
                                     
                                 </td>
                             </tr>
