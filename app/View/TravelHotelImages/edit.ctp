@@ -547,27 +547,33 @@ $this->Js->get('#TravelHotelLookupCountryId')->event('change', $this->Js->reques
     
        function imageValidate(){
        if ($('#image1').get(0).files.length === 0) {
-            alert("Please seclect picture1.");
+           bootbox.alert('Please seclect picture1.');
+           
             return false;
         }
         if ($('#image2').get(0).files.length === 0) {
-            alert("Please seclect picture2.");
+            bootbox.alert('Please seclect picture2.');
+          
             return false;
         }
         if ($('#image3').get(0).files.length === 0) {
-            alert("Please seclect picture3.");
+            bootbox.alert('Please seclect picture3.');
+           
             return false;
         }
         if ($('#image4').get(0).files.length === 0) {
-            alert("Please seclect picture4.");
+            bootbox.alert('Please seclect picture4.');
+           
             return false;
         }
         if ($('#image5').get(0).files.length === 0) {
-            alert("Please seclect picture5.");
+            bootbox.alert('Please seclect picture5.');
+           
             return false;
         }
         if ($('#image6').get(0).files.length === 0) {
-            alert("Please seclect picture6.");
+            bootbox.alert('Please seclect picture6.');
+           
             return false;
         }
        
