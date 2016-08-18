@@ -117,12 +117,12 @@ echo $this->Form->end();
                         <th data-hide="phone" data-sort-ignore="true" width="4%" data-group="group2">Active</th>
                         <th data-hide="phone" data-sort-ignore="true" width="4%" data-group="group2">WTB Status</th>
                         <th data-hide="phone" width="7%" data-group="group3" width="4%">City Mapping</th>
-                        <th data-hide="phone" width="7%" data-group="group3" width="4%">Hotel</th> 
+                        <th data-hide="phone" width="7%" data-group="group3" width="3%">Hotel</th> 
                         
-                        <th data-hide="phone" width="7%" data-group="group3" width="4%">Hotel Mapping</th>                      
-                        <th data-hide="phone" width="7%" data-group="group3" width="4%">Suburb Count</th>
-                        <th data-hide="phone" width="7%" data-group="group3" width="4%">Area Count</th>
-                        <th data-hide="phone" data-sort-ignore="true" width="15%" data-group="group4">Action</th> 
+                        <th data-hide="phone" width="7%" data-group="group3" width="3%">Hotel Mapping</th>                      
+                        <th data-hide="phone" width="7%" data-group="group3" width="3%">Suburb Count</th>
+                        <th data-hide="phone" width="7%" data-group="group3" width="3%">Area Count</th>
+                        <th data-hide="phone" data-sort-ignore="true" width="20%" data-group="group4">Action</th> 
                     </tr>
                 </thead>
                 <tbody>
