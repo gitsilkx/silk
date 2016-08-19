@@ -116,6 +116,11 @@ class SupportTicket extends AppModel {
         $Data = ClassRegistry::init('TravelBrand')->find('first', array('fields' => array( 'TravelBrand.brand_name'), 'conditions' => array('TravelBrand.id' => $brand_id)));
         return $Data['TravelBrand']['brand_name'];
     }
+    public function getNextActionById($ticket_id){
+        
+        $Data = ClassRegistry::init('SupportTicket')->find('first', array('fields' => array( 'SupportTicket.created_by'), 'conditions' => array('SupportTicket.id' => $ticket_id)));
+        return $Data['SupportTicket']['created_by'];
+    }
 
 }
 

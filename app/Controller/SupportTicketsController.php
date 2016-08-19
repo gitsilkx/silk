@@ -46,38 +46,147 @@ class SupportTicketsController extends AppController {
         $user_id = $this->Auth->user('id');
         $search_condition = array();
         $conArray = array();
+        $TravelCountries = array();
+        $Provinces = array();
+        $TravelCities = array();
+        $TravelSuburbs = array();
+        $TravelAreas = array();
+        $selected = array();
+        $sql_generate = true;
+        $update = false;
+        $res = '';
 
         if ($this->request->is('post') || $this->request->is('put')) {
-            // pr($this->request);
-            //die;
-            if (!empty($this->data['SupportTicket']['about'])) {
-                $about = $this->data['SupportTicket']['about'];
-                array_push($search_condition, array('SupportTicket.about LIKE' => "%" . $about . '%'));
-            }
+           
+            if (isset($this->request->data['search'])) {
+                if (!empty($this->data['SupportTicket']['about'])) {
+                    $about = $this->data['SupportTicket']['about'];
+                    array_push($search_condition, array('SupportTicket.about LIKE' => "%" . $about . '%'));
+                }
 
-            if (!empty($this->data['SupportTicket']['created_by'])) {
-                $created_by = $this->data['SupportTicket']['created_by'];
-                array_push($search_condition, array('SupportTicket.created_by' => $created_by));
-            }
+                if (!empty($this->data['SupportTicket']['created_by'])) {
+                    $created_by = $this->data['SupportTicket']['created_by'];
+                    array_push($search_condition, array('SupportTicket.created_by' => $created_by));
+                }
 
-            if (!empty($this->data['SupportTicket']['screen'])) {
-                $screen = $this->data['SupportTicket']['screen'];
-                array_push($search_condition, array('SupportTicket.screen' => $screen));
-            }
+                if (!empty($this->data['SupportTicket']['screen'])) {
+                    $screen = $this->data['SupportTicket']['screen'];
+                    array_push($search_condition, array('SupportTicket.screen' => $screen));
+                }
 
-            if (!empty($this->data['SupportTicket']['answer'])) {
-                $answer = $this->data['SupportTicket']['answer'];
-                array_push($search_condition, array('SupportTicket.answer' => $answer));
-            }
+                if (!empty($this->data['SupportTicket']['answer'])) {
+                    $answer = $this->data['SupportTicket']['answer'];
+                    array_push($search_condition, array('SupportTicket.answer' => $answer));
+                }
 
-            if (!empty($this->data['SupportTicket']['urgency'])) {
-                $urgency = $this->data['SupportTicket']['urgency'];
-                array_push($search_condition, array('SupportTicket.urgency' => $urgency));
-            }
+                if (!empty($this->data['SupportTicket']['urgency'])) {
+                    $urgency = $this->data['SupportTicket']['urgency'];
+                    array_push($search_condition, array('SupportTicket.urgency' => $urgency));
+                }
 
-            if (!empty($this->data['SupportTicket']['status'])) {
-                $status = $this->data['SupportTicket']['status'];
-                array_push($search_condition, array('SupportTicket.status' => $status));
+                if (!empty($this->data['SupportTicket']['status'])) {
+                    $status = $this->data['SupportTicket']['status'];
+                    array_push($search_condition, array('SupportTicket.status' => $status));
+                }
+                
+            } else {
+                if (!empty($this->data['SupportTicket']['continent'])) {
+                     $continent = $this->data['SupportTicket']['continent'];
+                     $res .= $this->SupportTicket->getContinentNameByContinentId($continent) . ' -> ';
+                    $TravelCountries = $this->TravelCountry->find('list', array('fields' => 'id, country_name',
+                        'conditions' => array(
+                            'continent_id' => $continent), 'order' => 'country_name ASC'));
+                }
+                if (!empty($this->data['SupportTicket']['country'])) {
+                    $country = $this->data['SupportTicket']['country'];
+                    $res .= $this->SupportTicket->getCountryNameByCountryId($country) . ' -> ';
+                    $Provinces = $this->Province->find('list', array(
+                        'conditions' => array(
+                            'country_id' => $country,
+                        ),
+                        'fields' => array('Province.id', 'Province.name'),
+                        'order' => 'Province.name ASC'
+                    ));
+                }
+                if (!empty($this->data['SupportTicket']['province'])) {
+                    $province = $this->data['SupportTicket']['province'];
+                    $res .= $this->SupportTicket->getProvinceByProvinceId($province) . ' -> ';
+                    $TravelCities = $this->TravelCity->find('list', array(
+                        'conditions' => array(
+                            'province_id' => $province
+                        ),
+                        'fields' => array('TravelCity.id', 'TravelCity.city_name'),
+                        'order' => 'TravelCity.city_name ASC'
+                    ));
+                }
+                if (!empty($this->data['SupportTicket']['city'])) {
+                    $city = $this->data['SupportTicket']['city'];
+                     $res .= $this->SupportTicket->getCityByCityId($city) . ' -> ';
+                    $TravelSuburbs = $this->TravelSuburb->find('list', array(
+                        'conditions' => array(
+                            'city_id' => $city
+                        ),
+                        'fields' => 'TravelSuburb.id, TravelSuburb.name',
+                        'order' => 'TravelSuburb.name ASC'
+                    ));
+                }
+                if (!empty($this->data['SupportTicket']['suburb'])) {
+                    $suburb = $this->data['SupportTicket']['suburb'];
+                    $res .= $this->SupportTicket->getSuburbBySuburbId($suburb) . ' -> ';
+                    $TravelAreas = $this->TravelArea->find('list', array(
+                        'conditions' => array(
+                            'suburb_id' => $suburb
+                        ),
+                        'fields' => 'TravelArea.id, TravelArea.area_name',
+                        'order' => 'TravelArea.area_name ASC'
+                    ));
+                }
+                if (!empty($this->data['SupportTicket']['area'])) {
+                    $area = $this->data['SupportTicket']['area'];
+                    $res .= $this->SupportTicket->getAreaByAreaId($area);
+                }
+                if (!empty($this->data['SupportTicket']['response_level_assessment'])) {
+                    $response_level_assessment = $this->data['SupportTicket']['response_level_assessment'];
+                }
+                if (!empty($this->data['SupportTicket']['response'])) {
+                    $response = $this->data['SupportTicket']['response'];
+                }
+                if (isset($this->data['SupportTicket']['check'])) {
+                foreach ($this->data['SupportTicket']['check'] as $val) {
+
+                    $selected[] = $val;
+                }
+                //array_push($update_con,  array('SupportTicket.id' => $selected));
+                $aa = implode(',', $selected);
+
+                $where =' WHERE id IN (' . $aa . ')';
+            }
+            }
+            if(isset($this->request->data['sql_generate'])){
+                $update = true;
+                $sql_query = 'Update table SupportTicket SET response_level_assessment = '.$response_level_assessment.$where;
+                $this->Session->setFlash($sql_query, 'success');
+            }
+            if(isset($this->request->data['update'])){
+                
+                $UpdateArray['SupportTicket']['response1'] = "'".$res."'";
+                $UpdateArray['SupportTicket']['opend_by'] = "'RECEIVER'";
+                $UpdateArray['SupportTicket']['response_ip'] = "'".$_SERVER['REMOTE_ADDR']."'";
+                $UpdateArray['SupportTicket']['status'] = "'2'"; // 2 = RESOLVED
+                $UpdateArray['SupportTicket']['last_action_by'] = "'".$user_id."'";                
+                $UpdateArray['SupportTicket']['approved_by'] = "'".$user_id."'";
+                foreach ($this->data['SupportTicket']['check'] as $val) {
+                      $UpdateArray['SupportTicket']['next_action_by'] = "'".$this->SupportTicket->getNextActionById($val)."'";
+                      $this->SupportTicket->updateAll($UpdateArray['SupportTicket'], array('SupportTicket.id' => $val));
+                }
+                $this->Session->setFlash('Local record has been successfully updated.', 'success');
+                /*
+                if ($this->SupportTicket->updateAll($this->request->data['SupportTicket'], $update_con))
+                    $this->Session->setFlash('Local record has been successfully updated.', 'success');
+                else
+                    $this->Session->setFlash('Unable to updated local records.', 'failure');
+                 * 
+                 */
             }
         }
 
@@ -101,7 +210,30 @@ class SupportTicketsController extends AppController {
             'conditions' => $conArray, 'order' => 'User.fname asc'));
         $users = Set::combine($users, '{n}.User.id', array('%s %s', '{n}.User.fname', '{n}.User.lname'));
 
-        $this->set(compact('LookupScreen', 'LookupQuestion', 'LookupTicketUrgency', 'users', 'LookupTicketStatus'));
+        $TravelLookupContinent = $this->TravelLookupContinent->find('list', array('fields' => 'id,continent_name', 'conditions' => array('continent_status' => 1, 'wtb_status' => 1), 'order' => 'continent_name ASC'));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        $solution = $this->LookupTicketSolution->find('list', array(
+            //'conditions' => array('LookupTicketSolution.question_id' => array($SupportTickets['SupportTicket']['answer'],0)),
+            'fields' => 'LookupTicketSolution.id, LookupTicketSolution.value',
+            'order' => 'LookupTicketSolution.value ASC'
+        ));
+
+
+
+        $this->set(compact('LookupScreen','sql_generate','update', 'solution','selected', 'TravelLookupContinent', 'TravelCountries', 'Provinces', 'TravelSuburbs', 'TravelCities', 'TravelAreas', 'LookupQuestion', 'LookupTicketUrgency', 'users', 'LookupTicketStatus'));
     }
 
     public function add($screen = null, $action_id = null) {
@@ -188,18 +320,18 @@ class SupportTicketsController extends AppController {
                 } elseif ($answer == '27') {
                     $hotel_con = array('continent_id' => $continent_id, 'country_id' => $country_id, 'province_id' => $province_id, 'city_id' => $city_id, '`TravelHotelLookup`.`id` !=' . $hotel_id);
                     $TravelHotelLookups = $this->TravelHotelLookup->find
+                            (
+                            'all', array
                         (
-                        'all', array
-                    (
-                    'fields' => array('TravelHotelLookup.id', 'TravelHotelLookup.hotel_name', 'TravelHotelLookup.hotel_code'),
-                    'conditions' => array
-                        (
-                         $hotel_con
-                    ),
-                    'order' => 'TravelHotelLookup.hotel_name ASC'
-                        )
-                );
-                $TravelHotelLookups = Set::combine($TravelHotelLookups, '{n}.TravelHotelLookup.id', array('%s | Code: %s | Id: %s', '{n}.TravelHotelLookup.hotel_name', '{n}.TravelHotelLookup.hotel_code', '{n}.TravelHotelLookup.id'));
+                        'fields' => array('TravelHotelLookup.id', 'TravelHotelLookup.hotel_name', 'TravelHotelLookup.hotel_code'),
+                        'conditions' => array
+                            (
+                            $hotel_con
+                        ),
+                        'order' => 'TravelHotelLookup.hotel_name ASC'
+                            )
+                    );
+                    $TravelHotelLookups = Set::combine($TravelHotelLookups, '{n}.TravelHotelLookup.id', array('%s | Code: %s | Id: %s', '{n}.TravelHotelLookup.hotel_name', '{n}.TravelHotelLookup.hotel_code', '{n}.TravelHotelLookup.id'));
                 } elseif ($answer == '30') {
                     $chain_con = array('id' => $chain_id);
                 }
@@ -251,7 +383,7 @@ class SupportTicketsController extends AppController {
                     'order' => 'TravelChain.chain_name ASC'
                 ));
 
-                
+
 
                 $TechnicalIssue = $this->LookupQuestion->find('list', array(
                     'conditions' => array('LookupQuestion.parent_id' => 21),
@@ -259,8 +391,7 @@ class SupportTicketsController extends AppController {
                     'order' => 'LookupQuestion.id ASC'
                 ));
                 // die;
-            } 
-            elseif (isset($this->request->data['add'])) {
+            } elseif (isset($this->request->data['add'])) {
                 $this->request->data['SupportTicket']['status'] = '1'; // 1 = open
                 $this->request->data['SupportTicket']['opend_by'] = 'SENDER';
                 $this->request->data['SupportTicket']['active'] = 'TRUE';
@@ -333,7 +464,7 @@ class SupportTicketsController extends AppController {
         //pr($TravelHotelLookup);
 
         $LookupScreen = $this->LookupScreen->find('list', array('fields' => 'id, value', 'conditions' => array('id' => $screen), 'order' => 'value ASC'));
-        $LookupQuestion = $this->LookupQuestion->find('list', array('fields' => 'LookupQuestion.id, LookupQuestion.question', 'conditions' => array( 'LookupQuestion.parent_id' => null), 'order' => 'LookupQuestion.id ASC'));
+        $LookupQuestion = $this->LookupQuestion->find('list', array('fields' => 'LookupQuestion.id, LookupQuestion.question', 'conditions' => array('LookupQuestion.parent_id' => null), 'order' => 'LookupQuestion.id ASC'));
         $CommonQuestion = $this->LookupQuestion->find('list', array('fields' => 'LookupQuestion.id, LookupQuestion.question', 'conditions' => array('LookupQuestion.id' => array('7', '8')), 'order' => 'LookupQuestion.id ASC'));
         $LookupTicketUrgency = $this->LookupTicketUrgency->find('list', array('fields' => 'LookupTicketUrgency.id, LookupTicketUrgency.value', 'order' => 'LookupTicketUrgency.value ASC'));
         $LookupQuestion = $LookupQuestion + $CommonQuestion;
@@ -561,7 +692,6 @@ class SupportTicketsController extends AppController {
 
         $this->request->data = $SupportTickets;
     }
-    
 
     public function close($id = null) {
 
@@ -581,5 +711,6 @@ class SupportTicketsController extends AppController {
             $this->Session->setFlash('Unable to close ticket.', 'failure');
         }
     }
+
 
 }
