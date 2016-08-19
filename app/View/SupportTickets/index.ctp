@@ -93,7 +93,7 @@
           echo $this->Form->submit('SQL Generate', array('class' => 'success btn', 'div' => false,'id' => 'sql_generate', 'name' => 'sql_generate'));
            if($update == true)
             echo $this->Form->submit('Update', array('class' => 'success btn', 'div' => false,'id' =>'update', 'name' => 'update'));
-          }
+         
 ?>
             <div class="row">
 
@@ -130,6 +130,7 @@
                         <?php echo $this->Form->input('area', array('options' => $TravelAreas, 'empty' => '--Select--')); ?>  
                     </div>
             </div>
+          <?php }?>
             <table id="resp_table" class="table toggle-square" data-filter="#table_search" data-page-size="500">
                <thead>
                 <tr>
