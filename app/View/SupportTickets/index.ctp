@@ -103,31 +103,31 @@
                     </div>
                     <div class="col-sm-3 col-xs-6">
                         <label for="un_member">What's the Solution?:</label>
-                        <?php echo $this->Form->input('response', array('options' => $solution, 'empty' => '--Select--', 'data-required' => 'true')); ?>                       
+                        <?php echo $this->Form->input('response', array('options' => $solution, 'empty' => '--Select--', 'data-required' => 'true','onchange' => 'chkBottonEvnt()')); ?>                       
                     </div>
                     <div class="col-sm-3 col-xs-6">
                         <label for="un_member">Continent:</label>
-                        <?php echo $this->Form->input('continent', array('options' => $TravelLookupContinent, 'empty' => '--Select--', 'data-required' => 'true')); ?>                       
+                        <?php echo $this->Form->input('continent', array('options' => $TravelLookupContinent, 'empty' => '--Select--', 'data-required' => 'true','onchange' => 'chkBottonEvnt()')); ?>                       
                     </div>
                     <div class="col-sm-3 col-xs-6">
                         <label for="un_member">Country:</label>
-                        <?php echo $this->Form->input('country', array('options' => $TravelCountries, 'empty' => '--Select--', 'data-required' => 'true')); ?>                       
+                        <?php echo $this->Form->input('country', array('options' => $TravelCountries, 'empty' => '--Select--', 'data-required' => 'true','onchange' => 'chkBottonEvnt()')); ?>                       
                     </div>
                     <div class="col-sm-3 col-xs-6">
                         <label for="un_member">Province:</label>
-                       <?php echo $this->Form->input('province', array('options' => $Provinces, 'empty' => '--Select--')); ?>                       
+                       <?php echo $this->Form->input('province', array('options' => $Provinces, 'empty' => '--Select--','onchange' => 'chkBottonEvnt()')); ?>                       
                     </div>
                     <div class="col-sm-3 col-xs-6">
                         <label for="un_member">City:</label>
-                        <?php echo $this->Form->input('city', array('options' => $TravelCities, 'empty' => '--Select--')); ?>
+                        <?php echo $this->Form->input('city', array('options' => $TravelCities, 'empty' => '--Select--','onchange' => 'chkBottonEvnt()')); ?>
                     </div>
                     <div class="col-sm-3 col-xs-6">
                         <label for="un_member">Suburb:</label>
-                        <?php echo $this->Form->input('suburb', array('options' => $TravelSuburbs, 'empty' => '--Select--')); ?> 
+                        <?php echo $this->Form->input('suburb', array('options' => $TravelSuburbs, 'empty' => '--Select--','onchange' => 'chkBottonEvnt()')); ?> 
                     </div>
                     <div class="col-sm-3 col-xs-6">
                         <label for="un_member">Area:</label>
-                        <?php echo $this->Form->input('area', array('options' => $TravelAreas, 'empty' => '--Select--')); ?>  
+                        <?php echo $this->Form->input('area', array('options' => $TravelAreas, 'empty' => '--Select--','onchange' => 'chkBottonEvnt()')); ?>  
                     </div>
             </div>
           <?php }?>
