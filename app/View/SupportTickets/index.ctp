@@ -339,7 +339,35 @@
     
     function ChkCheckbox(){
                 if($('#SupportTicketResponseLevelAssessment').val() == ''){
-                    bootbox.alert('Please select Issue Level Assessment.');
+                    bootbox.alert('Please select issue level assessment.');
+			return false;
+                }
+                if($('#SupportTicketResponse').val() == ''){
+                    bootbox.alert('Please select solution.');
+			return false;
+                }
+                if($('#SupportTicketContinent').val() == ''){
+                    bootbox.alert('Please select continent.');
+			return false;
+                }
+                if($('#SupportTicketCountry').val() == ''){
+                    bootbox.alert('Please select country.');
+			return false;
+                }
+                if($('#SupportTicketProvince').val() == ''){
+                    bootbox.alert('Please select province.');
+			return false;
+                }
+                if($('#SupportTicketCity').val() == ''){
+                    bootbox.alert('Please select cityt.');
+			return false;
+                }
+                if($('#SupportTicketSuburb').val() == ''){
+                    bootbox.alert('Please select suburb.');
+			return false;
+                }
+                if($('#SupportTicketArea').val() == ''){
+                    bootbox.alert('Please select area.');
 			return false;
                 }
 		if ($("input:checked").length == 0){
