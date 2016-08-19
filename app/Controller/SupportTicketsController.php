@@ -166,7 +166,7 @@ class SupportTicketsController extends AppController {
             if(isset($this->request->data['sql_generate'])){
                 $update = true;
                 $sql_query = 'Update table SupportTicket SET response_level_assessment = '.$response_level_assessment.',response = '.$response.',response_ip = '.$_SERVER['REMOTE_ADDR'].',status=2,response1 = '.$res.$where;
-                $sql_query .="<br><br>Number of Records that will be impacted by this Operation = " . count($selected);
+                $sql_query .="<br><br>".count($selected)." Number of Records that will be impacted by this Operation";
                 $this->Session->setFlash($sql_query, 'success');
             }
             if(isset($this->request->data['update'])){
