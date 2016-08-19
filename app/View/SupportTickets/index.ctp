@@ -88,7 +88,7 @@
                         );
             
             echo $this->Form->hidden('base_url', array('id' => 'hidden_site_baseurl', 'value' => $this->request->base . ((!is_null($this->params['language'])) ? '/' . $this->params['language'] : '')));
-          if ($user_id == '169') {
+          if ($self_id == '169') {
             if($sql_generate == true)
           echo $this->Form->submit('SQL Generate', array('class' => 'success btn', 'div' => false,'id' => 'sql_generate', 'name' => 'sql_generate'));
            if($update == true)
@@ -134,7 +134,7 @@
             <table id="resp_table" class="table toggle-square" data-filter="#table_search" data-page-size="500">
                <thead>
                 <tr>
-                    <?php if ($user_id == '169') {?>
+                    <?php if ($self_id == '169') {?>
                     <th data-hide="phone" data-group="group1" width="2%" data-sort-ignore="true"><input type="checkbox" class="mbox_select_all" name="msg_sel_all" onclick="chkBottonEvnt()">  Include</th>
                     <?php }?>
                     <th>Ticket #</th>
@@ -163,7 +163,7 @@
                                         $sele_check = '';
                             ?>
                             <tr>
-                                <?php if ($user_id == '169') {?>
+                                <?php if ($self_id == '169') {?>
                                <td class="tablebody"><?php											
                                 echo $this->Form->checkbox('check', array('name' => 'data[SupportTicket][check][]','class' => 'msg_select','onclick' => 'chkBottonEvnt()','readonly' => true,'hiddenField' => false,'value' => $id,$sele_check));
                                 ?></td> 
