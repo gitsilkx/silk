@@ -131,6 +131,7 @@
                     </div>
             </div>
           <?php }?>
+            
             <table id="resp_table" class="table toggle-square" data-filter="#table_search" data-page-size="500">
                <thead>
                 <tr>
