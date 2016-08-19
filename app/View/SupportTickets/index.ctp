@@ -338,7 +338,10 @@
     });
     
     function ChkCheckbox(){
-	
+                if($('#SupportTicketResponseLevelAssessment').val() == ''){
+                    bootbox.alert('Please select Issue Level Assessment.');
+			return false;
+                }
 		if ($("input:checked").length == 0){
 			bootbox.alert('No check box are selected.');
 			return false;
