@@ -41,6 +41,7 @@ class TravelHotelImagesController extends AppController {
         'TravelLookupRateType', 'TravelLookupPropertyType', 'TravelCitySupplier', 'TravelHotelImage');
     public $components = array('Sms', 'Image');
     public $uploadDir;
+    
 
     public function beforeFilter() {
         parent::beforeFilter();
