@@ -366,7 +366,7 @@
                     bootbox.alert('Please select city.');
 			return false;
                 }
-                if(solution <> '15' || solution <> '18'){
+                if(solution == '15' || solution == '18'){
                     if($('#SupportTicketSuburb').val() == ''){
                         bootbox.alert('Please select suburb.');
                             return false;
