@@ -339,6 +339,9 @@
     });
     
     function ChkCheckbox(){
+        
+            var solution = $('#SupportTicketResponse').val();
+            
                 if($('#SupportTicketResponseLevelAssessment').val() == ''){
                     bootbox.alert('Please select issue level assessment.');
 			return false;
@@ -360,16 +363,18 @@
 			return false;
                 }
                 if($('#SupportTicketCity').val() == ''){
-                    bootbox.alert('Please select cityt.');
+                    bootbox.alert('Please select city.');
 			return false;
                 }
-                if($('#SupportTicketSuburb').val() == ''){
-                    bootbox.alert('Please select suburb.');
-			return false;
-                }
-                if($('#SupportTicketArea').val() == ''){
-                    bootbox.alert('Please select area.');
-			return false;
+                if(solution == '15' || solution == '18'){
+                    if($('#SupportTicketSuburb').val() == ''){
+                        bootbox.alert('Please select suburb.');
+                            return false;
+                    }
+                    if($('#SupportTicketArea').val() == ''){
+                        bootbox.alert('Please select area.');
+                            return false;
+                    }
                 }
 		if ($("input:checked").length == 0){
 			bootbox.alert('No check box are selected.');
