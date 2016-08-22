@@ -172,6 +172,8 @@ class SupportTicketsController extends AppController {
             if(isset($this->request->data['update'])){
                 
                 $UpdateArray['SupportTicket']['response1'] = "'".$res."'";
+                $UpdateArray['SupportTicket']['response_level_assessment'] = "'".$response_level_assessment."'";
+                $UpdateArray['SupportTicket']['response'] = "'".$response."'";
                 $UpdateArray['SupportTicket']['opend_by'] = "'RECEIVER'";
                 $UpdateArray['SupportTicket']['response_ip'] = "'".$_SERVER['REMOTE_ADDR']."'";
                 $UpdateArray['SupportTicket']['status'] = "'2'"; // 2 = RESOLVED
