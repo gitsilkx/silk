@@ -365,7 +365,7 @@
                     bootbox.alert('Please select city.');
 			return false;
                 }
-                
+                /*
                 if($('#SupportTicketSuburb').val() == ''){
                     bootbox.alert('Please select suburb.');
 			return false;
@@ -374,6 +374,7 @@
                     bootbox.alert('Please select area.');
 			return false;
                 }
+                */
 		if ($("input:checked").length == 0){
 			bootbox.alert('No check box are selected.');
 			return false;
