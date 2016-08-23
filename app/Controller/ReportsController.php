@@ -122,6 +122,7 @@ class ReportsController extends AppController {
         }
 
 
+        
         $this->TravelCity->bindModel(array(
             'hasMany' => array(
                 'TravelHotelRoomSupplier' => array(
@@ -5608,9 +5609,12 @@ class ReportsController extends AppController {
     public function job_report() {
         
         $user_id = $this->Auth->user('id');
+        $role_id = $this->Session->read("role_id");
+        $channel_id = $this->Session->read("channel_id");
         $dataArray = array();   
         $TravelCities = array();     
         $display = 'FALSE';
+        $personArr = array();
         
         if ($this->request->is('post') || $this->request->is('put')) {
             
@@ -5618,8 +5622,10 @@ class ReportsController extends AppController {
             
            $user_id = $this->data['Report']['user_id'];
            $supplier_id = $this->data['Report']['supplier_id'];
-           
+           if($channel_id == '262'){
            $ProvincePermissions = $this->ProvincePermission->find('all',array('conditions' => array('user_id' => $user_id)));
+           $personArr = array('ProvincePermission.user_id' => $user_id);
+           }
           // pr($ProvincePermissions);
            foreach($ProvincePermissions as $ProvincePermission){
                array_push($dataArray, array('province_id' => $ProvincePermission['ProvincePermission']['province_id'],'country_id' => $ProvincePermission['ProvincePermission']['country_id']));
@@ -5649,9 +5655,12 @@ class ReportsController extends AppController {
                     'alias' => 'User',
                     'conditions' => array(
                         'ProvincePermission.user_id = User.id')
-                ),              
+                ),
+               
             )            
-            ,'group' => 'ProvincePermission.user_id'));
+            ,
+            'conditions' => $personArr,
+            'group' => 'ProvincePermission.user_id'));
         $persons = Set::combine($persons, '{n}.ProvincePermission.user_id', array('%s %s', '{n}.User.fname', '{n}.User.lname'));
         $TravelSuppliers = $this->TravelSupplier->find('list', array('fields' => 'id,supplier_code', 'order' => 'supplier_code ASC'));
         
