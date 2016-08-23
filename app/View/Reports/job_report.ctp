@@ -75,8 +75,8 @@
                 <tbody>
                     <?php
                     $i = 1;
-                    //pr($this->data);
-                   // die;
+                    pr($this->data);
+                   die;
                     $supplier_id = $this->data['Report']['supplier_id'];
                     if (isset($TravelCities) && count($TravelCities) > 0):
                         foreach ($TravelCities as $TravelCity):
