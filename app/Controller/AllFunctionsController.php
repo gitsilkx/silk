@@ -2077,5 +2077,31 @@ class AllFunctionsController extends AppController {
         $last_id = $this->TravelLookupSequence->getLastInsertId();
         $this->set(compact('last_id','model'));
     }
+    
+    public function get_user_list_by_summary_type(){
+        $this->layout = '';
+        $summary_type = $this->data['Report']['summary_type'];
+        if($summary_type == '1'){ //operation
+            $personArr = array('ProvincePermission.user_id' => $user_id);
+        }
+        elseif($summary_type == '2'){//approver
+            $personArr = array('OR' => array('ProvincePermission.approval_id' => $user_id,'ProvincePermission.maaping_approval_id' => $user_id));
+        }
+        
+        $persons = $this->ProvincePermission->find('all', array('fields' => array('ProvincePermission.user_id', 'User.fname','User.lname'),
+           'joins' => array(
+                array(
+                    'table' => 'users',
+                    'alias' => 'User',
+                    'conditions' => array(
+                        'ProvincePermission.user_id = User.id')
+                )               
+            ),
+            'conditions' => $personArr,
+            'group' => 'ProvincePermission.user_id'));
+             $persons = Set::combine($persons, '{n}.ProvincePermission.user_id', array('%s %s', '{n}.User.fname', '{n}.User.lname'));   
+   
+        $this->set(compact('persons'));
+    }
 
 }

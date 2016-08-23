@@ -153,4 +153,22 @@
     </div>
 </div>
 
-<?php echo $this->Form->end(); ?>
+<?php echo $this->Form->end(); 
+
+$this->Js->get('#ReportSummaryType')->event('change', $this->Js->request(array(
+            'controller' => 'all_functions',
+            'action' => 'get_user_list_by_summary_type'
+                ), array(
+            'update' => '#ReportUserId',
+            'async' => true,
+            'before' => 'loading("ReportUserId")',
+            'complete' => 'loaded("ReportUserId")',
+            'method' => 'post',
+            'dataExpression' => true,
+            'data' => $this->Js->serializeForm(array(
+                'isForm' => true,
+                'inline' => true
+            ))
+        ))
+);
+?>
