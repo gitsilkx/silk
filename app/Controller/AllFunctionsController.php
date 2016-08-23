@@ -33,7 +33,7 @@ class AllFunctionsController extends AppController {
     var $uses = array('Project', 'City', 'Builder', 'User', 'LookupPropCategory', 'CwrState', 'LookupValueProjectAttache', 'LookupValueLeadsCountry', 'LookupUnitCommissionBasedOn', 'LookupUnitCommissionEvent', 'Channel', 'LookupValueAmenitie', 'Suburb', 'Area', 'LookupValueReimbursementType_2', 'Event', 'BuilderContact', 'LookupValueActivityDetail', 'LookupCompany', 'Lead', 'ProjectUnit', 'BuilderLegalName', 'ProjectLegalName',
         'TravelCountry', 'TravelCity', 'TravelCitySupplier', 'TravelHotelLookup', 'TravelHotelRoomSupplier', 'TravelSuburb', 'TravelBrand', 'TravelArea',
         'DigMediaProduct', 'DigPerson', 'DigTopic', 'TravelChain', 'DigStructure', 'DigLevel','SightSeeingElement','TransferElement','Province',
-        'LookupQuestion','TravelLookupContinent','SupplierCity','Common','TravelLookupSequence');
+        'LookupQuestion','TravelLookupContinent','SupplierCity','Common','TravelLookupSequence','ProvincePermission');
 
     /**
      * Get DeparmentUniversity ID and Department NAME using AJAX POST method
