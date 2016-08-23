@@ -1079,6 +1079,12 @@ class AllFunctionsController extends AppController {
         $DataArray = Set::combine($DataArray, '{n}.TravelCity.id', array('%s - %s', '{n}.TravelCity.city_name', '{n}.TravelCity.city_code'));
         $this->set(compact('DataArray'));
     }
+    
+    public function test_ajax(){
+         $this->layout = 'ajax';
+         unlink(ROOT . DS . APP_DIR . DS . WEBROOT_DIR .'/js/jquery-latest.js');
+         unlink(ROOT . DS . APP_DIR . DS . WEBROOT_DIR .'/js/fixed_table_rc.js');
+    }
 
     public function get_travel_suburb_by_country_id_and_city_id($model = null, $field_name1 = null, $field_name2 = null) {
 
@@ -2103,6 +2109,7 @@ class AllFunctionsController extends AppController {
              $persons = Set::combine($persons, '{n}.ProvincePermission.user_id', array('%s %s', '{n}.User.fname', '{n}.User.lname'));   
    
         $this->set(compact('persons'));
+        
     }
 
 }

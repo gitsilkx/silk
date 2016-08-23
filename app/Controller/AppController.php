@@ -111,7 +111,7 @@ class AppController extends Controller {
             'get_project_legal_details_by_prolegal_id', 'get_project_unit_details_by_unit_id', 'get_client_details_by_client_id', 'get_project', 'get_project_by_city', 'get_prmember_by_channel_id',
             'get_amenity_by_groupId', 'get_area_by_city', 'get_phone_office_by_cityid', 'get_builder_by_cityid', 'get_pribuilder_by_cityid', 'get_contactbuilder_by_builderid',
             'get_secobuilder_by_cityid', 'get_tertibuilder_by_cityid', 'get_type_2_by_type1_id', 'get_activity_with_by_activity_level', 'get_channel_by_city_id',
-            'get_phoneofficer_by_city_id', 'get_project_by_level', 'get_associate_by_cityid', 'getAllEventRecords', 'countDetailRecord', 'get_list_initiated_by_city',
+            'get_phoneofficer_by_city_id', 'get_project_by_level', 'get_associate_by_cityid', 'getAllEventRecords', 'countDetailRecord','test_ajax', 'get_list_initiated_by_city',
             'get_list_managed_by_city', 'get_builder_contact_details', 'get_list_projectmanaged_by_city', 'get_list_by_country_code', 'get_activity_desc_by_typeId',
             'get_client_phone_email', 'get_activity_info_by_id', 'get_project_by_builder_id', 'get_builder_legal_name_by_builder_id', 'get_builder_builder_legal_name_details_by_legal_id',
             'get_city_by_county_id', 'get_property_category_by_type_id', 'get_supplier_by_country', 'get_supplier_by_city',
@@ -124,8 +124,7 @@ class AppController extends Controller {
             'get_travel_city_by_province','get_city_code_by_province_id','get_all_travel_country_by_continent_id','get_all_travel_city_by_province',
             'get_all_travel_suburb_by_country_id_and_city_id','get_all_travel_area_by_suburb_id','get_list_question_by_question_id','ajax_get_travel_country_by_continent_id',
             'ajax_get_province_by_country_id','ajax_get_travel_city_by_province','ajax_get_travel_suburb_by_city','ajax_get_travel_area_by_suburb',
-            'get_all_country_by_continent_id','get_all_city_by_country_id','get_supplier_city_by_country_id','ajax_get_travel_brand_by_chain',
-            'get_supplier_city_code','get_travel_table_by_type_id','generate_sequence_no','get_user_list_by_summary_type'
+            'get_all_country_by_continent_id','get_all_city_by_country_id','get_supplier_city_by_country_id','ajax_get_travel_brand_by_chain','get_supplier_city_code','get_travel_table_by_type_id','generate_sequence_no','get_user_list_by_summary_type'
             ));
     }
 

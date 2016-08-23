@@ -5643,12 +5643,20 @@ class ReportsController extends AppController {
             $display = 'TRUE';
             
            $data_user_id = $this->data['Report']['user_id'];
+           $summary_type = $this->data['Report']['summary_type'];
            $supplier_id = $this->data['Report']['supplier_id'];
            if($channel_id == '262'){
            $ProvincePermissions = $this->ProvincePermission->find('all',array('conditions' => array('user_id' => $data_user_id)));
           
            
            }
+           elseif($channel_id == '258' || $channel_id == '259') {
+               if($summary_type == '2'){
+                    $ProvincePermissions = $this->ProvincePermission->find('all',array('conditions' => array('OR' => array('ProvincePermission.approval_id' => $user_id,'ProvincePermission.maaping_approval_id' => $user_id,'ProvincePermission.user_id' => $user_id))));
+               }
+               else
+                   $ProvincePermissions = $this->ProvincePermission->find('all',array('conditions' => array('user_id' => $data_user_id)));
+        }
           
            foreach($ProvincePermissions as $ProvincePermission){
                array_push($dataArray, array('province_id' => $ProvincePermission['ProvincePermission']['province_id'],'country_id' => $ProvincePermission['ProvincePermission']['country_id']));
