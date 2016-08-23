@@ -19,7 +19,7 @@
                 <div class="row">
                     <div class="col-sm-3 col-xs-6">
                         <label for="un_member">Summary Type:</label>
-                        <?php echo $this->Form->input('summary_type', array('options' => array('1' => 'Operation' , '2' => 'Approver'), 'empty' => '--Select--', 'data-required' => 'true','disabled' => '2')); ?>
+                        <?php echo $this->Form->input('summary_type', array('options' => $summary, 'empty' => '--Select--', 'data-required' => 'true','disabled' => '2')); ?>
                     </div>                    <div class="col-sm-3 col-xs-6">
                         <label for="un_member">Choose Person:</label>
                         <?php echo $this->Form->input('user_id', array('options' => $persons, 'empty' => '--Select--', 'data-required' => 'true')); ?>

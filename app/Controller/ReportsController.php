@@ -5615,8 +5615,10 @@ class ReportsController extends AppController {
         $TravelCities = array();     
         $display = 'FALSE';
         $personArr = array();
+        $summary = array();
         if($channel_id == '262'){
         $personArr = array('ProvincePermission.user_id' => $user_id);
+        $summary = array('1' => 'Operation');
            
            }
           
@@ -5671,7 +5673,7 @@ class ReportsController extends AppController {
         $TravelSuppliers = $this->TravelSupplier->find('list', array('fields' => 'id,supplier_code', 'order' => 'supplier_code ASC'));
         
         
-        $this->set(compact('persons','TravelCities','TravelSuppliers','display'));
+        $this->set(compact('persons','TravelCities','TravelSuppliers','display','summary'));
     }
     
     public function duplicate_hotel_report() {
