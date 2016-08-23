@@ -5610,12 +5610,16 @@ class ReportsController extends AppController {
         
         $user_id = $this->Auth->user('id');
         $role_id = $this->Session->read("role_id");
-        echo $channel_id = $this->Session->read("channel_id");
+        $channel_id = $this->Session->read("channel_id");
         $dataArray = array();   
         $TravelCities = array();     
         $display = 'FALSE';
         $personArr = array();
-        
+        if($channel_id == '262'){
+        $personArr = array('ProvincePermission.user_id' => $user_id);
+           
+           }
+          
         if ($this->request->is('post') || $this->request->is('put')) {
             
             $display = 'TRUE';
@@ -5625,9 +5629,9 @@ class ReportsController extends AppController {
            if($channel_id == '262'){
            $ProvincePermissions = $this->ProvincePermission->find('all',array('conditions' => array('user_id' => $user_id)));
            $personArr = array('ProvincePermission.user_id' => $user_id);
-           die('test');
+           
            }
-           pr($personArr);
+          
            foreach($ProvincePermissions as $ProvincePermission){
                array_push($dataArray, array('province_id' => $ProvincePermission['ProvincePermission']['province_id'],'country_id' => $ProvincePermission['ProvincePermission']['country_id']));
                //$dataArray = ARRAY('province_id' => $ProvincePermission['ProvincePermission']['province_id'],'country_id' => $ProvincePermission['ProvincePermission']['country_id']);
@@ -5658,11 +5662,11 @@ class ReportsController extends AppController {
                         'ProvincePermission.user_id = User.id')
                 )               
             ),
-            'conditions' => array('ProvincePermission.user_id' => $user_id),
+            'conditions' => $personArr,
             'group' => 'ProvincePermission.user_id'));
-        $log = $this->ProvincePermission->getDataSource()->getLog(false, false);       
-        debug($log);
-        die;
+        //$log = $this->ProvincePermission->getDataSource()->getLog(false, false);       
+        //debug($log);
+        //die;
         $persons = Set::combine($persons, '{n}.ProvincePermission.user_id', array('%s %s', '{n}.User.fname', '{n}.User.lname'));
         $TravelSuppliers = $this->TravelSupplier->find('list', array('fields' => 'id,supplier_code', 'order' => 'supplier_code ASC'));
         
