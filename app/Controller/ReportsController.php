@@ -5654,7 +5654,7 @@ class ReportsController extends AppController {
                     'table' => 'users',
                     'alias' => 'User',
                     'conditions' => array(
-                        'ProvincePermission.user_id = User.id')
+                        'ProvincePermission.user_id = User.id','ProvincePermission.user_id' => $user_id)
                 ),
                
             )            
