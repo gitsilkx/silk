@@ -5678,7 +5678,7 @@ class ReportsController extends AppController {
         }
           
            foreach($ProvincePermissions as $ProvincePermission){
-               array_push($dataArray, array('province_id' => $ProvincePermission['ProvincePermission']['province_id'],'country_id' => $ProvincePermission['ProvincePermission']['country_id']));
+               array_push($dataArray, array('province_id' => $ProvincePermission['ProvincePermission']['province_id'],'country_id' => $ProvincePermission['ProvincePermission']['country_id'],'user_id' => $ProvincePermission['ProvincePermission']['user_id']));
                //$dataArray = ARRAY('province_id' => $ProvincePermission['ProvincePermission']['province_id'],'country_id' => $ProvincePermission['ProvincePermission']['country_id']);
                
            }
@@ -5689,7 +5689,7 @@ class ReportsController extends AppController {
             );
                $TravelCities[] = $this->TravelCity->find('first',array('fields' => 'id,city_name','conditions' => array('province_id' => $val['province_id'])));
               
-               array_push($TravelCities[$i], array('province_id' => $val['province_id'],'country_id' => $val['country_id'])); 
+               array_push($TravelCities[$i], array('province_id' => $val['province_id'],'country_id' => $val['country_id'],'user_id' => $val['user_id'])); 
               
                 $conArray[] = array('TravelHotelLookup.city_id' => $TravelCities[$i]['TravelCity']['id'],'TravelHotelLookup.country_id' => $val['country_id']);
                 ///$andArray = array('province_id' => $val['province_id'],'country_id' => $val['country_id']);
