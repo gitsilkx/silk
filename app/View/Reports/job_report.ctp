@@ -75,8 +75,8 @@
                 <tbody>
                     <?php
                     $i = 1;
-                    pr($TravelCities);
-                   die;
+                   // pr($TravelCities);
+                   //die;
                     $supplier_id = $this->data['Report']['supplier_id'];
                     if (isset($TravelCities) && count($TravelCities) > 0):
                         foreach ($TravelCities as $TravelCity):
@@ -85,7 +85,7 @@
                             ?>
                             <tr>                              
                                 <td><?php echo $i; ?></td>
-                                <td><?php echo $this->Custom->Username($this->data['Report']['user_id']); ?></td>
+                                <td><?php echo $this->Custom->Username($TravelCity[0]['user_id']); ?></td>
                                 <td><?php echo $this->Custom->getCountryName($country_id); ?></td>
                                 <td><?php echo $this->Custom->getProvinceName($TravelCity[0]['province_id']); ?></td>
                                 <td><?php echo $TravelCity['TravelCity']['city_name']; ?></td> 
