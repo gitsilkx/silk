@@ -5628,11 +5628,11 @@ class ReportsController extends AppController {
             
            $data_user_id = $this->data['Report']['user_id'];
            $supplier_id = $this->data['Report']['supplier_id'];
-          // if($channel_id == '262'){
+           if($channel_id == '262'){
            $ProvincePermissions = $this->ProvincePermission->find('all',array('conditions' => array('user_id' => $data_user_id)));
           
            
-          // }
+           }
           
            foreach($ProvincePermissions as $ProvincePermission){
                array_push($dataArray, array('province_id' => $ProvincePermission['ProvincePermission']['province_id'],'country_id' => $ProvincePermission['ProvincePermission']['country_id']));
