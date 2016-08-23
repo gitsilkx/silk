@@ -5652,7 +5652,10 @@ class ReportsController extends AppController {
            }
            elseif($channel_id == '258' || $channel_id == '259') {
                if($summary_type == '2'){
-                    $ProvincePermissions = $this->ProvincePermission->find('all',array('conditions' => array('OR' => array('ProvincePermission.approval_id' => $user_id,'ProvincePermission.maaping_approval_id' => $user_id,'ProvincePermission.user_id' => $user_id))));
+                    if($data_user_id<>'')
+                        $ProvincePermissions = $this->ProvincePermission->find('all',array('conditions' => array('OR' => array('ProvincePermission.approval_id' => $user_id,'ProvincePermission.maaping_approval_id' => $user_id,'ProvincePermission.user_id' => $user_id))));
+                    else
+                       $ProvincePermissions = $this->ProvincePermission->find('all',array('conditions' => array('OR' => array('ProvincePermission.approval_id' => $user_id,'ProvincePermission.maaping_approval_id' => $user_id,'ProvincePermission.user_id' => $user_id)))); 
                }
                else
                    $ProvincePermissions = $this->ProvincePermission->find('all',array('conditions' => array('user_id' => $data_user_id)));
