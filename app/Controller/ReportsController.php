@@ -5625,6 +5625,7 @@ class ReportsController extends AppController {
            if($channel_id == '262'){
            $ProvincePermissions = $this->ProvincePermission->find('all',array('conditions' => array('user_id' => $user_id)));
            $personArr = array('ProvincePermission.user_id' => $user_id);
+           die('test');
            }
            pr($personArr);
            foreach($ProvincePermissions as $ProvincePermission){
