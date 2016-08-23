@@ -5661,6 +5661,9 @@ class ReportsController extends AppController {
             ,
             'conditions' => $personArr,
             'group' => 'ProvincePermission.user_id'));
+        $log = $this->ProvincePermission->getDataSource()->getLog(false, false);       
+        debug($log);
+        die;
         $persons = Set::combine($persons, '{n}.ProvincePermission.user_id', array('%s %s', '{n}.User.fname', '{n}.User.lname'));
         $TravelSuppliers = $this->TravelSupplier->find('list', array('fields' => 'id,supplier_code', 'order' => 'supplier_code ASC'));
         
