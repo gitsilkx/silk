@@ -5626,7 +5626,7 @@ class ReportsController extends AppController {
            $ProvincePermissions = $this->ProvincePermission->find('all',array('conditions' => array('user_id' => $user_id)));
            $personArr = array('ProvincePermission.user_id' => $user_id);
            }
-          // pr($ProvincePermissions);
+           pr($personArr);
            foreach($ProvincePermissions as $ProvincePermission){
                array_push($dataArray, array('province_id' => $ProvincePermission['ProvincePermission']['province_id'],'country_id' => $ProvincePermission['ProvincePermission']['country_id']));
                //$dataArray = ARRAY('province_id' => $ProvincePermission['ProvincePermission']['province_id'],'country_id' => $ProvincePermission['ProvincePermission']['country_id']);
