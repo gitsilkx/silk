@@ -2080,6 +2080,7 @@ class AllFunctionsController extends AppController {
     
     public function get_user_list_by_summary_type(){
         $this->layout = '';
+        $user_id = $this->Auth->user('id');
         $summary_type = $this->data['Report']['summary_type'];
         if($summary_type == '1'){ //operation
             $personArr = array('ProvincePermission.user_id' => $user_id);
