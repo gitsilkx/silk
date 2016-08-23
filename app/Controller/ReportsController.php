@@ -5654,12 +5654,10 @@ class ReportsController extends AppController {
                     'table' => 'users',
                     'alias' => 'User',
                     'conditions' => array(
-                        'ProvincePermission.user_id = User.id','ProvincePermission.user_id' => $user_id)
-                ),
-               
-            )            
-            ,
-            'conditions' => $personArr,
+                        'ProvincePermission.user_id = User.id')
+                )               
+            ),
+            'conditions' => array('ProvincePermission.user_id' => $user_id),
             'group' => 'ProvincePermission.user_id'));
         $log = $this->ProvincePermission->getDataSource()->getLog(false, false);       
         debug($log);
