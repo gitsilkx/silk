@@ -5669,7 +5669,7 @@ class ReportsController extends AppController {
                    
                    
                     if($data_user_id<>'')
-                    $ProvincePermissions = $this->ProvincePermission->find('all',array('conditions' => array('OR' => array('ProvincePermission.approval_id' => $user_id,'ProvincePermission.maaping_approval_id' => $user_id,'ProvincePermission.user_id' => $user_id))));
+                        $ProvincePermissions = $this->ProvincePermission->find('all',array('conditions' => array('user_id' => $data_user_id)));
                     else
                        $ProvincePermissions = $this->ProvincePermission->find('all',array('conditions' => array('OR' => array('ProvincePermission.approval_id' => $user_id,'ProvincePermission.maaping_approval_id' => $user_id,'ProvincePermission.user_id' => $user_id)))); 
                }
