@@ -2086,7 +2086,7 @@ class AllFunctionsController extends AppController {
             $personArr = array('ProvincePermission.user_id' => $user_id);
         }
         elseif($summary_type == '2'){//approver
-            $personArr = array('OR' => array('ProvincePermission.approval_id' => $user_id,'ProvincePermission.maaping_approval_id' => $user_id));
+            $personArr = array('OR' => array('ProvincePermission.approval_id' => $user_id,'ProvincePermission.maaping_approval_id' => $user_id,'ProvincePermission.user_id' => $user_id));
         }
         
         $persons = $this->ProvincePermission->find('all', array('fields' => array('ProvincePermission.user_id', 'User.fname','User.lname'),
