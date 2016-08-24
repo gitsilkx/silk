@@ -2110,7 +2110,7 @@ class AllFunctionsController extends AppController {
                         'ProvincePermission.user_id = User.id')
                 )               
             ),
-            'conditions' => $personArr,
+            //'conditions' => $personArr,
             'group' => 'ProvincePermission.user_id'));
              $persons = Set::combine($persons, '{n}.ProvincePermission.user_id', array('%s %s', '{n}.User.fname', '{n}.User.lname'));   
    
