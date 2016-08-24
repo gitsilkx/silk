@@ -5610,7 +5610,7 @@ class ReportsController extends AppController {
         
         $user_id = $this->Auth->user('id');
         $role_id = $this->Session->read("role_id");
-       echo $channel_id = $this->Session->read("channel_id");
+        $channel_id = $this->Session->read("channel_id");
         $dataArray = array();   
         $TravelCities = array();     
         $display = 'FALSE';
