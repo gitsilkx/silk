@@ -2093,15 +2093,9 @@ class AllFunctionsController extends AppController {
         
         $summary_type = $this->data['Report']['summary_type'];
         if($summary_type == '1'){ //operation
-            if($channel_id <> '261' || $channel_id <> '214')
-                $personArr = array('ProvincePermission.user_id' => $user_id);
-        }
-        elseif($summary_type == '2'){//approver
-            $Select = 'All';
-            $personArr = array('OR' => array('ProvincePermission.approval_id' => $user_id,'ProvincePermission.maaping_approval_id' => $user_id,'ProvincePermission.user_id' => $user_id));
-        }
-        
-        $persons = $this->ProvincePermission->find('all', array('fields' => array('ProvincePermission.user_id', 'User.fname','User.lname'),
+            if($channel_id == '261' || $channel_id == '214'){
+                
+                $persons = $this->ProvincePermission->find('all', array('fields' => array('ProvincePermission.user_id', 'User.fname','User.lname'),
            'joins' => array(
                 array(
                     'table' => 'users',
@@ -2110,9 +2104,44 @@ class AllFunctionsController extends AppController {
                         'ProvincePermission.user_id = User.id')
                 )               
             ),
-            //'conditions' => $personArr,
+           
             'group' => 'ProvincePermission.user_id'));
              $persons = Set::combine($persons, '{n}.ProvincePermission.user_id', array('%s %s', '{n}.User.fname', '{n}.User.lname'));   
+            }
+            else {
+                $personArr = array('ProvincePermission.user_id' => $user_id);
+                $persons = $this->ProvincePermission->find('all', array('fields' => array('ProvincePermission.user_id', 'User.fname','User.lname'),
+           'joins' => array(
+                array(
+                    'table' => 'users',
+                    'alias' => 'User',
+                    'conditions' => array(
+                        'ProvincePermission.user_id = User.id')
+                )               
+            ),
+            'conditions' => $personArr,
+            'group' => 'ProvincePermission.user_id'));
+             $persons = Set::combine($persons, '{n}.ProvincePermission.user_id', array('%s %s', '{n}.User.fname', '{n}.User.lname'));   
+            }
+        }
+        elseif($summary_type == '2'){//approver
+            $Select = 'All';
+            $personArr = array('OR' => array('ProvincePermission.approval_id' => $user_id,'ProvincePermission.maaping_approval_id' => $user_id,'ProvincePermission.user_id' => $user_id));
+            $persons = $this->ProvincePermission->find('all', array('fields' => array('ProvincePermission.user_id', 'User.fname','User.lname'),
+           'joins' => array(
+                array(
+                    'table' => 'users',
+                    'alias' => 'User',
+                    'conditions' => array(
+                        'ProvincePermission.user_id = User.id')
+                )               
+            ),
+            'conditions' => $personArr,
+            'group' => 'ProvincePermission.user_id'));
+             $persons = Set::combine($persons, '{n}.ProvincePermission.user_id', array('%s %s', '{n}.User.fname', '{n}.User.lname'));   
+        }
+        
+        
    
         $this->set(compact('persons','Select'));
         
