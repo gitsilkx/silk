@@ -5610,7 +5610,7 @@ class ReportsController extends AppController {
         
         $user_id = $this->Auth->user('id');
         $role_id = $this->Session->read("role_id");
-        $channel_id = $this->Session->read("channel_id");
+       echo $channel_id = $this->Session->read("channel_id");
         $dataArray = array();   
         $TravelCities = array();     
         $display = 'FALSE';
@@ -5639,6 +5639,7 @@ class ReportsController extends AppController {
             $summary = array('1' => 'Operation','2' => 'Approver'); 
         }  
         elseif($channel_id == '261' || $channel_id == '214') {
+            die('fgh');;
             $summary = array('1' => 'Operation','2' => 'Approver');
             $persons = $this->ProvincePermission->find('all', array('fields' => array('ProvincePermission.user_id', 'User.fname','User.lname'),
            'joins' => array(
