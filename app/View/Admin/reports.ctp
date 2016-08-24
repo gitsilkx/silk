@@ -60,7 +60,7 @@
                     </div>
                     <div class="info-details">
         <?php
-        echo $this->Html->link('<h4>My Job Report</h4>', '/reports/job_report', array('data-toggle' => 'tooltip', 'data-placement' => 'right', 'title' => 'My Job Report', 'escape' => false));        
+        echo $this->Html->link('<h4>My Report</h4>', '/reports/job_report', array('data-toggle' => 'tooltip', 'data-placement' => 'right', 'title' => 'My Job Report', 'escape' => false));        
         ?>
                     </div>
                 </div>
