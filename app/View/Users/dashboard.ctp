@@ -282,7 +282,7 @@
                     </div>
                     <div class="info-details">
         <?php
-        echo $this->Html->link('<h4>Mapping Area<span class="pull-right"></span></h4>', '/mappinge_areas/supplier_hotels', array('data-toggle' => 'tooltip', 'data-placement' => 'right', 'title' => 'Packages', 'escape' => false));
+        echo $this->Html->link('<h4>Mapping Area1<span class="pull-right"></span></h4>', '/mappinge_areas/supplier_hotels', array('data-toggle' => 'tooltip', 'data-placement' => 'right', 'title' => 'Packages', 'escape' => false));
         ?>
                     </div>
                 </div>
