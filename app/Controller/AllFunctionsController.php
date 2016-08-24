@@ -2088,6 +2088,7 @@ class AllFunctionsController extends AppController {
         $this->layout = '';
         $user_id = $this->Auth->user('id');
         $channel_id = $this->Session->read("channel_id");
+        $personArr = array();
         $Select = '--Select--';
         
         $summary_type = $this->data['Report']['summary_type'];
