@@ -5638,6 +5638,20 @@ class ReportsController extends AppController {
         elseif($channel_id == '258' || $channel_id == '259') {
             $summary = array('1' => 'Operation','2' => 'Approver'); 
         }  
+        elseif($channel_id == '261' || $channel_id == '214') {
+            $summary = array('1' => 'Operation','2' => 'Approver');
+            $persons = $this->ProvincePermission->find('all', array('fields' => array('ProvincePermission.user_id', 'User.fname','User.lname'),
+           'joins' => array(
+                array(
+                    'table' => 'users',
+                    'alias' => 'User',
+                    'conditions' => array(
+                        'ProvincePermission.user_id = User.id')
+                )               
+            ),
+            'group' => 'ProvincePermission.user_id'));
+             $persons = Set::combine($persons, '{n}.ProvincePermission.user_id', array('%s %s', '{n}.User.fname', '{n}.User.lname'));   
+        }
           
         if ($this->request->is('post') || $this->request->is('put')) {
             
