@@ -5617,6 +5617,7 @@ class ReportsController extends AppController {
         $personArr = array();
         $summary = array();
         $persons = array();
+        $Select = '--Select--';
         
         if($channel_id == '262'){
         $personArr = array('ProvincePermission.user_id' => $user_id);
@@ -5652,7 +5653,7 @@ class ReportsController extends AppController {
            }
            elseif($channel_id == '258' || $channel_id == '259') {
                if($summary_type == '2'){
-                   
+                   $Select = 'All';
                    $personArr = array('OR' => array('ProvincePermission.approval_id' => $user_id,'ProvincePermission.maaping_approval_id' => $user_id,'ProvincePermission.user_id' => $user_id));
                    $persons = $this->ProvincePermission->find('all', array('fields' => array('ProvincePermission.user_id', 'User.fname','User.lname'),
            'joins' => array(
@@ -5702,7 +5703,7 @@ class ReportsController extends AppController {
         $TravelSuppliers = $this->TravelSupplier->find('list', array('fields' => 'id,supplier_code', 'order' => 'supplier_code ASC'));
         
         
-        $this->set(compact('persons','TravelCities','TravelSuppliers','display','summary'));
+        $this->set(compact('persons','TravelCities','TravelSuppliers','display','summary','Select'));
     }
     
     public function duplicate_hotel_report() {

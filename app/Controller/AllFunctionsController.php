@@ -2087,11 +2087,14 @@ class AllFunctionsController extends AppController {
     public function get_user_list_by_summary_type(){
         $this->layout = '';
         $user_id = $this->Auth->user('id');
+        $Select = '--Select--';
+        
         $summary_type = $this->data['Report']['summary_type'];
         if($summary_type == '1'){ //operation
             $personArr = array('ProvincePermission.user_id' => $user_id);
         }
         elseif($summary_type == '2'){//approver
+            $Select = 'All';
             $personArr = array('OR' => array('ProvincePermission.approval_id' => $user_id,'ProvincePermission.maaping_approval_id' => $user_id,'ProvincePermission.user_id' => $user_id));
         }
         
@@ -2108,7 +2111,7 @@ class AllFunctionsController extends AppController {
             'group' => 'ProvincePermission.user_id'));
              $persons = Set::combine($persons, '{n}.ProvincePermission.user_id', array('%s %s', '{n}.User.fname', '{n}.User.lname'));   
    
-        $this->set(compact('persons'));
+        $this->set(compact('persons','Select'));
         
     }
 
