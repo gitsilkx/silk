@@ -1,5 +1,13 @@
 <?php
+define("USERNAME", 'hbs200_admin'); //root //hbs200_admin
 
+define("PASSWORD", 'hbs200_lms');//hbs200_lms
+
+define("DBNAME", 'hbs200_lms'); //silkrouters //hbs200_lms
+
+define("HOST", 'localhost');
+$dbh = @mysql_connect(HOST, USERNAME, PASSWORD) or die('I cannot connect to the database because: ' . mysql_error());
+$db = @mysql_select_db(DBNAME, $dbh) or die('I cannot connect to the database because: ' . mysql_error());
 /**
  * TravelHotelLookups controller.
  *
@@ -46,13 +54,14 @@ class TravelHotelImagesController extends AppController {
     public function beforeFilter() {
         parent::beforeFilter();
         $this->uploadDir = ROOT . DS . APP_DIR . DS . WEBROOT_DIR . '/uploads/hotels';
+        $this->Auth->allow('index');
         $this->Width = '200';
         $this->Height = '200';
     }
 
     public function index() {
 
-
+        
         $city_id = $this->Auth->user('city_id');
         $user_id = $this->Auth->user('id');
         $search_condition = array();
