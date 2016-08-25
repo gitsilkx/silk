@@ -47,7 +47,8 @@ class TravelHotelImagesController extends AppController {
     public $uses = array('TravelHotelLookup', 'TravelHotelRoomSupplier', 'TravelCountry', 'TravelLookupContinent', 'TravelLookupValueContractStatus', 'TravelCity', 'TravelChain',
         'TravelSuburb', 'TravelArea', 'TravelBrand', 'TravelActionItem', 'TravelRemark', 'LogCall', 'User', 'Province', 'ProvincePermission', 'DeleteTravelHotelLookup', 'DeleteLogTable',
         'TravelLookupRateType', 'TravelLookupPropertyType', 'TravelCitySupplier', 'TravelHotelImage');
-    public $components = array('Sms', 'Image');
+    public $components = array('Sms', 'Image','RequestHandler');
+
     public $uploadDir;
     
 
