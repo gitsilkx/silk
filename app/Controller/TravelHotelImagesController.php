@@ -54,7 +54,7 @@ class TravelHotelImagesController extends AppController {
     public function beforeFilter() {
         parent::beforeFilter();
         $this->uploadDir = ROOT . DS . APP_DIR . DS . WEBROOT_DIR . '/uploads/hotels';
-        $this->Auth->allow('index');
+        $this->Auth->allow('index','test');
         $this->Width = '200';
         $this->Height = '200';
     }
@@ -1114,164 +1114,50 @@ class TravelHotelImagesController extends AppController {
         }
     }
     
-     public function province() {
+    public function test() {
+        $this->layout = FALSE;
+        $this->autoRender = FALSE;
+        Configure::write('debug', 2);
+        $this->RequestHandler->respondAs('xml');
+        App::import('Vendor', 'nusoap', array('file' => 'nusoap' . DS . 'lib' . DS . 'nusoap.php'));
 
+        if (!isset($HTTP_RAW_POST_DATA))
+            $HTTP_RAW_POST_DATA = file_get_contents('php://input');
 
-        $ProvincePermissions = $this->ProvincePermission->find('all', array(
-            'fields' => array('ProvincePermission.user_id,GROUP_CONCAT(Province.name separator " , ") AS province_name', 'TravelCountry.country_name', 'TravelLookupContinent.continent_name', 'User.fname', 'User.lname', 'ProvincePermission.approval_id', 'ProvincePermission.maaping_approval_id'
-                , 'ProvincePermission.continent_id', 'ProvincePermission.country_id'),
-            'joins' => array(
-                array(
-                    'table' => 'users',
-                    'alias' => 'User',
-                    'type' => 'INNER',
-                    'conditions' => 'ProvincePermission.user_id = User.id'
-                ),
-                
-                array(
-                    'table' => 'provinces',
-                    'alias' => 'Province',
-                    'type' => 'INNER',
-                    'conditions' => 'ProvincePermission.province_id = Province.id'
-                ),
-                array(
-                    'table' => 'travel_countries',
-                    'alias' => 'TravelCountry',
-                    'fields' => 'country_name',
-                    'type' => 'INNER',
-                    'conditions' => 'ProvincePermission.country_id = TravelCountry.id'
-                ),
-                array(
-                    'table' => 'travel_lookup_continents',
-                    'fields' => 'continent_name',
-                    'alias' => 'TravelLookupContinent',
-                    'type' => 'INNER',
-                    'conditions' => 'ProvincePermission.continent_id = TravelLookupContinent.id'
-                ),
-            ),
-            'order' => 'ProvincePermission.id',
-            'group' => array('ProvincePermission.user_id','ProvincePermission.continent_id','ProvincePermission.country_id')));
-
-        $this->set(compact('ProvincePermissions'));
-    }
-
-    public function province_add() {
-
-        $created_by = $this->Auth->user('id');
-        $dummy_status = $this->Auth->user('dummy_status');
-        $selected = array();
-        $Provinces = array();
-        $mapping_edit = '';
-		$TravelCountries = array();
-
-        if ($this->request->is('post')) {
-            $user_id = $this->request->data['ProvincePermission']['user_id'];
-            $country_id = $this->request->data['ProvincePermission']['country_id'];
-            $maaping_approval_id = $this->request->data['ProvincePermission']['maaping_approval_id'];
-            $continent_id = $this->request->data['ProvincePermission']['continent_id'];
-            $approval_id = $this->request->data['ProvincePermission']['approval_id'];
-            $TravelCountries = $this->TravelCountry->find('list', array('fields' => 'id,country_name', 'conditions' => array('country_status' => 1, 'wtb_status' => 1, 'active' => 'TRUE','continent_id' => $continent_id), 'order' => 'country_name ASC'));
-        
-            if (isset($this->request->data['add'])) {
-                if (count($this->data['ProvincePermission']['province_id']) > 0) {
-
-                    foreach ($this->data['ProvincePermission']['province_id'] as $val) {
-                        if(isset($this->data['ProvincePermission']['mapping_edit'][$val]))
-                            $mapping_edit = $this->data['ProvincePermission']['mapping_edit'][$val];
-                        $save[] = array('ProvincePermission' => array(
-                                'province_id' => $val,
-                                'mapping_edit' => $mapping_edit,
-                                'user_id' => $user_id,
-                                'country_id' => $country_id,
-                                'maaping_approval_id' => $maaping_approval_id,
-                                'continent_id' => $continent_id,
-                                'approval_id' => $approval_id,
-                                'created_by' => $created_by
-                        ));
-                    }
-                }
-
-                $this->ProvincePermission->create();
-
-
-                if ($this->ProvincePermission->saveMany($save)) {
-
-                    $this->Session->setFlash('Data has been saved.', 'success');
-                    $this->redirect(array('action' => 'index'));
-                } else {
-                    $this->Session->setFlash('Unable to add data.', 'failure');
-                    $this->redirect(array('action' => 'index'));
-                }
-            }
-            elseif(isset($this->request->data['search'])){
-				//echo $continent_id;
-                $Provinces = $this->Province->find('list', array('fields' => array('id', 'name'),'conditions' => array('continent_id' => $continent_id,'country_id' => $country_id)));
-            }
+        function hookTextBetweenTags($string, $tagname) {
+            $pattern = "/<$tagname ?.*>(.*)<\/$tagname>/";
+            preg_match($pattern, $string, $matches);
+            return $matches[1];
         }
 
+        $server = new soap_server();
+        $namespace = "http://silkrouters.com/travel_hotel_images/test";
+        $endpoint = "http://silkrouters.com/travel_hotel_images/test";
+        $server->configureWSDL("web-service", $namespace, $endpoint);
+        $server->wsdl->schemaTargetNamespace = $namespace;
+
+        
+        $server->register("hello", array("username" => "xsd:string"), array("return" => "xsd:string"), "urn:web-service", "urn:web-service#hello", "rpc", "encoded", "Just say hello");
+        $server->register("finish", array("msg" => "xsd:string"), array("return" => "xsd:string"), "urn:web-service", "urn:web-service#hello", "rpc", "encoded", "Just say hello");
+
+        function hello($username) {
+            //Can query database and any other complex operation
+            mysql_query($username);
+            return 'Hiiii-' . $username;
+            
+        }
+        function finish($username) {
+            //Can query database and any other complex operation
+            mysql_query($username);
+            return 'Hiiii-' . $username;
+            
+        }
+        
         
 
-        $Users = $this->User->find
-                (
-                'all', array
-            (
-            'fields' => array('User.id', 'User.fname', 'User.lname'),
-            'conditions' => array
-                (
-                'OR' => array('t_sales_role_id' => 28,'infra_operations_channel_id' => 262)
-                ,
-                //'User.id NOT IN (SELECT user_id FROM province_permissions WHERE 1 group by user_id)'
-            ),
-            'User.dummy_status' => $dummy_status,
-            'order' => 'User.fname ASC'
-                )
-        );
+       
 
-        $Users = Set::combine($Users, '{n}.User.id', array('%s %s', '{n}.User.fname', '{n}.User.lname'));
-
-        $Approved = $this->User->find
-                (
-                'all', array
-            (
-            'fields' => array('User.id', 'User.fname', 'User.lname'),
-            'conditions' => array
-                (
-                //'User.id NOT IN (SELECT user_id FROM province_permissions WHERE 1 group by user_id)',
-                'travel_role_infra_core' => '62'
-            ),
-            'User.dummy_status' => $dummy_status,
-            'order' => 'User.fname ASC'
-                )
-        );
-
-        $Approved = Set::combine($Approved, '{n}.User.id', array('%s %s', '{n}.User.fname', '{n}.User.lname'));
-
-        $MappingApproved = $this->User->find
-                (
-                'all', array
-            (
-            'fields' => array('User.id', 'User.fname', 'User.lname'),
-            'conditions' => array
-                (
-                //'User.id NOT IN (SELECT user_id FROM province_permissions WHERE 1 group by user_id)',
-                'travel_channel_infra_mapping' => '258'
-            ),
-            'User.dummy_status' => $dummy_status,
-            'order' => 'User.fname ASC'
-                )
-        );
-
-        $MappingApproved = Set::combine($MappingApproved, '{n}.User.id', array('%s %s', '{n}.User.fname', '{n}.User.lname'));
-
-        $TravelLookupContinents = $this->TravelLookupContinent->find('list', array('fields' => 'id,continent_name', 'conditions' => array('continent_status' => 1, 'wtb_status' => 1, 'active' => 'TRUE'), 'order' => 'continent_name ASC'));
-
-
-        //$Provinces = array(1 => 'ONE', 'Mapping Edit');
-        // pr($Provinces);
-        //die;
-        //$selected = $this->ProvincePermission->find('list', array('fields' => array('id')));
-
-        $this->set(compact('Provinces', 'Users', 'selected', 'TravelLookupContinents', 'Approved', 'MappingApproved','TravelCountries'));
+        $server->service($HTTP_RAW_POST_DATA);
     }
 
 }
