@@ -176,7 +176,7 @@ if (isset($TravelHotelLookups) && count($TravelHotelLookups) > 0):
                                 <td class="sub-tablebody"><?php echo $TravelHotelLookup['TravelHotelLookup']['address']; ?></td>
                                 <td width="10%" valign="middle" align="center">
                                     <?php 
-                                    if(count($TravelHotelLookup['TravelHotelRoomSupplier'])>0){
+                                    if(count($TravelHotelLookup['TravelHotelRoomSupplier'])==0){
                                         $options=array($id=>'');
                                         $attributes=array('legend'=>false, 'hiddenField' => false,'label' => false,'div' => false,'class' => 'attrInputs');
                                         echo $this->Form->radio('Common.hotel_id',$options,$attributes);
