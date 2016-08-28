@@ -523,6 +523,7 @@ class TravelHotelImagesController extends AppController {
             $HotelName = $this->data['TravelHotelLookup']['hotel_name'];
             $ImageName = trim($HotelName);
             $ImageName = str_replace(' ', '-', $ImageName);
+            
 
             if (is_uploaded_file($this->request->data['TravelHotelLookup']['image1']['tmp_name'])) {
                 $file_type = $this->request->data['TravelHotelLookup']['image1']['type'];
