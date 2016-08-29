@@ -62,7 +62,7 @@ class TravelHotelImagesController extends AppController {
 
     public function index($a) {
 
-        pr($this->data);
+        pr($_REQUEST);
         die;
         $city_id = $this->Auth->user('city_id');
         $user_id = $this->Auth->user('id');
