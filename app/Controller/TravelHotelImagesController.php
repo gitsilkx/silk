@@ -62,8 +62,7 @@ class TravelHotelImagesController extends AppController {
 
     public function index($a) {
 
-        pr($_REQUEST);
-        die;
+        
         $city_id = $this->Auth->user('city_id');
         $user_id = $this->Auth->user('id');
         $search_condition = array();
@@ -93,7 +92,7 @@ class TravelHotelImagesController extends AppController {
             $proArr = $this->checkProvince();
         //next($proArr);
 
-        if($a){
+        if(isset($_REQUEST['a'])){
             $this->Session->setFlash('Image uploaded successfully.', 'success');
         }
 
