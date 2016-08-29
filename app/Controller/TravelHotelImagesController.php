@@ -60,7 +60,7 @@ class TravelHotelImagesController extends AppController {
         $this->Height = '200';
     }
 
-    public function index() {
+    public function index($a) {
 
         
         $city_id = $this->Auth->user('city_id');
@@ -92,6 +92,9 @@ class TravelHotelImagesController extends AppController {
             $proArr = $this->checkProvince();
         //next($proArr);
 
+        if($a == '1'){
+            $this->Session->setFlash('Image uploaded successfully.', 'success');
+        }
 
 
 
