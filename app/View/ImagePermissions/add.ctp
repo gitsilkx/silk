@@ -44,14 +44,7 @@ echo $this->Form->input('user_id', array('options' => $Users, 'empty' => '--Sele
 ?></div>
                                 </div>
                                 
-                                <div class="form-group ">
-                                    <label>Mapping Approver</label>
-                                    <span class="colon">:</span>
-                                    <div class="col-sm-10">
-<?php
-echo $this->Form->input('maaping_approval_id', array('options' => $MappingApproved, 'empty' => '--Select--'));
-?></div>
-                                </div>
+                        
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group ">
@@ -62,14 +55,7 @@ echo $this->Form->input('maaping_approval_id', array('options' => $MappingApprov
 echo $this->Form->input('country_id', array('options' => $TravelCountries, 'empty' => '--Select--','data-required' => 'true'));
 ?></div>
                                 </div>
-                                <div class="form-group ">
-                                    <label>Approver</label>
-                                    <span class="colon">:</span>
-                                    <div class="col-sm-10">
-<?php
-echo $this->Form->input('approval_id', array('options' => $Approved, 'empty' => '--Select--'));
-?></div>
-                                </div>
+                            
                             </div>
                             <div style="clear:both"></div>  
                             <div class="form_submit clearfix">

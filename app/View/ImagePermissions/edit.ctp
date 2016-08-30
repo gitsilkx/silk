@@ -44,14 +44,6 @@ echo $this->Form->create('ProvincePermission', array('method' => 'post',
                                         ?></div>
                                 </div>
 
-                                <div class="form-group ">
-                                    <label>Mapping Approver</label>
-                                    <span class="colon">:</span>
-                                    <div class="col-sm-10">
-                                        <?php
-                                        echo $this->Form->input('maaping_approval_id', array('options' => $MappingApproved, 'empty' => '--Select--', 'value' => $maaping_approval_id));
-                                        ?></div>
-                                </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group ">
@@ -62,14 +54,7 @@ echo $this->Form->create('ProvincePermission', array('method' => 'post',
                                         echo $this->Form->input('country_id', array('options' => $TravelCountries, 'disabled' => true));
                                         ?></div>
                                 </div>   
-                                <div class="form-group ">
-                                    <label>Approver</label>
-                                    <span class="colon">:</span>
-                                    <div class="col-sm-10">
-                                        <?php
-                                        echo $this->Form->input('approval_id', array('options' => $Approved, 'empty' => '--Select--', 'value' => $approval_id));
-                                        ?></div>
-                                </div>
+                                
                             </div>
                             
 
