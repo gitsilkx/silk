@@ -1,9 +1,9 @@
 <?php
 
 /**
- * ProvincePermission controller.
+ * ImagePermission controller.
  *
- * This file will render views from views/ProvincePermissions/
+ * This file will render views from views/ImagePermissions/
  *
  * PHP 5
  *
@@ -27,55 +27,55 @@ App::uses('CakeEmail', 'Network/Email');
 App::uses('AppController', 'Controller');
 
 /**
- * ProvincePermission controller
+ * ImagePermission controller
  *
  *
  * @package       app.Controller
  * @link http://book.cakephp.org/2.0/en/controllers/pages-controller.html
  */
-class ProvincePermissionsController extends AppController {
+class ImagePermissionsController extends AppController {
 
-    var $uses = array('User', 'ProvincePermission', 'Province', 'TravelLookupContinent', 'TravelCountry');
+    var $uses = array('User', 'ImagePermission', 'Province', 'TravelLookupContinent', 'TravelCountry');
 
     public function index() {
 
 
-        $ProvincePermissions = $this->ProvincePermission->find('all', array(
-            'fields' => array('ProvincePermission.user_id,GROUP_CONCAT(Province.name separator " , ") AS province_name', 'TravelCountry.country_name', 'TravelLookupContinent.continent_name', 'User.fname', 'User.lname', 'ProvincePermission.approval_id', 'ProvincePermission.maaping_approval_id'
-                , 'ProvincePermission.continent_id', 'ProvincePermission.country_id'),
+        $ImagePermissions = $this->ImagePermission->find('all', array(
+            'fields' => array('ImagePermission.user_id,GROUP_CONCAT(Province.name separator " , ") AS province_name', 'TravelCountry.country_name', 'TravelLookupContinent.continent_name', 'User.fname', 'User.lname', 'ImagePermission.approval_id', 'ImagePermission.maaping_approval_id'
+                , 'ImagePermission.continent_id', 'ImagePermission.country_id'),
             'joins' => array(
                 array(
                     'table' => 'users',
                     'alias' => 'User',
                     'type' => 'INNER',
-                    'conditions' => 'ProvincePermission.user_id = User.id'
+                    'conditions' => 'ImagePermission.user_id = User.id'
                 ),
                 
                 array(
                     'table' => 'provinces',
                     'alias' => 'Province',
                     'type' => 'INNER',
-                    'conditions' => 'ProvincePermission.province_id = Province.id'
+                    'conditions' => 'ImagePermission.province_id = Province.id'
                 ),
                 array(
                     'table' => 'travel_countries',
                     'alias' => 'TravelCountry',
                     'fields' => 'country_name',
                     'type' => 'INNER',
-                    'conditions' => 'ProvincePermission.country_id = TravelCountry.id'
+                    'conditions' => 'ImagePermission.country_id = TravelCountry.id'
                 ),
                 array(
                     'table' => 'travel_lookup_continents',
                     'fields' => 'continent_name',
                     'alias' => 'TravelLookupContinent',
                     'type' => 'INNER',
-                    'conditions' => 'ProvincePermission.continent_id = TravelLookupContinent.id'
+                    'conditions' => 'ImagePermission.continent_id = TravelLookupContinent.id'
                 ),
             ),
-            'order' => 'ProvincePermission.id',
-            'group' => array('ProvincePermission.user_id','ProvincePermission.continent_id','ProvincePermission.country_id')));
+            'order' => 'ImagePermission.id',
+            'group' => array('ImagePermission.user_id','ImagePermission.continent_id','ImagePermission.country_id')));
 
-        $this->set(compact('ProvincePermissions'));
+        $this->set(compact('ImagePermissions'));
     }
 
     public function add() {
@@ -88,20 +88,20 @@ class ProvincePermissionsController extends AppController {
 		$TravelCountries = array();
 
         if ($this->request->is('post')) {
-            $user_id = $this->request->data['ProvincePermission']['user_id'];
-            $country_id = $this->request->data['ProvincePermission']['country_id'];
-            $maaping_approval_id = $this->request->data['ProvincePermission']['maaping_approval_id'];
-            $continent_id = $this->request->data['ProvincePermission']['continent_id'];
-            $approval_id = $this->request->data['ProvincePermission']['approval_id'];
+            $user_id = $this->request->data['ImagePermission']['user_id'];
+            $country_id = $this->request->data['ImagePermission']['country_id'];
+            $maaping_approval_id = $this->request->data['ImagePermission']['maaping_approval_id'];
+            $continent_id = $this->request->data['ImagePermission']['continent_id'];
+            $approval_id = $this->request->data['ImagePermission']['approval_id'];
             $TravelCountries = $this->TravelCountry->find('list', array('fields' => 'id,country_name', 'conditions' => array('country_status' => 1, 'wtb_status' => 1, 'active' => 'TRUE','continent_id' => $continent_id), 'order' => 'country_name ASC'));
         
             if (isset($this->request->data['add'])) {
-                if (count($this->data['ProvincePermission']['province_id']) > 0) {
+                if (count($this->data['ImagePermission']['province_id']) > 0) {
 
-                    foreach ($this->data['ProvincePermission']['province_id'] as $val) {
-                        if(isset($this->data['ProvincePermission']['mapping_edit'][$val]))
-                            $mapping_edit = $this->data['ProvincePermission']['mapping_edit'][$val];
-                        $save[] = array('ProvincePermission' => array(
+                    foreach ($this->data['ImagePermission']['province_id'] as $val) {
+                        if(isset($this->data['ImagePermission']['mapping_edit'][$val]))
+                            $mapping_edit = $this->data['ImagePermission']['mapping_edit'][$val];
+                        $save[] = array('ImagePermission' => array(
                                 'province_id' => $val,
                                 'mapping_edit' => $mapping_edit,
                                 'user_id' => $user_id,
@@ -114,10 +114,10 @@ class ProvincePermissionsController extends AppController {
                     }
                 }
 
-                $this->ProvincePermission->create();
+                $this->ImagePermission->create();
 
 
-                if ($this->ProvincePermission->saveMany($save)) {
+                if ($this->ImagePermission->saveMany($save)) {
 
                     $this->Session->setFlash('Data has been saved.', 'success');
                     $this->redirect(array('action' => 'index'));
@@ -192,7 +192,7 @@ class ProvincePermissionsController extends AppController {
         //$Provinces = array(1 => 'ONE', 'Mapping Edit');
         // pr($Provinces);
         //die;
-        //$selected = $this->ProvincePermission->find('list', array('fields' => array('id')));
+        //$selected = $this->ImagePermission->find('list', array('fields' => array('id')));
 
         $this->set(compact('Provinces', 'Users', 'selected', 'TravelLookupContinents', 'Approved', 'MappingApproved','TravelCountries'));
     }
@@ -205,38 +205,38 @@ class ProvincePermissionsController extends AppController {
         $selected = array();
 
         /*
-        $permissionArray = $this->ProvincePermission->find('first', array('conditions' => array('user_id' => $user_id)));
-        $country_id = $permissionArray['ProvincePermission']['country_id'];
-        $continent_id = $permissionArray['ProvincePermission']['continent_id'];
-        $maaping_approval_id = $permissionArray['ProvincePermission']['maaping_approval_id'];
-        $approval_id = $permissionArray['ProvincePermission']['approval_id'];
+        $permissionArray = $this->ImagePermission->find('first', array('conditions' => array('user_id' => $user_id)));
+        $country_id = $permissionArray['ImagePermission']['country_id'];
+        $continent_id = $permissionArray['ImagePermission']['continent_id'];
+        $maaping_approval_id = $permissionArray['ImagePermission']['maaping_approval_id'];
+        $approval_id = $permissionArray['ImagePermission']['approval_id'];
          * 
          */
         //pr($this->request->params['named']);
         if (!empty($this->request->params['named']['user_id'])) {
                 $user_id = $this->request->params['named']['user_id'];
-                array_push($search_condition, array('ProvincePermission.user_id' => $user_id));
+                array_push($search_condition, array('ImagePermission.user_id' => $user_id));
             }
         if (!empty($this->request->params['named']['continent_id'])) {
                 $continent_id = $this->request->params['named']['continent_id'];
-                array_push($search_condition, array('ProvincePermission.continent_id' => $continent_id));
+                array_push($search_condition, array('ImagePermission.continent_id' => $continent_id));
             }
        if (!empty($this->request->params['named']['country_id'])) {
                 $country_id = $this->request->params['named']['country_id'];
-                array_push($search_condition, array('ProvincePermission.country_id' => $country_id));
+                array_push($search_condition, array('ImagePermission.country_id' => $country_id));
             }     
             
-      $permissionArray = $this->ProvincePermission->find('first', array('conditions' => $search_condition));
+      $permissionArray = $this->ImagePermission->find('first', array('conditions' => $search_condition));
 
-        $maaping_approval_id = $permissionArray['ProvincePermission']['maaping_approval_id'];
-        $approval_id = $permissionArray['ProvincePermission']['approval_id'];
+        $maaping_approval_id = $permissionArray['ImagePermission']['maaping_approval_id'];
+        $approval_id = $permissionArray['ImagePermission']['approval_id'];
 
         if ($this->request->is('post') || $this->request->is('put')) {
 
-            //$country_id = $this->data['ProvincePermission']['country_id'];
-            $maaping_approval_id = $this->data['ProvincePermission']['maaping_approval_id'];
-            //$continent_id = $this->data['ProvincePermission']['continent_id'];
-            $approval_id = $this->data['ProvincePermission']['approval_id'];
+            //$country_id = $this->data['ImagePermission']['country_id'];
+            $maaping_approval_id = $this->data['ImagePermission']['maaping_approval_id'];
+            //$continent_id = $this->data['ImagePermission']['continent_id'];
+            $approval_id = $this->data['ImagePermission']['approval_id'];
            
 
 
@@ -246,13 +246,13 @@ class ProvincePermissionsController extends AppController {
             if (isset($this->request->data['add'])) {
             //if (!empty($db_req)) {
 
-            foreach ($this->data['ProvincePermission']['province_id'] as $province_id) {
-                $del = $this->ProvincePermission->deleteAll(
+            foreach ($this->data['ImagePermission']['province_id'] as $province_id) {
+                $del = $this->ImagePermission->deleteAll(
                         array(
-                    'ProvincePermission.province_id' => $province_id,
-                    'ProvincePermission.user_id' => $user_id,
-                    'ProvincePermission.continent_id' => $continent_id,
-                    'ProvincePermission.country_id' => $country_id,
+                    'ImagePermission.province_id' => $province_id,
+                    'ImagePermission.user_id' => $user_id,
+                    'ImagePermission.continent_id' => $continent_id,
+                    'ImagePermission.country_id' => $country_id,
                         ), false);
                 if ($del)
                     $save = $saved = 1;
@@ -260,10 +260,10 @@ class ProvincePermissionsController extends AppController {
             //}
             //if (!empty($req_db)) {
             $save = array();
-            foreach ($this->data['ProvincePermission']['province_id'] as $province_id) {
-                $save[] = array('ProvincePermission' => array(
+            foreach ($this->data['ImagePermission']['province_id'] as $province_id) {
+                $save[] = array('ImagePermission' => array(
                         'user_id' => $user_id,
-                        'mapping_edit' => $this->data['ProvincePermission']['mapping_edit'][$province_id],
+                        'mapping_edit' => $this->data['ImagePermission']['mapping_edit'][$province_id],
                         'province_id' => $province_id,
                         'country_id' => $country_id,
                         'maaping_approval_id' => $maaping_approval_id,
@@ -273,8 +273,8 @@ class ProvincePermissionsController extends AppController {
                 ));
             }
 
-            $this->ProvincePermission->create();
-            if ($this->ProvincePermission->saveMany($save))
+            $this->ImagePermission->create();
+            if ($this->ImagePermission->saveMany($save))
                 $saved = 1;
             //}
             //pr($save);
@@ -333,8 +333,8 @@ class ProvincePermissionsController extends AppController {
             'conditions' => array('User.dummy_status' => $dummy_status, 'User.id' => $user_id)));
         $Users = Set::combine($Users, '{n}.User.id', array('%s %s', '{n}.User.fname', '{n}.User.lname'));
         $TravelCountries = $this->TravelCountry->find('list', array('fields' => 'id,country_name', 'conditions' => array('id' => $country_id), 'order' => 'country_name ASC'));
-        $selected = $this->ProvincePermission->find('list', array('fields' => array('province_id'), 'conditions' => array('ProvincePermission.user_id' => $user_id,'ProvincePermission.country_id' => $country_id,'ProvincePermission.continent_id' => $continent_id)));
-        $mapping_selected = $this->ProvincePermission->find('list', array('fields' => array('province_id'), 'conditions' => array('ProvincePermission.user_id' => $user_id,'ProvincePermission.country_id' => $country_id,'ProvincePermission.continent_id' => $continent_id,'ProvincePermission.mapping_edit' => 'Yes')));
+        $selected = $this->ImagePermission->find('list', array('fields' => array('province_id'), 'conditions' => array('ImagePermission.user_id' => $user_id,'ImagePermission.country_id' => $country_id,'ImagePermission.continent_id' => $continent_id)));
+        $mapping_selected = $this->ImagePermission->find('list', array('fields' => array('province_id'), 'conditions' => array('ImagePermission.user_id' => $user_id,'ImagePermission.country_id' => $country_id,'ImagePermission.continent_id' => $continent_id,'ImagePermission.mapping_edit' => 'Yes')));
         $this->set(compact('Provinces', 'Users', 'selected', 'mapping_selected', 'TravelLookupContinents', 'MappingApproved', 'Approved', 'TravelCountries', 'country_id', 'maaping_approval_id', 'approval_id', 'continent_id'));
     }
 
