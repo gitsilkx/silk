@@ -69,9 +69,9 @@ $this->Html->addCrumb('My Hotels', 'javascript:void(0);', array('class' => 'brea
                 <thead>
                     <tr class="footable-group-row">
                         <th data-group="group1" colspan="7" class="nodis">Hotel Information</th>
-                        <th data-group="group9" colspan="5">Hotel Location</th>                     
+                    
                         
-                        <th data-group="group8" class="nodis">Hotel Action</th>
+                        <th data-group="group2" class="nodis">Hotel Action</th>
                     </tr>
                     <tr>
                         <th data-toggle="true" data-sort-ignore="true" width="3%" data-group="group1"><?php echo $this->Paginator->sort('id', 'Hotel Id');
@@ -87,7 +87,7 @@ $this->Html->addCrumb('My Hotels', 'javascript:void(0);', array('class' => 'brea
                         <th width="10%" data-group="group1">GPS Parm2</th>
                         <th width="10%" data-group="group1">Image Flag</th>
 
-                        <th data-group="group8" data-hide="phone" data-sort-ignore="true" width="7%">Action</th> 
+                        <th data-group="group2" data-hide="phone" data-sort-ignore="true" width="7%">Action</th> 
 
                     </tr>
                 </thead>
