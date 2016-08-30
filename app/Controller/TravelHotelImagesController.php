@@ -60,7 +60,7 @@ class TravelHotelImagesController extends AppController {
         $this->Height = '200';
     }
 
-    public function index($a) {
+    public function index() {
 
         
         $city_id = $this->Auth->user('city_id');
