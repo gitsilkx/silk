@@ -37,6 +37,13 @@ class ImagePermissionsController extends AppController {
 
     var $uses = array('User', 'ImagePermission', 'Province', 'TravelLookupContinent', 'TravelCountry');
 
+      public function beforeFilter() {
+        parent::beforeFilter();
+       
+        $this->Auth->allow('index');
+       
+    }
+    
     public function index() {
 
 
