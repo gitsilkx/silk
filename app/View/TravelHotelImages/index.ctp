@@ -94,7 +94,7 @@ $this->Html->addCrumb('My Hotels', 'javascript:void(0);', array('class' => 'brea
                 <tbody>
                     <?php
                     $i = 1;
-	pr($TravelHotelLookups);
+	//pr($TravelHotelLookups);
                     $secondary_city = '';
 
                     if (isset($TravelHotelLookups) && count($TravelHotelLookups) > 0):
