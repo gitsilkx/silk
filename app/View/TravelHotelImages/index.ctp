@@ -82,10 +82,10 @@ $this->Html->addCrumb('My Hotels', 'javascript:void(0);', array('class' => 'brea
                 echo ($sort == 'suburb_name') ? ($direction == 'asc') ? " <i class='icon-caret-up'></i>" : " <i class='icon-caret-down'></i>"  : " <i class='icon-sort'></i>"; ?></th>
                         <th data-hide="phone" data-group="group1" width="5%" data-sort-ignore="true"><?php echo $this->Paginator->sort('area_name', 'Area');
                 echo ($sort == 'area_name') ? ($direction == 'asc') ? " <i class='icon-caret-up'></i>" : " <i class='icon-caret-down'></i>"  : " <i class='icon-sort'></i>"; ?></th>
-                        <th width="10%" data-group="group1">Address</th>
-                        <th width="10%" data-group="group1">GPS Parm1</th>
-                        <th width="10%" data-group="group1">GPS Parm2</th>
-                        <th width="10%" data-group="group1">Image Flag</th>
+                        <th width="10%" data-group="group1" data-sort-ignore="true">Address</th>
+                        <th width="10%" data-group="group1" data-sort-ignore="true">GPS Parm1</th>
+                        <th width="10%" data-group="group1" data-sort-ignore="true">GPS Parm2</th>
+                        <th width="10%" data-group="group1" data-sort-ignore="true">Image Flag</th>
 
                         <th data-group="group2" data-hide="phone" data-sort-ignore="true" width="7%">Action</th> 
 
@@ -94,7 +94,7 @@ $this->Html->addCrumb('My Hotels', 'javascript:void(0);', array('class' => 'brea
                 <tbody>
                     <?php
                     $i = 1;
-	//pr($TravelHotelLookups);
+	pr($TravelHotelLookups);
                     $secondary_city = '';
 
                     if (isset($TravelHotelLookups) && count($TravelHotelLookups) > 0):
