@@ -37,22 +37,7 @@ $this->Html->addCrumb('My Hotels', 'javascript:void(0);', array('class' => 'brea
                     </div>
                 </div>
                 <div class="row" id="search_panel_controls">
-                    <div class="col-sm-3 col-xs-6">
-                        <label for="un_member">Continent:</label>
-                        <?php echo $this->Form->input('continent_id', array('options' => $TravelLookupContinents, 'empty' => '--Select--', 'value' => $continent_id)); ?>
-                    </div>
-                    <div class="col-sm-3 col-xs-6">
-                        <label for="un_member">Country:</label>
-                        <?php echo $this->Form->input('country_id', array('options' => $TravelCountries, 'empty' => '--Select--', 'value' => $country_id)); ?>
-                    </div>
-                    <div class="col-sm-3 col-xs-6">
-                        <label for="un_member">Province:</label>
-                        <?php echo $this->Form->input('province_id', array('options' => $Provinces, 'empty' => '--Select--', 'value' => $province_id)); ?>
-                    </div>
-                    <div class="col-sm-3 col-xs-6">
-                        <label for="un_member">City:</label>
-                        <?php echo $this->Form->input('city_id', array('options' => $TravelCities, 'empty' => '--Select--', 'value' => $city_id)); ?>
-                    </div>
+              
                     <div class="col-sm-3 col-xs-6">
                         <label for="un_member">Suburb:</label>
                         <?php echo $this->Form->input('suburb_id', array('options' => $TravelSuburbs, 'empty' => '--Select--', 'value' => $suburb_id)); ?>
@@ -61,26 +46,11 @@ $this->Html->addCrumb('My Hotels', 'javascript:void(0);', array('class' => 'brea
                         <label for="un_member">Area:</label>
                         <?php echo $this->Form->input('area_id', array('options' => $TravelAreas, 'empty' => '--Select--', 'value' => $area_id)); ?>
                     </div>
+       
                     <div class="col-sm-3 col-xs-6">
-                        <label for="un_member">Chain:</label>
-                        <?php echo $this->Form->input('chain_id', array('options' => $TravelChains, 'empty' => '--Select--', 'value' => $chain_id)); ?>
-                    </div>
-                    <div class="col-sm-3 col-xs-6">
-                        <label for="un_member">Brand:</label>
-                        <?php echo $this->Form->input('brand_id', array('options' => $TravelBrands, 'empty' => '--Select--', 'value' => $brand_id)); ?>
-                    </div>                
-                    <div class="col-sm-3 col-xs-6">
-                        <label for="un_member">Status:</label>
-                        <?php echo $this->Form->input('status', array('options' => array('1' => 'Submitted For Approval', '2' => 'Approved', '3' => 'Returned', '4' => 'Change Submitted', '5' => 'Rejected', '7' => 'Duplicated'), 'empty' => '--Select--', 'value' => $status)); ?>
-                    </div>
-                    <div class="col-sm-3 col-xs-6">
-                        <label for="un_member">WTB Status:</label>
-                        <?php echo $this->Form->input('wtb_status', array('options' => array('1' => 'OK', '2' => 'ERROR'), 'empty' => '--Select--', 'value' => $wtb_status)); ?>
-                    </div>
-                    <div class="col-sm-3 col-xs-6">
-                        <label for="un_member">Active?</label>
-                        <?php echo $this->Form->input('active', array('options' => array('TRUE' => 'TRUE', 'FALSE' => 'FALSE'), 'empty' => '--Select--', 'value' => $active)); ?>
-                    </div>
+                        <label for="un_member">Is Image?:</label>
+                        <?php echo $this->Form->input('is_image', array('options' => array('Y' => 'Yes', 'N' => 'No'), 'empty' => '--Select--', 'value' => $is_image)); ?>
+                    </div>                   
 
 
                     <div class="col-sm-3 col-xs-6">
@@ -98,9 +68,8 @@ $this->Html->addCrumb('My Hotels', 'javascript:void(0);', array('class' => 'brea
             <table border="0" cellpadding="0" cellspacing="0" id="resp_table" class="table toggle-square myclitb" data-filter="#table_search" data-page-size="500">
                 <thead>
                     <tr class="footable-group-row">
-                        <th data-group="group1" colspan="5" class="nodis">Hotel Information</th>
-                        <th data-group="group9" colspan="5">Hotel Location</th>
-                        <th data-group="group10" colspan="3">Hotel Status</th>
+                        <th data-group="group1" colspan="7" class="nodis">Hotel Information</th>
+                        <th data-group="group9" colspan="5">Hotel Location</th>                     
                         
                         <th data-group="group8" class="nodis">Hotel Action</th>
                     </tr>
@@ -109,30 +78,15 @@ $this->Html->addCrumb('My Hotels', 'javascript:void(0);', array('class' => 'brea
                 echo ($sort == 'id') ? ($direction == 'asc') ? " <i class='icon-caret-up'></i>" : " <i class='icon-caret-down'></i>"  : " <i class='icon-sort'></i>"; ?></th>
                         <th data-toggle="phone" data-sort-ignore="true" width="10%" data-group="group1"><?php echo $this->Paginator->sort('hotel_name', 'Hotel Name');
                 echo ($sort == 'hotel_name') ? ($direction == 'asc') ? " <i class='icon-caret-up'></i>" : " <i class='icon-caret-down'></i>"  : " <i class='icon-sort'></i>"; ?></th>
-                        <th data-toggle="phone" data-group="group1" width="3%" data-sort-ignore="true"><?php echo $this->Paginator->sort('hotel_code', 'WTB Hotel Code');
-                echo ($sort == 'hotel_code') ? ($direction == 'asc') ? " <i class='icon-caret-up'></i>" : " <i class='icon-caret-down'></i>"  : " <i class='icon-sort'></i>"; ?></th>                    
-                        <th data-hide="phone" data-group="group1" width="10%" data-sort-ignore="true"><?php echo $this->Paginator->sort('brand_name', 'Brand');
-                echo ($sort == 'brand_name') ? ($direction == 'asc') ? " <i class='icon-caret-up'></i>" : " <i class='icon-caret-down'></i>"  : " <i class='icon-sort'></i>"; ?></th>
-                        <th data-hide="phone" data-group="group1" width="10%" data-sort-ignore="true"><?php echo $this->Paginator->sort('chain_name', 'Chain');
-                echo ($sort == 'chain_name') ? ($direction == 'asc') ? " <i class='icon-caret-up'></i>" : " <i class='icon-caret-down'></i>"  : " <i class='icon-sort'></i>"; ?></th>
-                        <th data-hide="phone" data-group="group9" width="10%" data-sort-ignore="true"><?php echo $this->Paginator->sort('continent_name', 'Continent');
-                echo ($sort == 'continent_name') ? ($direction == 'asc') ? " <i class='icon-caret-up'></i>" : " <i class='icon-caret-down'></i>"  : " <i class='icon-sort'></i>"; ?></th>
-                        <th data-hide="phone" data-group="group9" width="10%" data-sort-ignore="true"><?php echo $this->Paginator->sort('country_name', 'Country');
-                echo ($sort == 'country_name') ? ($direction == 'asc') ? " <i class='icon-caret-up'></i>" : " <i class='icon-caret-down'></i>"  : " <i class='icon-sort'></i>"; ?></th>
-                        <th data-hide="phone" data-group="group9" width="10%" data-sort-ignore="true"><?php echo $this->Paginator->sort('province_name', 'Province');
-                echo ($sort == 'province_name') ? ($direction == 'asc') ? " <i class='icon-caret-up'></i>" : " <i class='icon-caret-down'></i>"  : " <i class='icon-sort'></i>"; ?></th>
-                        <th data-hide="phone" data-group="group9" width="8%" data-sort-ignore="true"><?php echo $this->Paginator->sort('city_name', 'City');
-                echo ($sort == 'city_name') ? ($direction == 'asc') ? " <i class='icon-caret-up'></i>" : " <i class='icon-caret-down'></i>"  : " <i class='icon-sort'></i>"; ?></th>
-                        <th data-hide="phone" data-group="group9" width="8%" data-sort-ignore="true"><?php echo $this->Paginator->sort('suburb_name', 'Suburb');
+                                              <th data-hide="phone" data-group="group1" width="8%" data-sort-ignore="true"><?php echo $this->Paginator->sort('suburb_name', 'Suburb');
                 echo ($sort == 'suburb_name') ? ($direction == 'asc') ? " <i class='icon-caret-up'></i>" : " <i class='icon-caret-down'></i>"  : " <i class='icon-sort'></i>"; ?></th>
-                        <th data-hide="phone" data-group="group9" width="5%" data-sort-ignore="true"><?php echo $this->Paginator->sort('area_name', 'Area');
+                        <th data-hide="phone" data-group="group1" width="5%" data-sort-ignore="true"><?php echo $this->Paginator->sort('area_name', 'Area');
                 echo ($sort == 'area_name') ? ($direction == 'asc') ? " <i class='icon-caret-up'></i>" : " <i class='icon-caret-down'></i>"  : " <i class='icon-sort'></i>"; ?></th>
+                        <th width="10%" data-group="group1">Address</th>
+                        <th width="10%" data-group="group1">GPS Parm1</th>
+                        <th width="10%" data-group="group1">GPS Parm2</th>
+                        <th width="10%" data-group="group1">Image Flag</th>
 
-
-                        <th data-hide="phone" data-group="group10" width="5%" data-sort-ignore="true">Silkrouters</th>
-                        <th data-hide="phone" data-group="group10" width="2%" data-sort-ignore="true">WTB</th>
-                        <th data-hide="phone" data-group="group10" width="5%" data-sort-ignore="true">Active?</th>
-                        
                         <th data-group="group8" data-hide="phone" data-sort-ignore="true" width="7%">Action</th> 
 
                     </tr>
@@ -146,50 +100,21 @@ $this->Html->addCrumb('My Hotels', 'javascript:void(0);', array('class' => 'brea
                     if (isset($TravelHotelLookups) && count($TravelHotelLookups) > 0):
                         foreach ($TravelHotelLookups as $TravelHotelLookup):
                             $id = $TravelHotelLookup['TravelHotelLookup']['id'];
-
-                            $status = $TravelHotelLookup['TravelHotelLookup']['status'];
-                            if ($status == '1')
-                                $status_txt = 'Submitted For Approval';
-                            elseif ($status == '2')
-                                $status_txt = 'Approved';
-                            elseif ($status == '3')
-                                $status_txt = 'Returned';
-                            elseif ($status == '4')
-                                $status_txt = 'Change Submitted';
-                            elseif ($status == '5')
-                                $status_txt = 'Rejected';
-                            elseif ($status == '7')
-                                $status_txt = 'Duplicated';
-                            elseif ($status == '6')
-                                $status_txt = 'Submit For Review';
-                            elseif ($status == '8')
-                                $status_txt = 'Approved [R]';
-                            else
-                                $status_txt = 'Allocation';
-
-                            if ($TravelHotelLookup['TravelHotelLookup']['wtb_status'] == '1')
-                                $wtb_status = 'OK';
-                            else
-                                $wtb_status = 'ERROR';
+                            if($TravelHotelLookup['TravelHotelLookup']['is_image'] == 'Y')
+                                $image_flag = 'Yes';
+                            else 
+                                $image_flag = 'No';
                             ?>
                             <tr>
                                 <td class="tablebody"><?php echo $id; ?></td>
                                 <td class="tablebody"><?php echo $TravelHotelLookup['TravelHotelLookup']['hotel_name']; ?></td>               
-                                <td class="tablebody"><?php echo $TravelHotelLookup['TravelHotelLookup']['hotel_code']; ?></td>                                                               
-                                <td class="tablebody"><?php echo $TravelHotelLookup['TravelHotelLookup']['brand_name']; ?></td>
-                                <td class="tablebody"><?php echo $TravelHotelLookup['TravelHotelLookup']['chain_name']; ?></td>
-
-                                <td class="sub-tablebody"><?php echo $TravelHotelLookup['TravelHotelLookup']['continent_name']; ?></td>                                 
-                                <td class="sub-tablebody"><?php echo $TravelHotelLookup['TravelHotelLookup']['country_name']; ?></td>
-                                <td class="sub-tablebody"><?php echo $TravelHotelLookup['TravelHotelLookup']['province_name']; ?></td>
-                                <td class="sub-tablebody"><?php echo $TravelHotelLookup['TravelHotelLookup']['city_name']; ?></td>
                                 <td class="sub-tablebody"><?php echo $TravelHotelLookup['TravelHotelLookup']['suburb_name']; ?></td>
                                 <td class="sub-tablebody"><?php echo $TravelHotelLookup['TravelHotelLookup']['area_name']; ?></td>
-
-                                <td class="sub-tablebody"><?php echo $status_txt; ?></td>
-                                <td class="sub-tablebody"><?php echo $wtb_status; ?></td>
-                                <td class="sub-tablebody"><?php echo $TravelHotelLookup['TravelHotelLookup']['active']; ?></td>   
-                               
+                                <td class="tablebody"><?php echo $TravelHotelLookup['TravelHotelLookup']['address']; ?></td>               
+                                <td class="tablebody"><?php echo $TravelHotelLookup['TravelHotelLookup']['gps_prm_1']; ?></td>               
+                                <td class="tablebody"><?php echo $TravelHotelLookup['TravelHotelLookup']['gps_prm_2']; ?></td>               
+                                
+                                <td class="tablebody"><?php echo $image_flag; ?></td>               
                                 <td valign="middle" align="center">
 
                                     <?php
@@ -207,7 +132,7 @@ $this->Html->addCrumb('My Hotels', 'javascript:void(0);', array('class' => 'brea
                         <?php
                         echo $this->element('paginate');
                     else:
-                        echo '<tr><td colspan="43" class="norecords">No Records Found</td></tr>';
+                        echo '<tr><td colspan="10" class="norecords">No Records Found</td></tr>';
 
                     endif;
                     ?>
