@@ -212,6 +212,10 @@ class TravelHotelImagesController extends AppController {
                 $active = $this->data['TravelHotelLookup']['active'];
                 array_push($search_condition, array('TravelHotelLookup.active' => $active));
             }
+            
+            $this->paginate['order'] = array('TravelHotelLookup.city_code' => 'asc');
+            $this->set('TravelHotelLookups', $this->paginate("TravelHotelLookup", $search_condition));
+            
         } elseif ($this->request->is('get')) {
 
             if (!empty($this->request->params['named']['hotel_name'])) {
@@ -345,8 +349,7 @@ class TravelHotelImagesController extends AppController {
          */
         //array_push($search_condition, array('TravelHotelLookup.country_id' => '220'));
 
-        $this->paginate['order'] = array('TravelHotelLookup.city_code' => 'asc');
-        $this->set('TravelHotelLookups', $this->paginate("TravelHotelLookup", $search_condition));
+        
 
         //$log = $this->TravelHotelLookup->getDataSource()->getLog(false, false);       
         //debug($log);
