@@ -1,6 +1,6 @@
 <?php
 $this->Html->addCrumb('Add Province Permissions', 'javascript:void(0);', array('class' => 'breadcrumblast'));
-echo $this->Form->create('ProvincePermission', array('method' => 'post',
+echo $this->Form->create('ImagePermission', array('method' => 'post',
     'id' => 'parsley_reg',
     'novalidate' => true,
     'inputDefaults' => array(
