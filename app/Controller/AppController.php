@@ -261,6 +261,16 @@ class AppController extends Controller {
                  return $this->Province->find('list',array('fields' => array('Province.id','Province.id')));
     }
     
+    public function checkImageProvince(){
+        $this->loadModel('ImagePermission','Province');
+        $user_id = $this->Auth->user('id');
+        
+         if($this->ImagePermission->find('count',array('conditions' => array('ImagePermission.user_id' => $user_id))))
+                 return $this->ImagePermission->find('list',array('fields' => array('ImagePermission.province_id','ImagePermission.province_id'),'conditions' => array('ImagePermission.user_id' => $user_id)));
+         else 
+                 return $this->Province->find('list',array('fields' => array('Province.id','Province.id')));
+    }
+    
     public function hotelProvince(){
         $this->loadModel('ProvincePermission','Province');
         $user_id = $this->Auth->user('id');
