@@ -28,9 +28,9 @@
                     //die;
                     if (isset($ImagePermissions) && count($ImagePermissions) > 0):
                         foreach ($ImagePermissions as $ImagePermission):
-                            $user_id = $ImagePermission['ProvincePermission']['user_id'];
-                            $continent_id = $ImagePermission['ProvincePermission']['continent_id'];
-                            $country_id = $ImagePermission['ProvincePermission']['country_id'];
+                            $user_id = $ImagePermission['ImagePermission']['user_id'];
+                            $continent_id = $ImagePermission['ImagePermission']['continent_id'];
+                            $country_id = $ImagePermission['ImagePermission']['country_id'];
                             ?>
                             <tr>
                               
