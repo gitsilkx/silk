@@ -155,9 +155,9 @@ class TravelHotelImagesController extends AppController {
             'order' => 'TravelHotelLookup.hotel_name',
             ));
 
-         $log = $this->TravelHotelLookup->getDataSource()->getLog(false, false);       
-        debug($log);
-        die;
+         //$log = $this->TravelHotelLookup->getDataSource()->getLog(false, false);       
+        //debug($log);
+        //die;
             
             
         } 
