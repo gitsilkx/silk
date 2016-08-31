@@ -1,11 +1,11 @@
-<?php $this->Html->addCrumb('Province Permissions', 'javascript:void(0);', array('class' => 'breadcrumblast')); 
+<?php $this->Html->addCrumb('Image Permissions', 'javascript:void(0);', array('class' => 'breadcrumblast')); 
 ?>
 <div class="row">
     <div class="col-sm-12">
         <div class="table-heading">
             <h4 class="table-heading-title"><span class="badge badge-circle badge-success"> <?php
-                    echo count($ProvincePermissions);
-                    ?></span>Province Permissions</h4>
+                    echo count($ImagePermissions);
+                    ?></span>Image Permissions</h4>
             <span class="badge badge-circle add-client nomrgn"><i class="icon-plus"></i> <?php echo $this->Html->link('Add Image Permissions', '/image_permissions/add') ?></span>
             <span class="search_panel_icon"><i class="icon-plus" id="toggle_search_panel"></i></span>
         </div>
@@ -24,21 +24,21 @@
                 </thead>
                 <tbody>
                     <?php
-                    //pr($ProvincePermissions);
+                    //pr($ImagePermissions);
                     //die;
-                    if (isset($ProvincePermissions) && count($ProvincePermissions) > 0):
-                        foreach ($ProvincePermissions as $ProvincePermission):
-                            $user_id = $ProvincePermission['ProvincePermission']['user_id'];
-                            $continent_id = $ProvincePermission['ProvincePermission']['continent_id'];
-                            $country_id = $ProvincePermission['ProvincePermission']['country_id'];
+                    if (isset($ImagePermissions) && count($ImagePermissions) > 0):
+                        foreach ($ImagePermissions as $ImagePermission):
+                            $user_id = $ImagePermission['ProvincePermission']['user_id'];
+                            $continent_id = $ImagePermission['ProvincePermission']['continent_id'];
+                            $country_id = $ImagePermission['ProvincePermission']['country_id'];
                             ?>
                             <tr>
                               
-                                <td><?php echo $ProvincePermission['User']['fname'].' '.$ProvincePermission['User']['lname']; ?></td>
-                                <td><?php echo $ProvincePermission['TravelLookupContinent']['continent_name']; ?></td>
-                                <td><?php echo $ProvincePermission['TravelCountry']['country_name']; ?></td>                               
+                                <td><?php echo $ImagePermission['User']['fname'].' '.$ImagePermission['User']['lname']; ?></td>
+                                <td><?php echo $ImagePermission['TravelLookupContinent']['continent_name']; ?></td>
+                                <td><?php echo $ImagePermission['TravelCountry']['country_name']; ?></td>                               
                                
-                                <td><?php echo $ProvincePermission[0]['province_name']; ?></td>
+                                <td><?php echo $ImagePermission[0]['province_name']; ?></td>
                                 
                                                                            
                                 <td width="10%" valign="middle" align="center">

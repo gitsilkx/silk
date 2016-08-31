@@ -114,14 +114,14 @@ echo $this->Form->submit('Add', array('class' => 'btn btn-success sticky_success
 <?php
 echo $this->Form->end();
 
-$this->Js->get('#ProvincePermissionContinentId')->event('change', $this->Js->request(array(
+$this->Js->get('#ImagePermissionContinentId')->event('change', $this->Js->request(array(
             'controller' => 'all_functions',
-            'action' => 'get_travel_country_by_continent_id/ProvincePermission/continent_id'
+            'action' => 'get_travel_country_by_continent_id/ImagePermission/continent_id'
                 ), array(
-            'update' => '#ProvincePermissionCountryId',
+            'update' => '#ImagePermissionCountryId',
             'async' => true,
-            'before' => 'loading("ProvincePermissionCountryId")',
-            'complete' => 'loaded("ProvincePermissionCountryId")',
+            'before' => 'loading("ImagePermissionCountryId")',
+            'complete' => 'loaded("ImagePermissionCountryId")',
             'method' => 'post',
             'dataExpression' => true,
             'data' => $this->Js->serializeForm(array(
