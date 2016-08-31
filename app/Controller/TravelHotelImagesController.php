@@ -152,7 +152,7 @@ class TravelHotelImagesController extends AppController {
 
             ),
             'conditions' => $search_condition,
-            'order' => 'ImagePermission.id',
+            'order' => 'TravelHotelLookup.hotel_name',
             ));
 
          $log = $this->TravelHotelLookup->getDataSource()->getLog(false, false);       

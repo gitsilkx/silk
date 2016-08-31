@@ -76,6 +76,7 @@ $this->Html->addCrumb('My Hotels', 'javascript:void(0);', array('class' => 'brea
                     <tr>
                         <th data-toggle="true" data-sort-ignore="true" width="3%" data-group="group1">Hotel Id</th>
                         <th data-toggle="phone" data-sort-ignore="true" width="10%" data-group="group1">Hotel Name</th>
+                        <th data-toggle="phone" data-sort-ignore="true" width="10%" data-group="group1">Hotel Website</th>
                         <th data-hide="phone" data-group="group1" width="8%" data-sort-ignore="true">Suburb</th>
                         <th data-hide="phone" data-group="group1" width="5%" data-sort-ignore="true">Area</th>
                         <th width="10%" data-group="group1" data-sort-ignore="true">Address</th>
@@ -103,7 +104,8 @@ $this->Html->addCrumb('My Hotels', 'javascript:void(0);', array('class' => 'brea
                             ?>
                             <tr>
                                 <td class="tablebody"><?php echo $id; ?></td>
-                                <td class="tablebody"><?php echo $TravelHotelLookup['TravelHotelLookup']['hotel_name']; ?></td>               
+                                <td class="tablebody"><?php echo $TravelHotelLookup['TravelHotelLookup']['hotel_name']; ?></td>   
+                                <td class="tablebody"><?php echo $TravelHotelLookup['TravelHotelLookup']['hotel_url']; ?></td>
                                 <td class="sub-tablebody"><?php echo $TravelHotelLookup['TravelHotelLookup']['suburb_name']; ?></td>
                                 <td class="sub-tablebody"><?php echo $TravelHotelLookup['TravelHotelLookup']['area_name']; ?></td>
                                 <td class="tablebody"><?php echo $TravelHotelLookup['TravelHotelLookup']['address']; ?></td>               
