@@ -48,7 +48,7 @@ class ImagePermissionsController extends AppController {
 
 
         $ImagePermissions = $this->ImagePermission->find('all', array(
-            'fields' => array('ImagePermission.user_id,GROUP_CONCAT(Province.name separator " , ") AS province_name', 'TravelCountry.country_name', 'TravelLookupContinent.continent_name', 'User.fname', 'User.lname', 'ImagePermission.approval_id', 'ImagePermission.maaping_approval_id'
+            'fields' => array('ImagePermission.user_id,GROUP_CONCAT(Province.name separator " , ") AS province_name', 'TravelCountry.country_name', 'TravelLookupContinent.continent_name', 'User.fname', 'User.lname'
                 , 'ImagePermission.continent_id', 'ImagePermission.country_id'),
             'joins' => array(
                 array(
