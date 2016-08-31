@@ -87,6 +87,7 @@ class TravelHotelImagesController extends AppController {
         $Provinces = array();
         $proArr = array();
         $conProvince = array();
+        $TravelHotelLookups = array();
 
  
         //next($proArr);
@@ -155,9 +156,9 @@ class TravelHotelImagesController extends AppController {
             'order' => 'TravelHotelLookup.hotel_name',
             ));
 
-         $log = $this->TravelHotelLookup->getDataSource()->getLog(false, false);       
-        debug($log);
-        die;
+         //$log = $this->TravelHotelLookup->getDataSource()->getLog(false, false);       
+        //debug($log);
+        //die;
             
             
         } 
@@ -222,7 +223,7 @@ class TravelHotelImagesController extends AppController {
             $this->data['TravelHotelLookup']['active'] = $this->passedArgs['active'];
         }
 
-        $this->set(compact('hotel_name', 'continent_id', 'country_id', 'city_id', 'suburb_id', 'area_id', 'TravelChains', 'status', 'active', 'chain_id', 'brand_id', 'wtb_status', 'TravelCountries', 'TravelCities', 'TravelSuburbs', 'TravelAreas', 'TravelChains', 'TravelBrands', 'TravelLookupValueContractStatuses', 'TravelLookupContinents', 'mapped_count', 'srilanka_count', 'maldives_count', 'singapore_count', 'malaysia_count', 'new_zealand_count', 'melbourne_count', 'abu_dhabi_count', 'sharjah_count', 'dubai_count', 'uae_count', 'india_count', 'phuket_count', 'pattaya_count', 'bangkok_count', 'thailand_count', 'below_three_star_count', 'three_star_count', 'four_five_star', 'Provinces', 'province_id'));
+        $this->set(compact('hotel_name', 'continent_id','TravelHotelLookups', 'country_id', 'city_id', 'suburb_id', 'area_id', 'TravelChains', 'status', 'active', 'chain_id', 'brand_id', 'wtb_status', 'TravelCountries', 'TravelCities', 'TravelSuburbs', 'TravelAreas', 'TravelChains', 'TravelBrands', 'TravelLookupValueContractStatuses', 'TravelLookupContinents', 'mapped_count', 'srilanka_count', 'maldives_count', 'singapore_count', 'malaysia_count', 'new_zealand_count', 'melbourne_count', 'abu_dhabi_count', 'sharjah_count', 'dubai_count', 'uae_count', 'india_count', 'phuket_count', 'pattaya_count', 'bangkok_count', 'thailand_count', 'below_three_star_count', 'three_star_count', 'four_five_star', 'Provinces', 'province_id'));
     }
 
     public function edit($id) {
