@@ -97,9 +97,9 @@ class ImagePermissionsController extends AppController {
         if ($this->request->is('post')) {
             $user_id = $this->request->data['ImagePermission']['user_id'];
             $country_id = $this->request->data['ImagePermission']['country_id'];
-            $maaping_approval_id = $this->request->data['ImagePermission']['maaping_approval_id'];
+           
             $continent_id = $this->request->data['ImagePermission']['continent_id'];
-            $approval_id = $this->request->data['ImagePermission']['approval_id'];
+   
             $TravelCountries = $this->TravelCountry->find('list', array('fields' => 'id,country_name', 'conditions' => array('country_status' => 1, 'wtb_status' => 1, 'active' => 'TRUE','continent_id' => $continent_id), 'order' => 'country_name ASC'));
         
             if (isset($this->request->data['add'])) {
