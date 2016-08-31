@@ -134,37 +134,32 @@ class TravelHotelImagesController extends AppController {
                 $active = $this->data['TravelHotelLookup']['active'];
                 array_push($search_condition, array('TravelHotelLookup.active' => $active));
             }
-            
-            $this->paginate['order'] = array('TravelHotelLookup.city_code' => 'asc');
-            $this->set('TravelHotelLookups', $this->paginate("TravelHotelLookup", $search_condition));
-            
-        } elseif ($this->request->is('get')) {
 
-           
-            if (!empty($this->request->params['named']['suburb_id'])) {
-                $suburb_id = $this->request->params['named']['suburb_id'];
-                array_push($search_condition, array('TravelHotelLookup.suburb_id' => $suburb_id));
-                $TravelAreas = $this->TravelArea->find('list', array(
-                    'conditions' => array(
-                        'TravelArea.suburb_id' => $suburb_id,
-                        'TravelArea.area_status' => '1',
-                        'TravelArea.wtb_status' => '1',
-                        'TravelArea.area_active' => 'TRUE'
-                    ),
-                    'fields' => 'TravelArea.id, TravelArea.area_name',
-                    'order' => 'TravelArea.area_name ASC'
-                ));
-            }
-            if (!empty($this->request->params['named']['area_id'])) {
-                $area_id = $this->request->params['named']['area_id'];
-                array_push($search_condition, array('TravelHotelLookup.area_id' => $area_id));
-            }
-           
-            if (!empty($this->request->params['named']['active'])) {
-                $active = $this->request->params['named']['active'];
-                array_push($search_condition, array('TravelHotelLookup.active' => $active));
-            }
-        }
+            
+            
+            
+            
+            $TravelHotelLookups = $this->TravelHotelLookup->find('all', array(
+          
+            'joins' => array(
+                array(
+                    'table' => 'travel_hotel_room_suppliers',
+                    'alias' => 'TravelHotelRoomSupplier',
+                    'type' => 'INNER',
+                    'conditions' => 'TravelHotelRoomSupplier.hotel_id = TravelHotelLookup.id'
+                ),
+
+            ),
+            'conditions' => $search_condition,
+            'order' => 'ImagePermission.id',
+            ));
+
+         $log = $this->TravelHotelLookup->getDataSource()->getLog(false, false);       
+        debug($log);
+        die;
+            
+            
+        } 
 
 
         $TravelAreas = $this->TravelArea->find('list', array(
