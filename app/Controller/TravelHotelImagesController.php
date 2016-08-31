@@ -98,6 +98,7 @@ class TravelHotelImagesController extends AppController {
 
 
         if ($this->checkImageProvince()) {
+            pr($this->checkImageProvince());
             array_push($search_condition, array('TravelHotelLookup.province_id' => $this->checkImageProvince()));
             
         }
