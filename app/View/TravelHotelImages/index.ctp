@@ -5,9 +5,7 @@ $this->Html->addCrumb('My Hotels', 'javascript:void(0);', array('class' => 'brea
 <div class="row">
     <div class="col-sm-12">
         <div class="table-heading">
-            <h4 class="table-heading-title"><span class="badge badge-circle badge-success"> <?php
-                    echo $this->Paginator->counter(array('format' => '{:count}'));
-                    ?></span> My Hotels</h4>
+            <h4 class="table-heading-title"> My Hotels</h4>
             
             <span class="search_panel_icon"><i class="icon-plus" id="toggle_search_panel"></i></span>
         </div>
@@ -24,18 +22,7 @@ $this->Html->addCrumb('My Hotels', 'javascript:void(0);', array('class' => 'brea
                     ));
                 echo $this->Form->hidden('model_name', array('id' => 'model_name', 'value' => 'TravelHotelLookup'));
                 ?> 
-                <div class="row spe-row">
-                    <div class="col-sm-4 col-xs-8">
-
-                        <?php echo $this->Form->input('hotel_name', array('value' => $hotel_name, 'placeholder' => 'Hotel id, Hotel name, hotel code, country, city or area', 'error' => array('class' => 'formerror'))); ?>
-                    </div>
-                    <div class="col-sm-3 col-xs-4">
-                        <?php
-                        echo $this->Form->submit('Hotel Search', array('div' => false, 'class' => 'btn btn-default btn-sm"'));
-                        ?>
-
-                    </div>
-                </div>
+            
                 <div class="row" id="search_panel_controls">
               
                     <div class="col-sm-3 col-xs-6">
