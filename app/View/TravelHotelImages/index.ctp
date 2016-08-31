@@ -74,14 +74,10 @@ $this->Html->addCrumb('My Hotels', 'javascript:void(0);', array('class' => 'brea
                         <th data-group="group2" class="nodis">Hotel Action</th>
                     </tr>
                     <tr>
-                        <th data-toggle="true" data-sort-ignore="true" width="3%" data-group="group1"><?php echo $this->Paginator->sort('id', 'Hotel Id');
-                echo ($sort == 'id') ? ($direction == 'asc') ? " <i class='icon-caret-up'></i>" : " <i class='icon-caret-down'></i>"  : " <i class='icon-sort'></i>"; ?></th>
-                        <th data-toggle="phone" data-sort-ignore="true" width="10%" data-group="group1"><?php echo $this->Paginator->sort('hotel_name', 'Hotel Name');
-                echo ($sort == 'hotel_name') ? ($direction == 'asc') ? " <i class='icon-caret-up'></i>" : " <i class='icon-caret-down'></i>"  : " <i class='icon-sort'></i>"; ?></th>
-                                              <th data-hide="phone" data-group="group1" width="8%" data-sort-ignore="true"><?php echo $this->Paginator->sort('suburb_name', 'Suburb');
-                echo ($sort == 'suburb_name') ? ($direction == 'asc') ? " <i class='icon-caret-up'></i>" : " <i class='icon-caret-down'></i>"  : " <i class='icon-sort'></i>"; ?></th>
-                        <th data-hide="phone" data-group="group1" width="5%" data-sort-ignore="true"><?php echo $this->Paginator->sort('area_name', 'Area');
-                echo ($sort == 'area_name') ? ($direction == 'asc') ? " <i class='icon-caret-up'></i>" : " <i class='icon-caret-down'></i>"  : " <i class='icon-sort'></i>"; ?></th>
+                        <th data-toggle="true" data-sort-ignore="true" width="3%" data-group="group1">Hotel Id</th>
+                        <th data-toggle="phone" data-sort-ignore="true" width="10%" data-group="group1">Hotel Name</th>
+                        <th data-hide="phone" data-group="group1" width="8%" data-sort-ignore="true">Suburb</th>
+                        <th data-hide="phone" data-group="group1" width="5%" data-sort-ignore="true">Area</th>
                         <th width="10%" data-group="group1" data-sort-ignore="true">Address</th>
                         <th width="10%" data-group="group1" data-sort-ignore="true">GPS Parm1</th>
                         <th width="10%" data-group="group1" data-sort-ignore="true">GPS Parm2</th>
