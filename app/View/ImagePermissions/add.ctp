@@ -79,8 +79,7 @@ echo $this->Form->input('country_id', array('options' => $TravelCountries, 'empt
                                             <div class="form-control">
                                                 <input name="data[ProvincePermission][province_id][]" value="<?php echo $key; ?>" id="ProvincePermissionProvinceId<?php echo $key; ?>" type="checkbox">
                                                 <label for="ProvincePermissionProvinceId<?php echo $key; ?>" style="margin-right:30px"><?php echo $val; ?></label>
-                                                <input name="data[ProvincePermission][mapping_edit][<?php echo $key; ?>]" value="Yes" type="checkbox">
-                                                <label>Mapping Edit?</label>
+                                               
                                             </div>
 <?php }
 ?>

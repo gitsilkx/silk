@@ -86,13 +86,7 @@ echo $this->Form->create('ImagePermission', array('method' => 'post',
                                             <div class="form-control">
                                                 <input name="data[ProvincePermission][province_id][]" value="<?php echo $key; ?>" id="ProvincePermissionProvinceId<?php echo $key; ?>" <?php if (in_array($key, $selected)) echo 'checked=checked'; ?> type="checkbox">
                                                 <label for="ProvincePermissionProvinceId<?php echo $key; ?>" style="margin-right:15px"><?php echo $val; ?></label>
-                                                <input name="data[ProvincePermission][mapping_edit][<?php echo $key; ?>]" value="Yes" type="checkbox" <?php
-                                                if (in_array($key, $mapping_selected)) {
-                                                    echo 'checked=checked';
-                                                }
                                                 
-                                                ?>>
-                                                <label>Mapping Edit?</label>
                                             </div>
 <?php }
 ?>
