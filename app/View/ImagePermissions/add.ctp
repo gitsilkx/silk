@@ -77,7 +77,7 @@ echo $this->Form->input('country_id', array('options' => $TravelCountries, 'empt
                                     foreach ($Provinces as $key => $val) {
                                         ?>
                                             <div class="form-control">
-                                                <input name="data[ProvincePermission][province_id][]" value="<?php echo $key; ?>" id="ProvincePermissionProvinceId<?php echo $key; ?>" type="checkbox">
+                                                <input name="data[ImagePermission][province_id][]" value="<?php echo $key; ?>" id="ProvincePermissionProvinceId<?php echo $key; ?>" type="checkbox">
                                                 <label for="ProvincePermissionProvinceId<?php echo $key; ?>" style="margin-right:30px"><?php echo $val; ?></label>
                                                
                                             </div>

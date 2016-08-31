@@ -106,16 +106,12 @@ class ImagePermissionsController extends AppController {
                 if (count($this->data['ImagePermission']['province_id']) > 0) {
 
                     foreach ($this->data['ImagePermission']['province_id'] as $val) {
-                        if(isset($this->data['ImagePermission']['mapping_edit'][$val]))
-                            $mapping_edit = $this->data['ImagePermission']['mapping_edit'][$val];
+                       
                         $save[] = array('ImagePermission' => array(
-                                'province_id' => $val,
-                                'mapping_edit' => $mapping_edit,
+                                'province_id' => $val,                                
                                 'user_id' => $user_id,
-                                'country_id' => $country_id,
-                                'maaping_approval_id' => $maaping_approval_id,
-                                'continent_id' => $continent_id,
-                                'approval_id' => $approval_id,
+                                'country_id' => $country_id,                               
+                                'continent_id' => $continent_id,                               
                                 'created_by' => $created_by
                         ));
                     }

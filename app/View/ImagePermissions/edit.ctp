@@ -84,7 +84,7 @@ echo $this->Form->create('ImagePermission', array('method' => 'post',
                                         foreach ($Provinces as $key => $val) {
                                             ?>
                                             <div class="form-control">
-                                                <input name="data[ProvincePermission][province_id][]" value="<?php echo $key; ?>" id="ProvincePermissionProvinceId<?php echo $key; ?>" <?php if (in_array($key, $selected)) echo 'checked=checked'; ?> type="checkbox">
+                                                <input name="data[ImagePermission][province_id][]" value="<?php echo $key; ?>" id="ProvincePermissionProvinceId<?php echo $key; ?>" <?php if (in_array($key, $selected)) echo 'checked=checked'; ?> type="checkbox">
                                                 <label for="ProvincePermissionProvinceId<?php echo $key; ?>" style="margin-right:15px"><?php echo $val; ?></label>
                                                 
                                             </div>
