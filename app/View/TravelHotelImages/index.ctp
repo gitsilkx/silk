@@ -105,7 +105,7 @@ $this->Html->addCrumb('My Hotels', 'javascript:void(0);', array('class' => 'brea
                             <tr>
                                 <td class="tablebody"><?php echo $id; ?></td>
                                 <td class="tablebody"><?php echo $TravelHotelLookup['TravelHotelLookup']['hotel_name']; ?></td>   
-                                <td class="tablebody"><?php echo $TravelHotelLookup['TravelHotelLookup']['hotel_url']; ?></td>
+                                <td class="tablebody"><?php echo $TravelHotelLookup['TravelHotelLookup']['url_hotel']; ?></td>
                                 <td class="sub-tablebody"><?php echo $TravelHotelLookup['TravelHotelLookup']['suburb_name']; ?></td>
                                 <td class="sub-tablebody"><?php echo $TravelHotelLookup['TravelHotelLookup']['area_name']; ?></td>
                                 <td class="tablebody"><?php echo $TravelHotelLookup['TravelHotelLookup']['address']; ?></td>               
@@ -128,7 +128,7 @@ $this->Html->addCrumb('My Hotels', 'javascript:void(0);', array('class' => 'brea
                         <?php endforeach; ?>
 
                         <?php
-                        echo $this->element('paginate');
+                        //echo $this->element('paginate');
                     else:
                         echo '<tr><td colspan="10" class="norecords">No Records Found</td></tr>';
 
