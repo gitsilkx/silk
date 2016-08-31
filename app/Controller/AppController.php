@@ -267,8 +267,8 @@ class AppController extends Controller {
         
          if($this->ImagePermission->find('count',array('conditions' => array('ImagePermission.user_id' => $user_id))))
                  return $this->ImagePermission->find('list',array('fields' => array('ImagePermission.province_id','ImagePermission.province_id'),'conditions' => array('ImagePermission.user_id' => $user_id)));
-         else 
-                 return $this->Province->find('list',array('fields' => array('Province.id','Province.id')));
+         //else 
+                // return $this->Province->find('list',array('fields' => array('Province.id','Province.id')));
     }
     
     public function hotelProvince(){
