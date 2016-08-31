@@ -231,16 +231,10 @@ class ImagePermissionsController extends AppController {
             
       $permissionArray = $this->ImagePermission->find('first', array('conditions' => $search_condition));
 
-        $maaping_approval_id = $permissionArray['ImagePermission']['maaping_approval_id'];
-        $approval_id = $permissionArray['ImagePermission']['approval_id'];
 
         if ($this->request->is('post') || $this->request->is('put')) {
 
-            //$country_id = $this->data['ImagePermission']['country_id'];
-            $maaping_approval_id = $this->data['ImagePermission']['maaping_approval_id'];
-            //$continent_id = $this->data['ImagePermission']['continent_id'];
-            $approval_id = $this->data['ImagePermission']['approval_id'];
-           
+                 
 
 
             $save = array();
@@ -266,12 +260,12 @@ class ImagePermissionsController extends AppController {
             foreach ($this->data['ImagePermission']['province_id'] as $province_id) {
                 $save[] = array('ImagePermission' => array(
                         'user_id' => $user_id,
-                        'mapping_edit' => $this->data['ImagePermission']['mapping_edit'][$province_id],
+                       
                         'province_id' => $province_id,
                         'country_id' => $country_id,
-                        'maaping_approval_id' => $maaping_approval_id,
+                      
                         'continent_id' => $continent_id,
-                        'approval_id' => $approval_id,
+                        
                         'created_by' => $created_by
                 ));
             }
