@@ -153,18 +153,9 @@
                     <div class="form-group">
                         <label class="col-sm-5 control-label">System &nbsp;</label>
                         <div class="col-sm-7 editable">
-                            <p class="form-control-static"><?php echo $this->data['User']['system_email']; ?></p>
+                            <p class="form-control-static"><?php echo $this->data['User']['company_email_id']; ?></p>
                             <div class="hidden_control">
 <?php echo $this->Form->input('system_email', array('disabled' => true)); ?>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-5 control-label">Sumanus &nbsp;</label>
-                        <div class="col-sm-7 editable">
-                            <p class="form-control-static"><?php echo $this->data['User']['sumanus_email']; ?></p>
-                            <div class="hidden_control">
-<?php echo $this->Form->input('sumanus_email', array('disabled' => true)); ?>
                             </div>
                         </div>
                     </div>
@@ -273,7 +264,6 @@
                                 $channel = $arr[0];
                                 ?>
                                 <li>
-
                                     <?php
                                 echo $this->Html->link($this->Html->image($role . '.png', array('alt' => $groups[$roles[$role]], 'title' => $groups[$roles[$role]])) . '<span class="menu_label">' . $groups[$roles[$role]] . '</span><span>' . $channel_city[$channel] . '</span>', array('controller' => 'users', 'action' => 'dashboard', 'id' => $role, 'channel' => $channel,'industry' => '2'), array('escape' => false));
                                 ?> </li>   
@@ -282,7 +272,7 @@
                         } else {
                             ?>
                             <li><?php
-                          //  echo $this->Html->link('<i class="icon-tasks icon-2x"></i><span class="menu_label">Others</span>', array('controller' => 'users', 'action' => 'dashboard'), array('escape' => false));
+                            echo $this->Html->link('<i class="icon-tasks icon-2x"></i><span class="menu_label">Others</span>', array('controller' => 'users', 'action' => 'dashboard'), array('escape' => false));
                             ?></li>
 <?php } ?>
                     </ul>
