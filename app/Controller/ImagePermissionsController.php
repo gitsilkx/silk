@@ -144,7 +144,7 @@ class ImagePermissionsController extends AppController {
             'fields' => array('User.id', 'User.fname', 'User.lname'),
             'conditions' => array
                 (
-                'OR' => array('t_sales_role_id' => 28,'infra_operations_channel_id' => 262)
+                'OR' => array('o_overseeing_channel_id' => 66,'o_data_analyst_role_id' => 67)
                 ,
                 //'User.id NOT IN (SELECT user_id FROM province_permissions WHERE 1 group by user_id)'
             ),
@@ -331,7 +331,7 @@ class ImagePermissionsController extends AppController {
         $Users = Set::combine($Users, '{n}.User.id', array('%s %s', '{n}.User.fname', '{n}.User.lname'));
         $TravelCountries = $this->TravelCountry->find('list', array('fields' => 'id,country_name', 'conditions' => array('id' => $country_id), 'order' => 'country_name ASC'));
         $selected = $this->ImagePermission->find('list', array('fields' => array('province_id'), 'conditions' => array('ImagePermission.user_id' => $user_id,'ImagePermission.country_id' => $country_id,'ImagePermission.continent_id' => $continent_id)));
-        $mapping_selected = $this->ImagePermission->find('list', array('fields' => array('province_id'), 'conditions' => array('ImagePermission.user_id' => $user_id,'ImagePermission.country_id' => $country_id,'ImagePermission.continent_id' => $continent_id,'ImagePermission.mapping_edit' => 'Yes')));
+
         $this->set(compact('Provinces', 'Users', 'selected', 'mapping_selected', 'TravelLookupContinents', 'MappingApproved', 'Approved', 'TravelCountries', 'country_id', 'maaping_approval_id', 'approval_id', 'continent_id'));
     }
 
