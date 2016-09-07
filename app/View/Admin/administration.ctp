@@ -6,7 +6,7 @@
                     </div>
                     <div class="info-details">
         <?php
-        echo $this->Html->link('<h4>Work Permission Setup<span class="pull-right"></span></h4><h6>By User , By Province</h6>', '/province_permissions', array('data-toggle' => 'tooltip', 'data-placement' => 'right', 'title' => 'Province Permission By User', 'escape' => false));       
+        echo $this->Html->link('<h4>Work Permissions<span class="pull-right"></span></h4><h6>For User+Country | Permission Level: Province</h6>', '/province_permissions', array('data-toggle' => 'tooltip', 'data-placement' => 'right', 'title' => 'Province Permission By User', 'escape' => false));       
         ?>
                     </div>
                 </div>
@@ -19,7 +19,7 @@
                     </div>
                     <div class="info-details">
         <?php
-        echo $this->Html->link('<h4>Progress Report<span class="pull-right"></span></h4><h6>By User , By Province</h6>', '/reports/province_list', array('data-toggle' => 'tooltip', 'data-placement' => 'right', 'title' => 'Province', 'escape' => false));       
+        echo $this->Html->link('<h4>Image Permissions<span class="pull-right"></span></h4><h6>For User+Country | Permission Level: Province</h6>', '/image_permissions', array('data-toggle' => 'tooltip', 'data-placement' => 'right', 'title' => 'Image Permission By User', 'escape' => false));       
         ?>
                     </div>
                 </div>
