@@ -201,26 +201,59 @@ $cur_page = end($arr); // live
             </li>
             <?php
  }
-  elseif ($this->Session->read('role_id') == '65') {
+ elseif ($this->Session->read('role_id') == '64') {
      ?>
-            <li <?php if ($cur_page == 'my-hotels') { ?> class="active"<?php } ?>>  
+            <li <?php if ($cur_page == 'reports') { ?> class="active"<?php } ?>>  
                 <?php
-                echo $this->Html->link('<i class="icon-tasks"></i><span>My Hotels</span>', '/my-hotels', array('data-toggle' => 'tooltip', 'data-placement' => 'right', 'title' => 'My Hotels', 'escape' => false));
+                echo $this->Html->link('<i class="icon-tasks"></i><span>Reports</span>', '/admin/reports', array('data-toggle' => 'tooltip', 'data-placement' => 'right', 'title' => 'Reports', 'escape' => false));
                 ?>           
             </li>
-            <li <?php if ($cur_page == 'mappinges') { ?> class="active"<?php } ?>>  
+            <li <?php if ($cur_page == 'administration') { ?> class="active"<?php } ?>>  
                 <?php
-                echo $this->Html->link('<i class="icon-tasks"></i><span>My Mappings</span>', '/mappinges', array('data-toggle' => 'tooltip', 'data-placement' => 'right', 'title' => 'My Mappinges', 'escape' => false));
+                echo $this->Html->link('<i class="icon-tasks"></i><span>Administration</span>', '/admin/administration', array('data-toggle' => 'tooltip', 'data-placement' => 'right', 'title' => 'Administration', 'escape' => false));
                 ?>           
             </li>
-            <li <?php if ($cur_page == 'mappinges') { ?> class="active"<?php } ?>>  
+            <li <?php if ($cur_page == 'data') { ?> class="active"<?php } ?>>  
                 <?php
-                echo $this->Html->link('<i class="icon-tasks"></i><span>Fetch New Hotels</span>', '#', array('data-toggle' => 'tooltip', 'data-placement' => 'right', 'title' => 'Fetch New Hotels', 'escape' => false));
+                echo $this->Html->link('<i class="icon-tasks"></i><span>Admin</span>', '/admin/data', array('data-toggle' => 'tooltip', 'data-placement' => 'right', 'title' => 'Data', 'escape' => false));
                 ?>           
             </li>
-            <li <?php if ($cur_page == 'travel_action_items') { ?> class="active"<?php } ?>>  
+            <?php
+ }
+ elseif ($this->Session->read('role_id') == '66') {
+     ?>
+            <li <?php if ($cur_page == 'to-come') { ?> class="active"<?php } ?>>  
                 <?php
-                echo $this->Html->link('<i class="icon-tasks"></i><span>My Action</span>', '/travel_action_items', array('data-toggle' => 'tooltip', 'data-placement' => 'right', 'title' => 'My Action', 'escape' => false));
+                echo $this->Html->link('<i class="icon-tasks"></i><span>Managament Reports</span>', '/to-come/', array('data-toggle' => 'tooltip', 'data-placement' => 'right', 'title' => 'Managament Reports', 'escape' => false));
+                ?>           
+            </li>
+            <li <?php if ($cur_page == 'to-come') { ?> class="active"<?php } ?>>  
+                <?php
+                echo $this->Html->link('<i class="icon-tasks"></i><span>Administration</span>', '/to-come/', array('data-toggle' => 'tooltip', 'data-placement' => 'right', 'title' => 'Administration', 'escape' => false));
+                ?>           
+            </li>            
+            <li <?php if ($cur_page == 'download_tables/download_ota/') { ?> class="active"<?php } ?>>  
+                <?php
+                echo $this->Html->link('<i class="icon-tasks"></i><span>Download Section</span>', '/download_tables/download_ota/', array('data-toggle' => 'tooltip', 'data-placement' => 'right', 'title' => 'Download Section', 'escape' => false));
+                ?>           
+            </li>
+            <li <?php if ($cur_page == 'travel_hotel_images/') { ?> class="active"<?php } ?>>  
+                <?php
+                echo $this->Html->link('<i class="icon-tasks"></i><span> Hotel Imagess</span>', '/travel_hotel_images/', array('data-toggle' => 'tooltip', 'data-placement' => 'right', 'title' => ' Hotel Images', 'escape' => false));
+                ?>           
+            </li>            
+            <?php
+ }
+  elseif ($this->Session->read('role_id') == '67') {
+     ?>
+            <li <?php if ($cur_page == 'to-come') { ?> class="active"<?php } ?>>  
+                <?php
+                echo $this->Html->link('<i class="icon-tasks"></i><span>My Reports</span>', '/to-come/', array('data-toggle' => 'tooltip', 'data-placement' => 'right', 'title' => 'My Reports', 'escape' => false));
+                ?>           
+            </li>
+            <li <?php if ($cur_page == 'travel_hotel_images') { ?> class="active"<?php } ?>>  
+                <?php
+                echo $this->Html->link('<i class="icon-tasks"></i><span>My Hotel Imagess</span>', '/travel_hotel_images/', array('data-toggle' => 'tooltip', 'data-placement' => 'right', 'title' => 'My Hotel Images', 'escape' => false));
                 ?>           
             </li>
             <?php
