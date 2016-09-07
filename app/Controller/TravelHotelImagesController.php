@@ -1,13 +1,5 @@
 <?php
-define("USERNAME", 'hbs200_admin'); //root //hbs200_admin
 
-define("PASSWORD", 'hbs200_lms');//hbs200_lms
-
-define("DBNAME", 'hbs200_lms'); //silkrouters //hbs200_lms
-
-define("HOST", 'localhost');
-$dbh = @mysql_connect(HOST, USERNAME, PASSWORD) or die('I cannot connect to the database because: ' . mysql_error());
-$db = @mysql_select_db(DBNAME, $dbh) or die('I cannot connect to the database because: ' . mysql_error());
 /**
  * TravelHotelLookups controller.
  *
@@ -50,7 +42,7 @@ class TravelHotelImagesController extends AppController {
     public $components = array('Sms', 'Image','RequestHandler');
 
     public $uploadDir;
-    
+
 
     public function beforeFilter() {
         parent::beforeFilter();
@@ -65,6 +57,7 @@ class TravelHotelImagesController extends AppController {
         
         $city_id = $this->Auth->user('city_id');
         $user_id = $this->Auth->user('id');
+        
         $search_condition = array();
         $hotel_name = '';
         $continent_id = '';
@@ -89,6 +82,7 @@ class TravelHotelImagesController extends AppController {
         $conProvince = array();
         $TravelHotelLookups = array();
 
+
  
         //next($proArr);
 
@@ -96,7 +90,9 @@ class TravelHotelImagesController extends AppController {
             $this->Session->setFlash('Image uploaded successfully.', 'success');
         }
 
+            if($this->checkImageProvince())
 
+            $proArr = $this->checkImageProvince();
 
         //if ($this->checkImageProvince()) {
            
@@ -109,37 +105,98 @@ class TravelHotelImagesController extends AppController {
         if ($this->request->is('post') || $this->request->is('put')) {
           
            
-          
-            if (!empty($this->data['TravelHotelLookup']['suburb_id'])) {
-                $suburb_id = $this->data['TravelHotelLookup']['suburb_id'];
-                array_push($search_condition, array('TravelHotelLookup.suburb_id' => $suburb_id));
-                $TravelAreas = $this->TravelArea->find('list', array(
-                    'conditions' => array(
-                        'TravelArea.suburb_id' => $suburb_id,
-                        'TravelArea.area_status' => '1',
-                        'TravelArea.wtb_status' => '1',
-                        'TravelArea.area_active' => 'TRUE'
-                    ),
-                    'fields' => 'TravelArea.id, TravelArea.area_name',
-                    'order' => 'TravelArea.area_name ASC'
-                ));
+
+            if (!empty($this->data['TravelHotelLookup']['hotel_name'])) {
+
+                $hotel_name = $this->data['TravelHotelLookup']['hotel_name'];
+
+                array_push($search_condition, array("SupplierHotel.hotel_name LIKE '%$hotel_name%'"));
+
+            }
+
+            if (!empty($this->data['TravelHotelLookup']['continent_id'])) {
+
+                $continent_id = $this->data['TravelHotelLookup']['continent_id'];
+
+                array_push($search_condition, array('TravelHotelLookup.continent_id' => $continent_id));
+
+                $TravelCountries = $this->TravelCountry->find('all', array('fields' => 'id, country_name,country_code', 'conditions' => array('TravelCountry.continent_id' => $continent_id,
+
+                        'TravelCountry.country_status' => '1',
+
+                        'TravelCountry.wtb_status' => '1',
+
+                        'TravelCountry.active' => 'TRUE'), 'order' => 'country_code ASC'));
+
+                $TravelCountries = Set::combine($TravelCountries, '{n}.TravelCountry.id', array('%s - %s', '{n}.TravelCountry.country_code', '{n}.TravelCountry.country_name'));
+
             }
 
 
-            if (!empty($this->data['TravelHotelLookup']['area_id'])) {
-                $area_id = $this->data['TravelHotelLookup']['area_id'];
-                array_push($search_condition, array('TravelHotelLookup.area_id' => $area_id));
-            }
-            
-      
-            if (!empty($this->data['TravelHotelLookup']['active'])) {
-                $active = $this->data['TravelHotelLookup']['active'];
-                array_push($search_condition, array('TravelHotelLookup.active' => $active));
+
+            if (!empty($this->data['TravelHotelLookup']['country_id'])) {
+
+                $country_id = $this->data['TravelHotelLookup']['country_id'];
+
+                $province_id = $this->data['TravelHotelLookup']['province_id'];
+
+                array_push($search_condition, array('TravelHotelLookup.country_id' => $country_id));
+
+                $TravelCities = $this->TravelCity->find('list', array('fields' => 'id, city_name', 'conditions' => array('TravelCity.province_id' => $province_id,
+
+                        'TravelCity.city_status' => '1',
+
+                        'TravelCity.wtb_status' => '1',
+
+                        'TravelCity.active' => 'TRUE',), 'order' => 'city_name ASC'));
+
+                
+
+                
+
             }
 
-            
-            
-            
+            if (!empty($this->data['TravelHotelLookup']['province_id'])) {
+
+                
+
+                array_push($search_condition, array('TravelHotelLookup.province_id' => $province_id));
+
+                $Provinces = $this->Province->find('list', array(
+
+                'conditions' => array(
+
+                    'Province.country_id' => $country_id,
+
+                    'Province.continent_id' => $continent_id,
+
+                    'Province.status' => '1',
+
+                    'Province.wtb_status' => '1',
+
+                    'Province.active' => 'TRUE',
+
+                    'Province.id' => $proArr
+
+                ),
+
+                'fields' => array('Province.id', 'Province.name'),
+
+                'order' => 'Province.name ASC'
+
+            ));
+
+            }
+
+            if (!empty($this->data['TravelHotelLookup']['city_id'])) {
+
+                $city_id = $this->data['TravelHotelLookup']['city_id'];
+
+                array_push($search_condition, array('TravelHotelLookup.city_id' => $city_id));
+
+            }
+
+
             
             $TravelHotelLookups = $this->TravelHotelLookup->find('all', array(
           
@@ -164,26 +221,9 @@ class TravelHotelImagesController extends AppController {
         } 
 
 
-        $TravelAreas = $this->TravelArea->find('list', array(
-                    'conditions' => array(                        
-                        'TravelArea.area_status' => '1',
-                        'TravelArea.wtb_status' => '1',
-                        'TravelArea.area_active' => 'TRUE'
-                    ),
-                    'fields' => 'TravelArea.id, TravelArea.area_name',
-                    'order' => 'TravelArea.area_name ASC'
-                ));
-        
-        $TravelSuburbs = $this->TravelSuburb->find('list', array(
-                    'conditions' => array(
-                       
-                        'TravelSuburb.status' => '1',
-                        'TravelSuburb.wtb_status' => '1',
-                        'TravelSuburb.active' => 'TRUE'
-                    ),
-                    'fields' => 'TravelSuburb.id, TravelSuburb.name',
-                    'order' => 'TravelSuburb.name ASC'
-                ));
+
+
+
 
 
 
@@ -202,27 +242,31 @@ class TravelHotelImagesController extends AppController {
 
 
        
-        if (!isset($this->passedArgs['suburb_id']) && empty($this->passedArgs['suburb_id'])) {
-            $this->passedArgs['suburb_id'] = (isset($this->data['TravelHotelLookup']['suburb_id'])) ? $this->data['TravelHotelLookup']['suburb_id'] : '';
+        if (!isset($this->passedArgs['continent_id']) && empty($this->passedArgs['continent_id'])) {
+            $this->passedArgs['continent_id'] = (isset($this->data['TravelHotelLookup']['continent_id'])) ? $this->data['TravelHotelLookup']['continent_id'] : '';
         }
-        if (!isset($this->passedArgs['area_id']) && empty($this->passedArgs['area_id'])) {
-            $this->passedArgs['area_id'] = (isset($this->data['TravelHotelLookup']['area_id'])) ? $this->data['TravelHotelLookup']['area_id'] : '';
+        if (!isset($this->passedArgs['country_id']) && empty($this->passedArgs['country_id'])) {
+            $this->passedArgs['country_id'] = (isset($this->data['TravelHotelLookup']['country_id'])) ? $this->data['TravelHotelLookup']['country_id'] : '';
+        }      
+        if (!isset($this->passedArgs['province_id']) && empty($this->passedArgs['province_id'])) {
+            $this->passedArgs['province_id'] = (isset($this->data['TravelHotelLookup']['province_id'])) ? $this->data['TravelHotelLookup']['province_id'] : '';
         }
-       
-        if (!isset($this->passedArgs['active']) && empty($this->passedArgs['active'])) {
-            $this->passedArgs['active'] = (isset($this->data['TravelHotelLookup']['active'])) ? $this->data['TravelHotelLookup']['active'] : '';
+        if (!isset($this->passedArgs['city_id']) && empty($this->passedArgs['city_id'])) {
+            $this->passedArgs['city_id'] = (isset($this->data['TravelHotelLookup']['city_id'])) ? $this->data['TravelHotelLookup']['city_id'] : '';
         }
 
 
 
         if (!isset($this->data) && empty($this->data)) {
           
-            $this->data['TravelHotelLookup']['suburb_id'] = $this->passedArgs['suburb_id'];
-            $this->data['TravelHotelLookup']['area_id'] = $this->passedArgs['area_id'];
-     
-            $this->data['TravelHotelLookup']['active'] = $this->passedArgs['active'];
+            $this->data['TravelHotelLookup']['continent_id'] = $this->passedArgs['continent_id'];
+            $this->data['TravelHotelLookup']['country_id'] = $this->passedArgs['country_id'];
+            $this->data['TravelHotelLookup']['province_id'] = $this->passedArgs['province_id'];
+            $this->data['TravelHotelLookup']['city_id'] = $this->passedArgs['city_id'];
         }
 
+        $TravelLookupContinents = $this->TravelLookupContinent->find('list', array('fields' => 'id,continent_name', 'order' => 'continent_name ASC'));
+        
         $this->set(compact('hotel_name', 'continent_id','TravelHotelLookups', 'country_id', 'city_id', 'suburb_id', 'area_id', 'TravelChains', 'status', 'active', 'chain_id', 'brand_id', 'wtb_status', 'TravelCountries', 'TravelCities', 'TravelSuburbs', 'TravelAreas', 'TravelChains', 'TravelBrands', 'TravelLookupValueContractStatuses', 'TravelLookupContinents', 'mapped_count', 'srilanka_count', 'maldives_count', 'singapore_count', 'malaysia_count', 'new_zealand_count', 'melbourne_count', 'abu_dhabi_count', 'sharjah_count', 'dubai_count', 'uae_count', 'india_count', 'phuket_count', 'pattaya_count', 'bangkok_count', 'thailand_count', 'below_three_star_count', 'three_star_count', 'four_five_star', 'Provinces', 'province_id'));
     }
 
