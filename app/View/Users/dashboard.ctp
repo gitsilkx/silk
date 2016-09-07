@@ -125,6 +125,97 @@
             </div>
         </div>
     <?php
+    } elseif ($this->Session->read('role_id') == '67') {
+                ?>
+        <div class="row">
+            <div class="col-md-4 active">
+                <div class="info-box  bg-info  text-white" id="initial-tour">
+                    <div class="info-icon bg-info-dark">
+                        <span aria-hidden="true" class="icon icon-layers"></span>
+                    </div>
+                    <div class="info-details">
+        <?php
+        echo $this->Html->link('<h4>My Reports<span class="pull-right"></span></h4>', '/to-come/', array('data-toggle' => 'tooltip', 'data-placement' => 'right', 'title' => 'Reports', 'escape' => false));
+        ?>
+                    </div>
+                </div>
+            </div>            
+            <div class="col-md-4 active">
+
+                <div class="info-box  bg-info  text-white" id="initial-tour">
+                    <div class="info-icon bg-info-dark">
+                        <span aria-hidden="true" class="icon icon-layers"></span>
+                    </div>
+                    <div class="info-details">
+        <?php
+        echo $this->Html->link('<h4>My Hotel Images<span class="pull-right"></span></h4>', '/travel_hotel_images/', array('data-toggle' => 'tooltip', 'data-placement' => 'right', 'title' => 'Hotel Images', 'escape' => false));
+        ?>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    <?php
+    } elseif ($this->Session->read('role_id') == '66') {
+                ?>
+        <div class="row">
+            <div class="col-md-4 active">
+                <div class="info-box  bg-info  text-white" id="initial-tour">
+                    <div class="info-icon bg-info-dark">
+                        <span aria-hidden="true" class="icon icon-layers"></span>
+                    </div>
+                    <div class="info-details">
+        <?php
+        echo $this->Html->link('<h4>Management Reports<span class="pull-right"></span></h4>', '/to-come/', array('data-toggle' => 'tooltip', 'data-placement' => 'right', 'title' => 'Reports', 'escape' => false));
+        ?>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 active">
+
+                <div class="info-box  bg-info  text-white" id="initial-tour">
+                    <div class="info-icon bg-info-dark">
+                        <span aria-hidden="true" class="icon icon-layers"></span>
+                    </div>
+                    <div class="info-details">
+        <?php
+        echo $this->Html->link('<h4>Administration<span class="pull-right"></span></h4>', '/to-come/', array('data-toggle' => 'tooltip', 'data-placement' => 'right', 'title' => 'Administration', 'escape' => false));
+        ?>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 active">
+
+                <div class="info-box  bg-info  text-white" id="initial-tour">
+                    <div class="info-icon bg-info-dark">
+                        <span aria-hidden="true" class="icon icon-layers"></span>
+                    </div>
+                    <div class="info-details">
+        <?php
+        echo $this->Html->link('<h4>Download Section<span class="pull-right"></span></h4>', '/download_tables/download_ota', array('data-toggle' => 'tooltip', 'data-placement' => 'right', 'title' => 'Download Section', 'escape' => false));
+        ?>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 active">
+
+                <div class="info-box  bg-info  text-white" id="initial-tour">
+                    <div class="info-icon bg-info-dark">
+                        <span aria-hidden="true" class="icon icon-layers"></span>
+                    </div>
+                    <div class="info-details">
+        <?php
+        echo $this->Html->link('<h4>Hotel Images<span class="pull-right"></span></h4>', '/travel_hotel_images/', array('data-toggle' => 'tooltip', 'data-placement' => 'right', 'title' => 'Hotel Images', 'escape' => false));
+        ?>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    <?php    
     } elseif ($this->Session->read('role_id') == '64') {
         ?>
         <div class="row">
