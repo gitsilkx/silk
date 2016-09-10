@@ -51,11 +51,12 @@ $this->Html->addCrumb('My Hotel Images', 'javascript:void(0);', array('class' =>
 
                     </div>
                 </div>
-                
+
+              
             </div>
                  <?php echo $this->Form->end(); ?>
 
-
+     
 </br>       
 
 
@@ -128,6 +129,11 @@ $this->Html->addCrumb('My Hotel Images', 'javascript:void(0);', array('class' =>
             </table>          
 
 </div>
+    <div align="center" class="col-sm-12" style="font-size: 20px; font-family: sans-serif">
+        <p style="color: black; background-color: #ffff42">
+        <?php echo $service_status; ?>
+        </p>
+    </div> 
 
 <?php echo $this->Form->end(); ?>
     
