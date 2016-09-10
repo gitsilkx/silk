@@ -88,7 +88,14 @@ class TravelHotelImagesController extends AppController {
         //next($proArr);
 
         if(isset($_REQUEST['a'])){
+            $service_status = "";
             $this->Session->setFlash('Image uploaded successfully.', 'success');
+        } else {
+            if ($this->ServiceCheck() == 'true'){
+               $service_status = "All services running normally.";
+            }   else {
+               $service_status = "Some services are offline. Please try later.";
+            }  
         }
 
             if($this->checkImageProvince())
@@ -268,11 +275,7 @@ class TravelHotelImagesController extends AppController {
 
         $TravelLookupContinents = $this->TravelLookupContinent->find('list', array('fields' => 'id,continent_name', 'order' => 'continent_name ASC'));
         
-        if ($this->ServiceCheck() == 'true'){
-             $service_status = "All services running normally.";
-        } else {
-             $service_status = "Some services are offline. Please try later.";
-        }               
+             
         
         $this->set(compact('hotel_name', 'continent_id','TravelHotelLookups', 'country_id', 'city_id', 'suburb_id', 'area_id', 'TravelChains', 'status', 'active', 'chain_id', 'brand_id', 'wtb_status', 'TravelCountries', 'TravelCities', 'TravelSuburbs', 'TravelAreas', 'TravelChains', 'TravelBrands', 'TravelLookupValueContractStatuses', 'TravelLookupContinents', 'mapped_count', 'srilanka_count', 'maldives_count', 'singapore_count', 'malaysia_count', 'new_zealand_count', 'melbourne_count', 'abu_dhabi_count', 'sharjah_count', 'dubai_count', 'uae_count', 'india_count', 'phuket_count', 'pattaya_count', 'bangkok_count', 'thailand_count', 'below_three_star_count', 'three_star_count', 'four_five_star', 'Provinces', 'province_id','service_status'));
     }
