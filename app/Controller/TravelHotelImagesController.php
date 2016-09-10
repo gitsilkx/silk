@@ -59,6 +59,7 @@ class TravelHotelImagesController extends AppController {
         $user_id = $this->Auth->user('id');
         
         $search_condition = array();
+        $service_status = '';
         $hotel_name = '';
         $continent_id = '';
         $country_id = '';
@@ -267,9 +268,89 @@ class TravelHotelImagesController extends AppController {
 
         $TravelLookupContinents = $this->TravelLookupContinent->find('list', array('fields' => 'id,continent_name', 'order' => 'continent_name ASC'));
         
-        $this->set(compact('hotel_name', 'continent_id','TravelHotelLookups', 'country_id', 'city_id', 'suburb_id', 'area_id', 'TravelChains', 'status', 'active', 'chain_id', 'brand_id', 'wtb_status', 'TravelCountries', 'TravelCities', 'TravelSuburbs', 'TravelAreas', 'TravelChains', 'TravelBrands', 'TravelLookupValueContractStatuses', 'TravelLookupContinents', 'mapped_count', 'srilanka_count', 'maldives_count', 'singapore_count', 'malaysia_count', 'new_zealand_count', 'melbourne_count', 'abu_dhabi_count', 'sharjah_count', 'dubai_count', 'uae_count', 'india_count', 'phuket_count', 'pattaya_count', 'bangkok_count', 'thailand_count', 'below_three_star_count', 'three_star_count', 'four_five_star', 'Provinces', 'province_id'));
+        if ($this->ServiceCheck() == 'true'){
+             $service_status = "All services running normally.";
+        } else {
+             $service_status = "Some services are offline. Please try later.";
+        }               
+        
+        $this->set(compact('hotel_name', 'continent_id','TravelHotelLookups', 'country_id', 'city_id', 'suburb_id', 'area_id', 'TravelChains', 'status', 'active', 'chain_id', 'brand_id', 'wtb_status', 'TravelCountries', 'TravelCities', 'TravelSuburbs', 'TravelAreas', 'TravelChains', 'TravelBrands', 'TravelLookupValueContractStatuses', 'TravelLookupContinents', 'mapped_count', 'srilanka_count', 'maldives_count', 'singapore_count', 'malaysia_count', 'new_zealand_count', 'melbourne_count', 'abu_dhabi_count', 'sharjah_count', 'dubai_count', 'uae_count', 'india_count', 'phuket_count', 'pattaya_count', 'bangkok_count', 'thailand_count', 'below_three_star_count', 'three_star_count', 'four_five_star', 'Provinces', 'province_id','service_status'));
     }
 
+    public function ServiceCheck() {
+
+        $headding = '';
+        $order_return = '';
+        $log_call_screen = '';
+        $xml_msg = '';
+        $location_URL = 'http://dev.wtbnetworks.com/TravelXmlManagerv001/ProEngine.Asmx';
+        $action_URL = 'http://www.travel.domain/ProcessXML';
+        $CreatedDate = date('Y-m-d') . 'T' . date('h:i:s');
+        
+                        $content_xml_str = '<soap:Body>
+
+                                        <ProcessXML xmlns="http://www.travel.domain/">
+
+                                            <RequestInfo>
+
+                                                <ResourceDataRequest>
+
+                                                    <RequestAuditInfo>
+
+                                                        <RequestType>PXML_RequestServiceInfo</RequestType>
+
+                                                        <RequestTime>' . $CreatedDate . '</RequestTime>
+
+                                                        <RequestResource>Silkrouters</RequestResource>
+
+                                                    </RequestAuditInfo>
+
+                                                    <RequestParameters>                        
+
+                                                        <ResourceData>
+
+                                                            <ResourceDetailsData actiontype="CheckRequestAll">
+
+                                                                <Language>UK/US-ENGLISH</Language>
+
+                                                            </ResourceDetailsData>              
+
+                                                    </ResourceData>
+
+                                                    </RequestParameters>
+
+                                                </ResourceDataRequest>
+
+                                            </RequestInfo>
+
+                                        </ProcessXML>
+
+                                    </soap:Body>';
+
+
+        $RESOURCEDATA = 'RESOURCEDATA_REQUESTSERVICEINFO';
+        $xml_string = Configure::read('travel_start_xml_str') . $content_xml_str . Configure::read('travel_end_xml_str');
+                $client = new SoapClient(null, array(
+                    'location' => $location_URL,
+                    'uri' => '',
+                    'trace' => 1,
+                ));
+
+                try {
+                    $order_return = $client->__doRequest($xml_string, $location_URL, $action_URL, 1);
+                    $xml_arr = $this->xml2array($order_return);
+                    if ($xml_arr['SOAP:ENVELOPE']['SOAP:BODY']['PROCESSXMLRESPONSE']['PROCESSXMLRESULT'][$RESOURCEDATA]['RESPONSEAUDITINFO']['RESPONSEINFO']['RESPONSEID'][0] == '201') {
+                        return 'true';
+                    } else {
+                        return 'false';
+                    }
+                } catch (SoapFault $exception) {
+                    var_dump(get_class($exception));
+                    var_dump($exception);
+                }
+                
+    }
+    
     public function edit($id) {
 
         $location_URL = 'http://dev.wtbnetworks.com/TravelXmlManagerv001/ProEngine.Asmx';
@@ -912,6 +993,8 @@ class TravelHotelImagesController extends AppController {
         $this->request->data = $TravelHotelLookups;
     }
 
+
+    
     public function ImagefileCheck($file_type = null, $file_size = null) {
         $img_up_type = explode("/", $file_type);
         echo $img_up_type_firstpart = $img_up_type[0];
