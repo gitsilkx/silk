@@ -62,7 +62,7 @@ $this->Html->addCrumb('My Hotel Images', 'javascript:void(0);', array('class' =>
 
     <div style="padding-left: 20px;" align="center" class="col-sm-12">
 
-            <table width="800" style="margin-left:auto;margin-right:auto cellpadding="0" cellspacing="0" id="resp_table" class="table toggle-square myclitb" data-filter="#table_search" data-page-size="500">
+            <table width="800" style="margin-left:auto;margin-right:auto cellpadding="0" cellspacing="0" id="resp_table" class="table toggle-square myclitb" data-filter="#table_search" data-page-size="1000">
                 <thead>
                     <tr>
                         <th data-toggle="true" data-sort-ignore="true" width="4%" data-group="group1">Id</th>
