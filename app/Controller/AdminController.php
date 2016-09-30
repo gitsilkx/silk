@@ -816,7 +816,7 @@ class AdminController extends AppController {
             }
             //pr($condition);
             //die;
-            array_push($search_condition, array('OR' => $condition, 'TravelCity.country_name like' => '%$country_name%'));
+            array_push($search_condition, array('OR' => $condition, 'TravelCity.country_name like' => '%'. $country_name . '%'));
             //pr($search_condition);
             // die;
             /*
