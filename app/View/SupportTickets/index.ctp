@@ -402,7 +402,7 @@
 		
 	}
          function chkBottonEvnt() {
-        $('#update').css('display', 'none');
+        $('#update').css('display', 'block');
         //$('#sql_generate').css('display', 'block');
     }
     </script>
