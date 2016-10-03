@@ -89,8 +89,11 @@
             
             echo $this->Form->hidden('base_url', array('id' => 'hidden_site_baseurl', 'value' => $this->request->base . ((!is_null($this->params['language'])) ? '/' . $this->params['language'] : '')));
           if ($self_id == '169') {
-            if($sql_generate == true)
+/*
+              if($sql_generate == true)
           echo $this->Form->submit('SQL Generate', array('class' => 'success btn', 'div' => false,'id' => 'sql_generate', 'name' => 'sql_generate','style' => 'width:10%;margin-left:10px'));
+ * */
+ */
            if($update == true)
             echo $this->Form->submit('Update', array('class' => 'success btn', 'div' => false,'id' =>'update', 'name' => 'update','style' => 'width:10%;margin-left:10px'));
          
