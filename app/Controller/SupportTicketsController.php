@@ -53,7 +53,7 @@ class SupportTicketsController extends AppController {
         $TravelAreas = array();
         $selected = array();
         $sql_generate = true;
-        $update = false;
+        $update = true;
         $res = '';
 
         if ($this->request->is('post') || $this->request->is('put')) {
