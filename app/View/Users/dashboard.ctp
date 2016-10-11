@@ -179,7 +179,7 @@
                     </div>
                     <div class="info-details">
         <?php
-        echo $this->Html->link('<h4>Administration<span class="pull-right"></span></h4>', '/to-come/', array('data-toggle' => 'tooltip', 'data-placement' => 'right', 'title' => 'Administration', 'escape' => false));
+        echo $this->Html->link('<h4>Administration<span class="pull-right"></span></h4>', '/administration/', array('data-toggle' => 'tooltip', 'data-placement' => 'right', 'title' => 'Administration', 'escape' => false));
         ?>
                     </div>
                 </div>
