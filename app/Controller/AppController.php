@@ -60,8 +60,8 @@ class AppController extends Controller {
     //  public $dummy_status = $this->Auth->user('dummy_status');
     public $paginate = array(
         'paramType' => 'querystring',
-        'limit' => 500,
-        'maxLimit' => 1000
+        'limit' => 2000,
+        'maxLimit' => 3000
     );
 
 
