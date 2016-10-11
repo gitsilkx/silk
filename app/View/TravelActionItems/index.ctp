@@ -84,7 +84,7 @@ $attr = new User();
                 </div>-->
                 <?php echo $this->Form->end(); ?>
             </div>
-            <table border="0" cellpadding="0" cellspacing="0" id="resp_table" class="table toggle-square myclitb" data-filter="#table_search" data-page-size="500">
+            <table border="0" cellpadding="0" cellspacing="0" id="resp_table" class="table toggle-square myclitb" data-filter="#table_search" data-page-size="2000">
                 <thead>
                     <tr class="footable-group-row" style="display:none;">
                         <th data-group="group1" colspan="11" class="nodis">Action Information</th>
