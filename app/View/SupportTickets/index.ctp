@@ -102,7 +102,7 @@
 
                     <div class="col-sm-3 col-xs-6">
                         <label for="un_member">What's the Issue?</label>
-                        <?php echo $this->Form->input('response_issue_id', array('options' => $LookupResponseIssues, 'empty' => '--Select--', 'data-required' => 'true')); ?> 
+                        <?php echo $this->Form->input('response_issue_id', array('options' => $LookupResponseIssue, 'empty' => '--Select--', 'data-required' => 'true')); ?> 
                     </div>                
                     <div class="col-sm-3 col-xs-6">
                         <label for="un_member">Issue Level Assessment:</label>
