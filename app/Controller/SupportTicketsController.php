@@ -238,7 +238,7 @@ class SupportTicketsController extends AppController {
 
 
 
-        $this->set(compact('LookupScreen','sql_generate','update', 'solution','selected', 'TravelLookupContinent', 'TravelCountries', 'Provinces', 'TravelSuburbs', 'TravelCities', 'TravelAreas', 'LookupQuestion', 'LookupTicketUrgency', 'users', 'LookupTicketStatus', 'LookupResponseIssue'));
+        $this->set(compact('LookupScreen','sql_generate','update', 'solution','selected', 'TravelLookupContinent', 'TravelCountries', 'Provinces', 'TravelSuburbs', 'TravelCities', 'TravelAreas', 'LookupQuestion', 'LookupTicketUrgency', 'users', 'LookupTicketStatus'));
     }
 
     public function add($screen = null, $action_id = null) {
