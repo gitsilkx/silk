@@ -203,7 +203,8 @@ class SupportTicketsController extends AppController {
         //$CommonQuestion = $this->LookupQuestion->find('list', array('fields' => 'LookupQuestion.id, LookupQuestion.question','conditions' => array('LookupQuestion.id' => array('7','8')), 'order' => 'LookupQuestion.id ASC'));
         $LookupTicketUrgency = $this->LookupTicketUrgency->find('list', array('fields' => 'LookupTicketUrgency.id, LookupTicketUrgency.value', 'order' => 'LookupTicketUrgency.value ASC'));
         $LookupTicketStatus = $this->LookupTicketStatus->find('list', array('fields' => 'LookupTicketStatus.id, LookupTicketStatus.value', 'order' => 'LookupTicketStatus.value ASC'));
-
+        $LookupResponseIssue = $this->LookupResponseIssue->find('list', array('fields' => 'LookupResponseIssue.id, LookupResponseIssue.value', 'order' => 'LookupResponseIssue.value ASC'));
+        
         if ($user_id == '169') { // overseer apac
             $conArray = array('OR' => array('t_sales_role_id' => 28, 'infra_operations_channel_id' => 262));
         } else {
