@@ -85,13 +85,11 @@ class TravelActionItemsController extends AppController {
         }
 
         if ($role_id == 258) {
-        $this->paginate['conditions'][0] = "TravelActionItem.action_item_active='Yes' AND TravelActionItem.level_id='4' AND TravelActionItem.next_action_by = " . $user_id . "";
-        } else (
-             if ($role_id == 259) {
-             $this->paginate['conditions'][0] = "TravelActionItem.action_item_active='Yes' AND TravelActionItem.level_id='7' AND TravelActionItem.next_action_by = " . $user_id . "";    
-             } else {
-             $this->paginate['conditions'][0] = "TravelActionItem.action_item_active='Yes' AND TravelActionItem.next_action_by = " . $user_id . "";        
-             }
+            $this->paginate['conditions'][0] = "TravelActionItem.action_item_active='Yes' AND TravelActionItem.level_id='4' AND TravelActionItem.next_action_by = " . $user_id . "";
+        } elseif ($role_id == 259) {
+            $this->paginate['conditions'][0] = "TravelActionItem.action_item_active='Yes' AND TravelActionItem.level_id='7' AND TravelActionItem.next_action_by = " . $user_id . "";    
+        } else {
+            $this->paginate['conditions'][0] = "TravelActionItem.action_item_active='Yes' AND TravelActionItem.next_action_by = " . $user_id . "";        
         )
         
         $this->paginate['conditions'][1] = $search_condition;
