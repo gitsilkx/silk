@@ -175,7 +175,7 @@ $this->Html->addCrumb('My Supplier Hotels', 'javascript:void(0);', array('class'
 
 
                         <th data-hide="phone" data-group="group10" width="5%" data-sort-ignore="true">Status</th>
-                        <th data-hide="phone" data-group="group10" width="5%" data-sort-ignore="true">No. Of Mapping</th>
+                        <th data-hide="phone" data-group="group10" width="5%" data-sort-ignore="true">No. Of Mappings</th>
                    
                         <th data-group="group8" data-hide="phone" data-sort-ignore="true" width="7%">Action</th> 
 
