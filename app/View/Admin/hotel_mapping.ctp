@@ -138,7 +138,8 @@ echo $this->Form->hidden('Common.supplier_hotel_id',array('value' => $this->data
                                 <th data-hide="phone" data-group="group1" width="10%" data-sort-ignore="true">City Code</th>
                                 <th data-hide="phone" data-group="group1" width="10%" data-sort-ignore="true">Hotel Name</th>
                                 <th data-hide="phone" data-group="group1" width="10%" data-sort-ignore="true">Hotel Code</th>
-                                <th data-hide="phone" data-group="group1" width="10%" data-sort-ignore="true">No. Of Mapping</th>
+                                <th data-hide="phone" data-group="group1" width="10%" data-sort-ignore="true">Status</th>                                
+                                <th data-hide="phone" data-group="group1" width="10%" data-sort-ignore="true">No. Of Mappings</th>
                                 <th data-hide="all" data-group="group2" data-sort-ignore="true">Suburb</th>
                                 <th data-hide="all" data-group="group2" data-sort-ignore="true">Area</th>
                                 <th data-hide="all" data-group="group2" data-sort-ignore="true">Chain</th>
@@ -168,6 +169,7 @@ if (isset($TravelHotelLookups) && count($TravelHotelLookups) > 0):
                                 <td class="tablebody"><?php echo $TravelHotelLookup['TravelHotelLookup']['city_code']; ?></td>
                                 <td class="tablebody"><?php echo $TravelHotelLookup['TravelHotelLookup']['hotel_name']; ?></td>
                                 <td class="tablebody"><?php echo $TravelHotelLookup['TravelHotelLookup']['hotel_code']; ?></td>
+                                <td class="tablebody"><?php echo $TravelHotelLookup['TravelHotelLookup']['status']; ?></td>                                
                                 <td class="tablebody"><?php echo count($TravelHotelLookup['TravelHotelRoomSupplier']); ?></td>
                                 <td class="sub-tablebody"><?php echo $TravelHotelLookup['TravelHotelLookup']['suburb_name']; ?></td>
                                 <td class="sub-tablebody"><?php echo $TravelHotelLookup['TravelHotelLookup']['area_name']; ?></td>
