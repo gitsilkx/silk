@@ -763,8 +763,8 @@ class MappingesController extends AppController {
                     $tr_action_item['TravelActionItem']['description'] = 'New Supplier Hotel Record Created - Submission For Approval';
                     
                     $permissionArray = $this->ProvincePermission->find('first',array('conditions' => array('continent_id' => $supp_country_code['TravelCountrySupplier']['country_continent_id'],'country_id' => $supp_country_code['TravelCountrySupplier']['country_id'],'province_id' => $this->data['Mapping']['hotel_province_id'],'user_id' => $user_id)));  
-                    if(isset($permissionArray['ProvincePermission']['approval_id']))
-                        $next_action_by = $permissionArray['ProvincePermission']['approval_id'];
+                    if(isset($permissionArray['ProvincePermission']['maaping_approval_id']))
+                        $next_action_by = $permissionArray['ProvincePermission']['maaping_approval_id'];
                     else
                         $next_action_by = '166'; //Infra Mapping
                     $this->TravelHotelRoomSupplier->save($this->request->data['TravelHotelRoomSupplier']);
