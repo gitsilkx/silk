@@ -85,7 +85,7 @@ class TravelActionItemsController extends AppController {
         }
 
 
-        $this->paginate['conditions'][0] = "TravelActionItem.action_item_active='Yes' AND TravelActionItem.next_action_by = " . $user_id . "";
+        $this->paginate['conditions'][0] = "TravelActionItem.action_item_active='Yes' AND TravelActionItem.level_id='4' AND TravelActionItem.next_action_by = " . $user_id . "";
         $this->paginate['conditions'][1] = $search_condition;
         $this->paginate['order'] = array('TravelActionItem.id' => 'desc');
         $this->set('travel_actionitems', $this->paginate("TravelActionItem"));
