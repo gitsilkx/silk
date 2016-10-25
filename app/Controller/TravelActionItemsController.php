@@ -84,9 +84,9 @@ class TravelActionItemsController extends AppController {
             array_push($search_condition, array('TravelActionItem.' . $field => $value)); // when builder is approve/pending
         }
 
-        if ($role_id == 258) {
+        if ($role_id == '258') {
             $this->paginate['conditions'][0] = "TravelActionItem.action_item_active='Yes' AND TravelActionItem.level_id='4' AND TravelActionItem.next_action_by = " . $user_id . "";
-        } elseif ($role_id == 259) {
+        } elseif ($role_id == '259') {
             $this->paginate['conditions'][0] = "TravelActionItem.action_item_active='Yes' AND TravelActionItem.level_id='7' AND TravelActionItem.next_action_by = " . $user_id . "";    
         } else {
             $this->paginate['conditions'][0] = "TravelActionItem.action_item_active='Yes' AND TravelActionItem.next_action_by = " . $user_id . "";        
