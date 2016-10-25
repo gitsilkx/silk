@@ -169,7 +169,7 @@ if (isset($TravelHotelLookups) && count($TravelHotelLookups) > 0):
                                 <td class="tablebody"><?php echo $TravelHotelLookup['TravelHotelLookup']['city_code']; ?></td>
                                 <td class="tablebody"><?php echo $TravelHotelLookup['TravelHotelLookup']['hotel_name']; ?></td>
                                 <td class="tablebody"><?php echo $TravelHotelLookup['TravelHotelLookup']['hotel_code']; ?></td>
-                                <td class="tablebody"><?php echo $TravelHotelLookup['TravelHotelLookup']['status']; ?></td>                                
+                                <td class="tablebody"><?php echo $this->Form->hidden('status',array('value' => $TravelHotelLookups['TravelHotelLookup']['status'],'type' => 'text')); ?></td>
                                 <td class="tablebody"><?php echo count($TravelHotelLookup['TravelHotelRoomSupplier']); ?></td>
                                 <td class="sub-tablebody"><?php echo $TravelHotelLookup['TravelHotelLookup']['suburb_name']; ?></td>
                                 <td class="sub-tablebody"><?php echo $TravelHotelLookup['TravelHotelLookup']['area_name']; ?></td>
