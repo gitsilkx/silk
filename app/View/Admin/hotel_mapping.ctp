@@ -169,7 +169,28 @@ if (isset($TravelHotelLookups) && count($TravelHotelLookups) > 0):
                                 <td class="tablebody"><?php echo $TravelHotelLookup['TravelHotelLookup']['city_code']; ?></td>
                                 <td class="tablebody"><?php echo $TravelHotelLookup['TravelHotelLookup']['hotel_name']; ?></td>
                                 <td class="tablebody"><?php echo $TravelHotelLookup['TravelHotelLookup']['hotel_code']; ?></td>
-                                <td class="tablebody"><?php echo $this->Form->hidden('status',array('value' => $TravelHotelLookups['TravelHotelLookup']['status'],'type' => 'text')); ?></td>
+                                
+                                <td class="tablebody">
+                                <?php
+                                $status = $TravelHotelLookups['TravelHotelLookup']['status'];
+                                if ($status == '1')
+                                $status_txt = 'Submitted For Approval';
+                            elseif ($status == '2')
+                                $status_txt = 'Approved';
+                            elseif ($status == '3')
+                                $status_txt = 'Returned';
+                            elseif ($status == '4')
+                                $status_txt = 'Change Submitted';
+                            elseif ($status == '5')
+                                $status_txt = 'Rejected';
+                            elseif ($status == '7')
+                                $status_txt = 'Duplicated';
+                            else
+                                $status_txt = 'Allocation';
+                            echo $status_txt;
+                                ?>
+                                    ?></td>
+                                
                                 <td class="tablebody"><?php echo count($TravelHotelLookup['TravelHotelRoomSupplier']); ?></td>
                                 <td class="sub-tablebody"><?php echo $TravelHotelLookup['TravelHotelLookup']['suburb_name']; ?></td>
                                 <td class="sub-tablebody"><?php echo $TravelHotelLookup['TravelHotelLookup']['area_name']; ?></td>
