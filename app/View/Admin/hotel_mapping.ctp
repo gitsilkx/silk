@@ -187,9 +187,9 @@ if (isset($TravelHotelLookups) && count($TravelHotelLookups) > 0):
                                 $status_txt = 'Duplicated';
                             else
                                 $status_txt = 'Allocation';
-                            echo $status_txt;
-                                ?>
-                                    ?></td>
+                            //echo $status_txt;
+                            echo $status;
+                                 ?></td>
                                 
                                 <td class="tablebody"><?php echo count($TravelHotelLookup['TravelHotelRoomSupplier']); ?></td>
                                 <td class="sub-tablebody"><?php echo $TravelHotelLookup['TravelHotelLookup']['suburb_name']; ?></td>
