@@ -172,23 +172,23 @@ if (isset($TravelHotelLookups) && count($TravelHotelLookups) > 0):
                                 
                                 <td class="tablebody">
                                 <?php
-                                $status = $TravelHotelLookups['TravelHotelLookup']['status'];
+                                $status = $TravelHotelLookup['TravelHotelLookup']['status'];
                                 if ($status == '1')
                                 $status_txt = 'Submitted For Approval';
-                            elseif ($status == '2')
-                                $status_txt = 'Approved';
-                            elseif ($status == '3')
-                                $status_txt = 'Returned';
-                            elseif ($status == '4')
-                                $status_txt = 'Change Submitted';
-                            elseif ($status == '5')
-                                $status_txt = 'Rejected';
-                            elseif ($status == '7')
-                                $status_txt = 'Duplicated';
-                            else
-                                $status_txt = 'Allocation';
-                            //echo $status_txt;
-                            echo $status;
+                                    elseif ($status == '2')
+                                    $status_txt = 'Approved';
+                                    elseif ($status == '3')
+                                        $status_txt = 'Returned';
+                                    elseif ($status == '4')
+                                        $status_txt = 'Change Submitted';
+                                    elseif ($status == '5')
+                                        $status_txt = 'Rejected';
+                                    elseif ($status == '7')
+                                        $status_txt = 'Duplicated';
+                                else
+                                    $status_txt = 'Allocation';
+                                echo $status_txt;
+                                //echo $status;
                                  ?></td>
                                 
                                 <td class="tablebody"><?php echo count($TravelHotelLookup['TravelHotelRoomSupplier']); ?></td>
