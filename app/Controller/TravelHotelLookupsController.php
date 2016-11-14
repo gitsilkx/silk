@@ -3027,7 +3027,8 @@ class TravelHotelLookupsController extends AppController {
             $this->Session->setFlash('Unable to delete Hotel.', 'failure');
             //$this->redirect(array('action' => 'index'));
         }
-        return $this->redirect(array('controller' => 'reports', 'action' => 'hotel_summary'));
+//        return $this->redirect(array('controller' => 'reports', 'action' => 'hotel_summary'));
+          return $this->redirect(array('controller' => 'reports', 'action' => 'support_hotel_summary/id:'.$id));        
     }
 
 }
