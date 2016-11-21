@@ -205,13 +205,42 @@ class CustomHelper extends Helper {
     }
     
     public function getMappingPendingCnt($country_id,$city_id){
-        return ClassRegistry::init('TravelHotelLookup')->find('count', array('fields' => array('id')                             
+		$city_conditions ='';
+		if($city_id!='')
+		$city_conditions =  " AND `TravelHotelRoomSupplier`.hotel_city_id = ".$city_id;
+	
+	
+        return ClassRegistry::init('TravelHotelLookup')->find('count', array('fields' => array('id') 		
+		
             ,'conditions' => array(
-                "TravelHotelLookup.id NOT IN (SELECT `TravelHotelRoomSupplier`.hotel_id FROM `travel_hotel_room_suppliers` AS `TravelHotelRoomSupplier` WHERE `TravelHotelRoomSupplier`.hotel_country_id = ".$country_id." AND `TravelHotelRoomSupplier`.hotel_city_id = ".$city_id." AND `TravelHotelRoomSupplier`.`hotel_supplier_status` IN ('1','2','7'))",
-                'TravelHotelLookup.status' => array('2','8'),'TravelHotelLookup.country_id' => $country_id,'TravelHotelLookup.city_id' => $city_id,'TravelHotelLookup.province_id !=' => '0',
-             'TravelHotelLookup.suburb_id !=' => '0','TravelHotelLookup.area_id !=' => '0','TravelHotelLookup.chain_id !=' => '0','TravelHotelLookup.brand_id !=' => '0')));
+				 "TravelHotelLookup.id NOT IN (SELECT `TravelHotelRoomSupplier`.hotel_id FROM `travel_hotel_room_suppliers` AS `TravelHotelRoomSupplier` WHERE `TravelHotelRoomSupplier`.hotel_country_id = ".$country_id. $city_conditions ."  AND `TravelHotelRoomSupplier`.`hotel_supplier_status` IN ('1','2','7'))",
+               
+					'TravelHotelLookup.status' => array('2','8'),
+					'TravelHotelLookup.country_id' => $country_id,
+					'TravelHotelLookup.city_id' => $city_id,
+					'TravelHotelLookup.province_id !=' => '0',
+					'TravelHotelLookup.suburb_id !=' => '0',
+					'TravelHotelLookup.area_id !=' => '0',
+					'TravelHotelLookup.chain_id !=' => '0',
+					'TravelHotelLookup.brand_id !=' => '0'
+			 )));
     
     }
+	/*public function getMappingPendingCnt($country_id,$city_id){
+
+        return ClassRegistry::init('TravelHotelLookup')->find('count', array('fields' => array('id')                             
+
+            ,'conditions' => array(
+
+                "TravelHotelLookup.id NOT IN (SELECT `TravelHotelRoomSupplier`.hotel_id FROM `travel_hotel_room_suppliers` AS `TravelHotelRoomSupplier` WHERE `TravelHotelRoomSupplier`.hotel_country_id = ".$country_id." AND `TravelHotelRoomSupplier`.hotel_city_id = ".$city_id." AND `TravelHotelRoomSupplier`.`hotel_supplier_status` IN ('1','2','7'))",
+
+                'TravelHotelLookup.status' => array('2','8'),'TravelHotelLookup.country_id' => $country_id,'TravelHotelLookup.city_id' => $city_id,'TravelHotelLookup.province_id !=' => '0',
+
+             'TravelHotelLookup.suburb_id !=' => '0','TravelHotelLookup.area_id !=' => '0','TravelHotelLookup.chain_id !=' => '0','TravelHotelLookup.brand_id !=' => '0')));
+
+    
+
+    }*/
     
     public function getMappingSubmitCnt($country_id,$city_id){
         
@@ -262,6 +291,18 @@ class CustomHelper extends Helper {
          $supplier_city_code = $dataArray['TravelCitySupplier']['supplier_city_code'];
          return ClassRegistry::init('SupplierHotel')->find('count', array('fields' => array('id'),'conditions' => array('SupplierHotel.country_code' => $supplier_country_code,'SupplierHotel.city_code' => $supplier_city_code,'SupplierHotel.status' => array('2','4'))));
     }
+	
+	 public function getSupplierHotelPendingCnt($country_id,$city_id,$supplier_id){
+
+         $dataArray = ClassRegistry::init('TravelCitySupplier')->find('first', array('fields' => array('TravelCitySupplier.supplier_coutry_code','TravelCitySupplier.supplier_city_code'),'conditions' => array('TravelCitySupplier.city_country_id' => $country_id,'TravelCitySupplier.city_id' => $city_id,'TravelCitySupplier.supplier_id' => $supplier_id)));
+
+         $supplier_country_code = $dataArray['TravelCitySupplier']['supplier_coutry_code'];
+
+         $supplier_city_code = $dataArray['TravelCitySupplier']['supplier_city_code'];
+
+         return ClassRegistry::init('SupplierHotel')->find('count', array('fields' => array('id'),'conditions' => array('SupplierHotel.country_code' => $supplier_country_code,'SupplierHotel.city_code' => $supplier_city_code,'SupplierHotel.status' => array('1'))));
+
+    }
     
     public function getSupplierHotelCompeleteCnt($country_id,$city_id,$supplier_id){
          $dataArray = ClassRegistry::init('TravelCitySupplier')->find('first', array('fields' => array('TravelCitySupplier.supplier_coutry_code','TravelCitySupplier.supplier_city_code'),'conditions' => array('TravelCitySupplier.city_country_id' => $country_id,'TravelCitySupplier.city_id' => $city_id,'TravelCitySupplier.supplier_id' => $supplier_id)));
@@ -269,7 +310,13 @@ class CustomHelper extends Helper {
          $supplier_city_code = $dataArray['TravelCitySupplier']['supplier_city_code'];
          return ClassRegistry::init('SupplierHotel')->find('count', array('fields' => array('id'),'conditions' => array('SupplierHotel.country_code' => $supplier_country_code,'SupplierHotel.city_code' => $supplier_city_code,'SupplierHotel.status' => array('3','7'))));
     }
-    
+     public function getSupportTicketCnt($country_id,$city_id){
+
+         
+
+         return ClassRegistry::init('SupportTicket')->find('count', array('fields' => array('id'),'conditions' => array('SupportTicket.country_id' => $country_id,'SupportTicket.city_id' => $city_id,'SupportTicket.status' => array('1'))));
+
+    }
     public function getDuplicateHotel($continent_id,$country_id,$province_id,$city_id,$hotel_name){
         
         $search_condition = array();
@@ -299,3 +346,4 @@ class CustomHelper extends Helper {
  
   
 }
+
