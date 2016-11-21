@@ -425,8 +425,18 @@ class SupportTicketsController extends AppController {
 
         }
 
+if(isset($_GET['country_id'])){
+$country_id =	$_GET['country_id'];
+$city_id =	$_GET['city_id'];
+array_push($search_condition, array('SupportTicket.status' => 1));
 
+array_push($search_condition, array('SupportTicket.city_id' => $city_id));
 
+array_push($search_condition, array('SupportTicket.country_id' => $country_id));	
+}	
+
+  
+  
         array_push($search_condition, array('OR' => array('SupportTicket.created_by' => $user_id, 'SupportTicket.next_action_by' => $user_id, 'SupportTicket.approved_by' => $user_id, 'SupportTicket.last_action_by' => $user_id), 'SupportTicket.active' => 'TRUE'));
 
         $this->paginate['order'] = array('SupportTicket.created' => 'desc');
