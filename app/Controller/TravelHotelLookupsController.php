@@ -329,16 +329,7 @@ class TravelHotelLookupsController extends AppController {
          * 
          */
         //array_push($search_condition, array('TravelHotelLookup.country_id' => '220'));
-// pc wihle get country id
-if($this->request->is('get'))
-{
-	 $get_country_id =  $_GET['country_id'];
-	 $get_city_id = $_GET['city_id'];
-	
-array_push($search_condition,array('OR'=> array('chain_id' => '0','brand_id' => '0','suburb_id' => '0'),'TravelHotelLookup.country_id' => $get_country_id,'TravelHotelLookup.city_id' => $get_city_id,'TravelHotelLookup.province_id !=' => '0'));
-}
-		
-		
+
         $this->paginate['order'] = array('TravelHotelLookup.city_code' => 'asc');
         $this->set('TravelHotelLookups', $this->paginate("TravelHotelLookup", $search_condition));
 
@@ -3036,7 +3027,8 @@ array_push($search_condition,array('OR'=> array('chain_id' => '0','brand_id' => 
             $this->Session->setFlash('Unable to delete Hotel.', 'failure');
             //$this->redirect(array('action' => 'index'));
         }
-        return $this->redirect(array('controller' => 'reports', 'action' => 'support_hotel_summary/id:'.$id));        
+//        return $this->redirect(array('controller' => 'reports', 'action' => 'hotel_summary'));
+          return $this->redirect(array('controller' => 'reports', 'action' => 'support_hotel_summary/id:'.$id));        
     }
 
 }
