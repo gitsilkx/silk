@@ -216,7 +216,7 @@
                     <h3>Administration</h3>
                     <ul class="top_ico_nav clearfix">
                         <li>
-                            <a href="/users/dashboard/id:1/channel:214/industry:6"><img src="/img/24.png" alt="Adminstration" title="Adminstration"><span class="menu_label">Adminstration</span><span>Global</span></a>
+                            <a href="<?php echo $this->webroot; ?>users/dashboard/id:1/channel:214/industry:6"><img src="<?php echo $this->webroot; ?>img/24.png" alt="Adminstration" title="Adminstration"><span class="menu_label">Adminstration</span><span>Global</span></a>
                             <?php //echo $this->Html->link($this->Html->image('5.png', array('alt' => 'Distribution Global', 'title' => 'Distribution Global')) . '<span class="menu_label">Distribution</span><span>Global</span>', '#', array('escape' => false)); ?></li>
                     </ul>
                 </div>
@@ -226,7 +226,7 @@
                     <h3>Administration</h3>
                     <ul class="top_ico_nav clearfix">
                         <li>
-                            <a href="/users/dashboard/id:1/channel:214/industry:6"><img src="/img/24.png" alt="Adminstration" title="Adminstration"><span class="menu_label">Adminstration</span><span>Global</span></a>
+                            <a href="<?php echo $this->webroot; ?>users/dashboard/id:1/channel:214/industry:6"><img src="<?php echo $this->webroot; ?>img/24.png" alt="Adminstration" title="Adminstration"><span class="menu_label">Adminstration</span><span>Global</span></a>
                             <?php //echo $this->Html->link($this->Html->image('5.png', array('alt' => 'Distribution Global', 'title' => 'Distribution Global')) . '<span class="menu_label">Distribution</span><span>Global</span>', '#', array('escape' => false)); ?></li>
                     </ul>
                 </div>
