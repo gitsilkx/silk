@@ -86,17 +86,34 @@ class TravelActionItemsController extends AppController {
 			}
         }
 
-        if ($dummy_status)
-            array_push($search_condition, array('TravelActionItem.dummy_status' => $dummy_status));
+        if ($dummy_status ){
+			if(!isset( $_GET['country_id'])){
+				array_push($search_condition, array('TravelActionItem.dummy_status' => $dummy_status));
+			}		 
+			 
+		}
+         
 
         if (count($this->params['pass'])) {
-
             $aaray = explode(':', $this->params['pass'][0]);
             $field = $aaray[0];
             $value = $aaray[1];
             array_push($search_condition, array('TravelActionItem.' . $field => $value)); // when builder is approve/pending
         }
 
+if($this->request->is('get'))
+{
+	 $get_country_id = $_GET['country_id'];
+	 $get_city_id = $_GET['city_id'];
+	
+array_push($search_condition,array('TravelHotelLookup.country_id' => $get_country_id,'TravelHotelLookup.city_id' => $get_city_id,'TravelHotelLookup.province_id !=' => '0',
+
+             'TravelHotelLookup.suburb_id !=' => '0','TravelHotelLookup.area_id !=' => '0','TravelHotelLookup.chain_id !=' => '0','TravelHotelLookup.brand_id !=' => '0','TravelHotelLookup.status' => '4'));
+			 
+		
+			 
+			 
+}else{
         if ($role_id == '61') {
 		// change level_id 4 to 7 by pc // Reverted this change 21/11/16.
             $this->paginate['conditions'][0] = "TravelActionItem.action_item_active='Yes' AND TravelActionItem.level_id='4' AND TravelActionItem.next_action_by = " . $user_id . "";
@@ -105,6 +122,24 @@ class TravelActionItemsController extends AppController {
         } else {
             $this->paginate['conditions'][0] = "TravelActionItem.action_item_active='Yes' AND TravelActionItem.next_action_by = " . $user_id . "";        
         }
+}		
+		$this->paginate['conditions'][1] = $search_condition;
+		
+if(isset( $_GET['country_id'])){
+	$this->TravelHotelLookup->recursive = 2; 
+		$this->paginate['order'] = array('TravelHotelLookup.id' => 'desc');
+		$travel_actionitems = $this->paginate("TravelHotelLookup");
+}else{
+		$this->paginate['order'] = array('TravelActionItem.id' => 'desc');
+		$travel_actionitems = $this->paginate("TravelActionItem");
+	
+}
+////echo '<pre>';
+//print_r($travel_actionitems );
+ //     die;  
+		
+        $this->set('travel_actionitems', $travel_actionitems);
+
 // level lists	
        $action_levels = $this->TravelActionRemarkLevel->find('all');
 	   $action_level = array();
@@ -119,12 +154,28 @@ class TravelActionItemsController extends AppController {
 		foreach($user_lists as $u){
 			$user_list[$u['User']['id']] = $u['User']['fname'] .' '.$u['User']['lname'];
 		}
-        $this->paginate['conditions'][1] = $search_condition;
-        $this->paginate['order'] = array('TravelActionItem.id' => 'desc');
-        $this->set('travel_actionitems', $this->paginate("TravelActionItem"));
+//DIE;	
+       
 		$this->set(compact('action_level','user_list'));
+if(isset( $_GET['country_id'])){	
+$this->render('hotel_lookps_action_items');
+}
     }
+	
+	
 
+	
+	
+	
+	
+	
+	
+public function getLastQuery() {
+  $dbo = $this->getDatasource();
+  $logs = $dbo->getLog();
+  $lastLog = end($logs['log']);
+  return $lastLog['query'];
+}
     public function agent_action($actio_itme_id = null) {
         $this->layout = '';
 
