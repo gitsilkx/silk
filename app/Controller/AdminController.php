@@ -454,6 +454,15 @@ class AdminController extends AppController {
                
             }
         }
+
+	 if ($this->request->is('post') || $this->request->is('put')) {  
+
+            if (isset($this->request->data['SupplierCountry']['supplier_id']) && $this->request->data['SupplierCountry']['supplier_id']!='') {
+					
+					array_push($search_condition, array('SupplierCountry.supplier_id' => $this->request->data['SupplierCountry']['supplier_id'] ));
+		
+			}			
+	 }
         
         
         $this->paginate['order'] = array('SupplierCountry.id' => 'asc');
@@ -462,7 +471,10 @@ class AdminController extends AppController {
         $SupplierCityCount = $this->SupplierCity->find('count');
         $SupplierCountryCount = $this->SupplierCountry->find('count');
         $SupplierHotelCount = $this->SupplierHotel->find('count');
-        $this->set(compact('SupplierCityCount', 'SupplierCountryCount', 'SupplierHotelCount'));
+		
+		$TravelSuppliers = $this->TravelSupplier->find('list', array('fields' => 'id,supplier_code', 'order' => 'supplier_code ASC'));
+		
+        $this->set(compact('SupplierCityCount', 'SupplierCountryCount', 'SupplierHotelCount','TravelSuppliers'));
     }
 
     public function add_city() {
@@ -605,13 +617,36 @@ class AdminController extends AppController {
                
             }
         }
+		
+		
+	 if ($this->request->is('post') || $this->request->is('put')) {  
+
+            if (isset($this->request->data['SupplierCity']['supplier_id']) && $this->request->data['SupplierCity']['supplier_id']!='') {
+					
+					array_push($search_condition, array('SupplierCity.supplier_id' => $this->request->data['SupplierCity']['supplier_id'] ));
+		
+			}	
+
+			if (isset($this->request->data['SupplierCity']['country_id']) && $this->request->data['SupplierCity']['country_id']!='') {
+					
+					array_push($search_condition, array('SupplierCity.country_id' => $this->request->data['SupplierCity']['country_id'] ));
+		
+			}
+	 }
+      
         
         $this->paginate['order'] = array('SupplierCity.id' => 'asc');
-        $this->set('SupplierCities', $this->paginate("SupplierCity", $search_condition));
-
+        $this->set('SupplierCities', $this->paginate("SupplierCity", $search_condition));	
         $SupplierCityCount = $this->SupplierCity->find('count');
         $SupplierCountryCount = $this->SupplierCountry->find('count');
         $SupplierHotelCount = $this->SupplierHotel->find('count');
+		
+		
+		$TravelSuppliers = $this->TravelSupplier->find('list', array('fields' => 'id,supplier_code', 'order' => 'supplier_code ASC'));
+
+        $SupplierCountries = $this->SupplierCountry->find('list', array('fields' => 'id,name', 'order' => 'name ASC'));
+
+        $this->set(compact('SupplierCountries', 'TravelSuppliers'));
         $this->set(compact('SupplierCityCount', 'SupplierCountryCount', 'SupplierHotelCount'));
     }
 
@@ -711,9 +746,38 @@ class AdminController extends AppController {
                
             }
         }
+		
+		
+		
+		 if ($this->request->is('post') || $this->request->is('put')) {  
+
+            if (isset($this->request->data['SupplierHotel']['supplier_id']) && $this->request->data['SupplierHotel']['supplier_id']!='') {
+					
+					array_push($search_condition, array('SupplierHotel.supplier_id' => $this->request->data['SupplierHotel']['supplier_id'] ));
+		
+			}	
+
+			if (isset($this->request->data['SupplierHotel']['country_id']) && $this->request->data['SupplierHotel']['country_id']!='') {
+					
+					array_push($search_condition, array('SupplierHotel.country_id' => $this->request->data['SupplierHotel']['country_id'] ));
+		
+			}
+			
+			if (isset($this->request->data['SupplierHotel']['city_id']) && $this->request->data['SupplierHotel']['city_id']!='') {
+					
+					array_push($search_condition, array('SupplierHotel.city_id' => $this->request->data['SupplierHotel']['city_id'] ));
+		
+			}
+	 }
+        
         $this->paginate['order'] = array('SupplierHotel.id' => 'asc');        
         $this->set('SupplierHotels', $this->paginate("SupplierHotel", $search_condition));
+		
+		$TravelSuppliers = $this->TravelSupplier->find('list', array('fields' => 'id,supplier_code', 'order' => 'supplier_code ASC'));
 
+        $SupplierCountries = $this->SupplierCountry->find('list', array('fields' => 'id,name', 'order' => 'name ASC'));
+
+        $this->set(compact('SupplierCountries', 'TravelSuppliers'));
         $SupplierCityCount = $this->SupplierCity->find('count');
         $SupplierCountryCount = $this->SupplierCountry->find('count');
         $SupplierHotelCount = $this->SupplierHotel->find('count');
