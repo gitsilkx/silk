@@ -46,42 +46,29 @@ $attr = new User();
 
                     </div>
                 </div>
-                <!--
+                
                 <div class="row" id="search_panel_controls">
                     <div class="col-sm-3 col-xs-6">
                         <label for="un_member">Action Level:</label>
-                <?php echo $this->Form->input('action_item_level_id', array('options' => $action_level, 'empty' => '--Select--')); ?>
+                <?php echo $this->Form->input('level_id', array('options' => $action_level, 'empty' => '--Select--')); ?>
                     </div>
-                    <div class="col-sm-3 col-xs-6">
-                        <label for="un_member">Action Type:</label>
-                <?php echo $this->Form->input('type_id', array('options' => $action_type, 'empty' => '--Select--')); ?>
-                    </div>
-                    <div class="col-sm-3 col-xs-6">
-                        <label for="un_member">Last Action Date:</label>
-                <?php echo $this->Form->input('created', array('id' => 'date', 'type' => 'text')); ?>
-                    </div>
-                    <div class="col-sm-3 col-xs-6">
-                        <label for="un_member">Last Action Source::</label>
-                <?php echo $this->Form->input('action_item_source', array('options' => array(), 'empty' => '--Select--')); ?>
-                    </div>
+                   
+                   
                     <div class="col-sm-3 col-xs-6">
                         <label for="un_member">Last Action By:</label>
-                <?php echo $this->Form->input('created_by_id', array('options' => array(), 'empty' => '--Select--')); ?>
+                <?php echo $this->Form->input('created_by', array('options' => $user_list, 'empty' => '--Select--')); ?>
                     </div>
-                    <div class="col-sm-3 col-xs-6">
-                        <label for="un_member">Last Action Status:</label>
-                <?php echo $this->Form->input('lead_status', array('options' => $status, 'empty' => '--Select--')); ?>
-                    </div>
+                  
 
 
                     <div class="col-sm-3 col-xs-6 spacer">
                         <label>&nbsp;</label>
                 <?php
-                echo $this->Form->submit('Filter', array('div' => false, 'class' => 'btn btn-default btn-sm"'));
+                echo $this->Form->submit('Filter', array('div' => false, 'class' => 'btn btn-default btn-sm', 'name' => 'filter'));
                 ?>
 
                     </div>
-                </div>-->
+                </div>
                 <?php echo $this->Form->end(); ?>
             </div>
             <table border="0" cellpadding="0" cellspacing="0" id="resp_table" class="table toggle-square myclitb" data-filter="#table_search" data-page-size="500">
