@@ -98,8 +98,8 @@ class TravelActionItemsController extends AppController {
         }
 
         if ($role_id == '61') {
-		// change level_id 4 to 7 by pc
-            $this->paginate['conditions'][0] = "TravelActionItem.action_item_active='Yes' AND TravelActionItem.level_id='7' AND TravelActionItem.next_action_by = " . $user_id . "";
+		// change level_id 4 to 7 by pc // Reverted this change 21/11/16.
+            $this->paginate['conditions'][0] = "TravelActionItem.action_item_active='Yes' AND TravelActionItem.level_id='4' AND TravelActionItem.next_action_by = " . $user_id . "";
         } elseif ($role_id == '62') {
             $this->paginate['conditions'][0] = "TravelActionItem.action_item_active='Yes' AND TravelActionItem.level_id='7' AND TravelActionItem.next_action_by = " . $user_id . "";    
         } else {
