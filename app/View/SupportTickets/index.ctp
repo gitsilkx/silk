@@ -35,6 +35,24 @@
                 </div>
                     <div class="row" id="search_panel_controls">
                     
+					<div class="col-sm-3 col-xs-6">
+                        <label for="un_member">Continent:</label>
+                        <?php echo $this->Form->input('continent_id', array('options' => $TravelLookupContinentsSearch, 'empty' => '--Select--', 'value' => $continent_id)); ?>
+                    </div>
+                    <div class="col-sm-3 col-xs-6">
+                        <label for="un_member">Country:</label>
+                        <?php echo $this->Form->input('country_id', array('options' => $TravelCountriesSearch, 'empty' => '--Select--', 'value' => $country_id)); ?>
+                    </div>
+                    <div class="col-sm-3 col-xs-6">
+                        <label for="un_member">Province:</label>
+                        <?php echo $this->Form->input('province_id', array('options' => $ProvincesSearch, 'empty' => '--Select--', 'value' => $province_id)); ?>
+                    </div>
+                    <div class="col-sm-3 col-xs-6">
+                        <label for="un_member">City:</label>
+                        <?php echo $this->Form->input('city_id', array('options' => $TravelCitiesSearch, 'empty' => '--Select--', 'value' => $city_id)); ?>
+                    </div>
+					
+					
                     <div class="col-sm-3 col-xs-6">
                         <label for="un_member">Raised By:</label>
                         <?php echo $this->Form->input('created_by', array('options' => $users, 'empty' => '--Select--')); ?>
@@ -221,6 +239,107 @@
         </div>
     </div>
 </div>
+
+
+<?php
+/*
+ * Get sates by country code
+ */
+$data = $this->Js->get('#SearchForm')->serializeForm(array('isForm' => true, 'inline' => true));
+
+$this->Js->get('#SupportTicketContinentId')->event('change', $this->Js->request(array(
+            'controller' => 'all_functions',
+            'action' => 'get_travel_country_by_continent_id/SupportTicket/continent_id'
+                ), array(
+            'update' => '#SupportTicketCountryId',
+            'async' => true,
+            'before' => 'loading("SupportTicketCountryId")',
+            'complete' => 'loaded("SupportTicketCountryId")',
+            'method' => 'post',
+            'dataExpression' => true,
+            'data' => $this->Js->serializeForm(array(
+                'isForm' => true,
+                'inline' => true
+            ))
+        ))
+);
+/*
+ * Get sates by country code
+ */
+$this->Js->get('#SupportTicketCountryId')->event('change', $this->Js->request(array(
+            'controller' => 'all_functions',
+            'action' => 'get_province_by_continent_country/SupportTicket/continent_id/country_id'
+                ), array(
+            'update' => '#SupportTicketProvinceId',
+            'async' => true,
+            'before' => 'loading("SupportTicketProvinceId")',
+            'complete' => 'loaded("SupportTicketProvinceId")',
+            'method' => 'post',
+            'dataExpression' => true,
+            'data' => $data
+        ))
+);
+
+$this->Js->get('#SupportTicketProvinceId')->event('change', $this->Js->request(array(
+            'controller' => 'all_functions',
+            'action' => 'get_travel_city_by_province/SupportTicket/province_id'
+                ), array(
+            'update' => '#SupportTicketCityId',
+            'async' => true,
+            'before' => 'loading("SupportTicketCityId")',
+            'complete' => 'loaded("SupportTicketCityId")',
+            'method' => 'post',
+            'dataExpression' => true,
+            'data' => $data
+        ))
+);
+
+$this->Js->get('#SupportTicketCityId')->event('change', $this->Js->request(array(
+            'controller' => 'all_functions',
+            'action' => 'get_travel_suburb_by_country_id_and_city_id/SupportTicket/country_id/city_id'
+                ), array(
+            'update' => '#TravelHotelLookupSuburbId',
+            'async' => true,
+            'before' => 'loading("TravelHotelLookupSuburbId")',
+            'complete' => 'loaded("TravelHotelLookupSuburbId")',
+            'method' => 'post',
+            'dataExpression' => true,
+            'data' => $data
+        ))
+);
+$this->Js->get('#TravelHotelLookupSuburbId')->event('change', $this->Js->request(array(
+            'controller' => 'all_functions',
+            'action' => 'get_travel_area_by_suburb_id/SupportTicket/suburb_id'
+                ), array(
+            'update' => '#TravelHotelLookupAreaId',
+            'async' => true,
+            'before' => 'loading("TravelHotelLookupAreaId")',
+            'complete' => 'loaded("TravelHotelLookupAreaId")',
+            'method' => 'post',
+            'dataExpression' => true,
+            'data' => $data
+        ))
+);
+
+$this->Js->get('#TravelHotelLookupChainId')->event('change', $this->Js->request(array(
+            'controller' => 'all_functions',
+            'action' => 'get_travel_brand_by_chain_id/SupportTicket/chain_id'
+                ), array(
+            'update' => '#TravelHotelLookupBrandId',
+            'async' => true,
+            'before' => 'loading("TravelHotelLookupBrandId")',
+            'complete' => 'loaded("TravelHotelLookupBrandId")',
+            'method' => 'post',
+            'dataExpression' => true,
+            'data' => $data
+        ))
+);
+
+
+
+
+?>
+
 <script>
     
     
