@@ -10084,3 +10084,15 @@ table.ctable td.rgtaln {
 .inputfile + label {
 	cursor: pointer; /* "hand" cursor */
 }
+.background_yellow{
+	background-color: #fcf3cf;
+}
+.background-l-gray{
+	background-color: #eaeded;
+}
+.background-l-sky{
+	background-color: #d1f2eb;
+}
+.background-ticket{
+	background-color: #f2d7d5;
+}
