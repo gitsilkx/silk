@@ -39,7 +39,7 @@ class TravelActionItemsController extends AppController {
     var $uses = array('TravelActionItem', 'User', 'TravelSupplier', 'TravelCountry', 'TravelActionItemType', 'DuplicateMappinge', 'Agent', 'TravelRemark', 'LookupValueActionItemRejection', 'LookupValueActionItemReturn',
         'TravelCountrySupplier', 'TravelCitySupplier', 'TravelHotelRoomSupplier', 'LogCall', 'Mappinge', 'TravelCity',
         'TravelHotelLookup', 'TravelBrand', 'TravelChain', 'TravelSuburb', 'TravelArea', 'Province', 'TravelLookupContinent', 'SupplierCountry',
-        'SupplierCity', 'SupplierHotel', 'Common', 'SupportTicket','TravelWtbError');
+        'SupplierCity', 'SupplierHotel', 'Common', 'SupportTicket','TravelWtbError','TravelActionRemarkLevel');
 
     public function index() {
 
@@ -71,6 +71,19 @@ class TravelActionItemsController extends AppController {
                 $search = $this->data['ActionItem']['lead_status'];
                 array_push($search_condition, array('Lead.lead_status' => mysql_escape_string(trim(strip_tags($search)))));
             }
+			
+			if(isset($this->request->data['filter']))
+			{
+				
+				if($this->request->data['TravelActionItem']['level_id'] !='')
+				{
+					array_push($search_condition, array('TravelActionItem.level_id' => $this->request->data['TravelActionItem']['level_id']));
+				}
+				if($this->request->data['TravelActionItem']['created_by'] !='')
+				{
+					array_push($search_condition, array('TravelActionItem.created_by' => $this->request->data['TravelActionItem']['created_by']));
+				}
+			}
         }
 
         if ($dummy_status)
@@ -85,16 +98,31 @@ class TravelActionItemsController extends AppController {
         }
 
         if ($role_id == '61') {
-            $this->paginate['conditions'][0] = "TravelActionItem.action_item_active='Yes' AND TravelActionItem.level_id='4' AND TravelActionItem.next_action_by = " . $user_id . "";
+		// change level_id 4 to 7 by pc
+            $this->paginate['conditions'][0] = "TravelActionItem.action_item_active='Yes' AND TravelActionItem.level_id='7' AND TravelActionItem.next_action_by = " . $user_id . "";
         } elseif ($role_id == '62') {
             $this->paginate['conditions'][0] = "TravelActionItem.action_item_active='Yes' AND TravelActionItem.level_id='7' AND TravelActionItem.next_action_by = " . $user_id . "";    
         } else {
             $this->paginate['conditions'][0] = "TravelActionItem.action_item_active='Yes' AND TravelActionItem.next_action_by = " . $user_id . "";        
         }
-        
+// level lists	
+       $action_levels = $this->TravelActionRemarkLevel->find('all');
+	   $action_level = array();
+	   foreach($action_levels as $loop)
+	   {
+		 $action_level[$loop['TravelActionRemarkLevel']['id']] = $loop['TravelActionRemarkLevel']['value'];
+	   }
+	  
+// users lists	  
+	$user_lists = $this->User->find('all', array('fields' => array('User.id','User.fname','User.lname')));
+	$user_list =array();
+		foreach($user_lists as $u){
+			$user_list[$u['User']['id']] = $u['User']['fname'] .' '.$u['User']['lname'];
+		}
         $this->paginate['conditions'][1] = $search_condition;
         $this->paginate['order'] = array('TravelActionItem.id' => 'desc');
         $this->set('travel_actionitems', $this->paginate("TravelActionItem"));
+		$this->set(compact('action_level','user_list'));
     }
 
     public function agent_action($actio_itme_id = null) {
