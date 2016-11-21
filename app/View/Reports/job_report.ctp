@@ -42,74 +42,169 @@
             <table border="0" cellpadding="0" cellspacing="0" id="resp_table" class="table toggle-square myclitb" data-filter="#table_search" data-page-size="500">
                 <thead>
                    <tr class="footable-group-row">
-                        <th data-group="group3" colspan="5" class="nodis">Information</th>
-                        <th data-group="group1" colspan="5">Edit</th>                     
-                        <th data-group="group2" colspan="4">Mapping</th>
-                        <th data-group="group4" colspan="3"><?php echo $this->Custom->getSupplierCode($this->data['Report']['supplier_id']); ?></th>
+                        <th data-group="group3" colspan="7" class="nodis">Information</th>
+                        <th data-group="group1" colspan="5">Wtp Hotel Edit </th>                     
+                        <th data-group="group2" colspan="4">Wtp Hotel Mapping</th>
+                        <th data-group="group4" colspan="4">Supplier Hotel Mapping<?php //echo $this->Custom->getSupplierCode($this->data['Report']['supplier_id']); ?></th>
+						 <th data-group="group5" colspan="">Support Ticket</th>
                     </tr>
                     <tr>           
-                        <th data-toggle="phone"  data-sort-ignore="true" data-group="group3">Sl. No.</th>
+                        <th data-toggle="phone"  data-sort-ignore="true" data-group="group3">Sl. </th>
                         <th data-toggle="phone"  data-sort-ignore="true" data-group="group3">Person</th>
+						<th data-toggle="phone"  data-sort-ignore="true" data-group="group3">Approvel</th>
+						<th data-toggle="phone"  data-sort-ignore="true" data-group="group3">Mpp Apv</th>
                         <th data-toggle="phone"  data-sort-ignore="true" data-group="group3">Country</th>
                         <th data-toggle="phone"  data-sort-ignore="true" data-group="group3">Province</th>
                         <th data-toggle="phone"  data-sort-ignore="true" data-group="group3">City</th>    
                         
-                        <th data-toggle="phone"  data-sort-ignore="true" data-group="group1">Unallocated</th>
-                        <th data-toggle="phone"  data-sort-ignore="true" data-group="group1">Pending</th>
-                        <th data-toggle="phone"  data-sort-ignore="true" data-group="group1">Submitted</th>
-                        <th data-toggle="phone"  data-sort-ignore="true" data-group="group1">Approved</th>
-                        <th data-hide="phone"  data-sort-ignore="true" data-group="group1">Total</th>                
+                        <th data-toggle="phone"  data-sort-ignore="true" data-group="group1" >Unl</th>
+                        <th data-toggle="phone"  data-sort-ignore="true" data-group="group1">Pnd</th>
+                        <th data-toggle="phone"  data-sort-ignore="true" data-group="group1" >Smp</th>
+                        <th data-toggle="phone"  data-sort-ignore="true" data-group="group1" >Apv</th>
+                        <th data-hide="phone"  data-sort-ignore="true" data-group="group1" >Total</th>                
                         
-                        <th data-toggle="phone"  data-sort-ignore="true" data-group="group2">Pending</th>
-                        <th data-toggle="phone"  data-sort-ignore="true" data-group="group2">Submitted</th>
-                        <th data-toggle="phone"  data-sort-ignore="true" data-group="group2">Approved</th>
-                        <th data-hide="phone"  data-sort-ignore="true" data-group="group2">Total</th>                
+                        <th data-toggle="phone"  data-sort-ignore="true" data-group="group2" >Pnd</th>
+                        <th data-toggle="phone"  data-sort-ignore="true" data-group="group2">Smp</th>
+                        <th data-toggle="phone"  data-sort-ignore="true" data-group="group2" >Apv</th>
+                        <th data-hide="phone"  data-sort-ignore="true" data-group="group2" >Total</th>                
                         
-                        
-                        <th data-toggle="phone"  data-sort-ignore="true" data-group="group4">Mapp Completed</th>
-                        <th data-toggle="phone"  data-sort-ignore="true" data-group="group4">Map Submitted</th>
-                        <th data-toggle="phone"  data-sort-ignore="true" data-group="group4">Total</th>
+                        <th data-toggle="phone"  data-sort-ignore="true" data-group="group4" >Pnd</th>                       
+                        <th data-toggle="phone"  data-sort-ignore="true" data-group="group4">Smp</th>
+						<th data-toggle="phone"  data-sort-ignore="true" data-group="group4" >Cmp</th>
+                        <th data-toggle="phone"  data-sort-ignore="true" data-group="group4" >Total</th>
+						
+						<th data-toggle=""  data-sort-ignore="true" data-group="" >Ticket</th>
                                              
                     </tr>
                 </thead>
                 <tbody>
                     <?php
                     $i = 1;
-                   // pr($TravelCities);
-                   //die;
+					//echo '<pre>';
+                 /// print_r($TravelCities);
+                //  die;
                     $supplier_id = $this->data['Report']['supplier_id'];
                     if (isset($TravelCities) && count($TravelCities) > 0):
+					
+					$getHotelUnallocatedCnt = 0;
+					$getHotePendingCnt = 0;
+					$getHoteSubmittedCnt = 0;
+					$getHoteApprovedCnt = 0;
+					$getHoteTotalCnt = 0;
+					$getMappingPendingCnt = 0;
+					$getMappingSubmitCnt = 0;
+					$getMappingApproveCnt = 0;
+					$getSupplierHotelCompeleteCnt = 0;
+					$getSupplierHotelSubmitCnt = 0;
+					$getSupplierHotelTotalCnt = 0;	
+					$getSupplierHotelPendingCnt =0;
+					
                         foreach ($TravelCities as $TravelCity):
                             $id = $TravelCity['TravelCity']['id'];              
-                             $country_id = $TravelCity[0]['country_id'];
+                            $country_id = $TravelCity[0]['country_id'];
+							
+							
+							$getHotelUnallocatedCnt += $getHotelUnallocatedCnt_1 = $this->Custom->getHotelUnallocatedCnt($country_id,$id);
+							$getHotePendingCnt += $getHotePendingCnt_1 = $this->Custom->getHotePendingCnt($country_id,$id);
+							$getHoteSubmittedCnt += $getHoteSubmittedCnt_1 = $this->Custom->getHoteSubmittedCnt($country_id,$id);
+							$getHoteApprovedCnt += $getHoteApprovedCnt_1 = $this->Custom->getHoteApprovedCnt($country_id,$id);
+							$getHoteTotalCnt += $getHoteTotalCnt_1 = $this->Custom->getHoteTotalCnt($country_id,$id);
+							
+							
+							$getMappingPendingCnt += $getMappingPendingCnt_1 = $this->Custom->getMappingPendingCnt($country_id,$id);
+							$getMappingSubmitCnt += $getMappingSubmitCnt_1 = $this->Custom->getMappingSubmitCnt($country_id,$id);
+							$getMappingApproveCnt += $getMappingApproveCnt_1 = $this->Custom->getMappingApproveCnt($country_id,$id);
+							//$getHoteApprovedCnt += $getHoteApprovedCnt_1 = $this->Custom->getHoteApprovedCnt($country_id,$id);  getSupplierHotelPendingCnt
+							
+							$getSupplierHotelPendingCnt += $getSupplierHotelPendingCnt_1 = $this->Custom->getSupplierHotelPendingCnt($country_id,$id,$supplier_id);
+							$getSupplierHotelCompeleteCnt += $getSupplierHotelCompeleteCnt_1 = $this->Custom->getSupplierHotelCompeleteCnt($country_id,$id,$supplier_id);
+							$getSupplierHotelSubmitCnt += $getSupplierHotelSubmitCnt_1 = $this->Custom->getSupplierHotelSubmitCnt($country_id,$id,$supplier_id);
+							$getSupplierHotelTotalCnt += $getSupplierHotelTotalCnt_1 = $this->Custom->getSupplierHotelTotalCnt($country_id,$id,$supplier_id);
+							
+							
+							$getSupportTicketCnt += $getSupportTicketCnt_1 = $this->Custom->getSupportTicketCnt($country_id,$id);
                             ?>
                             <tr>                              
-                                <td><?php echo $i; ?></td>
+								<td><?php echo $i; ?></td>
                                 <td><?php echo $this->Custom->Username($TravelCity[0]['user_id']); ?></td>
+								<td><?php echo $this->Custom->Username($TravelCity[0]['approval_id']); ?></td>
+								<td><?php echo $this->Custom->Username($TravelCity[0]['maaping_approval_id']); ?></td>
                                 <td><?php echo $this->Custom->getCountryName($country_id); ?></td>
                                 <td><?php echo $this->Custom->getProvinceName($TravelCity[0]['province_id']); ?></td>
                                 <td><?php echo $TravelCity['TravelCity']['city_name']; ?></td> 
                                 
-                                <td><?php echo $this->Custom->getHotelUnallocatedCnt($country_id,$id); ?></td>
-                                <td><?php echo $this->Custom->getHotePendingCnt($country_id,$id); ?></td>
-                                <td><?php echo $this->Custom->getHoteSubmittedCnt($country_id,$id); ?></td>
-                                <td><?php echo $this->Custom->getHoteApprovedCnt($country_id,$id); ?></td>
-                                <td><?php echo $this->Custom->getHoteTotalCnt($country_id,$id); ?></td>                               
+                                <td class="background_yellow"><?php echo $getHotelUnallocatedCnt_1; ?></td>
+                                <td class="background_yellow">
+								<?php if($channel_id == 262): ?>
+								<a href="<?php echo $this->webroot .'my-hotels?country_id='.$country_id.'&city_id='.$id ?>" ><?php echo $getHotePendingCnt_1; ?></a>
+								<?php else :?>
+									<?php echo $getHotePendingCnt_1; ?>
+								<?php endif ?>
+								</td>
+                                <td class="background_yellow">
+								<?php if($channel_id == 259): ?>
+								<a href="<?php echo $this->webroot .'travel_action_items?country_id='.$country_id.'&city_id='.$id ?>" ><?php echo $getHoteSubmittedCnt_1; ?></a>
+								<?php else :?>
+									<?php echo $getHoteSubmittedCnt_1; ?>
+								<?php endif ?>
+								</td>
+                                <td class="background_yellow"><?php echo $getHoteApprovedCnt_1; ?></td>
+                                <td class="background_yellow"><?php echo $getHoteTotalCnt_1; ?></td>                               
                                 
-                                <td><?php echo $this->Custom->getMappingPendingCnt($country_id,$id); ?></td>
-                                <td><?php echo $this->Custom->getMappingSubmitCnt($country_id,$id); ?></td>
-                                <td><?php echo $this->Custom->getMappingApproveCnt($country_id,$id); ?></td>
-                                <td><?php echo $this->Custom->getHoteApprovedCnt($country_id,$id);?></td>
-                                
-                                
-                                <td><?php echo $this->Custom->getSupplierHotelCompeleteCnt($country_id,$id,$supplier_id); ?></td>
-                                <td><?php echo $this->Custom->getSupplierHotelSubmitCnt($country_id,$id,$supplier_id); ?></td>
-                                <td><?php echo $this->Custom->getSupplierHotelTotalCnt($country_id,$id,$supplier_id); ?></td>
+                                <td class="background-l-gray"><?php echo $getMappingPendingCnt_1 ; ?></td>
+                                <td class="background-l-gray"><?php echo $getMappingSubmitCnt_1; ?></td>
+                                <td class="background-l-gray"><?php echo $getMappingApproveCnt_1; ?></td>
+                                <td class="background-l-gray"><?php echo $getHoteApprovedCnt_1;?></td>
+								
+								
+                                <td class="background-l-sky">
+								<?php if($channel_id == 262): ?>
+								<a href="<?php echo $this->webroot .'mappinge_areas/supplier_hotels/country_id:'.$country_id.'/city_id:'.$id.'/supplier_id='.$supplier_id ?>" ><?php echo $getSupplierHotelPendingCnt_1; ?></a>
+								<?php else :?>
+									<?php echo $getSupplierHotelPendingCnt_1; ?>
+								<?php endif ?>
+								</td>
+                                <td class="background-l-sky">
+								<?php if($channel_id == 258): ?>
+								<a href="<?php echo $this->webroot .'mappinge_areas/supplier_hotels/country_id:'.$country_id.'/city_id:'.$id.'/supplier_id='.$supplier_id ?>" ><?php echo $getSupplierHotelSubmitCnt_1; ?></a>
+								<?php else :?>
+									<?php echo $getSupplierHotelSubmitCnt_1; ?>
+								<?php endif ?>
+								</td>
+								<td class="background-l-sky"><?php echo $getSupplierHotelCompeleteCnt_1; ?></td>
+                                <td class="background-l-sky"><?php echo $getSupplierHotelTotalCnt_1; ?></td>
+								
+								<td class="background-ticket"><a href="<?php echo $this->webroot .'support_tickets?country_id='.$country_id.'&city_id='.$id ?>" ><?php echo $getSupportTicketCnt_1 ; ?></a></td>
 
                             </tr>
                         <?php 
                         $i++;
-                        endforeach; 
+                        endforeach;
+						?>
+						<tr>     
+								<th colspan="7">Total </th>                         
+                                
+                                
+                                <th><?php echo $getHotelUnallocatedCnt; ?></th>
+                                <th><?php echo $getHotePendingCnt; ?></th>
+                                <th><?php echo $getHoteSubmittedCnt; ?></th>
+                                <th><?php echo $getHoteApprovedCnt; ?></th>
+                                <th><?php echo $getHoteTotalCnt; ?></th>                               
+                                
+                                <th><?php echo $getMappingPendingCnt; ?></th>
+                                <th><?php echo $getMappingSubmitCnt; ?></th>
+                                <th><?php echo $getMappingApproveCnt; ?></th>
+                                <th><?php echo $getHoteApprovedCnt;?></th>
+                                
+                                <th><?php echo $getSupplierHotelPendingCnt; ?></th>
+								<th><?php echo $getSupplierHotelSubmitCnt; ?></th>
+                                <th><?php echo $getSupplierHotelCompeleteCnt; ?></th>                                
+                                <th><?php echo $getSupplierHotelTotalCnt; ?></th>
+								
+								<th STYLE="TEXT-ALIGN:LEFT"><?php echo $getSupportTicketCnt;?></td>
+                            </tr>
+
+<?php						
                     else:
                         echo '<tr><td colspan="5" class="norecords">No Records Found</td></tr>';
                     endif;
