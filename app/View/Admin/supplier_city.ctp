@@ -12,6 +12,50 @@ echo $this->element('FetchAreas/top_menu');
             <span class="search_panel_icon"><i class="icon-plus" id="toggle_search_panel"></i></span>
         </div>
         <div class="panel panel-default">
+		
+		
+		<div class="panel_controls hideform">
+
+                <?php
+                echo $this->Form->create('SupplierCity', array('paramType' => 'querystring',  'class' => 'quick_search', 'id' => 'SearchForm', 'type' => 'post', 'novalidate' => true, 'inputDefaults' => array(
+                        'label' => false,
+                        'div' => false,
+                        'class' => 'form-control',
+                )));
+             
+                ?> 
+                
+                <div class="row" id="search_panel_controls">
+                   
+                    <div class="col-sm-3 col-xs-6">
+                        <label for="un_member">Supplier:</label>
+                        <?php echo $this->Form->input('supplier_id', array('options' => $TravelSuppliers, 'empty' => '--Select--')); ?>
+                    </div>
+					
+					<div class="col-sm-3 col-xs-6">
+                        <label for="un_member">Country:</label>
+                        <?php echo $this->Form->input('country_id', array('options' => $SupplierCountries, 'empty' => '--Select--','data-required' => 'false')); ?>
+                    </div>
+					
+					
+
+
+                    <div class="col-sm-3 col-xs-6">
+                        <label>&nbsp;</label>
+                        <?php
+                        echo $this->Form->submit('Filter', array('div' => false, 'class' => 'btn btn-default btn-sm"'));
+                        // echo $this->Form->button('Reset', array('type' => 'reset', 'class' => 'btn btn-default btn-sm"'));
+                        ?>
+                    </div>
+                </div>
+                <?php echo $this->Form->end(); ?>
+            </div>
+		
+		
+		
+		
+		
+		
             <table border="0" cellpadding="0" cellspacing="0" id="resp_table" class="table toggle-square myclitb" data-filter="#table_search" data-page-size="500">
                 <thead>             
                     <tr>
