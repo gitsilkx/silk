@@ -125,38 +125,7 @@ class MappingeAreasController extends AppController {
 
 
 
-if(isset($_GET['country_id'])){
-
-$get_country_id =	$_GET['country_id'];
-$get_city_id =	$_GET['city_id'];
-$get_supplier_id =	$_GET['supplier_id'];
-
-$result_array = ClassRegistry::init('TravelCitySupplier')->find('all', array('fields' => array('city_supplier_id'),'conditions' => array('TravelCitySupplier.city_country_id' => $get_country_id,'TravelCitySupplier.city_id' => $get_city_id,'TravelCitySupplier.supplier_id ' => $get_supplier_id,'TravelCitySupplier.active ' => 'TRUE','TravelCitySupplier.excluded ' => 'FALSE')));
-
- count($result_array);
-
-	$checkCondition = false;
-
-	foreach( $result_array as  $results){
-
 	
-
-		$found_city_id = $results['TravelCitySupplier']['city_supplier_id'];		
-
-		$conditions['or'][] = array('SupplierHotel.city_id =' => $found_city_id);   
-
-		$checkCondition = true;
-
-}			
-
-array_push($search_condition, $conditions);
-
-array_push($search_condition, array('SupportTicket.status' => 1));
-
-//array_push($search_condition, array('SupportTicket.city_id' => $city_id));
-
-//array_push($search_condition, array('SupportTicket.country_id' => $country_id));	
-}	
 
         if ($this->request->is('post') || $this->request->is('put')) {
 
@@ -295,8 +264,39 @@ array_push($search_condition, array('SupportTicket.status' => 1));
              */
 
 
+if(isset($_GET['country_id'])){
 
-            if (isset($this->data['check_city_mapping'])) {
+$get_country_id =	$_GET['country_id'];
+$get_city_id =	$_GET['city_id'];
+$get_supplier_id =	$_GET['supplier_id'];
+
+                $display = 'TRUE';
+
+                $check_mapp = 'TRUE';
+
+$result_array = ClassRegistry::init('TravelCitySupplier')->find('all', array('fields' => array('supplier_city_code'),'conditions' => array('TravelCitySupplier.city_country_id' => $get_country_id,'TravelCitySupplier.city_id' => $get_city_id,'TravelCitySupplier.supplier_id ' => $get_supplier_id,'TravelCitySupplier.active ' => 'TRUE','TravelCitySupplier.excluded ' => 'FALSE')));
+
+ count($result_array);
+
+	$checkCondition = false;
+
+	foreach( $result_array as  $results){
+
+	
+
+		$found_city_code = $results['TravelCitySupplier']['supplier_city_code'];		
+
+		$conditions['or'][] = array('SupplierHotel.city_code =' => $found_city_code);   
+
+		$checkCondition = true;
+
+        }			
+
+array_push($search_condition, $conditions);
+
+array_push($search_condition, array('SupplierHotel.supplier_id' => $get_supplier_id));
+	
+} elseif (isset($this->data['check_city_mapping'])) {
 
 
 
@@ -308,7 +308,7 @@ array_push($search_condition, array('SupportTicket.status' => 1));
 
                     array('supplier_id' => $supplier_id, 'city_continent_id' => $continent_id, 'city_country_id' => $country_id, 'province_id' => $province_id, 'city_id' => $city_id)));
 
-            } elseif (isset($this->data['fetch_hotel'])) {
+} elseif (isset($this->data['fetch_hotel'])) {
 
 
 
@@ -348,7 +348,8 @@ array_push($search_condition, array('SupportTicket.status' => 1));
 
             // die;
 
-        } elseif ($this->request->is('get')) {
+            
+} elseif ($this->request->is('get')) {
 
 
 
@@ -356,9 +357,10 @@ array_push($search_condition, array('SupportTicket.status' => 1));
 
                 $supplier_id = $this->data['TravelHotelLookup']['supplier_id'];
 
-            }
+}
 
-        }
+
+            }
 
 
 
