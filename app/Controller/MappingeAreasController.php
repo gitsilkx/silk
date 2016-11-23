@@ -149,6 +149,14 @@ $result_array = ClassRegistry::init('TravelCitySupplier')->find('all', array('fi
 
 }			
 
+array_push($search_condition, $conditions);
+
+array_push($search_condition, array('SupportTicket.status' => 1));
+
+//array_push($search_condition, array('SupportTicket.city_id' => $city_id));
+
+//array_push($search_condition, array('SupportTicket.country_id' => $country_id));	
+}	
 
         if ($this->request->is('post') || $this->request->is('put')) {
 
@@ -397,5 +405,3 @@ $result_array = ClassRegistry::init('TravelCitySupplier')->find('all', array('fi
 
 
 }
-
-
