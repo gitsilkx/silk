@@ -59,17 +59,17 @@
                         
                         <th data-toggle="phone"  data-sort-ignore="true" data-group="group1" >UNL</th>
                         <th data-toggle="phone"  data-sort-ignore="true" data-group="group1">PND</th>
-                        <th data-toggle="phone"  data-sort-ignore="true" data-group="group1" >SMP</th>
+                        <th data-toggle="phone"  data-sort-ignore="true" data-group="group1" >SMT</th>
                         <th data-toggle="phone"  data-sort-ignore="true" data-group="group1" >APV</th>
                         <th data-hide="phone"  data-sort-ignore="true" data-group="group1" >Total</th>                
                         
                         <th data-toggle="phone"  data-sort-ignore="true" data-group="group2" >PND</th>
-                        <th data-toggle="phone"  data-sort-ignore="true" data-group="group2">SMP</th>
+                        <th data-toggle="phone"  data-sort-ignore="true" data-group="group2">SMT</th>
                         <th data-toggle="phone"  data-sort-ignore="true" data-group="group2" >APV</th>
                         <th data-hide="phone"  data-sort-ignore="true" data-group="group2" >Total</th>                
                         
                         <th data-toggle="phone"  data-sort-ignore="true" data-group="group4" >PND</th>                       
-                        <th data-toggle="phone"  data-sort-ignore="true" data-group="group4">SMP</th>
+                        <th data-toggle="phone"  data-sort-ignore="true" data-group="group4">SMT</th>
 						<th data-toggle="phone"  data-sort-ignore="true" data-group="group4" >CMP</th>
                         <th data-toggle="phone"  data-sort-ignore="true" data-group="group4" >Total</th>
 						
@@ -248,10 +248,10 @@
         </div>
     </div>
 </div>
-
+<br>
     <div align="center" class="col-sm-12" style="font-size: 15px; font-family: sans-serif">
         <p style="color: black; background-color: #ffff42">
-        <?php echo "hello" ?>
+        <?php echo "UNL = Unallocated | PND = Pending | SMT = Submitted | APV = Approved | CMP = Complete" ?>
         </p>
     </div> 
 
