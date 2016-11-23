@@ -249,6 +249,12 @@
     </div>
 </div>
 
+    <div align="center" class="col-sm-12" style="font-size: 15px; font-family: sans-serif">
+        <p style="color: black; background-color: #ffff42">
+        <?php echo "hello" ?>
+        </p>
+    </div> 
+
 <?php echo $this->Form->end(); 
 
 $this->Js->get('#ReportSummaryType')->event('change', $this->Js->request(array(
