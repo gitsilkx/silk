@@ -424,20 +424,35 @@ class SupportTicketsController extends AppController {
             }
 
         }
-
+$user_id_get =$user_id;
 if(isset($_GET['country_id'])){
 $country_id =	$_GET['country_id'];
 $city_id =	$_GET['city_id'];
+$province_id =	$_GET['province_id'];
+$user_id_get =	$_GET['user_id'];
+
+$result_array = ClassRegistry::init('TravelHotelLookup')->find('all', array('fields' => array('id'),'conditions' => array('TravelHotelLookup.country_id' => $country_id,'TravelHotelLookup.city_id' => $city_id,'TravelHotelLookup.province_id ' => $province_id)));
+ count($result_array);
+	$checkCondition = false;
+	foreach( $result_array as  $results){
+	
+		$hotel_id = $results['TravelHotelLookup']['id'];		
+		$conditions['or'][] = array('SupportTicket.about LIKE' => "%Id: $hotel_id%");   
+		$checkCondition = true;
+	}
+
+array_push($search_condition, $conditions);
+
 array_push($search_condition, array('SupportTicket.status' => 1));
 
-array_push($search_condition, array('SupportTicket.city_id' => $city_id));
+//array_push($search_condition, array('SupportTicket.city_id' => $city_id));
 
-array_push($search_condition, array('SupportTicket.country_id' => $country_id));	
+//array_push($search_condition, array('SupportTicket.country_id' => $country_id));	
 }	
 
   
   
-        array_push($search_condition, array('OR' => array('SupportTicket.created_by' => $user_id, 'SupportTicket.next_action_by' => $user_id, 'SupportTicket.approved_by' => $user_id, 'SupportTicket.last_action_by' => $user_id), 'SupportTicket.active' => 'TRUE'));
+        array_push($search_condition, array('OR' => array('SupportTicket.created_by' => $user_id_get, 'SupportTicket.next_action_by' => $user_id_get, 'SupportTicket.approved_by' => $user_id_get, 'SupportTicket.last_action_by' => $user_id_get), 'SupportTicket.active' => 'TRUE'));
 
         $this->paginate['order'] = array('SupportTicket.created' => 'desc');
 
