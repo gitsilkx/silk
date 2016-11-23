@@ -789,7 +789,7 @@ array_push($search_condition, array('TravelHotelLookup.country_id' => $get_count
         $srilanka_count = $this->TravelHotelLookup->find('count', array('conditions' => array('country_code LIKE' => '%LK%')+$conProvince));
  * 
  * */
- */
+ 
 
         $TravelLookupContinents = $this->TravelLookupContinent->find('list', array('fields' => 'id,continent_name', 'conditions' => array('continent_status' => 1, 'wtb_status' => 1, 'active' => 'TRUE'), 'order' => 'continent_name ASC'));
 
