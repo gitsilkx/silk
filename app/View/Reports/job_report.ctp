@@ -46,7 +46,7 @@
                         <th data-group="group1" colspan="5">Hotel Edit (WTB)</th>                     
                         <th data-group="group2" colspan="4">Hotel Mapping (WTB)</th>
                         <th data-group="group4" colspan="4">Hotel Mapping (Supplier)<?php //echo $this->Custom->getSupplierCode($this->data['Report']['supplier_id']); ?></th>
-						 <th data-group="group5" colspan="">""</th>
+						 <th data-group="group5" colspan=""></th>
                     </tr>
                     <tr>           
                         <th data-toggle="phone"  data-sort-ignore="true" data-group="group3">Sl. </th>
@@ -186,8 +186,8 @@
 								<th colspan="7">Total </th>                         
                                 
                                 
-                                <th><center><?php echo $getHotelUnallocatedCnt; ?></center></th>
-                                <th><center><?php echo $getHotePendingCnt; ?></center></th>
+                                <th><?php echo $getHotelUnallocatedCnt; ?></th>
+                                <th><?php echo $getHotePendingCnt; ?></th>
                                 <th><?php echo $getHoteSubmittedCnt; ?></th>
                                 <th><?php echo $getHoteApprovedCnt; ?></th>
                                 <th><?php echo $getHoteTotalCnt; ?></th>                               
