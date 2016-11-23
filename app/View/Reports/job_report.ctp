@@ -187,7 +187,7 @@
                                 
                                 
                                 <th><center><?php echo $getHotelUnallocatedCnt; ?></center></th>
-                                <th><?php echo $getHotePendingCnt; ?></th>
+                                <th><center><?php echo $getHotePendingCnt; ?></center></th>
                                 <th><?php echo $getHoteSubmittedCnt; ?></th>
                                 <th><?php echo $getHoteApprovedCnt; ?></th>
                                 <th><?php echo $getHoteTotalCnt; ?></th>                               
