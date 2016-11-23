@@ -691,7 +691,7 @@ array_push($search_condition, array('TravelHotelLookup.country_id' => $get_count
         $this->set(compact('hotel_count'));
 
 
-
+/*
         $active_count = $this->TravelHotelLookup->find('count', array('conditions' => array('active' => '1')+$conProvince));
 
         $this->set(compact('active_count'));
@@ -787,6 +787,9 @@ array_push($search_condition, array('TravelHotelLookup.country_id' => $get_count
         $maldives_count = $this->TravelHotelLookup->find('count', array('conditions' => array('country_code LIKE' => '%MV%')+$conProvince));
 
         $srilanka_count = $this->TravelHotelLookup->find('count', array('conditions' => array('country_code LIKE' => '%LK%')+$conProvince));
+ * 
+ * */
+ */
 
         $TravelLookupContinents = $this->TravelLookupContinent->find('list', array('fields' => 'id,continent_name', 'conditions' => array('continent_status' => 1, 'wtb_status' => 1, 'active' => 'TRUE'), 'order' => 'continent_name ASC'));
 
