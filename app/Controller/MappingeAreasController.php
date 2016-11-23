@@ -131,7 +131,7 @@ $get_country_id =	$_GET['country_id'];
 $get_city_id =	$_GET['city_id'];
 $get_supplier_id =	$_GET['supplier_id'];
 
-$result_array = ClassRegistry::init('TravelCitySupplier')->find('all', array('fields' => array('city_supplier_id'),'conditions' => array('TravelCitySupplier.city_country_id' => $get_country_id,'TravelCitySupplier.get_city_id' => $city_id,'TravelCitySupplier.supplier_id ' => $get_supplier_id,'TravelCitySupplier.active ' => 'TRUE','TravelCitySupplier.excluded ' => 'FALSE')));
+$result_array = ClassRegistry::init('TravelCitySupplier')->find('all', array('fields' => array('city_supplier_id'),'conditions' => array('TravelCitySupplier.city_country_id' => $get_country_id,'TravelCitySupplier.city_id' => $get_city_id,'TravelCitySupplier.supplier_id ' => $get_supplier_id,'TravelCitySupplier.active ' => 'TRUE','TravelCitySupplier.excluded ' => 'FALSE')));
 
  count($result_array);
 
