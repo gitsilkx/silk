@@ -1,6 +1,5 @@
 <?php
 $this->Html->addCrumb('My Hotels', 'javascript:void(0);', array('class' => 'breadcrumblast'));
-echo $this->element('Hotel/top_menu');
 ?>    
 <div class="row">
     <div class="col-sm-12">
