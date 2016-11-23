@@ -46,34 +46,34 @@
                         <th data-group="group1" colspan="5">Wtp Hotel Edit </th>                     
                         <th data-group="group2" colspan="4">Wtp Hotel Mapping</th>
                         <th data-group="group4" colspan="4">Supplier Hotel Mapping<?php //echo $this->Custom->getSupplierCode($this->data['Report']['supplier_id']); ?></th>
-						 <th data-group="group5" colspan="">Support Ticket</th>
+						 <th data-group="group5" colspan="">SUPP TKT</th>
                     </tr>
                     <tr>           
                         <th data-toggle="phone"  data-sort-ignore="true" data-group="group3">Sl. </th>
                         <th data-toggle="phone"  data-sort-ignore="true" data-group="group3">Person</th>
 						<th data-toggle="phone"  data-sort-ignore="true" data-group="group3">Approvel</th>
-						<th data-toggle="phone"  data-sort-ignore="true" data-group="group3">Mpp Apv</th>
+						<th data-toggle="phone"  data-sort-ignore="true" data-group="group3">MPP APV</th>
                         <th data-toggle="phone"  data-sort-ignore="true" data-group="group3">Country</th>
                         <th data-toggle="phone"  data-sort-ignore="true" data-group="group3">Province</th>
                         <th data-toggle="phone"  data-sort-ignore="true" data-group="group3">City</th>    
                         
-                        <th data-toggle="phone"  data-sort-ignore="true" data-group="group1" >Unl</th>
-                        <th data-toggle="phone"  data-sort-ignore="true" data-group="group1">Pnd</th>
-                        <th data-toggle="phone"  data-sort-ignore="true" data-group="group1" >Smp</th>
-                        <th data-toggle="phone"  data-sort-ignore="true" data-group="group1" >Apv</th>
+                        <th data-toggle="phone"  data-sort-ignore="true" data-group="group1" >UNL</th>
+                        <th data-toggle="phone"  data-sort-ignore="true" data-group="group1">PND</th>
+                        <th data-toggle="phone"  data-sort-ignore="true" data-group="group1" >SMP</th>
+                        <th data-toggle="phone"  data-sort-ignore="true" data-group="group1" >APV</th>
                         <th data-hide="phone"  data-sort-ignore="true" data-group="group1" >Total</th>                
                         
-                        <th data-toggle="phone"  data-sort-ignore="true" data-group="group2" >Pnd</th>
-                        <th data-toggle="phone"  data-sort-ignore="true" data-group="group2">Smp</th>
-                        <th data-toggle="phone"  data-sort-ignore="true" data-group="group2" >Apv</th>
+                        <th data-toggle="phone"  data-sort-ignore="true" data-group="group2" >PND</th>
+                        <th data-toggle="phone"  data-sort-ignore="true" data-group="group2">SMP</th>
+                        <th data-toggle="phone"  data-sort-ignore="true" data-group="group2" >APV</th>
                         <th data-hide="phone"  data-sort-ignore="true" data-group="group2" >Total</th>                
                         
-                        <th data-toggle="phone"  data-sort-ignore="true" data-group="group4" >Pnd</th>                       
-                        <th data-toggle="phone"  data-sort-ignore="true" data-group="group4">Smp</th>
-						<th data-toggle="phone"  data-sort-ignore="true" data-group="group4" >Cmp</th>
+                        <th data-toggle="phone"  data-sort-ignore="true" data-group="group4" >PND</th>                       
+                        <th data-toggle="phone"  data-sort-ignore="true" data-group="group4">SMP</th>
+						<th data-toggle="phone"  data-sort-ignore="true" data-group="group4" >CMP</th>
                         <th data-toggle="phone"  data-sort-ignore="true" data-group="group4" >Total</th>
 						
-						<th data-toggle=""  data-sort-ignore="true" data-group="" >Ticket</th>
+						<th data-toggle=""  data-sort-ignore="true" data-group="" >TKT</th>
                                              
                     </tr>
                 </thead>
@@ -122,7 +122,7 @@
 							$getSupplierHotelTotalCnt += $getSupplierHotelTotalCnt_1 = $this->Custom->getSupplierHotelTotalCnt($country_id,$id,$supplier_id);
 							
 							
-							$getSupportTicketCnt += $getSupportTicketCnt_1 = $this->Custom->getSupportTicketCnt($country_id,$id);
+							$getSupportTicketCnt += $getSupportTicketCnt_1 = $this->Custom->getSupportTicketCnt($country_id,$id,$TravelCity[0]['province_id'],$TravelCity[0]['user_id']);
                             ?>
                             <tr>                              
 								<td><?php echo $i; ?></td>
@@ -174,7 +174,7 @@
 								<td class="background-l-sky"><?php echo $getSupplierHotelCompeleteCnt_1; ?></td>
                                 <td class="background-l-sky"><?php echo $getSupplierHotelTotalCnt_1; ?></td>
 								
-								<td class="background-ticket"><a href="<?php echo $this->webroot .'support_tickets?country_id='.$country_id.'&city_id='.$id ?>" ><?php echo $getSupportTicketCnt_1 ; ?></a></td>
+								<td class="background-ticket"><a href="<?php echo $this->webroot .'support_tickets?country_id='.$country_id.'&city_id='.$id .'&province_id='.$TravelCity[0]['province_id'].'&user_id='.$TravelCity[0]['user_id']?>" ><?php echo $getSupportTicketCnt_1 ; ?></a></td>
 
                             </tr>
                         <?php 
