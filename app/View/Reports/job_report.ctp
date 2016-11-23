@@ -43,16 +43,16 @@
                 <thead>
                    <tr class="footable-group-row">
                         <th data-group="group3" colspan="7" class="nodis">Information</th>
-                        <th data-group="group1" colspan="5">Wtp Hotel Edit </th>                     
-                        <th data-group="group2" colspan="4">Wtp Hotel Mapping</th>
-                        <th data-group="group4" colspan="4">Supplier Hotel Mapping<?php //echo $this->Custom->getSupplierCode($this->data['Report']['supplier_id']); ?></th>
-						 <th data-group="group5" colspan="">SUPP TKT</th>
+                        <th data-group="group1" colspan="5">Hotel Edit (WTB)</th>                     
+                        <th data-group="group2" colspan="4">Hotel Mapping (WTB)</th>
+                        <th data-group="group4" colspan="4">Hotel Mapping (Supplier)<?php //echo $this->Custom->getSupplierCode($this->data['Report']['supplier_id']); ?></th>
+						 <th data-group="group5" colspan="">""</th>
                     </tr>
                     <tr>           
                         <th data-toggle="phone"  data-sort-ignore="true" data-group="group3">Sl. </th>
                         <th data-toggle="phone"  data-sort-ignore="true" data-group="group3">Person</th>
-						<th data-toggle="phone"  data-sort-ignore="true" data-group="group3">Approvel</th>
-						<th data-toggle="phone"  data-sort-ignore="true" data-group="group3">MPP APV</th>
+			<th data-toggle="phone"  data-sort-ignore="true" data-group="group3">Approver (Hotel)</th>
+			<th data-toggle="phone"  data-sort-ignore="true" data-group="group3">Approver (Mapping)</th>
                         <th data-toggle="phone"  data-sort-ignore="true" data-group="group3">Country</th>
                         <th data-toggle="phone"  data-sort-ignore="true" data-group="group3">Province</th>
                         <th data-toggle="phone"  data-sort-ignore="true" data-group="group3">City</th>    
@@ -186,7 +186,7 @@
 								<th colspan="7">Total </th>                         
                                 
                                 
-                                <th><?php echo $getHotelUnallocatedCnt; ?></th>
+                                <th><center><?php echo $getHotelUnallocatedCnt; ?></center></th>
                                 <th><?php echo $getHotePendingCnt; ?></th>
                                 <th><?php echo $getHoteSubmittedCnt; ?></th>
                                 <th><?php echo $getHoteApprovedCnt; ?></th>
@@ -198,7 +198,7 @@
                                 <th><?php echo $getHoteApprovedCnt;?></th>
                                 
                                 <th><?php echo $getSupplierHotelPendingCnt; ?></th>
-								<th><?php echo $getSupplierHotelSubmitCnt; ?></th>
+				<th><?php echo $getSupplierHotelSubmitCnt; ?></th>
                                 <th><?php echo $getSupplierHotelCompeleteCnt; ?></th>                                
                                 <th><?php echo $getSupplierHotelTotalCnt; ?></th>
 								
