@@ -103,7 +103,9 @@
                             $id = $TravelCity['TravelCity']['id'];              
                             $country_id = $TravelCity[0]['country_id'];
                             $province_id = $TravelCity[0]['province_id'];							
-							
+			    $creator = $TravelCity[0]['user_id'];
+                            $levelh = '7';
+                            $levelm = '4';
 							
 							$getHotelUnallocatedCnt += $getHotelUnallocatedCnt_1 = $this->Custom->getHotelUnallocatedCnt($country_id,$id);
 							$getHotePendingCnt += $getHotePendingCnt_1 = $this->Custom->getHotePendingCnt($country_id,$id);
@@ -126,10 +128,10 @@
 							$getSupportTicketCnt += $getSupportTicketCnt_1 = $this->Custom->getSupportTicketCnt($country_id,$id,$TravelCity[0]['province_id'],$TravelCity[0]['user_id']);
                             ?>
                             <tr>                              
-								<td><?php echo $i; ?></td>
+				<td><?php echo $i; ?></td>
                                 <td><?php echo $this->Custom->Username($TravelCity[0]['user_id']); ?></td>
-								<td><?php echo $this->Custom->Username($TravelCity[0]['approval_id']); ?></td>
-								<td><?php echo $this->Custom->Username($TravelCity[0]['maaping_approval_id']); ?></td>
+				<td><?php echo $this->Custom->Username($TravelCity[0]['approval_id']); ?></td>
+				<td><?php echo $this->Custom->Username($TravelCity[0]['maaping_approval_id']); ?></td>
                                 <td><?php echo $this->Custom->getCountryName($country_id); ?></td>
                                 <td><?php echo $this->Custom->getProvinceName($TravelCity[0]['province_id']); ?></td>
                                 <td><?php echo $TravelCity['TravelCity']['city_name']; ?></td> 
@@ -144,7 +146,7 @@
 								</td>
                                 <td class="background_yellow">
 								<?php if($channel_id == 259): ?>
-								<a href="<?php echo $this->webroot .'travel_action_items?country_id='.$country_id.'&city_id='.$id ?>" ><?php echo $getHoteSubmittedCnt_1; ?></a>
+								<a href="<?php echo $this->webroot .'travel_action_items?country_id='.$country_id.'&province_id='.$province_id.'&city_id='.$id.'&creator='.$creator ?>" ><?php echo $getHoteSubmittedCnt_1; ?></a>
 								<?php else :?>
 									<?php echo $getHoteSubmittedCnt_1; ?>
 								<?php endif ?>
@@ -167,7 +169,7 @@
 								</td>
                                 <td class="background-l-sky">
 								<?php if($channel_id == 258): ?>
-								<a href="<?php echo $this->webroot .'mappinge_areas/supplier_hotels/country_id:'.$country_id.'/city_id:'.$id.'/supplier_id='.$supplier_id ?>" ><?php echo $getSupplierHotelSubmitCnt_1; ?></a>
+								<a href="<?php echo $this->webroot .'mappinge_areas/supplier_hotels/country_id:'.$country_id.'/province_id:'.$province_id.'/city_id:'.$id.'/creator='.creator.'/level_id='.levelm ?>" ><?php echo $getSupplierHotelSubmitCnt_1; ?></a>
 								<?php else :?>
 									<?php echo $getSupplierHotelSubmitCnt_1; ?>
 								<?php endif ?>
