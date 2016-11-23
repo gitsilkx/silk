@@ -252,7 +252,7 @@
 <div class="row">
     <div align="center" class="col-sm-12" style="font-size: 15px; font-family: sans-serif">
         <p style="color: black; background-color: #ffff42">
-        <?php echo "UNL = Unallocated | PND = Pending | SMT = Submitted | APV = Approved | CMP = Complete." ?>
+        <strong><?php echo "UNL = Unallocated | PND = Pending | SMT = Submitted | APV = Approved | CMP = Complete." ?></strong>
         </p>
     </div> 
 </div> 
