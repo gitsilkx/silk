@@ -310,11 +310,29 @@ class CustomHelper extends Helper {
          $supplier_city_code = $dataArray['TravelCitySupplier']['supplier_city_code'];
          return ClassRegistry::init('SupplierHotel')->find('count', array('fields' => array('id'),'conditions' => array('SupplierHotel.country_code' => $supplier_country_code,'SupplierHotel.city_code' => $supplier_city_code,'SupplierHotel.status' => array('3','7'))));
     }
-     public function getSupportTicketCnt($country_id,$city_id){
+     public function getSupportTicketCnt($country_id,$city_id,$province_id,$user_id){
 
-         
 
-         return ClassRegistry::init('SupportTicket')->find('count', array('fields' => array('id'),'conditions' => array('SupportTicket.country_id' => $country_id,'SupportTicket.city_id' => $city_id,'SupportTicket.status' => array('1'))));
+ $result_array = ClassRegistry::init('TravelHotelLookup')->find('all', array('fields' => array('id'),'conditions' => array('TravelHotelLookup.country_id' => $country_id,'TravelHotelLookup.city_id' => $city_id,'TravelHotelLookup.province_id ' => $province_id)));
+
+	$checkCondition = false;
+	foreach( $result_array as  $results){
+	
+		$hotel_id = $results['TravelHotelLookup']['id'];		
+		$conditions['or'][] = array('SupportTicket.about LIKE' => "%Id: $hotel_id%");  
+		$checkCondition = true;
+	}
+	$conditions['or'][] = array('SupportTicket.created_by' => $user_id,'SupportTicket.next_action_by' => $user_id,'SupportTicket.approved_by' => $user_id,'SupportTicket.last_action_by' => $user_id);
+
+	
+
+	if($checkCondition == true){
+		 return ClassRegistry::init('SupportTicket')->find('count', array('fields' => array('id'),'conditions' => array('SupportTicket.status' => '1', 'SupportTicket.active' => 'TRUE',$conditions )));
+	}else{
+		return 0;
+	}
+		
+        
 
     }
     public function getDuplicateHotel($continent_id,$country_id,$province_id,$city_id,$hotel_name){
@@ -343,7 +361,93 @@ class CustomHelper extends Helper {
          return ClassRegistry::init('TravelHotelLookup')->find('all', array('conditions' => $search_condition));
          
     }
+ #add method by pc
  
+ public function getHoteByDateCnt($country_id,$city_id,$fordate){
+	 
+#For get today
+if($fordate == 'today'){
+	$sdate = date('y-m-d').' 00:00:00';
+	$edate = date("y-m-d").' 23:59:59'; 	
+}
+
+#For get yesterday
+elseif($fordate == 'yesterday'){
+	$yesterday = date('y-m-d',strtotime("-1 days"));
+	$sdate = $yesterday.' 00:00:00';
+	$edate = $yesterday.' 23:59:59'; 	
+}
+	 
+#For get this week
+elseif($fordate == 'this_week'){
+	$sdate = date('y-m-d', strtotime("last saturday")).' 00:00:00';
+	$edate = date("y-m-d").' 23:59:59'; 	
+}
+
+#For get this month
+elseif($fordate == 'this_month'){
+	$sdate = date('y-m-01').' 00:00:00';
+	$edate = date("y-m-d").' 23:59:59'; 
+}
+
+#For get this year
+elseif($fordate == 'this_year'){
+$sdate = date('y-01-01').' 00:00:00';
+$edate = date("y-m-d").' 23:59:59';  
+}	 
+	 
+#For get last year
+elseif($fordate == 'last_year'){
+$year =	date('y')-1;
+$sdate = date("$year-01-01").' 00:00:00';
+$edate = date("$year-12-t").' 23:59:59';  
+}	 	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+
+        return ClassRegistry::init('TravelHotelLookup')->find('count', array('fields' => array('id'),
+		
+		'joins' => array(
+
+                    array(
+
+                        'table' => 'travel_action_items',
+                        'alias' => 'TravelActionItem',
+                        'type'  => 'INNER',
+                        'foreignKey'    => false,
+                        'conditions'    => array('TravelHotelLookup.id = TravelActionItem.hotel_id','TravelActionItem.action_item_active' => 'Yes', 'date(TravelActionItem.created) BETWEEN ? AND ?' => array($sdate,$edate)),
+
+                        ),
+
+                ),
+		
+		'conditions' => array('TravelHotelLookup.country_id' => $country_id,'TravelHotelLookup.city_id' => $city_id)));
+
+     
+
+	 
+	 /*
+	 
+	 $dataArray = ClassRegistry::init('TravelCitySupplier')->find('first', array('fields' => array('TravelCitySupplier.supplier_coutry_code','TravelCitySupplier.supplier_city_code'),'conditions' => array('TravelCitySupplier.city_country_id' => $country_id,'TravelCitySupplier.city_id' => $city_id,'TravelCitySupplier.supplier_id' => $supplier_id)));
+
+         $supplier_country_code = $dataArray['TravelCitySupplier']['supplier_coutry_code'];
+
+         $supplier_city_code = $dataArray['TravelCitySupplier']['supplier_city_code'];
+
+         return ClassRegistry::init('SupplierHotel')->find('count', array('fields' => array('id'),'conditions' => array('SupplierHotel.country_code' => $supplier_country_code,'SupplierHotel.city_code' => $supplier_city_code,'SupplierHotel.status' => array('3','7'))));
+	 */
+	 
+	 
+	 
+	 
+	 
+	 
+    }
   
 }
 
