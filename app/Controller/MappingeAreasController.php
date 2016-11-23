@@ -272,7 +272,7 @@ $get_supplier_id =	$_GET['supplier_id'];
 
                 $display = 'TRUE';
 
-                $check_mapp = 'TRUE';
+//                $check_mapp = 'TRUE';
 
 $result_array = ClassRegistry::init('TravelCitySupplier')->find('all', array('fields' => array('supplier_city_code'),'conditions' => array('TravelCitySupplier.city_country_id' => $get_country_id,'TravelCitySupplier.city_id' => $get_city_id,'TravelCitySupplier.supplier_id ' => $get_supplier_id,'TravelCitySupplier.active ' => 'TRUE','TravelCitySupplier.excluded ' => 'FALSE')));
 
