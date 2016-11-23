@@ -137,7 +137,7 @@
                                 <td class="background_yellow"><?php echo $getHotelUnallocatedCnt_1; ?></td>
                                 <td class="background_yellow">
 								<?php if($channel_id == 262): ?>
-								<a href="<?php echo $this->webroot .'my-hotels?country_id='.$country_id.'&province_id='.$province_id.'&city_id='.$id.' target="_blank"' ?>" ><?php echo $getHotePendingCnt_1; ?></a>
+								<a href="<?php echo $this->webroot .'my-hotels?country_id='.$country_id.'&province_id='.$province_id.'&city_id='.$id.' target='.'"_blank"' ?>" ><?php echo $getHotePendingCnt_1; ?></a>
 								<?php else :?>
 									<?php echo $getHotePendingCnt_1; ?>
 								<?php endif ?>
