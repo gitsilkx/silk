@@ -229,10 +229,7 @@ $result_array = ClassRegistry::init('TravelHotelLookup')->find('all', array('fie
 
 array_push($search_condition, $conditions);
 
-array_push($search_condition, array('TravelActionItem.created_by_id' => $get_creator));
-array_push($search_condition, array('TravelActionItem.next_action_by' => $get_user_id));
-array_push($search_condition, array('TravelActionItem.level_id' => $get_level_id));
-array_push($search_condition, array('TravelActionItem.action_item_active' => 'Yes'));
+
 
 
 
