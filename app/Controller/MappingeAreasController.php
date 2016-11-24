@@ -227,13 +227,13 @@ class MappingeAreasController extends AppController {
 
         $country_id = '';
         
- //       $country_name = '';
+        $country_name = '';
 
         $province_id = '';
 
         $city_id = '';
         
- //       $city_name = '';
+        $city_name = '';
 
         $supplier_city_codde = array();
 
