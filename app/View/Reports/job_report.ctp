@@ -162,7 +162,7 @@
 								
                                 <td class="background-l-sky">
 								<?php if($channel_id == 262): ?>
-								<a href="<?php echo $this->webroot .'mappinge_areas/supplier_hotels?country_id='.$country_id.'&city_id='.$id.'&supplier_id='.$supplier_id ?>" ><?php echo $getSupplierHotelPendingCnt_1; ?></a>
+								<a href="<?php echo $this->webroot .'mappinge_areas/supplier_hotel_report?country_id='.$country_id.'&city_id='.$id.'&supplier_id='.$supplier_id ?>" ><?php echo $getSupplierHotelPendingCnt_1; ?></a>
 								<?php else :?>
 									<?php echo $getSupplierHotelPendingCnt_1; ?>
 								<?php endif ?>
