@@ -242,8 +242,8 @@ $get_country_id =	$_GET['country_id'];
 $get_city_id =	$_GET['city_id'];
 $get_supplier_id =	$_GET['supplier_id'];
 
-$country_id = $get_country_id;
-$city_id = $get_city_id;
+$country_name = $this->Common->getCountryName($get_country_id);
+$city_name = $this->Common->getCityName($get_city_id);
 $supplier_id = $get_supplier_id;
 
 // THIS PART IS FOR JUST DISPLAYING THE CITY MAPPINGS FOR THE PASSED COUNTRY+CITY+SUPPLIER.
@@ -301,7 +301,7 @@ array_push($search_condition, array('SupplierHotel.supplier_id' => $get_supplier
 
 
  $this->set(compact('TravelCities', 'TravelCitySuppliers', 'supplier_city_codde', 'Provinces', 'TravelCountries', 'check_mapp', 'display', 'TravelLookupContinents'
-                        , 'TravelSuppliers', 'supplier_id', 'continent_id', 'country_id', 'province_id', 'city_id', 'hotel_name'));
+                        , 'TravelSuppliers', 'supplier_id', 'continent_id', 'country_id', 'country_name, 'province_id', 'city_id', 'city_name', 'hotel_name'));
 
     }
     
