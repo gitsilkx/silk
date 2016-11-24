@@ -238,9 +238,22 @@ $get_country_id =	$_GET['country_id'];
 $get_city_id =	$_GET['city_id'];
 $get_supplier_id =	$_GET['supplier_id'];
 
-$display = 'TRUE';
-$check_mapp = 'TRUE';
 
+
+$check_mapp = 'TRUE';
+$TravelCitySuppliers = $this->TravelCitySupplier->find('all', ARRAY('conditions' =>
+       array('supplier_id' => $get_supplier_id, 'city_country_id' => $get_country_id, 'city_id' => $city_id)));
+                
+$display = 'TRUE';
+$supplier_city_codde = $this->TravelCitySupplier->find('list', ARRAY('fields' => 'supplier_city_code,supplier_city_code', 'conditions' =>
+       array('supplier_id' => $get_supplier_id, 'city_country_id' => $get_country_id, 'city_id' => $get_city_id, 'wtb_status' => '1', 'active' => 'TRUE', 'city_supplier_status' => '2', 'excluded' => 'FALSE')));
+                //pr($supplier_city_codde);
+
+       array_push($search_condition, array('SupplierHotel.city_code' => $supplier_city_codde));
+       $this->paginate['order'] = array('SupplierHotel.id' => 'asc');
+       $this->set('SupplierHotels', $this->paginate("SupplierHotel", $search_condition));
+
+ /*
 $result_array = ClassRegistry::init('TravelCitySupplier')->find('all', array('fields' => array('supplier_city_code'),'conditions' => array('TravelCitySupplier.city_country_id' => $get_country_id,'TravelCitySupplier.city_id' => $get_city_id,'TravelCitySupplier.supplier_id ' => $get_supplier_id,'TravelCitySupplier.active ' => 'TRUE','TravelCitySupplier.excluded ' => 'FALSE')));
 
  count($result_array);
@@ -260,13 +273,25 @@ $result_array = ClassRegistry::init('TravelCitySupplier')->find('all', array('fi
 array_push($search_condition, $conditions);
 
 array_push($search_condition, array('SupplierHotel.supplier_id' => $get_supplier_id));
-	
-} 
+*/	
+} elseif ($this->request->is('get')) {
+
+            if (!empty($this->request->params['named']['supplier_id'])) {
+                $supplier_id = $this->data['TravelHotelLookup']['supplier_id'];
+            }
+ }
+
+ if (!isset($this->passedArgs['supplier_id']) && empty($this->passedArgs['supplier_id'])) {
+      $this->passedArgs['supplier_id'] = (isset($this->data['TravelHotelLookup']['supplier_id'])) ? $this->data['TravelHotelLookup']['supplier_id'] : '';
+ }
+
+ if (!isset($this->data) && empty($this->data)) {
+      $this->data['TravelHotelLookup']['supplier_id'] = $this->passedArgs['supplier_id'];
+ }
 
 
 
-        $this->set(compact('TravelCities', 'TravelCitySuppliers', 'supplier_city_codde', 'Provinces', 'TravelCountries', 'check_mapp', 'display', 'TravelLookupContinents'
-
+ $this->set(compact('TravelCities', 'TravelCitySuppliers', 'supplier_city_codde', 'Provinces', 'TravelCountries', 'check_mapp', 'display', 'TravelLookupContinents'
                         , 'TravelSuppliers', 'supplier_id', 'continent_id', 'country_id', 'province_id', 'city_id', 'hotel_name'));
 
     }
