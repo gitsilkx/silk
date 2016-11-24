@@ -15,7 +15,7 @@ $this->Html->addCrumb('My Supplier Hotel Report', 'javascript:void(0);', array('
 
     <div align="center" class="col-sm-12" style="font-size: 15px; font-family: sans-serif">
         <p style="color: black; background-color: #f2d7d5">
-        <strong><?php echo "Showing [".$this->Custom->getSupplierCode($supplier_id)."] Hotels for WTB Country: [".$this->Common->getCountryName(country_id)."] & WTB City [".$this->Common->getCityName($city_id)."] with Status = [FETCHED] or [CREATED]." ?></strong>
+        <strong><?php echo "Showing [".$this->Custom->getSupplierCode($supplier_id)."] Hotels for WTB Country: [".$this->Common->getCountryName($country_id)."] & WTB City [".$this->Common->getCityName($city_id)."] with Status = [FETCHED] or [CREATED]." ?></strong>
         </p>
     </div> 
         
