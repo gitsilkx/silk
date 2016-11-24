@@ -184,6 +184,19 @@ class MappingeAreasController extends AppController {
                         , 'TravelSuppliers', 'supplier_id', 'continent_id', 'country_id', 'province_id', 'city_id', 'hotel_name'));
     }
 
+    public function getCountryNameWithCountryId($country_id){
+        
+        $Data = ClassRegistry::init('TravelCountry')->find('first', array('fields' => array( 'TravelCountry.country_name'), 'conditions' => array('TravelCountry.id' => $country_id)));
+        return $Data['TravelCountry']['country_name'];
+    }
+    
+    public function getCityNameWithCityId($city_id){
+        
+        $Data = ClassRegistry::init('TravelCity')->find('first', array('fields' => array( 'TravelCity.city_name'), 'conditions' => array('TravelCity.id' => $city_id)));
+        return $Data['TravelCity']['city_name'];
+    }
+
+    
     public function supplier_hotel_report() {
 
 
@@ -242,8 +255,8 @@ $get_country_id =	$_GET['country_id'];
 $get_city_id =	$_GET['city_id'];
 $get_supplier_id =	$_GET['supplier_id'];
 
-$country_name = $this->Common->getCountryName($get_country_id);
-$city_name = $this->Common->getCityName($get_city_id);
+$country_name = $this->MappingeAreas->getCountryNameWithCountryId($get_country_id);
+$city_name = $this->MappingeAreas->getCityNameWithCityId($get_city_id);
 $supplier_id = $get_supplier_id;
 
 // THIS PART IS FOR JUST DISPLAYING THE CITY MAPPINGS FOR THE PASSED COUNTRY+CITY+SUPPLIER.
