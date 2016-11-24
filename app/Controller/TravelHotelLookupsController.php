@@ -5493,7 +5493,9 @@ array_push($search_condition, array('TravelHotelLookup.country_id' => $get_count
 
                 //$this->redirect(array('reports/hotel_summary?city_id='.$CityId));
 
-                $this->redirect(array('controller' => 'reports', 'action' => 'hotel_summary'));
+//                $this->redirect(array('controller' => 'reports', 'action' => 'hotel_summary'));
+         return $this->redirect(array('controller' => 'reports', 'action' => 'support_hotel_summary/id:'.$id));                  
+                
 
         }
 
