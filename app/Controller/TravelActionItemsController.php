@@ -227,6 +227,7 @@ $result_array = ClassRegistry::init('TravelHotelLookup')->find('all', array('fie
 }
 
 if ($get_level_id==4) {
+    /*
 $result_array = ClassRegistry::init('TravelHotelRoomSupplier')->find('all', array('fields' => array('hotel_supplier_id'),'conditions' => array('TravelHotelRoomSupplier.hotel_country_id' => $get_country_id,'TravelHotelRoomSupplier.hotel_city_id' => $get_city_id)));
 
  count($result_array);
@@ -247,7 +248,7 @@ $result_array = ClassRegistry::init('TravelHotelRoomSupplier')->find('all', arra
 }
 
 array_push($search_condition, $conditions);
-
+*/
 array_push($search_condition, array('TravelActionItem.created_by_id' => $get_creator));
 array_push($search_condition, array('TravelActionItem.next_action_by' => $get_user_id));
 array_push($search_condition, array('TravelActionItem.level_id' => $get_level_id));
