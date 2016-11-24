@@ -213,10 +213,14 @@ class MappingeAreasController extends AppController {
         $continent_id = '';
 
         $country_id = '';
+        
+        $country_name = '';
 
         $province_id = '';
 
         $city_id = '';
+        
+        $city_name = '';
 
         $supplier_city_codde = array();
 
@@ -238,6 +242,9 @@ $get_country_id =	$_GET['country_id'];
 $get_city_id =	$_GET['city_id'];
 $get_supplier_id =	$_GET['supplier_id'];
 
+$country_id = $get_country_id;
+$city_id = $get_city_id;
+$supplier_id = $get_supplier_id;
 
 // THIS PART IS FOR JUST DISPLAYING THE CITY MAPPINGS FOR THE PASSED COUNTRY+CITY+SUPPLIER.
 $check_mapp = 'TRUE';
