@@ -239,17 +239,19 @@ $get_city_id =	$_GET['city_id'];
 $get_supplier_id =	$_GET['supplier_id'];
 
 
-
+// THIS PART IS FOR JUST DISPLAYING THE CITY MAPPINGS FOR THE PASSED COUNTRY+CITY+SUPPLIER.
 $check_mapp = 'TRUE';
 $TravelCitySuppliers = $this->TravelCitySupplier->find('all', ARRAY('conditions' =>
-       array('supplier_id' => $get_supplier_id, 'city_country_id' => $get_country_id, 'city_id' => $city_id)));
-                
+       array('supplier_id' => $get_supplier_id, 'city_country_id' => $get_country_id, 'city_id' => $get_city_id)));
+
+// THIS PART HAS THE SUPPLIER HOTEL DATA PULLING LOGIC
 $display = 'TRUE';
 $supplier_city_codde = $this->TravelCitySupplier->find('list', ARRAY('fields' => 'supplier_city_code,supplier_city_code', 'conditions' =>
        array('supplier_id' => $get_supplier_id, 'city_country_id' => $get_country_id, 'city_id' => $get_city_id, 'wtb_status' => '1', 'active' => 'TRUE', 'city_supplier_status' => '2', 'excluded' => 'FALSE')));
                 //pr($supplier_city_codde);
 
        array_push($search_condition, array('SupplierHotel.city_code' => $supplier_city_codde));
+       array_push($search_condition, array('SupplierHotel.status' => '1' OR '5'));       
        $this->paginate['order'] = array('SupplierHotel.id' => 'asc');
        $this->set('SupplierHotels', $this->paginate("SupplierHotel", $search_condition));
 
