@@ -169,7 +169,7 @@
 								</td>
                                 <td class="background-l-sky">
 								<?php if($channel_id == 258): ?>
-								<a href="<?php echo $this->webroot .'mappinge_areas/supplier_hotels?country_id='.$country_id.'&province_id='.$province_id.'&city_id='.$id.'&creator='.$creator.'&level_id='.$levelm ?>" ><?php echo $getSupplierHotelSubmitCnt_1; ?></a>
+								<a href="<?php echo $this->webroot .'travel_action_items?country_id='.$country_id.'&province_id='.$province_id.'&city_id='.$id.'&creator='.$creator.'&level_id='.$levelm ?>" ><?php echo $getSupplierHotelSubmitCnt_1; ?></a>
 								<?php else :?>
 									<?php echo $getSupplierHotelSubmitCnt_1; ?>
 								<?php endif ?>
