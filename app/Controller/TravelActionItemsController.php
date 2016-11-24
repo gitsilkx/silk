@@ -205,7 +205,7 @@ $get_city_id =	$_GET['city_id'];
 $get_creator =	$_GET['creator'];
 $get_level_id =	$_GET['level_id'];
 
-
+/*
 if ($get_level_id==7) {
 $result_array = ClassRegistry::init('TravelHotelLookup')->find('all', array('fields' => array('id'),'conditions' => array('TravelHotelLookup.country_id' => $get_country_id,'TravelHotelLookup.city_id' => $get_city_id,'TravelHotelLookup.province_id ' => $get_province_id)));
 
@@ -225,7 +225,7 @@ $result_array = ClassRegistry::init('TravelHotelLookup')->find('all', array('fie
 
 	}
 }
-
+*/
 if ($get_level_id==4) {
     /*
 $result_array = ClassRegistry::init('TravelHotelRoomSupplier')->find('all', array('fields' => array('hotel_supplier_id'),'conditions' => array('TravelHotelRoomSupplier.hotel_country_id' => $get_country_id,'TravelHotelRoomSupplier.hotel_city_id' => $get_city_id)));
