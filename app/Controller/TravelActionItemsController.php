@@ -228,7 +228,7 @@ $result_array = ClassRegistry::init('TravelHotelLookup')->find('all', array('fie
 
 if ($get_level_id==4) {
     
-$result_array = ClassRegistry::init('TravelHotelRoomSupplier')->find('all', array('fields' => array('hotel_supplier_id'),'conditions' => array('TravelHotelRoomSupplier.hotel_country_id' => $get_country_id,'TravelHotelRoomSupplier.hotel_city_id' => $get_city_id)));
+$result_array = ClassRegistry::init('TravelHotelRoomSupplier')->find('all', array('fields' => array('id'),'conditions' => array('TravelHotelRoomSupplier.hotel_country_id' => $get_country_id,'TravelHotelRoomSupplier.hotel_city_id' => $get_city_id)));
 
  count($result_array);
 
@@ -238,9 +238,8 @@ $result_array = ClassRegistry::init('TravelHotelRoomSupplier')->find('all', arra
 
 	
 
-		$get_hotel_supplier_id = $results['TravelHotelRoomSupplier']['hotel_supplier_id'];		
-//		$get_hotel_supplier_id = 2131;		
-		$conditions['or'][] = array('TravelActionItem.hotel_supplier_id =' => $get_hotel_supplier_id);   
+		$get_id = $results['TravelHotelRoomSupplier']['id'];			
+		$conditions['or'][] = array('TravelActionItem.hotel_supplier_id =' => $get_id);   
 
 		$checkCondition = true;
 
