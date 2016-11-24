@@ -255,8 +255,8 @@ $get_country_id =	$_GET['country_id'];
 $get_city_id =	$_GET['city_id'];
 $get_supplier_id =	$_GET['supplier_id'];
 
-$country_name = $this->MappingeAreas->getCountryNameWithCountryId($get_country_id);
-$city_name = $this->MappingeAreas->getCityNameWithCityId($get_city_id);
+//$country_name = $this->MappingeAreas->getCountryNameWithCountryId($get_country_id);
+//$city_name = $this->MappingeAreas->getCityNameWithCityId($get_city_id);
 $supplier_id = $get_supplier_id;
 
 // THIS PART IS FOR JUST DISPLAYING THE CITY MAPPINGS FOR THE PASSED COUNTRY+CITY+SUPPLIER.
