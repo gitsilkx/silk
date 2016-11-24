@@ -254,7 +254,7 @@
 <div class="row">
     <div align="center" class="col-sm-12" style="font-size: 15px; font-family: sans-serif">
         <p style="color: black; background-color: #f2d7d5">
-        <strong><?php echo "UNL = Unallocated | PND = Pending | SMT = Submitted | APV = Approved | CMP = Completed | TKT = Support Tickets (OPEN / RESOLVED)." ?></strong>
+        <strong><?php echo "UNL = Unallocated | PND = Pending | SMT = Submitted | APV = Approved | CMP = Completed | TKT = WTB Hotel Support Tickets (OPEN / RESOLVED)." ?></strong>
         </p>
     </div> 
 </div> 
