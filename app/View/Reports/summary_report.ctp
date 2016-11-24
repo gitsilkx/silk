@@ -1,6 +1,6 @@
 <?php $this->Html->addCrumb('My Summary Report', 'javascript:void(0);', array('class' => 'breadcrumblast')); 
 
-                echo $this->Form->create('Report', array('controller' => 'reports', 'action' => 'job_report','class' => 'quick_search', 'id' => 'parsley_reg', 'novalidate' => true, 'inputDefaults' => array(
+                echo $this->Form->create('Report', array('controller' => 'reports', 'action' => 'summary_report','class' => 'quick_search', 'id' => 'parsley_reg', 'novalidate' => true, 'inputDefaults' => array(
                         'label' => false,
                         'div' => false,
                         'class' => 'form-control',
