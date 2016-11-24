@@ -12,58 +12,23 @@ $this->Html->addCrumb('My Supplier Hotel Report', 'javascript:void(0);', array('
                 ?> 
 <div class="row">
     <div class="col-sm-12">
+
+    <div align="center" class="col-sm-12" style="font-size: 15px; font-family: sans-serif">
+        <p style="color: black; background-color: #f2d7d5">
+        <strong><?php echo "Showing [] Hotels for WTB Country: [] & WTB City []." ?></strong>
+        </p>
+    </div> 
+        
         <div class="table-heading">
             <h4 class="table-heading-title"><span class="badge badge-circle badge-success"> <?php
                     echo $this->Paginator->counter(array('format' => '{:count}'));
-                    ?></span> My Fetch Area</h4>
-          
+                    ?></span> Supplier Hotels</h4>         
            
         </div>
         <div class="panel panel-default">
             <div class="panel_controls">
 
                 
-                <div class="row spe-row">
-                    <div class="col-sm-4 col-xs-8">
-                        <?php echo $this->Form->input('hotel_name', array('value' => $hotel_name, 'placeholder' => 'Please type hotel name', 'error' => array('class' => 'formerror'))); ?>
-                    </div>                 
-                </div>
-                <div class="row">
-                    
-                    
-                    <div class="col-sm-3 col-xs-6">
-                        <label for="un_member">WTB Continent:</label>
-                        <?php echo $this->Form->input('continent_id', array('options' => $TravelLookupContinents, 'empty' => '--Select--', 'value' => $continent_id, 'data-required' => 'true')); ?>
-                    </div>                    
-                    <div class="col-sm-3 col-xs-6">
-                        <label for="un_member">WTB Country:</label>
-                        <?php echo $this->Form->input('country_id', array('options' => $TravelCountries, 'empty' => '--Select--', 'value' => $country_id, 'data-required' => 'true')); ?>
-                    </div>
-                    <div class="col-sm-3 col-xs-6">
-                        <label for="un_member">WTB Province:</label>
-                        <?php echo $this->Form->input('province_id', array('options' => $Provinces, 'empty' => '--Select--', 'value' => $province_id, 'data-required' => 'true')); ?>
-                    </div>
-                    <div class="col-sm-3 col-xs-6">
-                        <label for="un_member">WTB City:</label>
-                        <?php echo $this->Form->input('city_id', array('options' => $TravelCities, 'empty' => '--Select--', 'value' => $city_id, 'data-required' => 'true')); ?>
-                    </div>
-                    <div class="col-sm-3 col-xs-6">
-                        <label for="un_member">Supplier:</label>
-                        <?php echo $this->Form->input('supplier_id', array('options' => $TravelSuppliers, 'empty' => '--Select--', 'value' => $supplier_id, 'data-required' => 'true')); ?>
-                    </div>
-
-
-
-
-                    <div class="col-sm-3 col-xs-6">
-                        <label>&nbsp;</label>
-                        <?php
-                        echo $this->Form->submit('Check City Mappings', array('div' => false,'label' => false,'name' => 'check_city_mapping', 'class' => 'success btn','style' => 'width: 65%;margin-top: 0px;'));
-// echo $this->Form->button('Reset', array('type' => 'reset', 'class' => 'btn btn-default btn-sm"'));
-                        ?>
-
-                    </div>
-                </div>
                 
             </div>
             <?PHP if($check_mapp == 'TRUE'){?>
@@ -136,17 +101,7 @@ $this->Html->addCrumb('My Supplier Hotel Report', 'javascript:void(0);', array('
                     ?>
                 </tbody>
             </table>  
-                <?php
-                   if (isset($TravelCitySuppliers) && count($TravelCitySuppliers) > 0):?>
-                <div class="col-sm-3 col-xs-6">
-                      
-                        <?php
-                        echo $this->Form->submit('Fetch Hotel', array('div' => false,'label' => false,'name' => 'fetch_hotel', 'class' => 'success btn','style' => 'margin-left:-16px;width:50%;margin-top: 0px;'));
-// echo $this->Form->button('Reset', array('type' => 'reset', 'class' => 'btn btn-default btn-sm"'));
-                        ?>
 
-                    </div>
-                <?php endif;?>
                 
                 </div>
             <?php }?>
