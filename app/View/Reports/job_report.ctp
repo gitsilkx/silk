@@ -146,7 +146,7 @@
 								</td>
                                 <td class="background_yellow">
 								<?php if($channel_id == 259): ?>
-								<a href="<?php echo $this->webroot .'travel_action_items?country_id='.$country_id.'&province_id='.$province_id.'&city_id='.$id.'&creator='.$creator ?>" ><?php echo $getHoteSubmittedCnt_1; ?></a>
+								<a href="<?php echo $this->webroot .'travel_action_items?country_id='.$country_id.'&province_id='.$province_id.'&city_id='.$id.'&creator='.$creator.'&level_id='.levelh ?>" ><?php echo $getHoteSubmittedCnt_1; ?></a>
 								<?php else :?>
 									<?php echo $getHoteSubmittedCnt_1; ?>
 								<?php endif ?>
