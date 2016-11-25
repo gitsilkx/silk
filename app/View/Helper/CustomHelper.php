@@ -752,7 +752,7 @@ if($type == 'Mapping Submitted')
 
   
 
-}
+
 
 
  public function getHotelActionByDateCnt($user_id,$country_id,$province_id,$city_id,$supplier_id,$level_id,$fordate,$type){
@@ -926,5 +926,4 @@ if($type == 'Mapping Approved')
     }
 
   
-
 }
