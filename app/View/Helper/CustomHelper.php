@@ -721,7 +721,7 @@ if($type == 'Mapping Submitted')
                         'alias' => 'TravelActionItem',
                         'type'  => 'INNER',
                         'foreignKey'    => false,
-                        'conditions'    => array('TravelHotelLookup.id = TravelActionItem.hotel_id','TravelActionItem.action_item_active' => 'Yes','TravelActionItem.type_id' => "$type_id", 'date(TravelActionItem.created) BETWEEN ? AND ?' => array($sdate,$edate)),
+                        'conditions'    => array('TravelHotelLookup.id = TravelActionItem.hotel_id','TravelActionItem.level_id' => '7','TravelActionItem.type_id' => '1' OR '4', 'date(TravelActionItem.created) BETWEEN ? AND ?' => array($sdate,$edate)),
 
                         ),
 
