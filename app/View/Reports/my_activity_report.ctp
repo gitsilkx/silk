@@ -92,7 +92,8 @@
                             $province_id = $TravelCity[0]['province_id'];							
                             $user_id = $TravelCity[0]['user_id'];
 							
-							$hotelEditedCnt += $hotelEditedCnt_1 = $this->Custom->getHotelEditActionByDateCnt($user_id,$country_id,$province_id,$id,$supplier_id,$levelh,$data_choose_date,'Hotel Edited');
+                                                        $hotelEditedCnt += $hotelEditedCnt_1 = $this->Custom->getHoteByDateCnt($country_id,$id,$data_choose_date,'Hotel Edited');
+							//$hotelEditedCnt += $hotelEditedCnt_1 = $this->Custom->getHotelEditActionByDateCnt($user_id,$country_id,$province_id,$id,$supplier_id,$levelh,$data_choose_date,'Hotel Edited');
                                                         /*
 							$MappingSubmittedCnt += $MappingSubmittedCnt_1 = $this->Custom->getHotelActionByDateCnt($user_id,$country_id,$province_id,$id,$supplier_id,$levelh,$data_choose_date,'Mapping Submitted');
 							$hotelApprovedCnt += $hotelApprovedCnt_1 = $this->Custom->getHotelActionByDateCnt($user_id,$country_id,$province_id,$id,$supplier_id,$levelh,$data_choose_date,'Hotel Approved');
