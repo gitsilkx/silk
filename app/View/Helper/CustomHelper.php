@@ -363,7 +363,7 @@ class CustomHelper extends Helper {
     }
  #add method by pc
  
- public function getHoteByDateCnt($country_id,$city_id,$fordate){
+ public function getHoteByDateCnt($country_id,$city_id,$fordate,$type){
 	 
 #For get today
 if($fordate == 'today'){
@@ -403,11 +403,18 @@ $sdate = date("$year-01-01").' 00:00:00';
 $edate = date("$year-12-t").' 23:59:59';  
 }	 	 
 	 
-	 
-	 
-	 
-	 
-	 
+$type_id = '';	 
+//Hotel Edited	 7
+if($type == 'Hotel Edited')
+{
+		$type_id = 7;	 
+}
+//Mapping Submitted   4	 	
+if($type == 'Mapping Submitted')
+{
+		$type_id = 4;	 
+}	 
+
 	 
 
         return ClassRegistry::init('TravelHotelLookup')->find('count', array('fields' => array('id'),
@@ -420,7 +427,7 @@ $edate = date("$year-12-t").' 23:59:59';
                         'alias' => 'TravelActionItem',
                         'type'  => 'INNER',
                         'foreignKey'    => false,
-                        'conditions'    => array('TravelHotelLookup.id = TravelActionItem.hotel_id','TravelActionItem.action_item_active' => 'Yes', 'date(TravelActionItem.created) BETWEEN ? AND ?' => array($sdate,$edate)),
+                        'conditions'    => array('TravelHotelLookup.id = TravelActionItem.hotel_id','TravelActionItem.action_item_active' => 'Yes','TravelActionItem.type_id' => "$type_id", 'date(TravelActionItem.created) BETWEEN ? AND ?' => array($sdate,$edate)),
 
                         ),
 
@@ -450,4 +457,3 @@ $edate = date("$year-12-t").' 23:59:59';
     }
   
 }
-
