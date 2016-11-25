@@ -5726,129 +5726,7 @@ class ReportsController extends AppController {
         
         $this->set(compact('persons','TravelCities','TravelSuppliers','display','summary','Select','channel_id'));
     }
-
-    public function summary_report() {
-        
-        $user_id = $this->Auth->user('id');
-        $role_id = $this->Session->read("role_id");
-        $channel_id = $this->Session->read("channel_id");
-        $dataArray = array();   
-        $TravelCities = array();     
-        $display = 'FALSE';
-        $personArr = array();
-        $summary = array();
-        $persons = array();
-        $Select = '--Select--';
-        
-        if($channel_id == '262'){
-        $personArr = array('ProvincePermission.user_id' => $user_id);
-        $summary = array('1' => 'Operation');
-        $persons = $this->ProvincePermission->find('all', array('fields' => array('ProvincePermission.user_id', 'User.fname','User.lname'),
-           'joins' => array(
-                array(
-                    'table' => 'users',
-                    'alias' => 'User',
-                    'conditions' => array(
-                        'ProvincePermission.user_id = User.id')
-                )               
-            ),
-            'conditions' => $personArr,
-            'group' => 'ProvincePermission.user_id'));
-             $persons = Set::combine($persons, '{n}.ProvincePermission.user_id', array('%s %s', '{n}.User.fname', '{n}.User.lname'));   
-           }
-        elseif($channel_id == '258' || $channel_id == '259') {
-            $summary = array('1' => 'Operation','2' => 'Approver'); 
-        }  
-        elseif($channel_id == '261' || $channel_id == '214') {
-            //die('fgh');;
-            $summary = array('1' => 'Operation','2' => 'Approver');
-            $persons = $this->ProvincePermission->find('all', array('fields' => array('ProvincePermission.user_id', 'User.fname','User.lname'),
-           'joins' => array(
-                array(
-                    'table' => 'users',
-                    'alias' => 'User',
-                    'conditions' => array(
-                        'ProvincePermission.user_id = User.id')
-                )               
-            ),
-            'group' => 'ProvincePermission.user_id'));
-             $persons = Set::combine($persons, '{n}.ProvincePermission.user_id', array('%s %s', '{n}.User.fname', '{n}.User.lname'));   
-        }
-          
-        if ($this->request->is('post') || $this->request->is('put')) {
-            
-            $display = 'TRUE';
-            
-           $data_user_id = $this->data['Report']['user_id'];
-           $summary_type = $this->data['Report']['summary_type'];
-           $supplier_id = $this->data['Report']['supplier_id'];
-           if($channel_id == '262'){
-           $ProvincePermissions = $this->ProvincePermission->find('all',array('conditions' => array('user_id' => $data_user_id)));
-          
-           
-           }
-// || $channel_id == '261' add by pc as per requirment
-           elseif($channel_id == '258' || $channel_id == '259' || $channel_id == '261') {
-               if($summary_type == '2'){
-                   $Select = 'All';
-                   $personArr = array('OR' => array('ProvincePermission.approval_id' => $user_id,'ProvincePermission.maaping_approval_id' => $user_id,'ProvincePermission.user_id' => $user_id));
-                   $persons = $this->ProvincePermission->find('all', array('fields' => array('ProvincePermission.user_id', 'User.fname','User.lname'),
-           'joins' => array(
-                array(
-                    'table' => 'users',
-                    'alias' => 'User',
-                    'conditions' => array(
-                        'ProvincePermission.user_id = User.id')
-                )               
-            ),
-            'conditions' => $personArr,
-            'group' => 'ProvincePermission.user_id'));
-             $persons = Set::combine($persons, '{n}.ProvincePermission.user_id', array('%s %s', '{n}.User.fname', '{n}.User.lname'));   
-                   
-                   
-                    if($data_user_id<>'')
-                        $ProvincePermissions = $this->ProvincePermission->find('all',array('conditions' => array('user_id' => $data_user_id)));
-                    else
-                       $ProvincePermissions = $this->ProvincePermission->find('all',array('conditions' => array('OR' => array('ProvincePermission.approval_id' => $user_id,'ProvincePermission.maaping_approval_id' => $user_id,'ProvincePermission.user_id' => $user_id)))); 
-               }
-               else
-                   $ProvincePermissions = $this->ProvincePermission->find('all',array('conditions' => array('user_id' => $data_user_id)));
-        }
-          
-//echo '<pre>';
-//print_r($ProvincePermissions);die;
-           foreach($ProvincePermissions as $ProvincePermission){
-               array_push($dataArray, array('province_id' => $ProvincePermission['ProvincePermission']['province_id'],'country_id' => $ProvincePermission['ProvincePermission']['country_id'],'user_id' => $ProvincePermission['ProvincePermission']['user_id']
-			   ,'approval_id' => $ProvincePermission['ProvincePermission']['approval_id'],'maaping_approval_id' => $ProvincePermission['ProvincePermission']['maaping_approval_id']
-			   
-			   ));
-               //$dataArray = ARRAY('province_id' => $ProvincePermission['ProvincePermission']['province_id'],'country_id' => $ProvincePermission['ProvincePermission']['country_id']);
-               
-           }
-          $i=0;
-           foreach($dataArray as $val){
-          $this->TravelCity->unbindModel(
-                array('hasMany' => array('TravelHotelRoomSupplier','TravelCitySupplier','TravelArea','TravelHotelLookup','TravelSuburb'))
-            );
-               $TravelCities[] = $this->TravelCity->find('first',array('fields' => 'id,city_name','conditions' => array('province_id' => $val['province_id'])));
-              
-               array_push($TravelCities[$i], array('province_id' => $val['province_id'],'country_id' => $val['country_id'],'user_id' => $val['user_id'],'approval_id' => $val['approval_id'],'maaping_approval_id' => $val['maaping_approval_id'])); 
-              
-                $conArray[] = array('TravelHotelLookup.city_id' => $TravelCities[$i]['TravelCity']['id'],'TravelHotelLookup.country_id' => $val['country_id']);
-                ///$andArray = array('province_id' => $val['province_id'],'country_id' => $val['country_id']);
-                $i++;
-              
-           }         
-        }
-        
-        
-        $TravelSuppliers = $this->TravelSupplier->find('list', array('fields' => 'id,supplier_code', 'order' => 'supplier_code ASC'));
-        
-        
-        $this->set(compact('persons','TravelCities','TravelSuppliers','display','summary','Select','channel_id'));
-    }
-
-    
+	
 	public function my_activity_report(){
 
         
@@ -5944,7 +5822,7 @@ class ReportsController extends AppController {
         }
 
           
-
+  $data_choose_date= '';
         if ($this->request->is('post') || $this->request->is('put')) {
 
             
@@ -5958,6 +5836,8 @@ class ReportsController extends AppController {
            $summary_type = $this->data['Report']['summary_type'];
 
            $supplier_id = $this->data['Report']['supplier_id'];
+		   
+		   $data_choose_date= $this->data['Report']['choose_date'];
 
            if($channel_id == '262'){
 
@@ -6074,13 +5954,251 @@ class ReportsController extends AppController {
         $TravelSuppliers = $this->TravelSupplier->find('list', array('fields' => 'id,supplier_code', 'order' => 'supplier_code ASC'));
 
         
+		$ChooseDate = array('today' => 'Today','yesterday' => 'Yesterday','this_week' => 'This Week','this_month' => 'This Month','this_year' => 'This Year','last_year' => 'Last Year');
+        
+
+        $this->set(compact('persons','TravelCities','TravelSuppliers','display','summary','Select','channel_id','ChooseDate','data_choose_date'));
+
+    }
+    public function summary_report() {
+
+        
+
+        $user_id = $this->Auth->user('id');
+
+        $role_id = $this->Session->read("role_id");
+
+        $channel_id = $this->Session->read("channel_id");
+
+        $dataArray = array();   
+
+        $TravelCities = array();     
+
+        $display = 'FALSE';
+
+        $personArr = array();
+
+        $summary = array();
+
+        $persons = array();
+
+        $Select = '--Select--';
+
+        
+
+        if($channel_id == '262'){
+
+        $personArr = array('ProvincePermission.user_id' => $user_id);
+
+        $summary = array('1' => 'Operation');
+
+        $persons = $this->ProvincePermission->find('all', array('fields' => array('ProvincePermission.user_id', 'User.fname','User.lname'),
+
+           'joins' => array(
+
+                array(
+
+                    'table' => 'users',
+
+                    'alias' => 'User',
+
+                    'conditions' => array(
+
+                        'ProvincePermission.user_id = User.id')
+
+                )               
+
+            ),
+
+            'conditions' => $personArr,
+
+            'group' => 'ProvincePermission.user_id'));
+
+             $persons = Set::combine($persons, '{n}.ProvincePermission.user_id', array('%s %s', '{n}.User.fname', '{n}.User.lname'));   
+
+           }
+
+        elseif($channel_id == '258' || $channel_id == '259') {
+
+            $summary = array('1' => 'Operation','2' => 'Approver'); 
+
+        }  
+
+        elseif($channel_id == '261' || $channel_id == '214') {
+
+            //die('fgh');;
+
+            $summary = array('1' => 'Operation','2' => 'Approver');
+
+            $persons = $this->ProvincePermission->find('all', array('fields' => array('ProvincePermission.user_id', 'User.fname','User.lname'),
+
+           'joins' => array(
+
+                array(
+
+                    'table' => 'users',
+
+                    'alias' => 'User',
+
+                    'conditions' => array(
+
+                        'ProvincePermission.user_id = User.id')
+
+                )               
+
+            ),
+
+            'group' => 'ProvincePermission.user_id'));
+
+             $persons = Set::combine($persons, '{n}.ProvincePermission.user_id', array('%s %s', '{n}.User.fname', '{n}.User.lname'));   
+
+        }
+
+          
+
+        if ($this->request->is('post') || $this->request->is('put')) {
+
+            
+
+            $display = 'TRUE';
+
+            
+
+           $data_user_id = $this->data['Report']['user_id'];
+
+           $summary_type = $this->data['Report']['summary_type'];
+
+           $supplier_id = $this->data['Report']['supplier_id'];
+
+           if($channel_id == '262'){
+
+           $ProvincePermissions = $this->ProvincePermission->find('all',array('conditions' => array('user_id' => $data_user_id)));
+
+          
+
+           
+
+           }
+
+// || $channel_id == '261' add by pc as per requirment
+
+           elseif($channel_id == '258' || $channel_id == '259' || $channel_id == '261') {
+
+               if($summary_type == '2'){
+
+                   $Select = 'All';
+
+                   $personArr = array('OR' => array('ProvincePermission.approval_id' => $user_id,'ProvincePermission.maaping_approval_id' => $user_id,'ProvincePermission.user_id' => $user_id));
+
+                   $persons = $this->ProvincePermission->find('all', array('fields' => array('ProvincePermission.user_id', 'User.fname','User.lname'),
+
+           'joins' => array(
+
+                array(
+
+                    'table' => 'users',
+
+                    'alias' => 'User',
+
+                    'conditions' => array(
+
+                        'ProvincePermission.user_id = User.id')
+
+                )               
+
+            ),
+
+            'conditions' => $personArr,
+
+            'group' => 'ProvincePermission.user_id'));
+
+             $persons = Set::combine($persons, '{n}.ProvincePermission.user_id', array('%s %s', '{n}.User.fname', '{n}.User.lname'));   
+
+                   
+
+                   
+
+                    if($data_user_id<>'')
+
+                        $ProvincePermissions = $this->ProvincePermission->find('all',array('conditions' => array('user_id' => $data_user_id)));
+
+                    else
+
+                       $ProvincePermissions = $this->ProvincePermission->find('all',array('conditions' => array('OR' => array('ProvincePermission.approval_id' => $user_id,'ProvincePermission.maaping_approval_id' => $user_id,'ProvincePermission.user_id' => $user_id)))); 
+
+               }
+
+               else
+
+                   $ProvincePermissions = $this->ProvincePermission->find('all',array('conditions' => array('user_id' => $data_user_id)));
+
+        }
+
+          
+
+//echo '<pre>';
+
+//print_r($ProvincePermissions);die;
+
+           foreach($ProvincePermissions as $ProvincePermission){
+
+               array_push($dataArray, array('province_id' => $ProvincePermission['ProvincePermission']['province_id'],'country_id' => $ProvincePermission['ProvincePermission']['country_id'],'user_id' => $ProvincePermission['ProvincePermission']['user_id']
+
+			   ,'approval_id' => $ProvincePermission['ProvincePermission']['approval_id'],'maaping_approval_id' => $ProvincePermission['ProvincePermission']['maaping_approval_id']
+
+			   
+
+			   ));
+
+               //$dataArray = ARRAY('province_id' => $ProvincePermission['ProvincePermission']['province_id'],'country_id' => $ProvincePermission['ProvincePermission']['country_id']);
+
+               
+
+           }
+
+          $i=0;
+
+           foreach($dataArray as $val){
+
+          $this->TravelCity->unbindModel(
+
+                array('hasMany' => array('TravelHotelRoomSupplier','TravelCitySupplier','TravelArea','TravelHotelLookup','TravelSuburb'))
+
+            );
+
+               $TravelCities[] = $this->TravelCity->find('first',array('fields' => 'id,city_name','conditions' => array('province_id' => $val['province_id'])));
+
+              
+
+               array_push($TravelCities[$i], array('province_id' => $val['province_id'],'country_id' => $val['country_id'],'user_id' => $val['user_id'],'approval_id' => $val['approval_id'],'maaping_approval_id' => $val['maaping_approval_id'])); 
+
+              
+
+                $conArray[] = array('TravelHotelLookup.city_id' => $TravelCities[$i]['TravelCity']['id'],'TravelHotelLookup.country_id' => $val['country_id']);
+
+                ///$andArray = array('province_id' => $val['province_id'],'country_id' => $val['country_id']);
+
+                $i++;
+
+              
+
+           }         
+
+        }
+
+        
+
+        
+
+        $TravelSuppliers = $this->TravelSupplier->find('list', array('fields' => 'id,supplier_code', 'order' => 'supplier_code ASC'));
+
+        
 
         
 
         $this->set(compact('persons','TravelCities','TravelSuppliers','display','summary','Select','channel_id'));
 
     }
-    
     public function duplicate_hotel_report() {
 
 
