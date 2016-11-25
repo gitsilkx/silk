@@ -1,4 +1,4 @@
-<?php $this->Html->addCrumb('My Summary', 'javascript:void(0);', array('class' => 'breadcrumblast')); 
+<?php $this->Html->addCrumb('My Activity Report', 'javascript:void(0);', array('class' => 'breadcrumblast')); 
 
                 echo $this->Form->create('Report', array('controller' => 'reports', 'action' => 'my_activity_report','class' => 'quick_search', 'id' => 'parsley_reg', 'novalidate' => true, 'inputDefaults' => array(
                         'label' => false,
@@ -9,7 +9,7 @@
 <div class="row">
     <div class="col-sm-12">
         <div class="table-heading">
-            <h4 class="table-heading-title"> My Summary</h4>
+            <h4 class="table-heading-title"> My Activities</h4>
             
         </div>
         <div class="panel panel-default">
@@ -18,7 +18,7 @@
           
                 <div class="row">
                     <div class="col-sm-3 col-xs-6">
-                        <label for="un_member">Summary Type:</label>
+                        <label for="un_member">Activity Type:</label>
                         <?php echo $this->Form->input('summary_type', array('options' => $summary, 'empty' => '--Select--', 'data-required' => 'true','disabled' => '2')); ?>
                     </div>
 					<div class="col-sm-3 col-xs-6">
@@ -26,11 +26,11 @@
                         <?php echo $this->Form->input('user_id', array('options' => $persons, 'empty' => $Select)); ?>
                     </div>
                     <div class="col-sm-3 col-xs-6">
-                        <label for="un_member">Choose Date:</label>
+                        <label for="un_member">Choose Period:</label>
                         <?php echo $this->Form->input('choose_date', array('options' => $ChooseDate, 'empty' => '--Select--', 'data-required' => 'true')); ?>
                     </div> 
 					<div class="col-sm-3 col-xs-6">
-                        <label for="un_member">Supplier:</label>
+                        <label for="un_member">Choose Supplier:</label>
                         <?php echo $this->Form->input('supplier_id', array('options' => $TravelSuppliers, 'empty' => '--Select--', 'data-required' => 'true')); ?>
                     </div>  					
                     <div class="col-sm-3 col-xs-6">
@@ -48,7 +48,7 @@
                 <thead>
                    <tr class="footable-group-row">
                         <th data-group="group3" colspan="5" class="nodis">Information</th>
-                        <th data-group="group1" colspan="5">Wtp Hotel Edit</th> 
+                        <th data-group="group1" colspan="5">Activity Summary</th> 
                     </tr>
                     <tr>           
                         <th data-toggle="phone"  data-sort-ignore="true" data-group="group3">Sl. </th>
@@ -62,7 +62,7 @@
                         <th data-toggle="phone"  data-sort-ignore="true" data-group="group1" >Hotel Approved</th>
                         <th data-toggle="phone"  data-sort-ignore="true" data-group="group1" >Mapping Approved</th>
                         <th data-hide="phone"  data-sort-ignore="true" data-group="group1" >Image Uploaded</th>                
-						
+                        <th data-hide="phone"  data-sort-ignore="true" data-group="group1" >Ticket Submitted</th>   						
                                          
                     </tr>
                 </thead>
@@ -74,6 +74,8 @@
                 //  die;
 				//echo $data_choose_date;
                     $supplier_id = $this->data['Report']['supplier_id'];
+                    $levelh = '7';
+                    $levelm = '4';						
                     if (isset($TravelCities) && count($TravelCities) > 0):
 					
 					$hotelEditedCnt = 0;
@@ -83,11 +85,15 @@
                         foreach ($TravelCities as $TravelCity):
                             $id = $TravelCity['TravelCity']['id'];              
                             $country_id = $TravelCity[0]['country_id'];
+                            $province_id = $TravelCity[0]['province_id'];							
+                            $user_id = $TravelCity[0]['user_id'];
 							
-							
-							$hotelEditedCnt += $hotelEditedCnt_1 = $this->Custom->getHoteByDateCnt($country_id,$id,$data_choose_date,'Hotel Edited');
-							$MappingSubmittedCnt += $MappingSubmittedCnt_1 = $this->Custom->getHoteByDateCnt($country_id,$id,$data_choose_date,'Mapping Submitted');
-							
+							$hotelEditedCnt += $hotelEditedCnt_1 = $this->Custom->getHotelActionByDateCnt($user_id,$country_id,$province_id,$id,$supplier_id,$levelh,$data_choose_date,'Hotel Edited');
+							$MappingSubmittedCnt += $MappingSubmittedCnt_1 = $this->Custom->getHotelActionByDateCnt($user_id,$country_id,$province_id,$id,$supplier_id,$levelh,$data_choose_date,'Mapping Submitted');
+							$hotelApprovedCnt += $hotelApprovedCnt_1 = $this->Custom->getHotelActionByDateCnt($user_id,$country_id,$province_id,$id,$supplier_id,$levelh,$data_choose_date,'Hotel Approved');
+							$MappingApprovedCnt += $MappingApprovedCnt_1 = $this->Custom->getHotelActionByDateCnt($user_id,$country_id,$province_id,$id,$supplier_id,$levelh,$data_choose_date,'Mapping Approved');
+							$ImageUploadedCnt += $ImageUploadedCnt_1 = $this->Custom->getHotelActionByDateCnt($user_id,$country_id,$province_id,$id,$supplier_id,$levelh,$data_choose_date,'Image Uploaded');							
+							$TicketSubmittedCnt += $TicketSubmittedCnt_1 = $this->Custom->getHotelActionByDateCnt($user_id,$country_id,$province_id,$id,$supplier_id,$levelh,$data_choose_date,'Ticket Submitted');														
                             ?>
                             <tr>                              
 								<td><?php echo $i; ?></td>
@@ -98,9 +104,10 @@
                                 
                                 <td class="background_yellow"><?php echo $hotelEditedCnt_1; ?></td>
                                 <td class="background_yellow"><?php echo $MappingSubmittedCnt_1; ?></td>
-                                <td class="background_yellow">0</td>                               
-                                <td class="background_yellow">0</td>
-								<td class="background_yellow">0</td>
+                                <td class="background_yellow"><?php echo $hotelApprovedCnt_1; ?></td>                               
+                                <td class="background_yellow"><?php echo $MappingApprovedCnt_1; ?></td>
+								<td class="background_yellow"><?php echo $ImageUploadedCnt_1; ?></td>
+								<td class="background_yellow"><?php echo $TicketSubmittedCnt_1; ?></td>								
                             </tr>
                         <?php 
                         $i++;
