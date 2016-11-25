@@ -80,6 +80,10 @@
 					
 					$hotelEditedCnt = 0;
 					$MappingSubmittedCnt = 0;
+                                        $hotelApprovedCnt = 0;
+                                        $MappingApprovedCnt = 0;
+                                        $ImageUploadedCnt = 0;
+                                        $TicketSubmittedCnt = 0;
 				
 					
                         foreach ($TravelCities as $TravelCity):
@@ -89,11 +93,13 @@
                             $user_id = $TravelCity[0]['user_id'];
 							
 							$hotelEditedCnt += $hotelEditedCnt_1 = $this->Custom->getHotelEditActionByDateCnt($user_id,$country_id,$province_id,$id,$supplier_id,$levelh,$data_choose_date,'Hotel Edited');
+                                                        /*
 							$MappingSubmittedCnt += $MappingSubmittedCnt_1 = $this->Custom->getHotelActionByDateCnt($user_id,$country_id,$province_id,$id,$supplier_id,$levelh,$data_choose_date,'Mapping Submitted');
 							$hotelApprovedCnt += $hotelApprovedCnt_1 = $this->Custom->getHotelActionByDateCnt($user_id,$country_id,$province_id,$id,$supplier_id,$levelh,$data_choose_date,'Hotel Approved');
 							$MappingApprovedCnt += $MappingApprovedCnt_1 = $this->Custom->getHotelActionByDateCnt($user_id,$country_id,$province_id,$id,$supplier_id,$levelh,$data_choose_date,'Mapping Approved');
 							$ImageUploadedCnt += $ImageUploadedCnt_1 = $this->Custom->getHotelActionByDateCnt($user_id,$country_id,$province_id,$id,$supplier_id,$levelh,$data_choose_date,'Image Uploaded');							
 							$TicketSubmittedCnt += $TicketSubmittedCnt_1 = $this->Custom->getHotelActionByDateCnt($user_id,$country_id,$province_id,$id,$supplier_id,$levelh,$data_choose_date,'Ticket Submitted');														
+                                                         */
                             ?>
                             <tr>                              
 								<td><?php echo $i; ?></td>
@@ -118,9 +124,10 @@
                                 
                                 <th><?php echo $hotelEditedCnt; ?></th>
                                 <th><?php echo $MappingSubmittedCnt; ?></th>
-                                <th><?php echo '0'; ?></th>
-                                <th><?php echo '0'; ?></th>
-                                <th><?php echo '0'; ?></th>                                                                
+                                <th><?php echo $hotelApprovedCnt; ?></th>
+                                <th><?php echo $MappingApprovedCnt; ?></th>
+                                <th><?php echo $ImageUploadedCnt; ?></th>                                                                
+                                <th><?php echo $TicketSubmittedCnt; ?></th>                                  
                             </tr>
 
 <?php						
