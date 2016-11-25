@@ -106,8 +106,8 @@
                                 <td class="background_yellow"><?php echo $MappingSubmittedCnt_1; ?></td>
                                 <td class="background_yellow"><?php echo $hotelApprovedCnt_1; ?></td>                               
                                 <td class="background_yellow"><?php echo $MappingApprovedCnt_1; ?></td>
-								<td class="background_yellow"><?php echo $ImageUploadedCnt_1; ?></td>
-								<td class="background_yellow"><?php echo $TicketSubmittedCnt_1; ?></td>								
+                                <td class="background_yellow"><?php echo $ImageUploadedCnt_1; ?></td>
+				<td class="background_yellow"><?php echo $TicketSubmittedCnt_1; ?></td>								
                             </tr>
                         <?php 
                         $i++;
