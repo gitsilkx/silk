@@ -971,7 +971,7 @@ $edate = date("$year-12-t").' 23:59:59';
 if($type == 'Hotel Edited')
 {
         return ClassRegistry::init('TravelActionItem')->find('count', array('fields' => array('id'),
-/*		
+		
 		'joins' => array(
 
                     array(
@@ -985,7 +985,7 @@ if($type == 'Hotel Edited')
                         ),
 
                 ),
-*/		
+		
 		'conditions' => array('TravelActionItem.created_by' => $user_id,'TravelActionItem.type_id' => '1' OR '4')));	 
 //        	'conditions' => array('TravelActionItem.created_by' => $user_id,'TravelActionItem.level_id' => $level_id,'TravelActionItem.type_id' => '1' OR '4','date(TravelActionItem.created) BETWEEN ? AND ?' => array($sdate,$edate))));	 
 }
