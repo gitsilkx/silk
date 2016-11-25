@@ -806,10 +806,10 @@ if($type == 'Hotel Edited')
                     array(
 
                         'table' => 'travel_hotel_lookups',
-                        'alias' => 'TravelHotelLookup',
+                        'alias' => 'TravelHotelLookupa',
                         'type'  => 'INNER',
                         'foreignKey'    => false,
-                        'conditions'    => array('TravelHotelLookup.id = TravelActionItem.hotel_id','TravelHotelLookup.country_id' => $country_id,'TravelHotelLookup.province_id' => $province_id,'TravelHotelLookup.city_id' => $city_id),
+                        'conditions'    => array('TravelHotelLookupa.id = TravelActionItem.hotel_id','TravelHotelLookupa.country_id' => $country_id,'TravelHotelLookupa.province_id' => $province_id,'TravelHotelLookupa.city_id' => $city_id),
 
                         ),
 
@@ -828,10 +828,10 @@ if($type == 'Hotel Approved')
                     array(
 
                         'table' => 'travel_hotel_lookups',
-                        'alias' => 'TravelHotelLookup',
+                        'alias' => 'TravelHotelLookupb',
                         'type'  => 'INNER',
                         'foreignKey'    => false,
-                        'conditions'    => array('TravelHotelLookup.id = TravelActionItem.hotel_id','TravelHotelLookup.country_id' => $country_id,'TravelHotelLookup.province_id' => $province_id,'TravelHotelLookup.city_id' => $city_id),
+                        'conditions'    => array('TravelHotelLookupb.id = TravelActionItem.hotel_id','TravelHotelLookupb.country_id' => $country_id,'TravelHotelLookupb.province_id' => $province_id,'TravelHotelLookupb.city_id' => $city_id),
 
                         ),
 
@@ -850,10 +850,10 @@ if($type == 'Mapping Submitted')
                     array(
 
                         'table' => 'travel_hotel_room_suppliers',
-                        'alias' => 'TravelHotelRoomSupplier',
+                        'alias' => 'TravelHotelRoomSuppliera',
                         'type'  => 'INNER',
                         'foreignKey'    => false,
-                        'conditions'    => array('TravelHotelRoomSupplier.id = TravelActionItem.hotel_supplier_id','TravelHotelRoomSupplier.country_id' => $country_id,'TravelHotelRoomSupplier.city_id' => $city_id),'TravelHotelRoomSupplier.supplier_id' => $supplier_id,
+                        'conditions'    => array('TravelHotelRoomSuppliera.id = TravelActionItem.hotel_supplier_id','TravelHotelRoomSuppliera.country_id' => $country_id,'TravelHotelRoomSuppliera.city_id' => $city_id),'TravelHotelRoomSuppliera.supplier_id' => $supplier_id,
 
                         ),
 
@@ -872,10 +872,10 @@ if($type == 'Mapping Approved')
                     array(
 
                         'table' => 'travel_hotel_room_suppliers',
-                        'alias' => 'TravelHotelRoomSupplier',
+                        'alias' => 'TravelHotelRoomSupplierb',
                         'type'  => 'INNER',
                         'foreignKey'    => false,
-                        'conditions'    => array('TravelHotelRoomSupplier.id = TravelActionItem.hotel_supplier_id','TravelHotelRoomSupplier.country_id' => $country_id,'TravelHotelRoomSupplier.city_id' => $city_id),'TravelHotelRoomSupplier.supplier_id' => $supplier_id,
+                        'conditions'    => array('TravelHotelRoomSupplierb.id = TravelActionItem.hotel_supplier_id','TravelHotelRoomSupplierb.country_id' => $country_id,'TravelHotelRoomSupplierb.city_id' => $city_id),'TravelHotelRoomSupplierb.supplier_id' => $supplier_id,
 
                         ),
 
