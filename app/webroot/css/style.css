@@ -10086,13 +10086,20 @@ table.ctable td.rgtaln {
 }
 .background_yellow{
 	background-color: #fcf3cf;
+	width: 60px;
+    text-align: center;
 }
 .background-l-gray{
 	background-color: #eaeded;
+	width: 60px;
+    text-align: center;
 }
 .background-l-sky{
 	background-color: #d1f2eb;
+	width: 60px;
+    text-align: center;
 }
 .background-ticket{
 	background-color: #f2d7d5;
+	
 }
