@@ -519,8 +519,14 @@ if($type == 'Hotel Edited')
 
                 ),
 		
-		'conditions' => array('TravelActionItem.created_by' => $user_id,'TravelActionItem.type_id' => '4')));	 
-//        	'conditions' => array('TravelActionItem.created_by' => $user_id,'TravelActionItem.level_id' => $level_id,'TravelActionItem.type_id' => '1' OR '4','date(TravelActionItem.created) BETWEEN ? AND ?' => array($sdate,$edate))));	 
+		'conditions' => array('TravelActionItem.created_by' => $user_id,'TravelActionItem.type_id' => '4','TravelActionItem.level_id' => $level_id)));	 
+/*            
+        	'conditions' => array('TravelActionItem.created_by' => $user_id,
+                                        'TravelActionItem.level_id' => $level_id,
+                                        'TravelActionItem.type_id' => '4',
+                                        'date(TravelActionItem.created) BETWEEN ? AND ?' => array($sdate,$edate))));	
+*/
+ */ 
 }
 
  
