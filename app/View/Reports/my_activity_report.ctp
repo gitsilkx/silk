@@ -77,20 +77,20 @@
                     $levelh = '7';
                     $levelm = '4';	
                     
-#For get today
+//For get today
 if($data_choose_date == 'today'){
 	$sdate = date('y-m-d').' 00:00:00';
 	$edate = date("y-m-d").' 23:59:59'; 	
 }
 
-#For get yesterday
+//For get yesterday
 elseif($data_choose_date == 'yesterday'){
 	$yesterday = date('y-m-d',strtotime("-1 days"));
 	$sdate = $yesterday.' 00:00:00';
 	$edate = $yesterday.' 23:59:59'; 	
 }
 	 
-#For get this week
+//For get this week
 elseif($data_choose_date == 'this_week'){
 	$sdate = date('y-m-d', strtotime("last saturday")).' 00:00:00';
 	$edate = date("y-m-d").' 23:59:59'; 	
@@ -102,17 +102,18 @@ elseif($data_choose_date == 'this_month'){
 	$edate = date("y-m-d").' 23:59:59'; 
 }
 
-#For get this year
+//For get this year
 elseif($data_choose_date == 'this_year'){
 $sdate = date('y-01-01').' 00:00:00';
 $edate = date("y-m-d").' 23:59:59';  
 }	 
 	 
-#For get last year
+//For get last year
 elseif($data_choose_date == 'last_year'){
 $year =	date('y')-1;
 $sdate = date("$year-01-01").' 00:00:00';
 $edate = date("$year-12-t").' 23:59:59';  
+}
 
                     if (isset($TravelCities) && count($TravelCities) > 0):
 					
