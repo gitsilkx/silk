@@ -521,7 +521,7 @@ $edate = date("$year-12-t").' 23:59:59';
         	'conditions' => array('TravelActionItem.created_by' => $user_id,
                                         'TravelActionItem.level_id' => $level_id,
                                         'TravelActionItem.type_id' => '4',
-                                        'TravelActionItem.next_action_by !' => 'TravelActionItem.created_by',
+                                        'TravelActionItem.next_action_by !=' => 'TravelActionItem.created_by',
                                         'date(TravelActionItem.created) BETWEEN ? AND ?' => array($sdate,$edate))));	
 
 
