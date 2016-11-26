@@ -139,14 +139,14 @@
                                 <td class="background_yellow"><?php echo $getHotelUnallocatedCnt_1; ?></td>
                                 <td class="background_yellow">
 								<?php if($channel_id == 262): ?>
-								<a href="<?php echo $this->webroot .'my-hotels?country_id='.$country_id.'&province_id='.$province_id.'&city_id='.$id ?>" ><?php echo $getHotePendingCnt_1; ?></a>
+								<a href="<?php echo $this->webroot .'my-hotels?country_id='.$country_id.'&province_id='.$province_id.'&city_id='.$id ?>" target="_blank"><?php echo $getHotePendingCnt_1; ?></a>
 								<?php else :?>
 									<?php echo $getHotePendingCnt_1; ?>
 								<?php endif ?>
 								</td>
                                 <td class="background_yellow">
 								<?php if($channel_id == 259): ?>
-								<a href="<?php echo $this->webroot .'travel_action_items?country_id='.$country_id.'&province_id='.$province_id.'&city_id='.$id.'&creator='.$creator.'&level_id='.$levelh.'&supplier_id='.$supplier_id ?>" ><?php echo $getHoteSubmittedCnt_1; ?></a>
+								<a href="<?php echo $this->webroot .'travel_action_items?country_id='.$country_id.'&province_id='.$province_id.'&city_id='.$id.'&creator='.$creator.'&level_id='.$levelh.'&supplier_id='.$supplier_id ?>" target="_blank"><?php echo $getHoteSubmittedCnt_1; ?></a>
 								<?php else :?>
 									<?php echo $getHoteSubmittedCnt_1; ?>
 								<?php endif ?>
@@ -162,14 +162,14 @@
 								
                                 <td class="background-l-sky">
 								<?php if($channel_id == 262): ?>
-								<a href="<?php echo $this->webroot .'mappinge_areas/supplier_hotel_report?country_id='.$country_id.'&city_id='.$id.'&supplier_id='.$supplier_id ?>" ><?php echo $getSupplierHotelPendingCnt_1; ?></a>
+								<a href="<?php echo $this->webroot .'mappinge_areas/supplier_hotel_report?country_id='.$country_id.'&city_id='.$id.'&supplier_id='.$supplier_id ?>" target="_blank"><?php echo $getSupplierHotelPendingCnt_1; ?></a>
 								<?php else :?>
 									<?php echo $getSupplierHotelPendingCnt_1; ?>
 								<?php endif ?>
 								</td>
                                 <td class="background-l-sky">
 								<?php if($channel_id == 258): ?>
-								<a href="<?php echo $this->webroot .'travel_action_items?country_id='.$country_id.'&province_id='.$province_id.'&city_id='.$id.'&creator='.$creator.'&level_id='.$levelm.'&supplier_id='.$supplier_id ?>" ><?php echo $getSupplierHotelSubmitCnt_1; ?></a>
+								<a href="<?php echo $this->webroot .'travel_action_items?country_id='.$country_id.'&province_id='.$province_id.'&city_id='.$id.'&creator='.$creator.'&level_id='.$levelm.'&supplier_id='.$supplier_id ?>" target="_blank" ><?php echo $getSupplierHotelSubmitCnt_1; ?></a>
 								<?php else :?>
 									<?php echo $getSupplierHotelSubmitCnt_1; ?>
 								<?php endif ?>
@@ -177,7 +177,7 @@
 								<td class="background-l-sky"><?php echo $getSupplierHotelCompeleteCnt_1; ?></td>
                                 <td class="background-l-sky"><?php echo $getSupplierHotelTotalCnt_1; ?></td>
 								
-								<td class="background-ticket"><a href="<?php echo $this->webroot .'support_tickets?country_id='.$country_id.'&city_id='.$id .'&province_id='.$TravelCity[0]['province_id'].'&user_id='.$TravelCity[0]['user_id']?>" ><?php echo $getSupportTicketCnt_1 ; ?></a></td>
+								<td class="background-ticket"><a href="<?php echo $this->webroot .'support_tickets?country_id='.$country_id.'&city_id='.$id .'&province_id='.$TravelCity[0]['province_id'].'&user_id='.$TravelCity[0]['user_id']?>" target="_blank"><?php echo $getSupportTicketCnt_1 ; ?></a></td>
 
                             </tr>
                         <?php 
