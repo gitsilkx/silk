@@ -8378,7 +8378,13 @@ public function beforeFilter() {
             }
             else {*/
 
-                $personArr = array('ProvincePermission.user_id' => $user_id);
+			if($channel_id == '261'){
+				$Select = 'All';
+				$personArr = array('OR' => array('ProvincePermission.approval_id' => $user_id,'ProvincePermission.maaping_approval_id' => $user_id,'ProvincePermission.user_id' => $user_id));
+			}else{
+				  $personArr = array('ProvincePermission.user_id' => $user_id);
+			}
+              
                 $persons = $this->ProvincePermission->find('all', array('fields' => array('ProvincePermission.user_id', 'User.fname','User.lname'),
            'joins' => array(
                 array(
@@ -8396,8 +8402,22 @@ public function beforeFilter() {
            // }
         }elseif($summary_type == '1'){//oprations
 
-            $Select = 'All';
+		
+		if($channel_id == '262'){			
+            $personArr = array('OR' => array('ProvincePermission.user_id' => $user_id));
+		}elseif($channel_id == '259'){			
+			$Select = 'All';
+            $personArr = array('OR' => array('ProvincePermission.approval_id' => $user_id,'ProvincePermission.user_id' => $user_id));
+		}elseif($channel_id == '258'){			
+			$Select = 'All';
+            $personArr = array('OR' => array('ProvincePermission.maaping_approval_id' => $user_id,'ProvincePermission.user_id' => $user_id));
+		}elseif($channel_id == '261'){
+			$Select = 'All';
             $personArr = array('OR' => array('ProvincePermission.approval_id' => $user_id,'ProvincePermission.maaping_approval_id' => $user_id,'ProvincePermission.user_id' => $user_id));
+		}
+		
+		
+            
 
             $persons = $this->ProvincePermission->find('all', array('fields' => array('ProvincePermission.user_id', 'User.fname','User.lname'),
            'joins' => array(
@@ -8411,7 +8431,7 @@ public function beforeFilter() {
             'conditions' => $personArr,
             'group' => 'ProvincePermission.user_id'));
              $persons = Set::combine($persons, '{n}.ProvincePermission.user_id', array('%s %s', '{n}.User.fname', '{n}.User.lname'));   
-
+		
         }
         $this->set(compact('persons','Select'));
 
