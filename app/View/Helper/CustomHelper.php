@@ -459,7 +459,7 @@ if($type == 'Mapping Submitted')
     }
 
 
- public function getHotelEditActionByDateCnt($user_id,$country_id,$province_id,$city_id,$supplier_id,$level_id,$fordate,$type){
+ public function getHotelEditActionByDateCnt($user_id,$country_id,$province_id,$city_id,$level_id,$fordate){
 	 
 #For get today
 if($fordate == 'today'){
@@ -500,9 +500,6 @@ $edate = date("$year-12-t").' 23:59:59';
 }	 	 
 	 
  
-//Hotel Edited => OPERATOR COUNT
-if($type == 'Hotel Edited')
-{
         return ClassRegistry::init('TravelActionItem')->find('count', array('fields' => array('id'),
 		
 		'joins' => array(
@@ -526,7 +523,7 @@ if($type == 'Hotel Edited')
                                         'TravelActionItem.type_id' => '4',
                                         'date(TravelActionItem.created) BETWEEN ? AND ?' => array($sdate,$edate))));	
 
-}
+
 
  
     }
