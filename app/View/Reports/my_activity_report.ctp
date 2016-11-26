@@ -75,7 +75,45 @@
 				//echo $data_choose_date;
                     $supplier_id = $this->data['Report']['supplier_id'];
                     $levelh = '7';
-                    $levelm = '4';						
+                    $levelm = '4';	
+                    
+#For get today
+if($data_choose_date == 'today'){
+	$sdate = date('y-m-d').' 00:00:00';
+	$edate = date("y-m-d").' 23:59:59'; 	
+}
+
+#For get yesterday
+elseif($data_choose_date == 'yesterday'){
+	$yesterday = date('y-m-d',strtotime("-1 days"));
+	$sdate = $yesterday.' 00:00:00';
+	$edate = $yesterday.' 23:59:59'; 	
+}
+	 
+#For get this week
+elseif($data_choose_date == 'this_week'){
+	$sdate = date('y-m-d', strtotime("last saturday")).' 00:00:00';
+	$edate = date("y-m-d").' 23:59:59'; 	
+}
+
+#For get this month
+elseif($data_choose_date == 'this_month'){
+	$sdate = date('y-m-01').' 00:00:00';
+	$edate = date("y-m-d").' 23:59:59'; 
+}
+
+#For get this year
+elseif($data_choose_date == 'this_year'){
+$sdate = date('y-01-01').' 00:00:00';
+$edate = date("y-m-d").' 23:59:59';  
+}	 
+	 
+#For get last year
+elseif($data_choose_date == 'last_year'){
+$year =	date('y')-1;
+$sdate = date("$year-01-01").' 00:00:00';
+$edate = date("$year-12-t").' 23:59:59';  
+
                     if (isset($TravelCities) && count($TravelCities) > 0):
 					
 					$hotelEditedCnt = 0;
@@ -93,7 +131,8 @@
                             $user_id = $TravelCity[0]['user_id'];
 							
                                                         //$hotelEditedCnt += $hotelEditedCnt_1 = $this->Custom->getHoteByDateCnt($country_id,$id,$data_choose_date,'Hotel Edited');
-							$hotelEditedCnt += $hotelEditedCnt_1 = $this->Custom->getHotelEditActionByDateCnt($user_id,$country_id,$province_id,$id,$levelh,$data_choose_date);
+							$hotelEditedCnt += $hotelEditedCnt_1 = $this->Custom->getHotelEditActionByDateCnt($user_id,$country_id,$province_id,$id,$levelh,$sdate,$edate);
+							//$hotelEditedCnt += $hotelEditedCnt_1 = $this->Custom->getHotelEditActionByDateCnt($user_id,$country_id,$province_id,$id,$levelh,$data_choose_date);                                                        
 							$hotelApprovedCnt += $hotelApprovedCnt_1 = $this->Custom->getHotelApprovedByDateCnt($user_id,$country_id,$province_id,$id,$levelh,$data_choose_date);
 /*							$MappingSubmittedCnt += $MappingSubmittedCnt_1 = $this->Custom->getMappingSubmitByDateCnt($user_id,$country_id,$province_id,$id,$supplier_id,$levelh,$data_choose_date,'Mapping Submitted');                                                        
 							$MappingApprovedCnt += $MappingApprovedCnt_1 = $this->Custom->getMappingApprovedByDateCnt($user_id,$country_id,$province_id,$id,$supplier_id,$levelh,$data_choose_date,'Mapping Approved');
