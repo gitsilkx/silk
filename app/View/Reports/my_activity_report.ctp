@@ -94,8 +94,8 @@
 							
                                                         //$hotelEditedCnt += $hotelEditedCnt_1 = $this->Custom->getHoteByDateCnt($country_id,$id,$data_choose_date,'Hotel Edited');
 							$hotelEditedCnt += $hotelEditedCnt_1 = $this->Custom->getHotelEditActionByDateCnt($user_id,$country_id,$province_id,$id,$levelh,$data_choose_date);
-/* 							$MappingSubmittedCnt += $MappingSubmittedCnt_1 = $this->Custom->getMappingSubmitByDateCnt($user_id,$country_id,$province_id,$id,$supplier_id,$levelh,$data_choose_date,'Mapping Submitted');
-							$hotelApprovedCnt += $hotelApprovedCnt_1 = $this->Custom->getHotelApprovedByDateCnt($user_id,$country_id,$province_id,$id,$supplier_id,$levelh,$data_choose_date,'Hotel Approved');
+							$hotelApprovedCnt += $hotelApprovedCnt_1 = $this->Custom->getHotelApprovedByDateCnt($user_id,$country_id,$province_id,$id,$levelh,$data_choose_date);
+/*							$MappingSubmittedCnt += $MappingSubmittedCnt_1 = $this->Custom->getMappingSubmitByDateCnt($user_id,$country_id,$province_id,$id,$supplier_id,$levelh,$data_choose_date,'Mapping Submitted');                                                        
 							$MappingApprovedCnt += $MappingApprovedCnt_1 = $this->Custom->getMappingApprovedByDateCnt($user_id,$country_id,$province_id,$id,$supplier_id,$levelh,$data_choose_date,'Mapping Approved');
                                                                                                                
 							$ImageUploadedCnt += $ImageUploadedCnt_1 = $this->Custom->getHotelActionByDateCnt($user_id,$country_id,$province_id,$id,$supplier_id,$levelh,$data_choose_date,'Image Uploaded');							
