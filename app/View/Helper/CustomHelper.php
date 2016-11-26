@@ -459,8 +459,8 @@ if($type == 'Mapping Submitted')
     }
 
 
- public function getHotelEditActionByDateCnt($user_id,$country_id,$province_id,$city_id,$level_id,$fordate){
-	 
+ public function getHotelEditActionByDateCnt($user_id,$country_id,$province_id,$city_id,$level_id,$sdate,$edate){
+/*	 
 #For get today
 if($fordate == 'today'){
 	$sdate = date('y-m-d').' 00:00:00';
@@ -498,7 +498,7 @@ $year =	date('y')-1;
 $sdate = date("$year-01-01").' 00:00:00';
 $edate = date("$year-12-t").' 23:59:59';  
 }	 	 
-	 
+*/	 
  
         return ClassRegistry::init('TravelActionItem')->find('count', array('fields' => array('id'),
 		
