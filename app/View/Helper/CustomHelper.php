@@ -571,10 +571,10 @@ if($type == 'Mapping Submitted')
         return ClassRegistry::init('TravelHotelLookup')->find('count', array('fields' => array('id'),
 		
 		'conditions' => array('TravelHotelLookup.image_by' => $user_id,
-                                        'TravelActionItem.country_id' => $country_id,
-                                        'TravelActionItem.province_id' => $province_id,
-                                        'TravelActionItem.city_id' => $city_id,
-                                        'date(TravelActionItem.image_date) BETWEEN ? AND ?' => array($sdate,$edate))));	 
+                                        'TravelHotelLookup.country_id' => $country_id,
+                                        'TravelHotelLookup.province_id' => $province_id,
+                                        'TravelHotelLookup.city_id' => $city_id,
+                                        'date(TravelHotelLookup.image_date) BETWEEN ? AND ?' => array($sdate,$edate))));	 
 }
 
  public function getPageEditedByDateCnt($user_id,$country_id,$province_id,$city_id,$sdate,$edate){
@@ -582,10 +582,10 @@ if($type == 'Mapping Submitted')
         return ClassRegistry::init('TravelHotelLookup')->find('count', array('fields' => array('id'),
 		
 		'conditions' => array('TravelHotelLookup.page_by' => $user_id,
-                                        'TravelActionItem.country_id' => $country_id,
-                                        'TravelActionItem.province_id' => $province_id,
-                                        'TravelActionItem.city_id' => $city_id,
-                                        'date(TravelActionItem.page_date) BETWEEN ? AND ?' => array($sdate,$edate))));	 
+                                        'TravelHotelLookup.country_id' => $country_id,
+                                        'TravelHotelLookup.province_id' => $province_id,
+                                        'TravelHotelLookup.city_id' => $city_id,
+                                        'date(TravelHotelLookup.page_date) BETWEEN ? AND ?' => array($sdate,$edate))));	 
 }
   
 }
