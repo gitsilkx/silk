@@ -521,6 +521,7 @@ $edate = date("$year-12-t").' 23:59:59';
         	'conditions' => array('TravelActionItem.created_by' => $user_id,
                                         'TravelActionItem.level_id' => $level_id,
                                         'TravelActionItem.type_id' => '4',
+                                        'TravelActionItem.next_action_by !' => 'TravelActionItem.created_by',
                                         'date(TravelActionItem.created) BETWEEN ? AND ?' => array($sdate,$edate))));	
 
 
@@ -528,5 +529,72 @@ $edate = date("$year-12-t").' 23:59:59';
  
     }
    
-    
+ public function getHotelApprovedByDateCnt($user_id,$country_id,$province_id,$city_id,$level_id,$fordate){
+	 
+#For get today
+if($fordate == 'today'){
+	$sdate = date('y-m-d').' 00:00:00';
+	$edate = date("y-m-d").' 23:59:59'; 	
+}
+
+#For get yesterday
+elseif($fordate == 'yesterday'){
+	$yesterday = date('y-m-d',strtotime("-1 days"));
+	$sdate = $yesterday.' 00:00:00';
+	$edate = $yesterday.' 23:59:59'; 	
+}
+	 
+#For get this week
+elseif($fordate == 'this_week'){
+	$sdate = date('y-m-d', strtotime("last saturday")).' 00:00:00';
+	$edate = date("y-m-d").' 23:59:59'; 	
+}
+
+#For get this month
+elseif($fordate == 'this_month'){
+	$sdate = date('y-m-01').' 00:00:00';
+	$edate = date("y-m-d").' 23:59:59'; 
+}
+
+#For get this year
+elseif($fordate == 'this_year'){
+$sdate = date('y-01-01').' 00:00:00';
+$edate = date("y-m-d").' 23:59:59';  
+}	 
+	 
+#For get last year
+elseif($fordate == 'last_year'){
+$year =	date('y')-1;
+$sdate = date("$year-01-01").' 00:00:00';
+$edate = date("$year-12-t").' 23:59:59';  
+}	 	 
+	 
+ 
+        return ClassRegistry::init('TravelActionItem')->find('count', array('fields' => array('id'),
+		
+		'joins' => array(
+
+                    array(
+
+                        'table' => 'travel_hotel_lookups',
+                        'alias' => 'TravelHotelLookupb',
+                        'type'  => 'INNER',
+                        'foreignKey'    => false,
+                        'conditions'    => array('TravelHotelLookupb.id = TravelActionItem.hotel_id','TravelHotelLookupb.country_id' => $country_id,'TravelHotelLookupb.province_id' => $province_id,'TravelHotelLookupb.city_id' => $city_id),
+
+                        ),
+
+                ),
+		
+		'conditions' => array('TravelActionItem.created_by' => $user_id,
+                    'TravelActionItem.level_id' => $level_id,
+                    'TravelActionItem.type_id' => '2' ,
+                    'TravelActionItem.next_action_by' => NULL,
+                    'date(TravelActionItem.created) BETWEEN ? AND ?' => array($sdate,$edate))));	 
+
+
+
+ 
+    }
+     
 }
