@@ -526,7 +526,6 @@ if($type == 'Hotel Edited')
                                         'TravelActionItem.type_id' => '4',
                                         'date(TravelActionItem.created) BETWEEN ? AND ?' => array($sdate,$edate))));	
 */
- */ 
 }
 
  
