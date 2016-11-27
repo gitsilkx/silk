@@ -86,7 +86,7 @@ class ActionItemsController extends AppController {
 //        $this->paginateaction['conditions'][0] = "ActionItem.action_item_active='Yes' AND ActionItem.next_action_by=146";        
         $this->paginateaction['conditions'][1] = $search_condition;
         $this->paginateaction['order'] = array('ActionItem.id' => 'desc');
-        $this->set('actionitems', $this->paginateaction("ActionItem"));
+        $this->set('actionitems', $this->paginate("ActionItem"));
 
         //$log = $this->ActionItem->getDataSource()->getLog(false, false);       
         //  debug($log);
