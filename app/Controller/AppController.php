@@ -64,7 +64,12 @@ class AppController extends Controller {
         'maxLimit' => 3000
     );
 
-
+    public $paginateaction = array(
+        'paramType' => 'querystring',
+        'limit' => 100,
+        'maxLimit' => 100
+    );
+    
     public function beforeFilter() {
         $direction = '';
         $sort = ''; 
