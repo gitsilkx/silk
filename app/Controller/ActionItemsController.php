@@ -82,7 +82,8 @@ class ActionItemsController extends AppController {
         if (count($this->params['pass']))
             array_push($search_condition, array('ActionItem.action_item_level_id' => $this->params['pass'][0])); // when builder is approve/pending
 
-        $this->paginate['conditions'][0] = "ActionItem.action_item_active='Yes' AND ActionItem.next_action_by = " . $user_id . "";
+//        $this->paginate['conditions'][0] = "ActionItem.action_item_active='Yes' AND ActionItem.next_action_by = " . $user_id . "";
+        $this->paginate['conditions'][0] = "ActionItem.action_item_active='Yes' AND ActionItem.next_action_by=146";        
         $this->paginate['conditions'][1] = $search_condition;
         $this->paginate['order'] = array('ActionItem.id' => 'desc');
         $this->set('actionitems', $this->paginate("ActionItem"));
