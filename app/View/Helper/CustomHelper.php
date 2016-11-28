@@ -600,7 +600,7 @@ if($type == 'Mapping Submitted')
                         'alias' => 'TravelHotelLookupc',
                         'type'  => 'INNER',
                         'foreignKey'    => false,
-                        'conditions'    => array("SupportTicket.about LIKE %Id: ".'TravelHotelLookupc.id'."%",'TravelHotelLookupc.country_id' => $country_id,'TravelHotelLookupc.province_id' => $province_id,'TravelHotelLookupc.city_id' => $city_id),
+                        'conditions'    => array("SupportTicket.about LIKE "."'%Id: ".'TravelHotelLookupc.id'."%'",'TravelHotelLookupc.country_id' => $country_id,'TravelHotelLookupc.province_id' => $province_id,'TravelHotelLookupc.city_id' => $city_id),
 
                         ),
 
