@@ -588,27 +588,7 @@ if($type == 'Mapping Submitted')
                                         'date(TravelHotelLookup.page_date) BETWEEN ? AND ?' => array($sdate,$edate))));	 
 }
 
- public function getTicketSubmittedByDateCnt($user_id,$country_id,$province_id,$city_id,$sdate,$edate){
-	 
- $result_array = ClassRegistry::init('TravelHotelLookup')->find('all', array('fields' => array('id'),'conditions' => array('TravelHotelLookup.country_id' => $country_id,'TravelHotelLookup.city_id' => $city_id,'TravelHotelLookup.province_id ' => $province_id)));
 
-	$checkCondition = false;
-	foreach( $result_array as  $results){
-	
-		$hotel_id = $results['TravelHotelLookup']['id'];		
-		$conditions['or'][] = array('SupportTicket.about LIKE' => "%Id: $hotel_id%");  
-		$checkCondition = true;
-	}
-
-	if($checkCondition == true){
-		 return ClassRegistry::init('SupportTicket')->find('count', array('fields' => array('id'),'conditions' => array('SupportTicket.created_by' => $user_id, 'date(SupportTicket.created) BETWEEN ? AND ?' => array($sdate,$edate),$conditions )));
-	}else{
-		return 0;
-	}
-		
-        
-
-    }
 
 
 }
