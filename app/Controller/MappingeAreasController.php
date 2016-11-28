@@ -268,7 +268,7 @@ $TravelCitySuppliers = $this->TravelCitySupplier->find('all', ARRAY('conditions'
 
 // THIS PART HAS THE SUPPLIER HOTEL DATA PULLING LOGIC
 $display = 'TRUE';
-$supplier_city_codex = $this->TravelCitySupplier->find('list', ARRAY('fields' => 'supplier_city_code', 'conditions' =>
+$supplier_city_codex = $this->TravelCitySupplier->find('list', ARRAY('fields' => 'supplier_city_code,supplier_city_code', 'conditions' =>
        array('supplier_id' => $get_supplier_id, 'city_country_id' => $get_country_id, 'city_id' => $get_city_id, 'wtb_status' => '1', 'active' => 'TRUE', 'city_supplier_status' => '2', 'excluded' => 'FALSE')));
                 //pr($supplier_city_codde);
 
