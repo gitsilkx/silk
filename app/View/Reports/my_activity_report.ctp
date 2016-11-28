@@ -52,7 +52,7 @@
                     </tr>
                     <tr>           
                         <th data-toggle="phone"  data-sort-ignore="true" data-group="group3"> Sl. </th>
-                        <th data-toggle="phone"  data-sort-ignore="true" data-group="group3">" Person"</th>						
+                        <th data-toggle="phone"  data-sort-ignore="true" data-group="group3"> Person</th>						
                         <th data-toggle="phone"  data-sort-ignore="true" data-group="group3"> Country</th>
                         <th data-toggle="phone"  data-sort-ignore="true" data-group="group3"> Province</th>
                         <th data-toggle="phone"  data-sort-ignore="true" data-group="group3"> City</th>    
