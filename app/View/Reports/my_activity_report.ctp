@@ -140,12 +140,11 @@
 							$hotelApprovedCnt += $hotelApprovedCnt_1 = $this->Custom->getHotelApprovedByDateCnt($user_id,$country_id,$province_id,$id,$levelh,$sdate,$edate);
 							$MappingSubmittedCnt += $MappingSubmittedCnt_1 = $this->Custom->getMappingSubmitByDateCnt($user_id,$country_id,$id,$supplier_id,$levelm,$sdate,$edate);                                                        
 							$MappingApprovedCnt += $MappingApprovedCnt_1 = $this->Custom->getMappingApprovedByDateCnt($user_id,$country_id,$id,$supplier_id,$levelm,$sdate,$edate);
-                                                                                                              
 							$ImageUploadedCnt += $ImageUploadedCnt_1 = $this->Custom->getImageUploadedByDateCnt($user_id,$country_id,$province_id,$id,$sdate,$edate);							
 							$PageEditedCnt += $PageEditedCnt_1 = $this->Custom->getPageEditedByDateCnt($user_id,$country_id,$province_id,$id,$sdate,$edate);                                                        
-                                                        /* 
-							$TicketSubmittedCnt += $TicketSubmittedCnt_1 = $this->Custom->getHotelActionByDateCnt($user_id,$country_id,$province_id,$id,$supplier_id,$levelh,$sdate,$edate);														
-                                                         */
+							$TicketSubmittedCnt += $TicketSubmittedCnt_1 = $this->Custom->getTicketSubmittedByDateCnt($user_id,$country_id,$province_id,$id,$sdate,$edate);														
+							$TicketResolvedCnt += $TicketResolvedCnt_1 = $this->Custom->getTicketResolvedByDateCnt($user_id,$country_id,$province_id,$id,$sdate,$edate);														                                                        
+                                                         
                             ?>
                             <tr>                              
 								<td><?php echo $i; ?></td>
