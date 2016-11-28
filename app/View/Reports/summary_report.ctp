@@ -108,8 +108,8 @@
                             $levelm = '4';
 							
 							$getHotelUnallocatedCnt += $getHotelUnallocatedCnt_1 = $this->Custom->getHotelUnallocatedCnt($country_id,$id);
-							$getHotePendingCnt += $getHotePendingCnt_1 = $this->Custom->getHotePendingCnt($country_id,$id);
-							$getHoteSubmittedCnt += $getHoteSubmittedCnt_1 = $this->Custom->getHoteSubmittedCnt($country_id,$id);
+							$getHotePendingCnt += $getHotePendingCnt_1 = $this->Custom->getHotePendingCnt($country_id,$id,$province_id);
+							$getHoteSubmittedCnt += $getHoteSubmittedCnt_1 = $this->Custom->getHoteSubmittedCnt($country_id,$province_id,$id,$creator,$levelh,$supplier_id );
 							$getHoteApprovedCnt += $getHoteApprovedCnt_1 = $this->Custom->getHoteApprovedCnt($country_id,$id);
 							$getHoteTotalCnt += $getHoteTotalCnt_1 = $this->Custom->getHoteTotalCnt($country_id,$id);
 							
@@ -121,7 +121,7 @@
 							
 							$getSupplierHotelPendingCnt += $getSupplierHotelPendingCnt_1 = $this->Custom->getSupplierHotelPendingCnt($country_id,$id,$supplier_id);
 							$getSupplierHotelCompeleteCnt += $getSupplierHotelCompeleteCnt_1 = $this->Custom->getSupplierHotelCompeleteCnt($country_id,$id,$supplier_id);
-							$getSupplierHotelSubmitCnt += $getSupplierHotelSubmitCnt_1 = $this->Custom->getSupplierHotelSubmitCnt($country_id,$id,$supplier_id);
+							$getSupplierHotelSubmitCnt += $getSupplierHotelSubmitCnt_1 = $this->Custom->getSupplierHotelSubmitCnt($country_id,$province_id,$id,$creator,$levelm,$supplier_id );
 							$getSupplierHotelTotalCnt += $getSupplierHotelTotalCnt_1 = $this->Custom->getSupplierHotelTotalCnt($country_id,$id,$supplier_id);
 							
 							
