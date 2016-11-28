@@ -51,24 +51,24 @@
                         <th data-group="group1" colspan="5">Activity Summary</th> 
                     </tr>
                     <tr>           
-                        <th data-toggle="phone"  data-sort-ignore="true" data-group="group3">Sl. </th>
-                        <th data-toggle="phone"  data-sort-ignore="true" data-group="group3">Person</th>						
-                        <th data-toggle="phone"  data-sort-ignore="true" data-group="group3">Country</th>
-                        <th data-toggle="phone"  data-sort-ignore="true" data-group="group3">Province</th>
-                        <th data-toggle="phone"  data-sort-ignore="true" data-group="group3">City</th>    
+                        <th data-toggle="phone"  data-sort-ignore="true" data-group="group3"> Sl. </th>
+                        <th data-toggle="phone"  data-sort-ignore="true" data-group="group3"> Person</th>						
+                        <th data-toggle="phone"  data-sort-ignore="true" data-group="group3"> Country</th>
+                        <th data-toggle="phone"  data-sort-ignore="true" data-group="group3"> Province</th>
+                        <th data-toggle="phone"  data-sort-ignore="true" data-group="group3"> City</th>    
                         
-                        <th data-toggle="phone"  data-sort-ignore="true" data-group="group1" >Hotel Edited</th>
-                        <th data-toggle="phone"  data-sort-ignore="true" data-group="group1">Mapping Submitted</th>
-                        <th data-toggle="phone"  data-sort-ignore="true" data-group="group1" >Hotel Approved</th>
-                        <th data-toggle="phone"  data-sort-ignore="true" data-group="group1" >Mapping Approved</th>
-                        <th data-hide="phone"  data-sort-ignore="true" data-group="group1" >Image Uploaded</th>                
-                        <th data-hide="phone"  data-sort-ignore="true" data-group="group1" >Page Edited</th>  
-                        <th data-hide="phone"  data-sort-ignore="true" data-group="group1" >Tour Edited</th>   						
-                        <th data-hide="phone"  data-sort-ignore="true" data-group="group1" >Tour Approved</th> 
-                        <th data-hide="phone"  data-sort-ignore="true" data-group="group1" >Transfer Edited</th>   						
-                        <th data-hide="phone"  data-sort-ignore="true" data-group="group1" >Transfer Approved</th>                         
-                        <th data-hide="phone"  data-sort-ignore="true" data-group="group1" >Package Created</th>   						
-                        <th data-hide="phone"  data-sort-ignore="true" data-group="group1" >Package Approved</th> 
+                        <th data-toggle="phone"  data-sort-ignore="true" data-group="group1" class="display-total">Hotel Edited</th>
+                        <th data-toggle="phone"  data-sort-ignore="true" data-group="group1" class="display-total">Mapping Submitted</th>
+                        <th data-toggle="phone"  data-sort-ignore="true" data-group="group1" class="display-total">Hotel Approved</th>
+                        <th data-toggle="phone"  data-sort-ignore="true" data-group="group1" class="display-total">Mapping Approved</th>
+                        <th data-hide="phone"  data-sort-ignore="true" data-group="group1" class="display-total">Image Uploaded</th>                
+                        <th data-hide="phone"  data-sort-ignore="true" data-group="group1" class="display-total">Page Edited</th>  
+                        <th data-hide="phone"  data-sort-ignore="true" data-group="group1" class="display-total">Tour Edited</th>   						
+                        <th data-hide="phone"  data-sort-ignore="true" data-group="group1" class="display-total">Tour Approved</th> 
+                        <th data-hide="phone"  data-sort-ignore="true" data-group="group1" class="display-total">Transfer Edited</th>   						
+                        <th data-hide="phone"  data-sort-ignore="true" data-group="group1" class="display-total">Transfer Approved</th>                         
+                        <th data-hide="phone"  data-sort-ignore="true" data-group="group1" class="display-total">Package Created</th>   						
+                        <th data-hide="phone"  data-sort-ignore="true" data-group="group1" class="display-total">Package Approved</th> 
                                          
                     </tr>
                 </thead>
