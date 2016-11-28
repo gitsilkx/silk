@@ -63,8 +63,10 @@
                         <th data-toggle="phone"  data-sort-ignore="true" data-group="group1" >Mapping Approved</th>
                         <th data-hide="phone"  data-sort-ignore="true" data-group="group1" >Image Uploaded</th>                
                         <th data-hide="phone"  data-sort-ignore="true" data-group="group1" >Page Edited</th>  
-                        <th data-hide="phone"  data-sort-ignore="true" data-group="group1" >Sightseeing Edited</th>   						
-                        <th data-hide="phone"  data-sort-ignore="true" data-group="group1" >Sightseeing Approved</th> 
+                        <th data-hide="phone"  data-sort-ignore="true" data-group="group1" >Tour Edited</th>   						
+                        <th data-hide="phone"  data-sort-ignore="true" data-group="group1" >Tour Approved</th> 
+                        <th data-hide="phone"  data-sort-ignore="true" data-group="group1" >Transfer Edited</th>   						
+                        <th data-hide="phone"  data-sort-ignore="true" data-group="group1" >Transfer Approved</th>                         
                         <th data-hide="phone"  data-sort-ignore="true" data-group="group1" >Package Created</th>   						
                         <th data-hide="phone"  data-sort-ignore="true" data-group="group1" >Package Approved</th> 
                                          
@@ -129,6 +131,8 @@
                                         $PageEditedCnt = 0;
                                         $SightSeeingEditedCnt = 0;
                                         $SightSeeingApprovedCnt = 0;
+                                        $TransferEditedCnt = 0;
+                                        $TransferApprovedCnt = 0;                                        
                                         $PackageCreatedCnt = 0;
                                         $PackageApprovedCnt = 0;
 				
@@ -163,7 +167,11 @@
                                 <td class="background_yellow"><?php echo $ImageUploadedCnt_1; ?></td>
                                 <td class="background_yellow"><?php echo $PageEditedCnt_1; ?></td>
                                 <td class="background_yellow"><?php echo "0" ?></td>                                
-                                <td class="background_yellow"><?php echo "0" ?></td>                                        
+                                <td class="background_yellow"><?php echo "0" ?></td> 
+                                <td class="background_yellow"><?php echo "0" ?></td>                                
+                                <td class="background_yellow"><?php echo "0" ?></td>  
+                                <td class="background_yellow"><?php echo "0" ?></td>                                
+                                <td class="background_yellow"><?php echo "0" ?></td>                                  
                             </tr>
                         <?php 
                         $i++;
@@ -180,6 +188,8 @@
                                 <th><?php echo $PageEditedCnt; ?></th>
                                 <th><?php echo $SightSeeingEditedCnt; ?></th>
                                 <th><?php echo $SightSeeingApprovedCnt; ?></th>
+                                <th><?php echo $TransferEditedCnt; ?></th>
+                                <th><?php echo $TransferApprovedCnt; ?></th>                                
                                 <th><?php echo $PackageCreatedCnt; ?></th>                                                                
                                 <th><?php echo $PackageApprovedCnt; ?></th>                                  
                             </tr>
