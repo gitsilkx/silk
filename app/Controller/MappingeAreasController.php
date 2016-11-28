@@ -273,7 +273,8 @@ $supplier_city_codde = $this->TravelCitySupplier->find('list', ARRAY('fields' =>
                 //pr($supplier_city_codde);
 
        array_push($search_condition, array('SupplierHotel.city_code' => $supplier_city_codde));
-       array_push($search_condition, array('SupplierHotel.status' => array('1','5') ));  
+       //array_push($search_condition, array('SupplierHotel.status' => array('1','5') ));  
+       array_push($search_condition, array('SupplierHotel.status' => '5'));         
        //array_push($search_condition, array('SupplierHotel.status' => '1' OR '5'));      
        $this->paginate['order'] = array('SupplierHotel.id' => 'asc');
        $this->set('SupplierHotels', $this->paginate("SupplierHotel", $search_condition));
