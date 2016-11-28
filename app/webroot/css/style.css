@@ -10094,6 +10094,10 @@ table.ctable td.rgtaln {
 	width: 60px;
     text-align: center;
 }
+.display-total{
+	width: 60px;
+    text-align: center;
+}
 .background-l-sky{
 	background-color: #d1f2eb;
 	width: 60px;
