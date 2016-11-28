@@ -601,7 +601,7 @@ if($type == 'Mapping Submitted')
 	}
 
 	if($checkCondition == true){
-		 return ClassRegistry::init('SupportTicket')->find('count', array('fields' => array('id'),'conditions' => array('SupportTicket.created_by' => $user_id, 'date(SupportTicket.created) BETWEEN ? AND ?' => array($sdate,$edate) )));
+		 return ClassRegistry::init('SupportTicket')->find('count', array('fields' => array('id'),'conditions' => array('SupportTicket.created_by' => $user_id, 'date(SupportTicket.created) BETWEEN ? AND ?' => array($sdate,$edate),$conditions )));
 	}else{
 		return 0;
 	}
