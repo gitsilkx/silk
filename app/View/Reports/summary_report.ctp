@@ -179,7 +179,7 @@
 								
 								<td class="background-ticket"><a href="<?php echo $this->webroot .'support_tickets?country_id='.$country_id.'&city_id='.$id .'&province_id='.$TravelCity[0]['province_id'].'&user_id='.$TravelCity[0]['user_id']?>" target="_blank"><?php echo $getSupportTicketCnt_1 ; ?></a></td>
 
-                            </tr>
+                            </tr> 
                         <?php 
                         $i++;
                         endforeach;
