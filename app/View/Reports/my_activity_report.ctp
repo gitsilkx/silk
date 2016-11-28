@@ -180,18 +180,18 @@
 							<tr>     
 								<th colspan="5">Total </th>  
                                 
-                                <th><?php echo $hotelEditedCnt; ?></th>
-                                <th><?php echo $MappingSubmittedCnt; ?></th>
-                                <th><?php echo $hotelApprovedCnt; ?></th>
-                                <th><?php echo $MappingApprovedCnt; ?></th>
-                                <th><?php echo $ImageUploadedCnt; ?></th>                                                                
-                                <th><?php echo $PageEditedCnt; ?></th>
-                                <th><?php echo $SightSeeingEditedCnt; ?></th>
-                                <th><?php echo $SightSeeingApprovedCnt; ?></th>
-                                <th><?php echo $TransferEditedCnt; ?></th>
-                                <th><?php echo $TransferApprovedCnt; ?></th>                                
-                                <th><?php echo $PackageCreatedCnt; ?></th>                                                                
-                                <th><?php echo $PackageApprovedCnt; ?></th>                                  
+                                <th class="display-total"><?php echo $hotelEditedCnt; ?></th>
+                                <th class="display-total"><?php echo $MappingSubmittedCnt; ?></th>
+                                <th class="display-total"><?php echo $hotelApprovedCnt; ?></th>
+                                <th class="display-total"><?php echo $MappingApprovedCnt; ?></th>
+                                <th class="display-total"><?php echo $ImageUploadedCnt; ?></th>                                                                
+                                <th class="display-total"><?php echo $PageEditedCnt; ?></th>
+                                <th class="display-total"><?php echo $SightSeeingEditedCnt; ?></th>
+                                <th class="display-total"><?php echo $SightSeeingApprovedCnt; ?></th>
+                                <th class="display-total"><?php echo $TransferEditedCnt; ?></th>
+                                <th class="display-total"><?php echo $TransferApprovedCnt; ?></th>                                
+                                <th class="display-total"><?php echo $PackageCreatedCnt; ?></th>                                                                
+                                <th class="display-total"><?php echo $PackageApprovedCnt; ?></th>                                  
                             </tr>
 
 <?php						
