@@ -590,25 +590,28 @@ if($type == 'Mapping Submitted')
 
  public function getTicketSubmittedByDateCnt($user_id,$country_id,$province_id,$city_id,$sdate,$edate){
 	 
-        return ClassRegistry::init('SupportTicket')->find('count', array('fields' => array('id'),
+ $result_array = ClassRegistry::init('TravelHotelLookup')->find('all', array('fields' => array('id'),'conditions' => array('TravelHotelLookup.country_id' => $country_id,'TravelHotelLookup.city_id' => $city_id,'TravelHotelLookup.province_id ' => $province_id)));
+
+	$checkCondition = false;
+	foreach( $result_array as  $results){
+	
+		$hotel_id = $results['TravelHotelLookup']['id'];		
+		$conditions['or'][] = array('SupportTicket.about LIKE' => "%Id: $hotel_id%");  
+		$checkCondition = true;
+	}
+	$conditions['or'][] = array('SupportTicket.created_by' => $user_id,'SupportTicket.next_action_by' => $user_id,'SupportTicket.approved_by' => $user_id,'SupportTicket.last_action_by' => $user_id);
+
+	
+
+	if($checkCondition == true){
+		 return ClassRegistry::init('SupportTicket')->find('count', array('fields' => array('id'),'conditions' => array('SupportTicket.created_by' => $user_id, 'date(TravelHotelLookup.created) BETWEEN ? AND ?' => array($sdate,$edate) )));
+	}else{
+		return 0;
+	}
 		
-		'joins' => array(
+        
 
-                    array(
-
-                        'table' => 'travel_hotel_lookups',
-                        'alias' => 'TravelHotelLookupc',
-                        'type'  => 'INNER',
-                        'foreignKey'    => false,
-                        'conditions'    => array("SupportTicket.about LIKE "."'%Id: ".'TravelHotelLookupc.id'."%'",'TravelHotelLookupc.country_id' => $country_id,'TravelHotelLookupc.province_id' => $province_id,'TravelHotelLookupc.city_id' => $city_id),
-
-                        ),
-
-                ),
-		
-		'conditions' => array('SupportTicket.created_by' => $user_id,
-                                        'date(SupportTicket.created) BETWEEN ? AND ?' => array($sdate,$edate))));			 
-}
+    }
 
 
 }
