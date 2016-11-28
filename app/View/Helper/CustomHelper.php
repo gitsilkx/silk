@@ -599,12 +599,9 @@ if($type == 'Mapping Submitted')
 		$conditions['or'][] = array('SupportTicket.about LIKE' => "%Id: $hotel_id%");  
 		$checkCondition = true;
 	}
-	$conditions['or'][] = array('SupportTicket.created_by' => $user_id,'SupportTicket.next_action_by' => $user_id,'SupportTicket.approved_by' => $user_id,'SupportTicket.last_action_by' => $user_id);
-
-	
 
 	if($checkCondition == true){
-		 return ClassRegistry::init('SupportTicket')->find('count', array('fields' => array('id'),'conditions' => array('SupportTicket.created_by' => $user_id, 'date(TravelHotelLookup.created) BETWEEN ? AND ?' => array($sdate,$edate) )));
+		 return ClassRegistry::init('SupportTicket')->find('count', array('fields' => array('id'),'conditions' => array('SupportTicket.created_by' => $user_id, 'date(SupportTicket.created) BETWEEN ? AND ?' => array($sdate,$edate) )));
 	}else{
 		return 0;
 	}
