@@ -587,5 +587,28 @@ if($type == 'Mapping Submitted')
                                         'TravelHotelLookup.city_id' => $city_id,
                                         'date(TravelHotelLookup.page_date) BETWEEN ? AND ?' => array($sdate,$edate))));	 
 }
-  
+
+ public function getTicketSubmittedByDateCnt($user_id,$country_id,$province_id,$city_id,$sdate,$edate){
+	 
+        return ClassRegistry::init('SupportTicket')->find('count', array('fields' => array('id'),
+		
+		'joins' => array(
+
+                    array(
+
+                        'table' => 'travel_hotel_lookups',
+                        'alias' => 'TravelHotelLookupc',
+                        'type'  => 'INNER',
+                        'foreignKey'    => false,
+                        'conditions'    => array('SupportTicket.about LIKE TravelHotelLookupc.id','TravelHotelLookupc.country_id' => $country_id,'TravelHotelLookupc.province_id' => $province_id,'TravelHotelLookupc.city_id' => $city_id),
+
+                        ),
+
+                ),
+		
+		'conditions' => array('SupportTicket.created_by' => $user_id,
+                                        'created(TravelActionItem.created) BETWEEN ? AND ?' => array($sdate,$edate))));			 
+}
+
+
 }
