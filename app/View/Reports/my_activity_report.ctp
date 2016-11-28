@@ -63,8 +63,10 @@
                         <th data-toggle="phone"  data-sort-ignore="true" data-group="group1" >Mapping Approved</th>
                         <th data-hide="phone"  data-sort-ignore="true" data-group="group1" >Image Uploaded</th>                
                         <th data-hide="phone"  data-sort-ignore="true" data-group="group1" >Page Edited</th>  
-                        <th data-hide="phone"  data-sort-ignore="true" data-group="group1" >Ticket Submitted</th>   						
-                        <th data-hide="phone"  data-sort-ignore="true" data-group="group1" >Ticket Resolved</th> 
+                        <th data-hide="phone"  data-sort-ignore="true" data-group="group1" >Sightseeing Edited</th>   						
+                        <th data-hide="phone"  data-sort-ignore="true" data-group="group1" >Sightseeing Approved</th> 
+                        <th data-hide="phone"  data-sort-ignore="true" data-group="group1" >Package Created</th>   						
+                        <th data-hide="phone"  data-sort-ignore="true" data-group="group1" >Package Approved</th> 
                                          
                     </tr>
                 </thead>
@@ -125,7 +127,10 @@
                                         $MappingApprovedCnt = 0;
                                         $ImageUploadedCnt = 0;
                                         $PageEditedCnt = 0;
-
+                                        $SightSeeingEditedCnt = 0;
+                                        $SightSeeingApprovedCnt = 0;
+                                        $PackageCreatedCnt = 0;
+                                        $PackageApprovedCnt = 0;
 				
 					
                         foreach ($TravelCities as $TravelCity):
@@ -157,6 +162,8 @@
                                 <td class="background_yellow"><?php echo $MappingApprovedCnt_1; ?></td>
                                 <td class="background_yellow"><?php echo $ImageUploadedCnt_1; ?></td>
                                 <td class="background_yellow"><?php echo $PageEditedCnt_1; ?></td>
+                                <td class="background_yellow"><?php echo "0" ?></td>                                
+                                <td class="background_yellow"><?php echo "0" ?></td>                                        
                             </tr>
                         <?php 
                         $i++;
@@ -170,7 +177,11 @@
                                 <th><?php echo $hotelApprovedCnt; ?></th>
                                 <th><?php echo $MappingApprovedCnt; ?></th>
                                 <th><?php echo $ImageUploadedCnt; ?></th>                                                                
-                                <th><?php echo $PageEditedCnt; ?></th>  
+                                <th><?php echo $PageEditedCnt; ?></th>
+                                <th><?php echo $SightSeeingEditedCnt; ?></th>
+                                <th><?php echo $SightSeeingApprovedCnt; ?></th>
+                                <th><?php echo $PackageCreatedCnt; ?></th>                                                                
+                                <th><?php echo $PackageApprovedCnt; ?></th>                                  
                             </tr>
 
 <?php						
