@@ -607,7 +607,7 @@ if($type == 'Mapping Submitted')
                 ),
 		
 		'conditions' => array('SupportTicket.created_by' => $user_id,
-                                        'created(SupportTicket.created) BETWEEN ? AND ?' => array($sdate,$edate))));			 
+                                        'date(SupportTicket.created) BETWEEN ? AND ?' => array($sdate,$edate))));			 
 }
 
 
