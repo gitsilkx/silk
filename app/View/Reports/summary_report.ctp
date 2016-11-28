@@ -57,23 +57,23 @@
                         <th data-toggle="phone"  data-sort-ignore="true" data-group="group3">Province</th>
                         <th data-toggle="phone"  data-sort-ignore="true" data-group="group3">City</th>    
                         
-                        <th data-toggle="phone"  data-sort-ignore="true" data-group="group1" >UNL</th>
-                        <th data-toggle="phone"  data-sort-ignore="true" data-group="group1">PND</th>
-                        <th data-toggle="phone"  data-sort-ignore="true" data-group="group1" >SMT</th>
-                        <th data-toggle="phone"  data-sort-ignore="true" data-group="group1" >APV</th>
-                        <th data-hide="phone"  data-sort-ignore="true" data-group="group1" >Total</th>                
+                        <th data-toggle="phone"  data-sort-ignore="true" data-group="group1" class="display-total">UNL</th>
+                        <th data-toggle="phone"  data-sort-ignore="true" data-group="group1" class="display-total">PND</th>
+                        <th data-toggle="phone"  data-sort-ignore="true" data-group="group1" class="display-total">SMT</th>
+                        <th data-toggle="phone"  data-sort-ignore="true" data-group="group1" class="display-total">APV</th>
+                        <th data-hide="phone"  data-sort-ignore="true" data-group="group1" class="display-total">Total</th>                
                         
-                        <th data-toggle="phone"  data-sort-ignore="true" data-group="group2" >PND</th>
-                        <th data-toggle="phone"  data-sort-ignore="true" data-group="group2">SMT</th>
-                        <th data-toggle="phone"  data-sort-ignore="true" data-group="group2" >APV</th>
-                        <th data-hide="phone"  data-sort-ignore="true" data-group="group2" >Total</th>                
+                        <th data-toggle="phone"  data-sort-ignore="true" data-group="group2" class="display-total">PND</th>
+                        <th data-toggle="phone"  data-sort-ignore="true" data-group="group2" class="display-total">SMT</th>
+                        <th data-toggle="phone"  data-sort-ignore="true" data-group="group2" class="display-total">APV</th>
+                        <th data-hide="phone"  data-sort-ignore="true" data-group="group2" class="display-total">Total</th>                
                         
-                        <th data-toggle="phone"  data-sort-ignore="true" data-group="group4" >PND</th>                       
-                        <th data-toggle="phone"  data-sort-ignore="true" data-group="group4">SMT</th>
-						<th data-toggle="phone"  data-sort-ignore="true" data-group="group4" >CMP</th>
-                        <th data-toggle="phone"  data-sort-ignore="true" data-group="group4" >Total</th>
+                        <th data-toggle="phone"  data-sort-ignore="true" data-group="group4" class="display-total">PND</th>                       
+                        <th data-toggle="phone"  data-sort-ignore="true" data-group="group4" class="display-total">SMT</th>
+						<th data-toggle="phone"  data-sort-ignore="true" data-group="group4" class="display-total">CMP</th>
+                        <th data-toggle="phone"  data-sort-ignore="true" data-group="group4" class="display-total">Total</th>
 						
-						<th data-toggle=""  data-sort-ignore="true" data-group="" >TKT</th>
+			<th data-toggle=""  data-sort-ignore="true" data-group="" class="display-total">TKT</th>
                                              
                     </tr>
                 </thead>
@@ -177,7 +177,7 @@
 								<td class="background-l-sky"><?php echo $getSupplierHotelCompeleteCnt_1; ?></td>
                                 <td class="background-l-sky"><?php echo $getSupplierHotelTotalCnt_1; ?></td>
 								
-								<td class="background-ticket"><a href="<?php echo $this->webroot .'support_tickets?country_id='.$country_id.'&city_id='.$id .'&province_id='.$TravelCity[0]['province_id'].'&user_id='.$TravelCity[0]['user_id']?>" target="_blank"><?php echo $getSupportTicketCnt_1 ; ?></a></td>
+				<td class="background-ticket"><a href="<?php echo $this->webroot .'support_tickets?country_id='.$country_id.'&city_id='.$id .'&province_id='.$TravelCity[0]['province_id'].'&user_id='.$TravelCity[0]['user_id']?>" target="_blank"><?php echo $getSupportTicketCnt_1 ; ?></a></td>
 
                             </tr> 
                         <?php 
@@ -188,23 +188,23 @@
 								<th colspan="7">Total </th>                         
                                 
                                 
-                                <th><?php echo $getHotelUnallocatedCnt; ?></th>
-                                <th><?php echo $getHotePendingCnt; ?></th>
-                                <th><?php echo $getHoteSubmittedCnt; ?></th>
-                                <th><?php echo $getHoteApprovedCnt; ?></th>
-                                <th><?php echo $getHoteTotalCnt; ?></th>                               
+                                <th class="display-total"><?php echo $getHotelUnallocatedCnt; ?></th>
+                                <th class="display-total"><?php echo $getHotePendingCnt; ?></th>
+                                <th class="display-total"><?php echo $getHoteSubmittedCnt; ?></th>
+                                <th class="display-total"><?php echo $getHoteApprovedCnt; ?></th>
+                                <th class="display-total"><?php echo $getHoteTotalCnt; ?></th>                               
                                 
-                                <th><?php echo $getMappingPendingCnt; ?></th>
-                                <th><?php echo $getMappingSubmitCnt; ?></th>
-                                <th><?php echo $getMappingApproveCnt; ?></th>
-                                <th><?php echo $getHoteApprovedCnt;?></th>
+                                <th class="display-total"><?php echo $getMappingPendingCnt; ?></th>
+                                <th class="display-total"><?php echo $getMappingSubmitCnt; ?></th>
+                                <th class="display-total"><?php echo $getMappingApproveCnt; ?></th>
+                                <th class="display-total"><?php echo $getHoteApprovedCnt;?></th>
                                 
-                                <th><?php echo $getSupplierHotelPendingCnt; ?></th>
-				<th><?php echo $getSupplierHotelSubmitCnt; ?></th>
-                                <th><?php echo $getSupplierHotelCompeleteCnt; ?></th>                                
-                                <th><?php echo $getSupplierHotelTotalCnt; ?></th>
+                                <th class="display-total"><?php echo $getSupplierHotelPendingCnt; ?></th>
+				<th class="display-total"><?php echo $getSupplierHotelSubmitCnt; ?></th>
+                                <th class="display-total"><?php echo $getSupplierHotelCompeleteCnt; ?></th>                                
+                                <th class="display-total"><?php echo $getSupplierHotelTotalCnt; ?></th>
 								
-								<th STYLE="TEXT-ALIGN:LEFT"><?php echo $getSupportTicketCnt;?></td>
+				<th class="display-total"><?php echo $getSupportTicketCnt;?></td>
                             </tr>
 
 <?php						
