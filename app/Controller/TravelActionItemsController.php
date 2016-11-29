@@ -871,6 +871,7 @@ array_push($search_condition, array('TravelActionItem.action_item_active' => 'Ye
                 array_push($search_condition, array('OR' => $condition, 'TravelHotelLookup.country_id' => $TravelHotelLookups['TravelHotelLookup']['country_id'], 'TravelHotelLookup.city_id' => $TravelHotelLookups['TravelHotelLookup']['city_id'], 'TravelHotelLookup.id != ' . $TravelHotelRoomSuppliers['TravelHotelRoomSupplier']['hotel_id']));
 
                 $DuplicateHotels = $this->TravelHotelLookup->find('all', array('conditions' => $search_condition));
+//                $DuplicateHotels = $this->TravelHotelLookup->find('all', array('conditions' => $search_condition,'limit'=>10));                
 
                 //$this-TravelHotelLookup->find('all',array('conditions' => $search_condition));
 
