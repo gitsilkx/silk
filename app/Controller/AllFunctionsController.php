@@ -8357,6 +8357,7 @@ public function beforeFilter() {
         $this->layout = '';
         $user_id = $this->Auth->user('id');
         $channel_id = $this->Session->read("channel_id");
+        $role_id = $this->Session->read("role_id");        
         $personArr = array();
         $Select = '--Select--';
         $summary_type = $this->data['Report']['summary_type'];
@@ -8378,20 +8379,25 @@ public function beforeFilter() {
             }
             else {*/
 
-			if($channel_id == '261'){
-				$Select = 'All';
-				$personArr = array('OR' => array('ProvincePermission.approval_id' => $user_id,'ProvincePermission.maaping_approval_id' => $user_id,'ProvincePermission.user_id' => $user_id));
+//			if($channel_id == '261'){
+			if($role_id == '64' || $role_id == '68') {	                         
+//				$Select = 'All';
+//				$personArr = array('OR' => array('ProvincePermission.approval_id' => $user_id,'ProvincePermission.maaping_approval_id' => $user_id,'ProvincePermission.user_id' => $user_id));
+//                                $Select = array('1' => 'Operation','2' => 'Approver');
+                                $personArr = array();
 			}else{
-				  $personArr = array('ProvincePermission.user_id' => $user_id);
+//				$personArr = array('ProvincePermission.user_id' => $user_id);
+				$personArr = array('OR' => array('ProvincePermission.approval_id' => $user_id,'ProvincePermission.maaping_approval_id' => $user_id));                                
 			}
               
-                $persons = $this->ProvincePermission->find('all', array('fields' => array('ProvincePermission.user_id', 'User.fname','User.lname'),
+                $persons = $this->ProvincePermission->find('all', array('fields' => array('ProvincePermission.approval_id', 'User.fname','User.lname'),
            'joins' => array(
                 array(
                     'table' => 'users',
                     'alias' => 'User',
                     'conditions' => array(
-					'ProvincePermission.user_id = User.id')
+//					'ProvincePermission.user_id = User.id')
+					'ProvincePermission.approval_id = User.id')                    
                 ) 
 
             ),
