@@ -8390,20 +8390,26 @@ public function beforeFilter() {
 				$personArr = array('OR' => array('ProvincePermission.approval_id' => $user_id,'ProvincePermission.maaping_approval_id' => $user_id));                                
 			}
               
-                $persons = $this->ProvincePermission->find('all', array('fields' => array('ProvincePermission.approval_id', 'User.fname','User.lname'),
+//                $persons = $this->ProvincePermission->find('all', array('fields' => array('ProvincePermission.approval_id', 'User.fname','User.lname'),
+                $persons = $this->ProvincePermission->find('all', array('fields' => array('User.id', 'User.fname','User.lname'),                    
            'joins' => array(
                 array(
                     'table' => 'users',
                     'alias' => 'User',
+//                    'conditions' => array('ProvincePermission.approval_id = User.id')
                     'conditions' => array(
+                                        'OR' => array(
+                                            'ProvincePermission.approval_id = User.id',
+                                            'ProvincePermission.maaping_approval_id = User.id'))
+                                                       
 //					'ProvincePermission.user_id = User.id')
-					'ProvincePermission.approval_id = User.id')                    
+					                    
                 ) 
 
             ),
             'conditions' => $personArr,
             'group' => 'ProvincePermission.user_id'));
-             $persons = Set::combine($persons, '{n}.ProvincePermission.approval_id', array('%s %s', '{n}.User.fname', '{n}.User.lname')); 
+             $persons = Set::combine($persons, '{n}.User.id', array('%s %s', '{n}.User.fname', '{n}.User.lname')); 
 
            // }
         }elseif($summary_type == '1'){//oprations
