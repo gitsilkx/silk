@@ -8359,6 +8359,7 @@ public function beforeFilter() {
         $channel_id = $this->Session->read("channel_id");
         $role_id = $this->Session->read("role_id");        
         $personArr = array();
+        $exclude_sales = '';
         $Select = '--Select--';
         $summary_type = $this->data['Report']['summary_type'];
         if($summary_type == '2'){ //Approver
@@ -8441,25 +8442,41 @@ public function beforeFilter() {
                         $personArr = array(); 
 		}elseif($role_id == '68') {
 			$Select = 'All';
+                        $exclude_sales = 'Y';
 //                      $personArr = array('OR' => array('ProvincePermission.approval_id' => $user_id,'ProvincePermission.maaping_approval_id' => $user_id,'ProvincePermission.user_id' => $user_id));
                         $personArr = array();             
 		}		
             
-
-            $persons = $this->ProvincePermission->find('all', array('fields' => array('User.id', 'User.fname','User.lname'),
-           'joins' => array(
-                array(
-                    'table' => 'users',
-                    'alias' => 'User',
-                    'conditions' => array(
-					'ProvincePermission.user_id = User.id',
-                                        'User.t_sales_role_id IS NULL')
-                ) 
-            ),
-            'conditions' => $personArr,
-            'group' => 'User.id',
-            'order' => 'User.fname ASC'));                 
-             $persons = Set::combine($persons, '{n}.User.id', array('%s %s', '{n}.User.fname', '{n}.User.lname'));   
+                if ($exclude_sales == 'Y') { 
+                        $persons = $this->ProvincePermission->find('all', array('fields' => array('User.id', 'User.fname','User.lname'),
+                       'joins' => array(
+                            array(
+                                'table' => 'users',
+                                'alias' => 'User',
+                                'conditions' => array(
+                                                    'ProvincePermission.user_id = User.id',
+                                                    'User.t_sales_role_id IS NULL')
+                            ) 
+                        ),
+                        'conditions' => $personArr,
+                        'group' => 'User.id',
+                        'order' => 'User.fname ASC'));                 
+                         $persons = Set::combine($persons, '{n}.User.id', array('%s %s', '{n}.User.fname', '{n}.User.lname'));   
+                } else {
+                        $persons = $this->ProvincePermission->find('all', array('fields' => array('User.id', 'User.fname','User.lname'),
+                       'joins' => array(
+                            array(
+                                'table' => 'users',
+                                'alias' => 'User',
+                                'conditions' => array(
+                                                    'ProvincePermission.user_id = User.id')
+                            ) 
+                        ),
+                        'conditions' => $personArr,
+                        'group' => 'User.id',
+                        'order' => 'User.fname ASC'));                 
+                         $persons = Set::combine($persons, '{n}.User.id', array('%s %s', '{n}.User.fname', '{n}.User.lname'));                       
+                }           
 		
         }
         $this->set(compact('persons','Select'));
