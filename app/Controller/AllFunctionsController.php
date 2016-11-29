@@ -8403,7 +8403,7 @@ public function beforeFilter() {
             ),
             'conditions' => $personArr,
             'group' => 'ProvincePermission.user_id'));
-             $persons = Set::combine($persons, '{n}.ProvincePermission.user_id', array('%s %s', '{n}.User.fname', '{n}.User.lname')); 
+             $persons = Set::combine($persons, '{n}.ProvincePermission.approval_id', array('%s %s', '{n}.User.fname', '{n}.User.lname')); 
 
            // }
         }elseif($summary_type == '1'){//oprations
