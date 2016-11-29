@@ -8452,7 +8452,8 @@ public function beforeFilter() {
                     'table' => 'users',
                     'alias' => 'User',
                     'conditions' => array(
-					'ProvincePermission.user_id = User.id')
+					'ProvincePermission.user_id = User.id',
+                                        'User.t_sales_role_id = NULL')
                 ) 
             ),
             'conditions' => $personArr,
