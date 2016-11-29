@@ -8446,18 +8446,18 @@ public function beforeFilter() {
 		}		
             
 
-            $persons = $this->ProvincePermission->find('all', array('fields' => array('ProvincePermission.user_id', 'User.fname','User.lname'),
+            $persons = $this->ProvincePermission->find('all', array('fields' => array('User.id', 'User.fname','User.lname'),
            'joins' => array(
                 array(
                     'table' => 'users',
                     'alias' => 'User',
                     'conditions' => array(
 					'ProvincePermission.user_id = User.id',
-                                        'User.t_sales_role_id = NULL')
+                                        'User.t_sales_role_id IS NULL')
                 ) 
             ),
             'conditions' => $personArr,
-            'group' => 'ProvincePermission.user_id',
+            'group' => 'User.id',
             'order' => 'User.fname ASC'));                 
              $persons = Set::combine($persons, '{n}.ProvincePermission.user_id', array('%s %s', '{n}.User.fname', '{n}.User.lname'));   
 		
