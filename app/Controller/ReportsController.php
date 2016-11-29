@@ -6083,7 +6083,7 @@ class ReportsController extends AppController {
 
 
 
-            $summary = array('1' => 'Operation','2' => 'Approver');
+            $summary = array('1' => 'Operation');
 
 
 
