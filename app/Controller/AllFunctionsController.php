@@ -8381,7 +8381,7 @@ public function beforeFilter() {
 
 //			if($channel_id == '261'){
 			if($role_id == '64' || $role_id == '68') {	                         
-//				$Select = 'All';
+				$Select = 'All';
 //				$personArr = array('OR' => array('ProvincePermission.approval_id' => $user_id,'ProvincePermission.maaping_approval_id' => $user_id,'ProvincePermission.user_id' => $user_id));
 //                                $Select = array('1' => 'Operation','2' => 'Approver');
                                 $personArr = array();
