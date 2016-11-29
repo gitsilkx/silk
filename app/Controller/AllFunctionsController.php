@@ -8459,7 +8459,7 @@ public function beforeFilter() {
             'conditions' => $personArr,
             'group' => 'User.id',
             'order' => 'User.fname ASC'));                 
-             $persons = Set::combine($persons, '{n}.ProvincePermission.user_id', array('%s %s', '{n}.User.fname', '{n}.User.lname'));   
+             $persons = Set::combine($persons, '{n}.User.id', array('%s %s', '{n}.User.fname', '{n}.User.lname'));   
 		
         }
         $this->set(compact('persons','Select'));
