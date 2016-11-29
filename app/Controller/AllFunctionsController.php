@@ -8409,7 +8409,8 @@ public function beforeFilter() {
             ),
             'conditions' => $personArr,
 //            'group' => 'ProvincePermission.user_id'));
-            'group' => 'User.id'));                
+            'group' => 'User.id',
+            'order' => 'User.fname ASC'));                
              $persons = Set::combine($persons, '{n}.User.id', array('%s %s', '{n}.User.fname', '{n}.User.lname')); 
 
            // }
