@@ -443,7 +443,8 @@ $result_array = ClassRegistry::init('TravelHotelLookup')->find('all', array('fie
 
 array_push($search_condition, $conditions);
 
-array_push($search_condition, array('SupportTicket.status' => '1' OR '2'));
+array_push($search_condition, array('SupportTicket.status' => array('1','2')));  
+//array_push($search_condition, array('SupportTicket.status' => '1' OR '2'));
 
 //array_push($search_condition, array('SupportTicket.city_id' => $city_id));
 
