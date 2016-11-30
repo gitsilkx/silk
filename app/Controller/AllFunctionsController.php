@@ -8521,6 +8521,25 @@ public function beforeFilter() {
 		$Select = 'All';
                 
                 $personArr = array();
+
+                $persons = $this->ProvincePermission->find('all', array('fields' => array('User.id', 'User.fname','User.lname'),                    
+           'joins' => array(
+                array(
+                    'table' => 'users',
+                    'alias' => 'User',
+                    'conditions' => array(
+                                        'OR' => array(
+                                            'ProvincePermission.approval_id = User.id',
+                                            'ProvincePermission.maaping_approval_id = User.id'))
+					                    
+                ) 
+
+            ),
+            'conditions' => $personArr,
+            'group' => 'User.id',
+            'order' => 'User.fname ASC'));                
+             $persons = Set::combine($persons, '{n}.User.id', array('%s %s', '{n}.User.fname', '{n}.User.lname')); 
+             
             } elseif($role_id == '62') {
 		$personArr = array('OR' => array('ProvincePermission.approval_id' => $user_id));  
 
