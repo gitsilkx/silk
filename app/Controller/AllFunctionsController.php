@@ -8510,7 +8510,8 @@ public function beforeFilter() {
 		$exclude_sales = 'Y';
             }
             
-            $personArr = array('OR' => array('ProvincePermission.user_id' => $user_id));
+//            $personArr = array('OR' => array('ProvincePermission.user_id' => $user_id));
+            $personArr = array();            
             
                 if ($exclude_sales == 'Y') { 
                         $persons = $this->ProvincePermission->find('all', array('fields' => array('User.id', 'User.fname','User.lname'),
