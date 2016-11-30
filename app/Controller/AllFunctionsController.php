@@ -8503,19 +8503,51 @@ public function beforeFilter() {
                 
                 $personArr = array();
             } elseif($role_id == '62') {
-		$personArr = array('OR' => array('ProvincePermission.approval_id' => $user_id));                                                
+		$personArr = array('OR' => array('ProvincePermission.approval_id' => $user_id));  
+
+                $persons = $this->ProvincePermission->find('all', array('fields' => array('User.id', 'User.fname','User.lname'),                    
+           'joins' => array(
+                array(
+                    'table' => 'users',
+                    'alias' => 'User',
+                    'conditions' => array(
+                                            'ProvincePermission.approval_id = User.id')
+					                    
+                ) 
+
+            ),
+            'conditions' => $personArr,
+            'group' => 'User.id',
+            'order' => 'User.fname ASC'));                
+             $persons = Set::combine($persons, '{n}.User.id', array('%s %s', '{n}.User.fname', '{n}.User.lname')); 
+             
             } elseif($role_id == '61') {
 		$personArr = array('OR' => array('ProvincePermission.maaping_approval_id' => $user_id));                                                
+
+                $persons = $this->ProvincePermission->find('all', array('fields' => array('User.id', 'User.fname','User.lname'),                    
+           'joins' => array(
+                array(
+                    'table' => 'users',
+                    'alias' => 'User',
+                    'conditions' => array(
+                                            'ProvincePermission.maaping_approval_id = User.id')
+					                    
+                ) 
+
+            ),
+            'conditions' => $personArr,
+            'group' => 'User.id',
+            'order' => 'User.fname ASC'));                
+             $persons = Set::combine($persons, '{n}.User.id', array('%s %s', '{n}.User.fname', '{n}.User.lname')); 
+             
             }
 /*            
             else{
 		$personArr = array('OR' => array('ProvincePermission.approval_id' => $user_id,'ProvincePermission.maaping_approval_id' => $user_id));                                
                 
             } 
-  */
-
-//            $personArr = array('OR' => array('ProvincePermission.approval_id' => $user_id,'ProvincePermission.maaping_approval_id' => $user_id));                                
-
+  */          
+/*              
                 $persons = $this->ProvincePermission->find('all', array('fields' => array('User.id', 'User.fname','User.lname'),                    
            'joins' => array(
                 array(
@@ -8533,7 +8565,7 @@ public function beforeFilter() {
             'group' => 'User.id',
             'order' => 'User.fname ASC'));                
              $persons = Set::combine($persons, '{n}.User.id', array('%s %s', '{n}.User.fname', '{n}.User.lname')); 
-
+*/
            // }
         }elseif($summary_type == '1'){//oprations
 
