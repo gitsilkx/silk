@@ -213,7 +213,7 @@
 
 $this->Js->get('#ReportSummaryType')->event('change', $this->Js->request(array(
             'controller' => 'all_functions',
-            'action' => 'get_user_list_by_summary_type'
+            'action' => 'get_activity_user_list_by_summary_type'
                 ), array(
             'update' => '#ReportUserId',
             'async' => true,
