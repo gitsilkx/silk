@@ -6202,8 +6202,8 @@ class ReportsController extends AppController {
 
             );
 
-               $TravelCities[] = $this->TravelCity->find('first',array('fields' => 'id,city_name','conditions' => array('province_id' => $val['province_id'])));
-
+//               $TravelCities[] = $this->TravelCity->find('first',array('fields' => 'id,city_name','conditions' => array('province_id' => $val['province_id'])));
+               $TravelCities[] = $this->TravelCity->find('list',array('fields' => 'id,city_name','conditions' => array('province_id' => $val['province_id'])));
               
 
                array_push($TravelCities[$i], array('province_id' => $val['province_id'],'country_id' => $val['country_id'],'user_id' => $val['user_id'],'approval_id' => $val['approval_id'],'maaping_approval_id' => $val['maaping_approval_id'])); 
