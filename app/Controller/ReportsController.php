@@ -5853,12 +5853,17 @@ class ReportsController extends AppController {
 
                     'alias' => 'User',
 
+
+                    'conditions' => array(
+
+                        'ProvincePermission.user_id = User.id')                    
+/*
                     'conditions' => array(
                                         'OR' => array(
                                             'ProvincePermission.approval_id = User.id',
                                             'ProvincePermission.maaping_approval_id = User.id',
                                             'ProvincePermission.user_id = User.id'))
-
+*/
                 )               
 
             ), 
