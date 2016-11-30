@@ -5843,7 +5843,7 @@ class ReportsController extends AppController {
 
             $summary = array('1' => 'Operation','2' => 'Approver');
 
-            $persons = $this->ProvincePermission->find('all', array('fields' => array('User.id', 'User.fname','User.lname'),
+            $persons = $this->ProvincePermission->find('all', array('fields' => array('ProvincePermission.user_id', 'User.fname','User.lname'),
 
            'joins' => array(
 
@@ -5868,9 +5868,9 @@ class ReportsController extends AppController {
 
             ), 
 
-            'group' => 'User.id'));
+            'group' => 'ProvincePermission.user_id'));
 
-             $persons = Set::combine($persons, '{n}.User.id', array('%s %s', '{n}.User.fname', '{n}.User.lname'));   
+             $persons = Set::combine($persons, '{n}.ProvincePermission.user_id', array('%s %s', '{n}.User.fname', '{n}.User.lname'));   
 
         }
         elseif($role_id == '68') {			
