@@ -5839,6 +5839,7 @@ class ReportsController extends AppController {
         elseif($role_id == '64') {			
 
             //die('fgh');;
+            $Select = 'All';
 
             $summary = array('1' => 'Operation','2' => 'Approver');
 
