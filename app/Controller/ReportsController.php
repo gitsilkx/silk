@@ -6132,7 +6132,7 @@ class ReportsController extends AppController {
 //        elseif($channel_id == '258' || $channel_id == '259') {
         elseif($role_id == '61' || $role_id == '62') {			
 
-        $summary = array('2' => 'Approver');
+            $summary = array('1' => 'Operation','2' => 'Approver');
 
         if($role_id == '61') {
 
