@@ -5789,11 +5789,11 @@ class ReportsController extends AppController {
 //        elseif($channel_id == '258' || $channel_id == '259') {
         elseif($role_id == '61' || $role_id == '62') {			
 
-            $summary = array('1' => 'Operation','2' => 'Approver'); 
+        $summary = array('2' => 'Approver');
 			
-            $personArr = array('OR' => array('ProvincePermission.approval_id' => $user_id,'ProvincePermission.maaping_approval_id' => $user_id,'ProvincePermission.user_id' => $user_id));
+            $personArr = array('OR' => array('ProvincePermission.approval_id' => $user_id,'ProvincePermission.maaping_approval_id' => $user_id));
 
-            $persons = $this->ProvincePermission->find('all', array('fields' => array('ProvincePermission.user_id', 'User.fname','User.lname'),
+            $persons = $this->ProvincePermission->find('all', array('fields' => array('User.id', 'User.fname','User.lname'),
 
            'joins' => array(
 
@@ -5802,13 +5802,13 @@ class ReportsController extends AppController {
                     'table' => 'users',
                     'alias' => 'User',
                     'conditions' => array(
-                        'ProvincePermission.user_id = User.id')
+                        'ProvincePermission.approval_id = User.id')
                 )               
             ),
 
             'conditions' => $personArr,
-            'group' => 'ProvincePermission.user_id'));
-             $persons = Set::combine($persons, '{n}.ProvincePermission.user_id', array('%s %s', '{n}.User.fname', '{n}.User.lname')); 			
+            'group' => 'User.id'));
+             $persons = Set::combine($persons, '{n}.User.id', array('%s %s', '{n}.User.fname', '{n}.User.lname')); 			
 
         }  
 
