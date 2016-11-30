@@ -5861,7 +5861,7 @@ class ReportsController extends AppController {
 
                 )               
 
-            ),
+            ), 
 
             'group' => 'User.id'));
 
