@@ -8487,7 +8487,7 @@ public function beforeFilter() {
            // }
         }elseif($summary_type == '1'){//oprations
 
-/*            
+            
 		if($role_id == '65' || $role_id == '28') {				
                         $personArr = array('OR' => array('ProvincePermission.user_id' => $user_id));
 		}elseif($role_id == '61' || $role_id == '62') {			
@@ -8501,7 +8501,7 @@ public function beforeFilter() {
                         $exclude_sales = 'Y';
                         $personArr = array();             
 		}
-  */		
+/*		
             if($role_id == '64' || $role_id == '68') {	                         
 		$Select = 'All';
             }
@@ -8510,9 +8510,9 @@ public function beforeFilter() {
 		$exclude_sales = 'Y';
             }
             
-//            $personArr = array('OR' => array('ProvincePermission.user_id' => $user_id));
+           $personArr = array('OR' => array('ProvincePermission.user_id' => $user_id));
             $personArr = array();            
-            
+*/            
                 if ($exclude_sales == 'Y') { 
                         $persons = $this->ProvincePermission->find('all', array('fields' => array('User.id', 'User.fname','User.lname'),
                        'joins' => array(
