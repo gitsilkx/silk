@@ -8455,13 +8455,17 @@ public function beforeFilter() {
         $summary_type = $this->data['Report']['summary_type'];
         if($summary_type == '2'){ //Approver
 
-			if($role_id == '64' || $role_id == '68') {	                         
-				$Select = 'All';
-                                $personArr = array();
-			}else{
-				$personArr = array('OR' => array('ProvincePermission.approval_id' => $user_id,'ProvincePermission.maaping_approval_id' => $user_id));                                
-			}
-              
+            if($role_id == '64' || $role_id == '68') {	                         
+		$Select = 'All';
+/*                
+                $personArr = array();
+            }else{
+		$personArr = array('OR' => array('ProvincePermission.approval_id' => $user_id,'ProvincePermission.maaping_approval_id' => $user_id));                                
+*/                
+            }
+
+            $personArr = array('OR' => array('ProvincePermission.approval_id' => $user_id,'ProvincePermission.maaping_approval_id' => $user_id));                                
+
                 $persons = $this->ProvincePermission->find('all', array('fields' => array('User.id', 'User.fname','User.lname'),                    
            'joins' => array(
                 array(
@@ -8483,6 +8487,7 @@ public function beforeFilter() {
            // }
         }elseif($summary_type == '1'){//oprations
 
+/*            
 		if($role_id == '65' || $role_id == '28') {				
                         $personArr = array('OR' => array('ProvincePermission.user_id' => $user_id));
 		}elseif($role_id == '61' || $role_id == '62') {			
@@ -8495,7 +8500,17 @@ public function beforeFilter() {
 			$Select = 'All';
                         $exclude_sales = 'Y';
                         $personArr = array();             
-		}		
+		}
+  */		
+            if($role_id == '64' || $role_id == '68') {	                         
+		$Select = 'All';
+            }
+
+            if($role_id == '68') {	                         
+		$exclude_sales = 'Y';
+            }
+            
+            $personArr = array('OR' => array('ProvincePermission.user_id' => $user_id));
             
                 if ($exclude_sales == 'Y') { 
                         $persons = $this->ProvincePermission->find('all', array('fields' => array('User.id', 'User.fname','User.lname'),
