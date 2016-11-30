@@ -8464,10 +8464,17 @@ public function beforeFilter() {
 		$Select = 'All';
                 
                 $personArr = array();
-            }else{
+            } elseif($role_id == '62') {
+		$personArr = array('OR' => array('ProvincePermission.approval_id' => $user_id));                                                
+            } elseif($role_id == '61') {
+		$personArr = array('OR' => array('ProvincePermission.maaping_approval_id' => $user_id));                                                
+            }
+/*            
+            else{
 		$personArr = array('OR' => array('ProvincePermission.approval_id' => $user_id,'ProvincePermission.maaping_approval_id' => $user_id));                                
                 
             } 
+  */
 
 //            $personArr = array('OR' => array('ProvincePermission.approval_id' => $user_id,'ProvincePermission.maaping_approval_id' => $user_id));                                
 
