@@ -8366,15 +8366,19 @@ public function beforeFilter() {
 
             if($role_id == '64' || $role_id == '68') {	                         
 		$Select = 'All';
-              
+                
                 $personArr = array();
-            }else{
+            } elseif($role_id == '62') {
+		$personArr = array('OR' => array('ProvincePermission.approval_id' => $user_id));                                                
+            } elseif($role_id == '61') {
+		$personArr = array('OR' => array('ProvincePermission.maaping_approval_id' => $user_id));                                                
+            }
+/*            
+            else{
 		$personArr = array('OR' => array('ProvincePermission.approval_id' => $user_id,'ProvincePermission.maaping_approval_id' => $user_id));                                
-              
-            }  
-
-//            $personArr = array('OR' => array('ProvincePermission.approval_id' => $user_id,'ProvincePermission.maaping_approval_id' => $user_id)); 
-            
+                
+            } 
+  */          
               
                 $persons = $this->ProvincePermission->find('all', array('fields' => array('User.id', 'User.fname','User.lname'),                    
            'joins' => array(
