@@ -5753,7 +5753,8 @@ class ReportsController extends AppController {
 
         
 
-        if($channel_id == '262'){
+//        if($channel_id == '262'){
+        if($role_id == '65' || $role_id == '28') {		
 
         $personArr = array('ProvincePermission.user_id' => $user_id);
 
@@ -5785,13 +5786,34 @@ class ReportsController extends AppController {
 
            }
 
-        elseif($channel_id == '258' || $channel_id == '259') {
+//        elseif($channel_id == '258' || $channel_id == '259') {
+        elseif($role_id == '61' || $role_id == '62') {			
 
             $summary = array('1' => 'Operation','2' => 'Approver'); 
+			
+            $personArr = array('OR' => array('ProvincePermission.approval_id' => $user_id,'ProvincePermission.maaping_approval_id' => $user_id,'ProvincePermission.user_id' => $user_id));
+
+            $persons = $this->ProvincePermission->find('all', array('fields' => array('ProvincePermission.user_id', 'User.fname','User.lname'),
+
+           'joins' => array(
+
+                array(
+
+                    'table' => 'users',
+                    'alias' => 'User',
+                    'conditions' => array(
+                        'ProvincePermission.user_id = User.id')
+                )               
+            ),
+
+            'conditions' => $personArr,
+            'group' => 'ProvincePermission.user_id'));
+             $persons = Set::combine($persons, '{n}.ProvincePermission.user_id', array('%s %s', '{n}.User.fname', '{n}.User.lname')); 			
 
         }  
 
-        elseif($channel_id == '261' || $channel_id == '214') {
+//        elseif($channel_id == '261' || $channel_id == '214') {
+        elseif($role_id == '64') {			
 
             //die('fgh');;
 
@@ -5820,8 +5842,64 @@ class ReportsController extends AppController {
              $persons = Set::combine($persons, '{n}.ProvincePermission.user_id', array('%s %s', '{n}.User.fname', '{n}.User.lname'));   
 
         }
+        elseif($role_id == '68') {			
 
-          
+
+
+            //die('fgh');;
+
+
+
+            $summary = array('1' => 'Operation');
+
+
+
+            $persons = $this->ProvincePermission->find('all', array('fields' => array('ProvincePermission.user_id', 'User.fname','User.lname'),
+
+
+
+           'joins' => array(
+
+
+
+                array(
+
+
+
+                    'table' => 'users',
+
+
+
+                    'alias' => 'User',
+
+
+
+                    'conditions' => array(
+
+
+
+                        'ProvincePermission.user_id = User.id')
+
+
+
+                )               
+
+
+
+            ),
+
+
+
+            'group' => 'ProvincePermission.user_id'));
+
+
+
+             $persons = Set::combine($persons, '{n}.ProvincePermission.user_id', array('%s %s', '{n}.User.fname', '{n}.User.lname'));   
+
+
+
+        }
+        
   $data_choose_date= '';
         if ($this->request->is('post') || $this->request->is('put')) {
 
