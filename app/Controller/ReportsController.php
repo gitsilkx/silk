@@ -5856,7 +5856,8 @@ class ReportsController extends AppController {
                     'conditions' => array(
                                         'OR' => array(
                                             'ProvincePermission.approval_id = User.id',
-                                            'ProvincePermission.maaping_approval_id = User.id'))
+                                            'ProvincePermission.maaping_approval_id = User.id',
+                                            'ProvincePermission.user_id = User.id'))
 
                 )               
 
