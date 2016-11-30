@@ -8453,19 +8453,16 @@ public function beforeFilter() {
         $exclude_sales = '';
         $Select = '--Select--';
         $summary_type = $this->data['Report']['summary_type'];
+        
         if($summary_type == '2'){ //Approver
 
-            if($role_id == '64' || $role_id == '68') {	                         
-		$Select = 'All';
-/*                
-                $personArr = array();
-            }else{
-		$personArr = array('OR' => array('ProvincePermission.approval_id' => $user_id,'ProvincePermission.maaping_approval_id' => $user_id));                                
-*/                
-            } 
-
-            $personArr = array('OR' => array('ProvincePermission.approval_id' => $user_id,'ProvincePermission.maaping_approval_id' => $user_id));                                
-
+			if($role_id == '64' || $role_id == '68') {	                         
+				$Select = 'All';
+                                $personArr = array();
+			}else{
+				$personArr = array('OR' => array('ProvincePermission.approval_id' => $user_id,'ProvincePermission.maaping_approval_id' => $user_id));                                
+			}
+                        
                 $persons = $this->ProvincePermission->find('all', array('fields' => array('User.id', 'User.fname','User.lname'),                    
            'joins' => array(
                 array(
