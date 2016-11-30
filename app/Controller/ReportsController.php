@@ -5791,7 +5791,7 @@ class ReportsController extends AppController {
 
         $summary = array('2' => 'Approver');
 
-        if($channel_id == '258') {
+        if($role_id == '61') {
 
                         $personArr = array('OR' => array('ProvincePermission.maaping_approval_id' => $user_id));
 
@@ -5811,7 +5811,7 @@ class ReportsController extends AppController {
             'conditions' => $personArr,
             'group' => 'User.id'));
              $persons = Set::combine($persons, '{n}.User.id', array('%s %s', '{n}.User.fname', '{n}.User.lname')); 			
-        }  elseif($channel_id == '259') {  
+        }  elseif($role_id == '62') {  
         
             $personArr = array('OR' => array('ProvincePermission.approval_id' => $user_id));
 
@@ -5834,6 +5834,7 @@ class ReportsController extends AppController {
          }    
 
         }  
+
 
 //        elseif($channel_id == '261' || $channel_id == '214') {
         elseif($role_id == '64') {			
