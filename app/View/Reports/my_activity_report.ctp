@@ -224,7 +224,7 @@ $this->Js->get('#ReportSummaryType')->event('change', $this->Js->request(array(
             'data' => $this->Js->serializeForm(array(
                 'isForm' => true,
                 'inline' => true
-            ))
+            )) 
         ))
 );
 ?>
