@@ -8462,7 +8462,7 @@ public function beforeFilter() {
             }else{
 		$personArr = array('OR' => array('ProvincePermission.approval_id' => $user_id,'ProvincePermission.maaping_approval_id' => $user_id));                                
 */                
-            }
+            } 
 
             $personArr = array('OR' => array('ProvincePermission.approval_id' => $user_id,'ProvincePermission.maaping_approval_id' => $user_id));                                
 
