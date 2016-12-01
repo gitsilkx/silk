@@ -33,6 +33,7 @@ else
               ?>
             <div class="row" style="padding: 15px;">
         <div class="col-sm-12">
+            <?php if($user_id == '169'){ 
             <?php echo $this->Form->submit('Delete', array('class' => 'success btn', 'div' => false, 'id' => 'udate_unit'));
             echo $this->Html->link('Duplicate Hotel','/reports/support_hotel_summary/'.$hotel_id, array('class' => 'success btn', 'escape' => false,'style' => 'width:11%'));
             ?>
