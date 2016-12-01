@@ -6328,6 +6328,7 @@ class ReportsController extends AppController {
 
           $i=0;
 
+//print_r($dataArray); die;
            foreach($dataArray as $val){
 
           $this->TravelCity->unbindModel(
@@ -6336,26 +6337,38 @@ class ReportsController extends AppController {
 
             );
 
-               $TravelCities[] = $this->TravelCity->find('first',array('fields' => 'id,city_name','conditions' => array('province_id' => $val['province_id'])));
+			$AllCitiesProvinces = $this->TravelCity->find('all',array('fields' => 'id,city_name','conditions' => array('province_id' => $val['province_id'])));
+			
+			foreach($AllCitiesProvinces as $AllCitiesProvince)
+			{	
+				$TravelCities[$i]['TravelCity']['id'] =$AllCitiesProvince['TravelCity']['id'];
+				$TravelCities[$i]['TravelCity']['city_name'] =$AllCitiesProvince['TravelCity']['city_name'];
+				
+				// $TravelCities[$i] = array('id'=>$AllCitiesProvince['TravelCity']['id'],'city_name'=>$AllCitiesProvince['TravelCity']['city_name']);
+				 array_push($TravelCities[$i], array('province_id' => $val['province_id'],'country_id' => $val['country_id'],'user_id' => $val['user_id'],'approval_id' => $val['approval_id'],'maaping_approval_id' => $val['maaping_approval_id'])); 
+				    $i++;
+			}
+			
+              
 //              $TravelCities[] = $this->TravelCity->find('list',array('fields' => 'id,city_name','conditions' => array('province_id' => $val['province_id'])));
               
 
-               array_push($TravelCities[$i], array('province_id' => $val['province_id'],'country_id' => $val['country_id'],'user_id' => $val['user_id'],'approval_id' => $val['approval_id'],'maaping_approval_id' => $val['maaping_approval_id'])); 
+               
 
               
 
-                $conArray[] = array('TravelHotelLookup.city_id' => $TravelCities[$i]['TravelCity']['id'],'TravelHotelLookup.country_id' => $val['country_id']);
+              //  $conArray[] = array('TravelHotelLookup.city_id' => $TravelCities[$i]['TravelCity']['id'],'TravelHotelLookup.country_id' => $val['country_id']);
 
                 ///$andArray = array('province_id' => $val['province_id'],'country_id' => $val['country_id']);
 
-                $i++;
+             
 
               
 
            }         
-
+//echo '<pre>';
+//print_r($TravelCities);die;
         }
-
         
 
         
