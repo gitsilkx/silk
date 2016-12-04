@@ -186,7 +186,16 @@ class CustomHelper extends Helper {
     }
     
     public function getHotePendingCnt($country_id,$city_id,$province_id){
-        return ClassRegistry::init('TravelHotelLookup')->find('count', array('fields' => array('id'),'conditions' => array('TravelHotelLookup.country_id' => $country_id,'TravelHotelLookup.city_id' => $city_id,'TravelHotelLookup.province_id ' => $province_id,'TravelHotelLookup.suburb_id ' => '0','TravelHotelLookup.area_id ' => '0','TravelHotelLookup.chain_id ' => '0','TravelHotelLookup.brand_id ' => '0','TravelHotelLookup.status ' => '2','TravelHotelLookup.active ' => 'TRUE',)));
+        return ClassRegistry::init('TravelHotelLookup')->find('count', array('fields' => array('id'),
+            'conditions' => array('TravelHotelLookup.country_id' => $country_id,
+                                    'TravelHotelLookup.city_id' => $city_id,
+                                    'TravelHotelLookup.province_id ' => $province_id,
+                                    'TravelHotelLookup.suburb_id ' => '0',
+                                    'TravelHotelLookup.area_id ' => '0',
+                                    'TravelHotelLookup.chain_id ' => '0',
+                                    'TravelHotelLookup.brand_id ' => '0',
+                                    'TravelHotelLookup.status ' => '2',
+                                    'TravelHotelLookup.active ' => 'TRUE',)));
         //return $DataArray['TravelHotelLookup'];
     }
  
@@ -402,10 +411,14 @@ $result_array = ClassRegistry::init('TravelHotelRoomSupplier')->find('all', arra
 	foreach( $result_array as  $results){
 	
 		$hotel_id = $results['TravelHotelLookup']['id'];		
-		$conditions['or'][] = array('SupportTicket.about LIKE' => "%Id: $hotel_id%");  
+		$conditions['or'][] = array('SupportTicket.about LIKE' => "%Id: $hotel_id%",
+                                            'SupportTicket.status' => array('1','2'));  
 		$checkCondition = true;
 	}
-	$conditions['or'][] = array('SupportTicket.created_by' => $user_id,'SupportTicket.next_action_by' => $user_id,'SupportTicket.approved_by' => $user_id,'SupportTicket.last_action_by' => $user_id);
+	$conditions['or'][] = array('SupportTicket.created_by' => $user_id,
+                                    'SupportTicket.next_action_by' => $user_id,
+                                    'SupportTicket.approved_by' => $user_id,
+                                    'SupportTicket.last_action_by' => $user_id);
 
 	
 
