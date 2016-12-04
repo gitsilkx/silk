@@ -197,7 +197,7 @@ $get_city_name = 'XXX';
 if ($get_level_id==7) {
 
 $msg_flag = 'Y';
-$msg = 'Showing HOTEL EDIT Actions Submitted by: '. $get_creator_name . " For Country: " . $get_country_name . ", Province: ". $get_province_name . ", City: " . $get_city_name;
+$msg = 'Showing HOTEL EDIT] Actions Submitted by: ['. $get_creator_name . "] For: [" . $get_country_name . " -> ". $get_province_name . " -> " . $get_city_name;
 
 $result_array = ClassRegistry::init('TravelHotelLookup')->find('all', array('fields' => array('id'),
     'conditions' => array('TravelHotelLookup.country_id' => $get_country_id,
