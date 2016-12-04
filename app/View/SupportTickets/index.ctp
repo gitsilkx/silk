@@ -242,7 +242,7 @@
             </tbody>
             </table>
             <?php echo $this->Form->end(); ?>
-            <span class="badge badge-circle add-client"><i class="icon-plus"></i> <?php echo $this->Html->link('Create Support Ticket', '#') ?></span>
+
 
         </div>
     </div>
