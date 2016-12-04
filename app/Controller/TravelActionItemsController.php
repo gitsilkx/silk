@@ -121,7 +121,7 @@ $result_array = ClassRegistry::init('TravelHotelLookup')->find('all', array('fie
 $result_array = ClassRegistry::init('TravelHotelLookup')->find('all', array('fields' => array('id'),'conditions' => array('TravelHotelLookup.country_id' => $get_country_id,'TravelHotelLookup.city_id' => $get_city_id,'TravelHotelLookup.province_id ' => $get_province_id)));
 
  count($result_array);
-
+pr(count($result_array));
 	$checkCondition = false;
 
 	foreach( $result_array as  $results){
@@ -167,7 +167,7 @@ array_push($search_condition, array('TravelActionItem.action_item_active' => 'Ye
 */
 array_push($search_condition, $conditions);
         pr($search_condition);
-        die;
+        //die;
 
 }
 
