@@ -444,7 +444,7 @@ $get_province_name = 'XXX';
 $get_city_name = 'XXX';
 
 $msg_flag = 'Y';
-$msg = 'Showing [OPEN & RESOLVED] Support Tickets Created by: ['. $get_creator_name . "] For Hotels Located in: [" . $get_country_name . " -> ". $get_province_name . " -> " . $get_city_name. "]";
+$msg = 'Showing [OPEN/RESOLVED] Tickets Created by: ['. $get_creator_name . "] For Hotels  in: [" . $get_country_name . " -> ". $get_province_name . " -> " . $get_city_name. "]";
 
 $result_array = ClassRegistry::init('TravelHotelLookup')->find('all', array('fields' => array('id'),'conditions' => array('TravelHotelLookup.country_id' => $country_id,'TravelHotelLookup.city_id' => $city_id,'TravelHotelLookup.province_id ' => $province_id)));
  count($result_array);
