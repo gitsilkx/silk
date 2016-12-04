@@ -13,7 +13,7 @@
             <h4 class="table-heading-title"><span class="badge badge-circle badge-success"> <?php
                     echo $this->Paginator->counter(array('format' => '{:count}'));
                     ?></span>Support Ticket</h4>
-            <span class="badge badge-circle add-client nomrgn"><i class="icon-plus"></i> <?php echo $this->Html->link('Create Support Ticket', '#') ?></span>
+           
            
             <span class="search_panel_icon"><i class="icon-plus" id="toggle_search_panel"></i></span>
         </div>
