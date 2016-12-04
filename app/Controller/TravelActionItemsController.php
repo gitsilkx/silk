@@ -194,63 +194,50 @@ $result_array = ClassRegistry::init('TravelHotelLookup')->find('all', array('fie
                             'TravelHotelLookup.city_id' => $get_city_id,
                             'TravelHotelLookup.province_id ' => $get_province_id)));
  
-
- count($result_array);
-pr(count($result_array));
+count($result_array);
+//pr(count($result_array));
 if (count($result_array) == 0){
         array_push($search_condition, array('TravelActionItem.id' => 'No Records Found Situation'));    
 } else {
 	$checkCondition = false;
 
 	foreach( $result_array as  $results){
-
 		$get_hotel_id = $results['TravelHotelLookup']['id'];		
-
 		$conditions['or'][] = array('TravelActionItem.hotel_id =' => $get_hotel_id);   
-
 		$checkCondition = true;
-
 	}
 	} 
 }
 
 if ($get_level_id==4) {
     
-$result_array = ClassRegistry::init('TravelHotelRoomSupplier')->find('all', array('fields' => array('id'),'conditions' => array('TravelHotelRoomSupplier.hotel_country_id' => $get_country_id,'TravelHotelRoomSupplier.hotel_city_id' => $get_city_id,'TravelHotelRoomSupplier.supplier_id' => $get_supplier_id)));
+$result_array = ClassRegistry::init('TravelHotelRoomSupplier')->find('all', array('fields' => array('id'),
+    'conditions' => array('TravelHotelRoomSupplier.hotel_country_id' => $get_country_id,
+                            'TravelHotelRoomSupplier.hotel_city_id' => $get_city_id,
+                            'TravelHotelRoomSupplier.supplier_id' => $get_supplier_id)));
 
- count($result_array);
-
+count($result_array);
+//pr(count($result_array));
+if (count($result_array) == 0){
+        array_push($search_condition, array('TravelActionItem.id' => 'No Records Found Situation'));    
+} else {
 	$checkCondition = false;
 
 	foreach( $result_array as  $results){
-
-	
-
 		$get_id = $results['TravelHotelRoomSupplier']['id'];			
 		$conditions['or'][] = array('TravelActionItem.hotel_supplier_id =' => $get_id);
-/*                
-                                            'TravelActionItem.created_by_id' => $get_creator,
-                                            'TravelActionItem.next_action_by' => $get_user_id,
-                                            'TravelActionItem.level_id' => $get_level_id,
-                                            'TravelActionItem.action_item_active' => 'Yes');   
-*/
 		$checkCondition = true;
-
 	}
-        
+	}        
 }
-
-
-
 
 array_push($search_condition, array('TravelActionItem.created_by_id' => $get_creator));
 array_push($search_condition, array('TravelActionItem.next_action_by' => $get_user_id));
 array_push($search_condition, array('TravelActionItem.level_id' => $get_level_id));
 array_push($search_condition, array('TravelActionItem.action_item_active' => 'Yes'));
 
-
 array_push($search_condition, $conditions);
-//        pr($search_condition);
+        //pr($search_condition);
         //die;
 
 }
@@ -268,18 +255,6 @@ array_push($search_condition, $conditions);
 
 }
 
-
-	
-
-
-
-  
-
-  
-
-
-
-		
         if ($role_id == '61') {
 
 		// change level_id 4 to 7 by pc // Reverted this change 21/11/16.
