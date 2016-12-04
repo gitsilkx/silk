@@ -164,7 +164,7 @@ array_push($search_condition, $conditions);
 }
 
 
-        if ($this->request->is('post') || $this->request->is('put')) {
+        elseif ($this->request->is('post') || $this->request->is('put')) {
 
 
 
