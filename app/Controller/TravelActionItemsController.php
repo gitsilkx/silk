@@ -163,8 +163,8 @@ array_push($search_condition, $conditions);
 
 }
 
-
-        elseif ($this->request->is('post') || $this->request->is('put')) {
+/*
+        if ($this->request->is('post') || $this->request->is('put')) {
 
 
 
@@ -236,7 +236,7 @@ array_push($search_condition, $conditions);
 
         }
 
-
+*/
 
         if ($dummy_status)
 
