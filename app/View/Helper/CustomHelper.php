@@ -213,7 +213,7 @@ $result_array = ClassRegistry::init('TravelHotelLookup')->find('all', array('fie
 
 
 	count($result_array);
-
+pr(count($result_array));
 	$checkCondition = false;
 
 	foreach( $result_array as  $results){
@@ -221,21 +221,15 @@ $result_array = ClassRegistry::init('TravelHotelLookup')->find('all', array('fie
 		$get_hotel_id = $results['TravelHotelLookup']['id'];	
 		$conditions['or'][] = array('TravelActionItem.hotel_id =' => $get_hotel_id);
 
-/*
-									array('OR' => 
-											array('TravelActionItem.type_id' => '1',
-												  'TravelActionItem.type_id' => '4'
-												 )
-										)
-*/										
-//								   );   
-    
 		$checkCondition = true;
 
 	}
 
-		
-			
+	$conditions['or'][] = array('TravelActionItem.created_by_id' => $get_creator,
+                                    'TravelActionItem.level_id' => $get_level_id,
+                                    'TravelActionItem.type_id' => array('1','2'),
+                                    'TravelActionItem.action_item_active' => 'Yes');		
+/*			
 	array_push($search_condition, $conditions);
 
 	array_push($search_condition, array('TravelActionItem.created_by_id' => $get_creator));
@@ -247,10 +241,12 @@ $result_array = ClassRegistry::init('TravelHotelLookup')->find('all', array('fie
        	array_push($search_condition, array('TravelActionItem.type_id' => array('1','2')));
 
 	array_push($search_condition, array('TravelActionItem.action_item_active' => 'Yes'));	
-		
-		
-	return ClassRegistry::init('TravelActionItem')->find('count', array('fields' => array('id'),'conditions' => $search_condition));
-
+*/		
+	if($checkCondition == true) {	
+            return ClassRegistry::init('TravelActionItem')->find('count', array('fields' => array('id'),'conditions' => $conditions));
+	} else {
+		return 0;
+	}
      /*    return ClassRegistry::init('TravelHotelLookup')->find('count', array('fields' => array('id'),'conditions' => array('TravelHotelLookup.country_id' => $country_id,'TravelHotelLookup.city_id' => $city_id,'TravelHotelLookup.province_id !=' => '0',
 
              'TravelHotelLookup.suburb_id !=' => '0','TravelHotelLookup.area_id !=' => '0','TravelHotelLookup.chain_id !=' => '0','TravelHotelLookup.brand_id !=' => '0','TravelHotelLookup.status' => '4')));
