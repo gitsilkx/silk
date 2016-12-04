@@ -12,13 +12,14 @@ $attr = new User();
 
 ?>
         
-    <div align="center" class="col-sm-12" style="font-size: 15px; font-family: sans-serif" style="color: black; background-color: #f2d7d5">
-     <strong>>     
+    <div align="center" class="col-sm-12" style="font-size: 15px; font-family: sans-serif" >
+    <p style="color: black; background-color: #f2d7d5"><strong>
        <?php if($msg_flag == 'Y'){ 
                 echo $msg;
         }                
        ?>
-     </strong>>   </div> 
+     </strong></p>
+    </div> 
 
 <div class="row">
     <div class="col-sm-12">
