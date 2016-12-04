@@ -112,10 +112,14 @@ class SupportTicketsController extends AppController {
 
         $res = '';
 
+	$logged_user = '';        
+
 		$TravelLookupContinentsSearch = array();
 		$TravelCountriesSearch = array();
 		$ProvincesSearch = array();
 		$TravelCitiesSearch = array();
+
+        $logged_user = $user_id;
 
         if ($this->request->is('post') || $this->request->is('put')) {
 
@@ -607,7 +611,7 @@ array_push($search_condition, array('SupportTicket.status' => array('1','2')));
 
 
 
-        $this->set(compact('LookupScreen','sql_generate','update', 'solution','selected', 'TravelLookupContinent', 'TravelCountries', 'Provinces', 'TravelSuburbs', 'TravelCities', 'TravelAreas', 'LookupQuestion', 'LookupTicketUrgency', 'users', 'LookupTicketStatus', 'LookupResponseIssue','TravelLookupContinentsSearch','TravelCountriesSearch','ProvincesSearch','TravelCitiesSearch'));
+        $this->set(compact('LookupScreen','sql_generate','update', 'solution','selected', 'TravelLookupContinent', 'TravelCountries', 'Provinces', 'TravelSuburbs', 'TravelCities', 'TravelAreas', 'LookupQuestion', 'LookupTicketUrgency', 'users', 'LookupTicketStatus', 'LookupResponseIssue','TravelLookupContinentsSearch','TravelCountriesSearch','ProvincesSearch','TravelCitiesSearch','logged_user'));
 
     }
 
