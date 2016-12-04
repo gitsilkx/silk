@@ -227,12 +227,13 @@ $result_array = ClassRegistry::init('TravelHotelRoomSupplier')->find('all', arra
 	
 
 		$get_id = $results['TravelHotelRoomSupplier']['id'];			
-		$conditions['or'][] = array('TravelActionItem.hotel_supplier_id =' => $get_id,
+		$conditions['or'][] = array('TravelActionItem.hotel_supplier_id =' => $get_id);
+/*                
                                             'TravelActionItem.created_by_id' => $get_creator,
                                             'TravelActionItem.next_action_by' => $get_user_id,
                                             'TravelActionItem.level_id' => $get_level_id,
                                             'TravelActionItem.action_item_active' => 'Yes');   
-
+*/
 		$checkCondition = true;
 
 	}
@@ -241,12 +242,12 @@ $result_array = ClassRegistry::init('TravelHotelRoomSupplier')->find('all', arra
 
 
 
-/*
+
 array_push($search_condition, array('TravelActionItem.created_by_id' => $get_creator));
 array_push($search_condition, array('TravelActionItem.next_action_by' => $get_user_id));
 array_push($search_condition, array('TravelActionItem.level_id' => $get_level_id));
 array_push($search_condition, array('TravelActionItem.action_item_active' => 'Yes'));
-*/
+
 
 array_push($search_condition, $conditions);
 //        pr($search_condition);
