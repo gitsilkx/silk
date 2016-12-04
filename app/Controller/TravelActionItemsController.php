@@ -236,7 +236,7 @@ array_push($search_condition, $conditions);
 
         }
 
-*/
+
 
         if ($dummy_status)
 
@@ -285,7 +285,7 @@ array_push($search_condition, $conditions);
             $this->paginate['conditions'][0] = "TravelActionItem.action_item_active='Yes' AND TravelActionItem.next_action_by = " . $user_id . "";        
 
         }
-
+*/
 // level lists	
 
        $action_levels = $this->TravelActionRemarkLevel->find('all');
