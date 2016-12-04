@@ -212,7 +212,7 @@ if (count($result_array) == 0){
 		$conditions['or'][] = array('TravelActionItem.hotel_id =' => $get_hotel_id);   
 		$checkCondition = true;
 	}
-	} 
+	}
 }
 
 if ($get_level_id==4) {
