@@ -97,81 +97,6 @@ class TravelActionItemsController extends AppController {
         $search_condition = array();
 
 
-$get_user_id =$user_id;
-
-if(isset($_GET['country_id'])){
-
-$get_country_id =	$_GET['country_id'];
-$get_province_id =	$_GET['province_id'];
-$get_city_id =	$_GET['city_id'];
-$get_creator =	$_GET['creator'];
-$get_level_id =	$_GET['level_id'];
-$get_supplier_id =	$_GET['supplier_id'];
-
-//echo "1";
-if ($get_level_id==7) {
-//echo "2";  
-
-$result_array = ClassRegistry::init('TravelHotelLookup')->find('all', array('fields' => array('id'),
-    'conditions' => array('TravelHotelLookup.country_id' => $get_country_id,
-                            'TravelHotelLookup.city_id' => $get_city_id,
-                            'TravelHotelLookup.province_id ' => $get_province_id)));
- 
-
-//$result_array = ClassRegistry::init('TravelHotelLookup')->find('all', array('fields' => array('id'),'conditions' => array('TravelHotelLookup.country_id' => $get_country_id,'TravelHotelLookup.city_id' => $get_city_id,'TravelHotelLookup.province_id ' => $get_province_id)));
-
- count($result_array);
-//pr(count($result_array));
-	$checkCondition = false;
-
-	foreach( $result_array as  $results){
-
-//echo "x";	
-
-		$get_hotel_id = $results['TravelHotelLookup']['id'];		
-
-		$conditions['or'][] = array('TravelActionItem.hotel_id =' => $get_hotel_id);   
-
-		$checkCondition = true;
-
-	}
-}
-
-if ($get_level_id==4) {
-    
-$result_array = ClassRegistry::init('TravelHotelRoomSupplier')->find('all', array('fields' => array('id'),'conditions' => array('TravelHotelRoomSupplier.hotel_country_id' => $get_country_id,'TravelHotelRoomSupplier.hotel_city_id' => $get_city_id,'TravelHotelRoomSupplier.supplier_id' => $get_supplier_id)));
-
- count($result_array);
-
-	$checkCondition = false;
-
-	foreach( $result_array as  $results){
-
-	
-
-		$get_id = $results['TravelHotelRoomSupplier']['id'];			
-		$conditions['or'][] = array('TravelActionItem.hotel_supplier_id =' => $get_id);   
-
-		$checkCondition = true;
-
-	}
-}
-
-array_push($search_condition, $conditions);
-
-array_push($search_condition, array('TravelActionItem.created_by_id' => $get_creator));
-array_push($search_condition, array('TravelActionItem.next_action_by' => $get_user_id));
-array_push($search_condition, array('TravelActionItem.level_id' => $get_level_id));
-array_push($search_condition, array('TravelActionItem.action_item_active' => 'Yes'));
-
-
-//array_push($search_condition, $conditions);
-        pr($search_condition);
-        //die;
-
-}
-
-/*
         if ($this->request->is('post') || $this->request->is('put')) {
 
 
@@ -251,8 +176,74 @@ array_push($search_condition, array('TravelActionItem.action_item_active' => 'Ye
             array_push($search_condition, array('TravelActionItem.dummy_status' => $dummy_status));
 
 
+$get_user_id =$user_id;
 
-        if (count($this->params['pass'])) {
+if(isset($_GET['country_id'])){
+
+$get_country_id =	$_GET['country_id'];
+$get_province_id =	$_GET['province_id'];
+$get_city_id =	$_GET['city_id'];
+$get_creator =	$_GET['creator'];
+$get_level_id =	$_GET['level_id'];
+$get_supplier_id =	$_GET['supplier_id'];
+
+if ($get_level_id==7) {
+
+$result_array = ClassRegistry::init('TravelHotelLookup')->find('all', array('fields' => array('id'),
+    'conditions' => array('TravelHotelLookup.country_id' => $get_country_id,
+                            'TravelHotelLookup.city_id' => $get_city_id,
+                            'TravelHotelLookup.province_id ' => $get_province_id)));
+ 
+
+ count($result_array);
+pr(count($result_array));
+	$checkCondition = false;
+
+	foreach( $result_array as  $results){
+
+		$get_hotel_id = $results['TravelHotelLookup']['id'];		
+
+		$conditions['or'][] = array('TravelActionItem.hotel_id =' => $get_hotel_id);   
+
+		$checkCondition = true;
+
+	}
+}
+
+if ($get_level_id==4) {
+    
+$result_array = ClassRegistry::init('TravelHotelRoomSupplier')->find('all', array('fields' => array('id'),'conditions' => array('TravelHotelRoomSupplier.hotel_country_id' => $get_country_id,'TravelHotelRoomSupplier.hotel_city_id' => $get_city_id,'TravelHotelRoomSupplier.supplier_id' => $get_supplier_id)));
+
+ count($result_array);
+
+	$checkCondition = false;
+
+	foreach( $result_array as  $results){
+
+	
+
+		$get_id = $results['TravelHotelRoomSupplier']['id'];			
+		$conditions['or'][] = array('TravelActionItem.hotel_supplier_id =' => $get_id);   
+
+		$checkCondition = true;
+
+	}
+}
+
+array_push($search_condition, $conditions);
+
+array_push($search_condition, array('TravelActionItem.created_by_id' => $get_creator));
+array_push($search_condition, array('TravelActionItem.next_action_by' => $get_user_id));
+array_push($search_condition, array('TravelActionItem.level_id' => $get_level_id));
+array_push($search_condition, array('TravelActionItem.action_item_active' => 'Yes'));
+
+
+//array_push($search_condition, $conditions);
+//        pr($search_condition);
+        //die;
+
+}
+ elseif (count($this->params['pass'])) {
 
 
 
@@ -264,7 +255,7 @@ array_push($search_condition, array('TravelActionItem.action_item_active' => 'Ye
 
             array_push($search_condition, array('TravelActionItem.' . $field => $value)); // when builder is approve/pending
 
-        }
+}
 
 
 	
@@ -293,7 +284,7 @@ array_push($search_condition, array('TravelActionItem.action_item_active' => 'Ye
             $this->paginate['conditions'][0] = "TravelActionItem.action_item_active='Yes' AND TravelActionItem.next_action_by = " . $user_id . "";        
 
         }
-*/
+
 // level lists	
 
        $action_levels = $this->TravelActionRemarkLevel->find('all');
