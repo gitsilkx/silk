@@ -112,7 +112,11 @@ class SupportTicketsController extends AppController {
 
         $res = '';
 
-	$logged_user = '';        
+	$logged_user = ''; 
+        
+        $msg_flag = '';
+        
+        $msg = '';        
 
 		$TravelLookupContinentsSearch = array();
 		$TravelCountriesSearch = array();
@@ -434,6 +438,13 @@ $country_id =	$_GET['country_id'];
 $city_id =	$_GET['city_id'];
 $province_id =	$_GET['province_id'];
 $user_id_get =	$_GET['user_id'];
+$get_creator_name = 'XXX';
+$get_country_name = 'XXX';
+$get_province_name = 'XXX';
+$get_city_name = 'XXX';
+
+$msg_flag = 'Y';
+$msg = 'Showing [OPEN & RESOLVED] Support Tickets Created by: ['. $get_creator_name . "] For Hotels Located in: [" . $get_country_name . " -> ". $get_province_name . " -> " . $get_city_name. "]";
 
 $result_array = ClassRegistry::init('TravelHotelLookup')->find('all', array('fields' => array('id'),'conditions' => array('TravelHotelLookup.country_id' => $country_id,'TravelHotelLookup.city_id' => $city_id,'TravelHotelLookup.province_id ' => $province_id)));
  count($result_array);
@@ -611,7 +622,7 @@ array_push($search_condition, array('SupportTicket.status' => array('1','2')));
 
 
 
-        $this->set(compact('LookupScreen','sql_generate','update', 'solution','selected', 'TravelLookupContinent', 'TravelCountries', 'Provinces', 'TravelSuburbs', 'TravelCities', 'TravelAreas', 'LookupQuestion', 'LookupTicketUrgency', 'users', 'LookupTicketStatus', 'LookupResponseIssue','TravelLookupContinentsSearch','TravelCountriesSearch','ProvincesSearch','TravelCitiesSearch','logged_user'));
+        $this->set(compact('LookupScreen','sql_generate','update', 'solution','selected', 'TravelLookupContinent', 'TravelCountries', 'Provinces', 'TravelSuburbs', 'TravelCities', 'TravelAreas', 'LookupQuestion', 'LookupTicketUrgency', 'users', 'LookupTicketStatus', 'LookupResponseIssue','TravelLookupContinentsSearch','TravelCountriesSearch','ProvincesSearch','TravelCitiesSearch','logged_user','msg_flag','msg'));
 
     }
 
