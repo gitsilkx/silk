@@ -412,7 +412,7 @@ $result_array = ClassRegistry::init('TravelHotelRoomSupplier')->find('all', arra
 	
 		$hotel_id = $results['TravelHotelLookup']['id'];		
 		$conditions['or'][] = array('SupportTicket.about LIKE' => "%Id: $hotel_id%",
-                                            'SupportTicket.status' => array('1','2')); 
+                                            'SupportTicket.status' => array('1','2'));
 		$checkCondition = true;
 	}
 	$conditions['or'][] = array('SupportTicket.created_by' => $user_id,
