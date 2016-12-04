@@ -11,8 +11,6 @@ App::import('Model', 'User');
 $attr = new User();
 
 ?>
-<div class="row">
-    <div class="col-sm-12">
         
     <div align="center" class="col-sm-12" style="font-size: 15px; font-family: sans-serif">
     <p style="color: black; background-color: #f2d7d5"><strong>
@@ -22,6 +20,10 @@ $attr = new User();
        ?>
      </strong></p>
     </div> 
+
+<div class="row">
+    <div class="col-sm-12">
+
 
         <div class="table-heading">
             <h4 class="table-heading-title"><span class="badge badge-circle badge-success"> <?php
