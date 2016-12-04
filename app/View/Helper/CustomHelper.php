@@ -241,7 +241,9 @@ pr(count($result_array));
        	array_push($search_condition, array('TravelActionItem.type_id' => array('1','2')));
 
 	array_push($search_condition, array('TravelActionItem.action_item_active' => 'Yes'));	
-*/		
+*/
+        pr($conditions);
+        die;
 	if($checkCondition == true) {	
             return ClassRegistry::init('TravelActionItem')->find('count', array('fields' => array('id'),'conditions' => $conditions));
 	} else {
