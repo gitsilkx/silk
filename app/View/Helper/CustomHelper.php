@@ -186,7 +186,7 @@ class CustomHelper extends Helper {
     }
     
     public function getHotePendingCnt($country_id,$city_id,$province_id){
-        return ClassRegistry::init('TravelHotelLookup')->find('count', array('fields' => array('id'),'conditions' => array('TravelHotelLookup.country_id' => $country_id,'TravelHotelLookup.city_id' => $city_id,'TravelHotelLookup.province_id ' => $province_id)));
+        return ClassRegistry::init('TravelHotelLookup')->find('count', array('fields' => array('id'),'conditions' => array('TravelHotelLookup.country_id' => $country_id,'TravelHotelLookup.city_id' => $city_id,'TravelHotelLookup.province_id ' => $province_id,'TravelHotelLookup.suburb_id ' => '0','TravelHotelLookup.area_id ' => '0','TravelHotelLookup.chain_id ' => '0','TravelHotelLookup.brand_id ' => '0','TravelHotelLookup.status ' => '2','TravelHotelLookup.active ' => 'TRUE',)));
         //return $DataArray['TravelHotelLookup'];
     }
  
@@ -207,7 +207,18 @@ $result_array = ClassRegistry::init('TravelHotelLookup')->find('all', array('fie
 	foreach( $result_array as  $results){
 
 		$get_hotel_id = $results['TravelHotelLookup']['id'];	
-		$conditions['or'][] = array('TravelActionItem.hotel_id =' => $get_hotel_id);   
+		$conditions['or'][] = array('TravelActionItem.hotel_id =' => $get_hotel_id,
+									'TravelActionItem.active =' => 'TRUE',
+									'TravelActionItem.type_id IN' => '1','4'
+/*
+									array('OR' => 
+											array('TravelActionItem.type_id' => '1',
+												  'TravelActionItem.type_id' => '4'
+												 )
+										)
+*/										
+								   );   
+    
 		$checkCondition = true;
 
 	}
@@ -660,3 +671,4 @@ if($type == 'Mapping Submitted')
 
 
 }
+
