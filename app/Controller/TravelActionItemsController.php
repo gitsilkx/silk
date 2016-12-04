@@ -198,9 +198,7 @@ $result_array = ClassRegistry::init('TravelHotelLookup')->find('all', array('fie
  count($result_array);
 pr(count($result_array));
 if (count($result_array) == 0){
-array_push($search_condition, array('TravelActionItem.id' => 'No Records Found Situation'));    
-//        $this->paginate['conditions'][0] = "TravelActionItem.id='No Records Found' ";
-//        array_push($search_condition, $conditions);         
+        array_push($search_condition, array('TravelActionItem.id' => 'No Records Found Situation'));    
 } else {
 	$checkCondition = false;
 
@@ -214,7 +212,6 @@ array_push($search_condition, array('TravelActionItem.id' => 'No Records Found S
 
 	}
 	} 
-        array_push($search_condition, $conditions);        
 }
 
 if ($get_level_id==4) {
@@ -251,7 +248,7 @@ array_push($search_condition, array('TravelActionItem.level_id' => $get_level_id
 array_push($search_condition, array('TravelActionItem.action_item_active' => 'Yes'));
 */
 
-//array_push($search_condition, $conditions);
+array_push($search_condition, $conditions);
 //        pr($search_condition);
         //die;
 
