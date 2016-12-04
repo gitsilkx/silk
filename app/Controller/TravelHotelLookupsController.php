@@ -183,6 +183,12 @@ $get_city_id =	$_GET['city_id'];
 array_push($search_condition, array('TravelHotelLookup.city_id' => $get_city_id));
 array_push($search_condition, array('TravelHotelLookup.province_id' => $get_province_id));
 array_push($search_condition, array('TravelHotelLookup.country_id' => $get_country_id));	
+array_push($search_condition, array('TravelHotelLookup.suburb_id ' => '0',
+                                    'TravelHotelLookup.area_id ' => '0',
+                                    'TravelHotelLookup.chain_id ' => '0',
+                                    'TravelHotelLookup.brand_id ' => '0',
+                                    'TravelHotelLookup.status ' => '2',
+                                    'TravelHotelLookup.active ' => 'TRUE'));
 
 }	
 
