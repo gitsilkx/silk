@@ -248,7 +248,7 @@ class CustomHelper extends Helper {
 //            return ClassRegistry::init('TravelActionItem')->find('count', array('fields' => array('id'),'conditions' => $conditions));
               return ClassRegistry::init('SupportTicket')->find('count', array('fields' => 
                     array('id'),'conditions' => array(
-                                    'TravelActionItem.created_by_id' => $get_creator,
+//                                    'TravelActionItem.created_by_id' => $get_creator,
                                     'TravelActionItem.level_id' => $get_level_id,
                                     'TravelActionItem.type_id' => array('1','4'),
                                     'TravelActionItem.action_item_active' => 'Yes',
