@@ -189,6 +189,7 @@ $get_city_id =	$_GET['city_id'];
 $get_creator =	$_GET['creator'];
 $get_level_id =	$_GET['level_id'];
 $get_supplier_id =	$_GET['supplier_id'];
+$get_creator_name = 'XXX';
 $get_country_name = 'XXX';
 $get_province_name = 'XXX';
 $get_city_name = 'XXX';
@@ -196,7 +197,7 @@ $get_city_name = 'XXX';
 if ($get_level_id==7) {
 
 $msg_flag = 'Y';
-$msg = 'Showing HOTEL EDIT Actions Submitted by: '. $get_creator . " For Country: " . $get_country_name . ", Province: ". $get_province_name . ", City: " . $get_city_name;
+$msg = 'Showing HOTEL EDIT Actions Submitted by: '. $get_creator_name . " For Country: " . $get_country_name . ", Province: ". $get_province_name . ", City: " . $get_city_name;
 
 $result_array = ClassRegistry::init('TravelHotelLookup')->find('all', array('fields' => array('id'),
     'conditions' => array('TravelHotelLookup.country_id' => $get_country_id,
@@ -221,7 +222,7 @@ if (count($result_array) == 0){
 if ($get_level_id==4) {
 
 $msg_flag = 'Y';
-$msg = 'Showing HOTEL EDIT Actions Submitted by: '. $get_creator . " For Country: " . $get_country_name . ", Province: ". $get_province_name . ", City: " . $get_city_name;
+$msg = 'Showing HOTEL EDIT Actions Submitted by: '. $get_creator_name . " For Country: " . $get_country_name . ", Province: ". $get_province_name . ", City: " . $get_city_name;
     
 $result_array = ClassRegistry::init('TravelHotelRoomSupplier')->find('all', array('fields' => array('id'),
     'conditions' => array('TravelHotelRoomSupplier.hotel_country_id' => $get_country_id,
