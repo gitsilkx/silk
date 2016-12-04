@@ -205,7 +205,10 @@ class CustomHelper extends Helper {
 	public function getHoteSubmittedCnt($get_country_id,$get_province_id,$get_city_id,$get_creator,$get_level_id,$get_supplier_id ){
 		
 $search_condition = array()	;
-$result_array = ClassRegistry::init('TravelHotelLookup')->find('all', array('fields' => array('id'),'conditions' => array('TravelHotelLookup.country_id' => $get_country_id,'TravelHotelLookup.city_id' => $get_city_id,'TravelHotelLookup.province_id ' => $get_province_id)));
+$result_array = ClassRegistry::init('TravelHotelLookup')->find('all', array('fields' => array('id'),
+    'conditions' => array('TravelHotelLookup.country_id' => $get_country_id,
+                            'TravelHotelLookup.city_id' => $get_city_id,
+                            'TravelHotelLookup.province_id ' => $get_province_id)));
 
 
 
@@ -257,10 +260,21 @@ $result_array = ClassRegistry::init('TravelHotelLookup')->find('all', array('fie
 	
 	
     
-    public function getHoteApprovedCnt($country_id,$city_id){
+    public function getHoteApprovedCnt($country_id,$province_id,$city_id){
+        return ClassRegistry::init('TravelHotelLookup')->find('count', array('fields' => array('id'),
+            'conditions' => array('TravelHotelLookup.country_id' => $country_id,
+                                    'TravelHotelLookup.city_id' => $city_id,
+                                    'TravelHotelLookup.province_id ' => $province_id,
+                                    'TravelHotelLookup.suburb_id !=' => '0',
+                                    'TravelHotelLookup.area_id !=' => '0',
+                                    'TravelHotelLookup.chain_id !=' => '0',
+                                    'TravelHotelLookup.brand_id !=' => '0',
+                                    'TravelHotelLookup.status !=' => '2',
+                                    'TravelHotelLookup.active ' => 'TRUE',)));
+/*        
         return ClassRegistry::init('TravelHotelLookup')->find('count', array('fields' => array('id'),'conditions' => array('OR' => array('TravelHotelLookup.status' => array('2','8')),'TravelHotelLookup.country_id' => $country_id,'TravelHotelLookup.city_id' => $city_id,'TravelHotelLookup.province_id !=' => '0',
              'TravelHotelLookup.suburb_id !=' => '0','TravelHotelLookup.area_id !=' => '0','TravelHotelLookup.chain_id !=' => '0','TravelHotelLookup.brand_id !=' => '0')));
-     
+*/     
     }
     
     public function getHoteTotalCnt($country_id,$city_id){
@@ -412,19 +426,19 @@ $result_array = ClassRegistry::init('TravelHotelRoomSupplier')->find('all', arra
 	foreach( $result_array as  $results){
 	
 		$hotel_id = $results['TravelHotelLookup']['id'];		
-		$conditions['or'][] = array('SupportTicket.about LIKE' => "%Id: $hotel_id%",
-                                            'SupportTicket.status' => array('1','2'));
+		$conditions['or'][] = array('SupportTicket.about LIKE' => "%Id: $hotel_id%");
 		$checkCondition = true;
 	}
+/*        
 	$conditions['or'][] = array('SupportTicket.created_by' => $user_id,
                                     'SupportTicket.next_action_by' => $user_id,
                                     'SupportTicket.approved_by' => $user_id,
                                     'SupportTicket.last_action_by' => $user_id);
-
+*/
 	
 
 	if($checkCondition == true){
-		 return ClassRegistry::init('SupportTicket')->find('count', array('fields' => array('id'),'conditions' => array('SupportTicket.status' => array('1','2'),$conditions )));
+		 return ClassRegistry::init('SupportTicket')->find('count', array('fields' => array('id'),'conditions' => array('SupportTicket.status' => array('1','2'),'SupportTicket.created_by' => $user_id,$conditions )));
 	}else{
 		return 0;
 	}
