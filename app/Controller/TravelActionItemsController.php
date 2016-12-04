@@ -268,7 +268,7 @@ array_push($search_condition, array('TravelActionItem.action_item_active' => 'Ye
 
 
 
-		
+/*		
         if ($role_id == '61') {
 
 		// change level_id 4 to 7 by pc // Reverted this change 21/11/16.
@@ -284,7 +284,7 @@ array_push($search_condition, array('TravelActionItem.action_item_active' => 'Ye
             $this->paginate['conditions'][0] = "TravelActionItem.action_item_active='Yes' AND TravelActionItem.next_action_by = " . $user_id . "";        
 
         }
-
+*/
 // level lists	
 
        $action_levels = $this->TravelActionRemarkLevel->find('all');
