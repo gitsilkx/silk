@@ -95,7 +95,10 @@ class TravelActionItemsController extends AppController {
         $user_id = $this->Auth->user('id');
 
         $search_condition = array();
-
+        
+        $msg_flag = '';
+        
+        $msg = '';
 
         if ($this->request->is('post') || $this->request->is('put')) {
 
@@ -189,6 +192,9 @@ $get_supplier_id =	$_GET['supplier_id'];
 
 if ($get_level_id==7) {
 
+$msg_flag = 'Y';
+$msg_flag = 'Showing HOTEL EDIT Actions Submitted by: '. $get_creator . " For Country: " . $get_country_id . ", Province: ". $get_province_id . ", City: " . $get_city_id;
+
 $result_array = ClassRegistry::init('TravelHotelLookup')->find('all', array('fields' => array('id'),
     'conditions' => array('TravelHotelLookup.country_id' => $get_country_id,
                             'TravelHotelLookup.city_id' => $get_city_id,
@@ -210,6 +216,9 @@ if (count($result_array) == 0){
 }
 
 if ($get_level_id==4) {
+
+$msg_flag = 'Y';
+$msg_flag = 'Showing HOTEL MAPPING Actions Submitted by: '. $get_creator . " For Country: " . $get_country_id . ", Province: ". $get_province_id . ", City: " . $get_city_id;
     
 $result_array = ClassRegistry::init('TravelHotelRoomSupplier')->find('all', array('fields' => array('id'),
     'conditions' => array('TravelHotelRoomSupplier.hotel_country_id' => $get_country_id,
@@ -305,7 +314,7 @@ array_push($search_condition, $conditions);
 
         $this->set('travel_actionitems', $this->paginate("TravelActionItem"));
 
-		$this->set(compact('action_level','user_list'));
+	$this->set(compact('action_level','user_list','msg_flag','msg'));
 
     }
 
