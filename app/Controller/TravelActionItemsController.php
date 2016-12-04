@@ -110,11 +110,15 @@ $get_supplier_id =	$_GET['supplier_id'];
 
 echo "1";
 if ($get_level_id==7) {
-echo "2";    
+echo "2";  
+/*
 $result_array = ClassRegistry::init('TravelHotelLookup')->find('all', array('fields' => array('id'),
     'conditions' => array('TravelHotelLookup.country_id' => $get_country_id,
                             'TravelHotelLookup.city_id' => $get_city_id,
                             'TravelHotelLookup.province_id ' => $get_province_id)));
+ */
+
+$result_array = ClassRegistry::init('TravelHotelLookup')->find('all', array('fields' => array('id'),'conditions' => array('TravelHotelLookup.country_id' => $get_country_id,'TravelHotelLookup.city_id' => $get_city_id,'TravelHotelLookup.province_id ' => $get_province_id)));
 
  count($result_array);
 
