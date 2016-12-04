@@ -148,7 +148,9 @@ class TravelHotelLookupsController extends AppController {
 
 	$conProvince = array();
 
+        $msg_flag = '';
         
+        $msg = '';        
 
             if($this->checkProvince())
 
@@ -179,6 +181,12 @@ if(isset($_GET['country_id'])){
 $get_country_id =	$_GET['country_id'];
 $get_province_id =	$_GET['province_id'];
 $get_city_id =	$_GET['city_id'];
+$get_country_name = 'XXX';
+$get_province_name = 'XXX';
+$get_city_name = 'XXX';
+
+$msg_flag = 'Y';
+$msg = 'Showing [HOTELS PENDING EDIT] From: [' . $get_country_name . " -> ". $get_province_name . " -> " . $get_city_name. "]";
 
 array_push($search_condition, array('TravelHotelLookup.city_id' => $get_city_id));
 array_push($search_condition, array('TravelHotelLookup.province_id' => $get_province_id));
@@ -189,7 +197,6 @@ array_push($search_condition, array('TravelHotelLookup.suburb_id ' => '0',
                                     'TravelHotelLookup.brand_id ' => '0',
                                     'TravelHotelLookup.status ' => '2',
                                     'TravelHotelLookup.active ' => 'TRUE'));
-
 }	
 
 
@@ -694,7 +701,7 @@ array_push($search_condition, array('TravelHotelLookup.suburb_id ' => '0',
 
         $hotel_count = $this->TravelHotelLookup->find('count',array('conditions' => $conProvince));
 
-        $this->set(compact('hotel_count'));
+        $this->set(compact('hotel_count','msg_flag','msg'));
 
 
 /*
