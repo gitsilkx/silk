@@ -204,16 +204,16 @@ class CustomHelper extends Helper {
 	
 	public function getHoteSubmittedCnt($get_country_id,$get_province_id,$get_city_id,$get_creator,$get_level_id,$get_supplier_id ){
 		
-$search_condition = array()	;
-$result_array = ClassRegistry::init('TravelHotelLookup')->find('all', array('fields' => array('id'),
-    'conditions' => array('TravelHotelLookup.country_id' => $get_country_id,
-                            'TravelHotelLookup.city_id' => $get_city_id,
-                            'TravelHotelLookup.province_id ' => $get_province_id)));
+        $search_condition = array()	;
+        $result_array = ClassRegistry::init('TravelHotelLookup')->find('all', array('fields' => array('id'),
+        'conditions' => array('TravelHotelLookup.country_id' => $get_country_id,
+                                'TravelHotelLookup.city_id' => $get_city_id,
+                                'TravelHotelLookup.province_id ' => $get_province_id)));
 
 
 
 	count($result_array);
-pr(count($result_array));
+//pr(count($result_array));
 	$checkCondition = false;
 
 	foreach( $result_array as  $results){
@@ -224,12 +224,12 @@ pr(count($result_array));
 		$checkCondition = true;
 
 	}
-
+/*
 	$conditions['or'][] = array('TravelActionItem.created_by_id' => $get_creator,
                                     'TravelActionItem.level_id' => $get_level_id,
                                     'TravelActionItem.type_id' => array('1','2'),
                                     'TravelActionItem.action_item_active' => 'Yes');		
-/*			
+			
 	array_push($search_condition, $conditions);
 
 	array_push($search_condition, array('TravelActionItem.created_by_id' => $get_creator));
@@ -242,10 +242,17 @@ pr(count($result_array));
 
 	array_push($search_condition, array('TravelActionItem.action_item_active' => 'Yes'));	
 */
-        pr($conditions);
-        die;
+        //pr($conditions);
+        //die;
 	if($checkCondition == true) {	
-            return ClassRegistry::init('TravelActionItem')->find('count', array('fields' => array('id'),'conditions' => $conditions));
+//            return ClassRegistry::init('TravelActionItem')->find('count', array('fields' => array('id'),'conditions' => $conditions));
+              return ClassRegistry::init('SupportTicket')->find('count', array('fields' => 
+                    array('id'),'conditions' => array(
+                                    'TravelActionItem.created_by_id' => $get_creator,
+                                    'TravelActionItem.level_id' => $get_level_id,
+                                    'TravelActionItem.type_id' => array('1','4'),
+                                    'TravelActionItem.action_item_active' => 'Yes',
+                                    $conditions )));
 	} else {
 		return 0;
 	}
