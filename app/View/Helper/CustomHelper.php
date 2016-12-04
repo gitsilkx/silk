@@ -269,7 +269,7 @@ $result_array = ClassRegistry::init('TravelHotelLookup')->find('all', array('fie
                                     'TravelHotelLookup.area_id !=' => '0',
                                     'TravelHotelLookup.chain_id !=' => '0',
                                     'TravelHotelLookup.brand_id !=' => '0',
-                                    'TravelHotelLookup.status !=' => '2',
+                                    'TravelHotelLookup.status ' => '2',
                                     'TravelHotelLookup.active ' => 'TRUE',)));
 /*        
         return ClassRegistry::init('TravelHotelLookup')->find('count', array('fields' => array('id'),'conditions' => array('OR' => array('TravelHotelLookup.status' => array('2','8')),'TravelHotelLookup.country_id' => $country_id,'TravelHotelLookup.city_id' => $city_id,'TravelHotelLookup.province_id !=' => '0',
