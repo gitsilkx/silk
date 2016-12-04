@@ -108,7 +108,9 @@ $get_creator =	$_GET['creator'];
 $get_level_id =	$_GET['level_id'];
 $get_supplier_id =	$_GET['supplier_id'];
 
+echo "1";
 if ($get_level_id==7) {
+echo "2";    
 $result_array = ClassRegistry::init('TravelHotelLookup')->find('all', array('fields' => array('id'),
     'conditions' => array('TravelHotelLookup.country_id' => $get_country_id,
                             'TravelHotelLookup.city_id' => $get_city_id,
@@ -120,7 +122,7 @@ $result_array = ClassRegistry::init('TravelHotelLookup')->find('all', array('fie
 
 	foreach( $result_array as  $results){
 
-	
+echo "x";	
 
 		$get_hotel_id = $results['TravelHotelLookup']['id'];		
 
@@ -160,6 +162,8 @@ array_push($search_condition, array('TravelActionItem.action_item_active' => 'Ye
 
 */
 array_push($search_condition, $conditions);
+        pr($search_condition);
+        die;
 
 }
 
