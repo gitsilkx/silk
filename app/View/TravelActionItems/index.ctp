@@ -18,10 +18,11 @@ $attr = new User();
     <p style="color: black; background-color: #f2d7d5"><strong>
        <?php if($msg_flag == 'Y'){ 
                 echo $msg;
-            ?>
+        }                
+       ?>
      </strong></p>
     </div> 
-        }
+
         <div class="table-heading">
             <h4 class="table-heading-title"><span class="badge badge-circle badge-success"> <?php
                     echo $this->Paginator->counter(array('format' => '{:count}'));
