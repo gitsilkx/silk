@@ -423,7 +423,7 @@ $result_array = ClassRegistry::init('TravelHotelRoomSupplier')->find('all', arra
 	
 
 	if($checkCondition == true){
-		 return ClassRegistry::init('SupportTicket')->find('count', array('fields' => array('id'),'conditions' => array('SupportTicket.status' => '1', 'SupportTicket.active' => 'TRUE',$conditions )));
+		 return ClassRegistry::init('SupportTicket')->find('count', array('fields' => array('id'),'conditions' => array('SupportTicket.status' => array('1','2'),$conditions )));
 	}else{
 		return 0;
 	}
