@@ -208,7 +208,7 @@ $result_array = ClassRegistry::init('TravelHotelLookup')->find('all', array('fie
 
 		$get_hotel_id = $results['TravelHotelLookup']['id'];	
 		$conditions['or'][] = array('TravelActionItem.hotel_id =' => $get_hotel_id,
-									'TravelActionItem.active =' => 'TRUE');
+                                            'TravelActionItem.action_item_active =' => 'Yes');
 									//'TravelActionItem.type_id IN' => '1','4'
 /*
 									array('OR' => 
