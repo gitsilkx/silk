@@ -108,25 +108,25 @@ $get_creator =	$_GET['creator'];
 $get_level_id =	$_GET['level_id'];
 $get_supplier_id =	$_GET['supplier_id'];
 
-echo "1";
+//echo "1";
 if ($get_level_id==7) {
-echo "2";  
-/*
+//echo "2";  
+
 $result_array = ClassRegistry::init('TravelHotelLookup')->find('all', array('fields' => array('id'),
     'conditions' => array('TravelHotelLookup.country_id' => $get_country_id,
                             'TravelHotelLookup.city_id' => $get_city_id,
                             'TravelHotelLookup.province_id ' => $get_province_id)));
- */
+ 
 
-$result_array = ClassRegistry::init('TravelHotelLookup')->find('all', array('fields' => array('id'),'conditions' => array('TravelHotelLookup.country_id' => $get_country_id,'TravelHotelLookup.city_id' => $get_city_id,'TravelHotelLookup.province_id ' => $get_province_id)));
+//$result_array = ClassRegistry::init('TravelHotelLookup')->find('all', array('fields' => array('id'),'conditions' => array('TravelHotelLookup.country_id' => $get_country_id,'TravelHotelLookup.city_id' => $get_city_id,'TravelHotelLookup.province_id ' => $get_province_id)));
 
  count($result_array);
-pr(count($result_array));
+//pr(count($result_array));
 	$checkCondition = false;
 
 	foreach( $result_array as  $results){
 
-echo "x";	
+//echo "x";	
 
 		$get_hotel_id = $results['TravelHotelLookup']['id'];		
 
@@ -136,7 +136,7 @@ echo "x";
 
 	}
 }
-/*
+
 if ($get_level_id==4) {
     
 $result_array = ClassRegistry::init('TravelHotelRoomSupplier')->find('all', array('fields' => array('id'),'conditions' => array('TravelHotelRoomSupplier.hotel_country_id' => $get_country_id,'TravelHotelRoomSupplier.hotel_city_id' => $get_city_id,'TravelHotelRoomSupplier.supplier_id' => $get_supplier_id)));
@@ -164,8 +164,8 @@ array_push($search_condition, array('TravelActionItem.next_action_by' => $get_us
 array_push($search_condition, array('TravelActionItem.level_id' => $get_level_id));
 array_push($search_condition, array('TravelActionItem.action_item_active' => 'Yes'));
 
-*/
-array_push($search_condition, $conditions);
+
+//array_push($search_condition, $conditions);
         pr($search_condition);
         //die;
 
