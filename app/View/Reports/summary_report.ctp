@@ -110,7 +110,7 @@
 							$getHotelUnallocatedCnt += $getHotelUnallocatedCnt_1 = $this->Custom->getHotelUnallocatedCnt($country_id,$id);
 							$getHotePendingCnt += $getHotePendingCnt_1 = $this->Custom->getHotePendingCnt($country_id,$id,$province_id);
 							$getHoteSubmittedCnt += $getHoteSubmittedCnt_1 = $this->Custom->getHoteSubmittedCnt($country_id,$province_id,$id,$creator,$levelh,$supplier_id );
-							$getHoteApprovedCnt += $getHoteApprovedCnt_1 = $this->Custom->getHoteApprovedCnt($country_id,$id);
+							$getHoteApprovedCnt += $getHoteApprovedCnt_1 = $this->Custom->getHoteApprovedCnt($country_id,$province_id,$id);
 							$getHoteTotalCnt += $getHoteTotalCnt_1 = $this->Custom->getHoteTotalCnt($country_id,$id);
 							
 							
