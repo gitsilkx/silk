@@ -13,10 +13,13 @@ $this->Html->addCrumb('My Supplier Hotel Report', 'javascript:void(0);', array('
 <div class="row">
     <div class="col-sm-12">
 
-    <div align="center" class="col-sm-12" style="font-size: 15px; font-family: sans-serif">
-        <p style="color: black; background-color: #f2d7d5">
-        <strong><?php echo "Showing [".$this->Custom->getSupplierCode($supplier_id)."] Hotels for WTB Country: [".$this->Custom->getCountryName($country_id)."] & WTB City [".$this->Custom->getCityName($city_id)."] with Status = [FETCHED] or [CREATED]." ?></strong>
-        </p>
+    <div align="center" class="col-sm-12" style="font-size: 15px; font-family: sans-serif" >
+    <p style="color: black; background-color: #f2d7d5"><strong>
+       <?php if($msg_flag == 'Y'){ 
+                echo $msg;
+        }                
+       ?>
+     </strong></p>
     </div> 
         
         <div class="table-heading">
