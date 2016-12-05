@@ -185,6 +185,11 @@ $get_country_name = 'XXX';
 $get_province_name = 'XXX';
 $get_city_name = 'XXX';
 
+$get_country_name = $this->Custom->getCountryName($get_country_id);
+
+$get_province_name = $this->Custom->getProvinceName($get_province_id);
+
+$get_city_name = $this->Custom->getCityName($get_city_id);
 
 $msg_flag = 'Y';
 $msg = 'Showing [HOTELS PENDING EDIT] From: [' . $get_country_name . " -> ". $get_province_name . " -> " . $get_city_name. "]";
