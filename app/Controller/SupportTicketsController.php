@@ -439,10 +439,16 @@ $city_id =	$_GET['city_id'];
 $province_id =	$_GET['province_id'];
 $user_id_get =	$_GET['user_id'];
 $flag_get =	$_GET['flag'];
-$get_creator_name = 'XXX';
-$get_country_name = 'XXX';
-$get_province_name = 'XXX';
-$get_city_name = 'XXX';
+
+$DataArray1 = ClassRegistry::init('TravelCountry')->find('first', array('fields' => array('country_name'), 'conditions' => array('TravelCountry.id' => $get_country_id)));
+$get_country_name = $DataArray1['TravelCountry']['country_name'];
+
+$DataArray2 = ClassRegistry::init('Province')->find('first', array('fields' => array('name'), 'conditions' => array('Province.id' => $get_province_id)));
+$get_province_name = $DataArray2['Province']['name'];
+
+$DataArray3 = ClassRegistry::init('TravelCity')->find('first', array('fields' => array('city_name'), 'conditions' => array('TravelCity.id' => $get_city_id)));
+$get_city_name = $DataArray3['TravelCity']['city_name'];
+
 
 $msg_flag = 'Y';
 $msg = 'Showing [OPEN/RESOLVED] Tickets Created by: ['. $get_creator_name . "] For Hotels  in: [" . $get_country_name . " -> ". $get_province_name . " -> " . $get_city_name. "]";
