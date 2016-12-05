@@ -422,11 +422,12 @@ $result_array = ClassRegistry::init('TravelHotelRoomSupplier')->find('all', arra
          $supplier_city_code = $dataArray['TravelCitySupplier']['supplier_city_code'];
          return ClassRegistry::init('SupplierHotel')->find('count', array('fields' => array('id'),'conditions' => array('SupplierHotel.country_code' => $supplier_country_code,'SupplierHotel.city_code' => $supplier_city_code,'SupplierHotel.status' => array('3','7'))));
     }
-     public function getSupportTicketCnt($country_id,$city_id,$province_id,$user_id){
+    public function getSupportTicketCnt($country_id,$city_id,$province_id,$user_id,$flag){
 
-
- $result_array = ClassRegistry::init('TravelHotelLookup')->find('all', array('fields' => array('id'),'conditions' => array('TravelHotelLookup.country_id' => $country_id,'TravelHotelLookup.city_id' => $city_id,'TravelHotelLookup.province_id ' => $province_id)));
-
+	$result_array = ClassRegistry::init('TravelHotelLookup')->find('all', array('fields' => array('id'),
+	'conditions' => array('TravelHotelLookup.country_id' => $country_id,
+							'TravelHotelLookup.city_id' => $city_id,
+							'TravelHotelLookup.province_id ' => $province_id)));
 	$checkCondition = false;
 	foreach( $result_array as  $results){
 	
@@ -434,16 +435,17 @@ $result_array = ClassRegistry::init('TravelHotelRoomSupplier')->find('all', arra
 		$conditions['or'][] = array('SupportTicket.about LIKE' => "%Id: $hotel_id%");
 		$checkCondition = true;
 	}
-/*        
-	$conditions['or'][] = array('SupportTicket.created_by' => $user_id,
-                                    'SupportTicket.next_action_by' => $user_id,
-                                    'SupportTicket.approved_by' => $user_id,
-                                    'SupportTicket.last_action_by' => $user_id);
-*/
-	
-
 	if($checkCondition == true){
-		 return ClassRegistry::init('SupportTicket')->find('count', array('fields' => array('id'),'conditions' => array('SupportTicket.status' => array('1','2'),'SupportTicket.created_by' => $user_id,$conditions )));
+
+		if($flag == 'O'){
+			return ClassRegistry::init('SupportTicket')->find('count', array('fields' => array('id'),'conditions' => array('SupportTicket.status' => '1','SupportTicket.created_by' => $user_id,$conditions )));
+		} elseif ($flag == 'R'){
+			return ClassRegistry::init('SupportTicket')->find('count', array('fields' => array('id'),'conditions' => array('SupportTicket.status' => '2','SupportTicket.created_by' => $user_id,$conditions )));			
+		} else{
+
+		return 0;
+		}	
+		
 	}else{
 		return 0;
 	}
@@ -704,4 +706,5 @@ if($type == 'Mapping Submitted')
 
 
 }
+
 
