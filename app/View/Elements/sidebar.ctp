@@ -220,6 +220,25 @@ $cur_page = end($arr); // live
             </li>
             <?php
  }
+  elseif ($this->Session->read('role_id') == '65') {
+     ?>
+            <li <?php if ($cur_page == 'my-hotels') { ?> class="active"<?php } ?>>  
+                <?php
+                echo $this->Html->link('<i class="icon-tasks"></i><span>My Hotels</span>', '/my-hotels', array('data-toggle' => 'tooltip', 'data-placement' => 'right', 'title' => 'My Hotels', 'escape' => false));
+                ?>           
+            </li>
+            <li <?php if ($cur_page == 'mappinges') { ?> class="active"<?php } ?>>  
+                <?php
+                echo $this->Html->link('<i class="icon-tasks"></i><span>My Mapping Area</span>', '/mappinge_areas/supplier-hotels', array('data-toggle' => 'tooltip', 'data-placement' => 'right', 'title' => 'My Mapping Area', 'escape' => false));
+                ?>           
+            </li>
+            <li <?php if ($cur_page == 'reports') { ?> class="active"<?php } ?>>  
+                <?php
+                echo $this->Html->link('<i class="icon-tasks"></i><span>My Reports</span>', '/admin/reports', array('data-toggle' => 'tooltip', 'data-placement' => 'right', 'title' => 'My Reports', 'escape' => false));
+                ?>           
+            </li>
+            <?php
+ }
  elseif ($this->Session->read('role_id') == '66') {
      ?>
             <li <?php if ($cur_page == 'to-come') { ?> class="active"<?php } ?>>  
