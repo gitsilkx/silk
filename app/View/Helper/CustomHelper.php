@@ -31,7 +31,7 @@ class CustomHelper extends Helper {
     public function GetUserStatus($user_id = null)
     {
         $user_status = ClassRegistry::init('User')->find('first', array('conditions'=>array('User.id'=>$user_id),'fields'=>array('User.status')));
-  	if($user_status['User']['status'] == 't')
+  	if($user_status['User']['status'] == 't') 
 		{ 
 			echo "Active"; 
 		}else{
