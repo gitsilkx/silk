@@ -181,20 +181,18 @@ if(isset($_GET['country_id'])){
 $get_country_id =	$_GET['country_id'];
 $get_province_id =	$_GET['province_id'];
 $get_city_id =	$_GET['city_id'];
-$get_country_name = 'XXX';
-$get_province_name = 'XXX';
-$get_city_name = 'XXX';
 
-//$get_country_name = $this->TravelCountry->find('all', array('fields' => 'country_name', 'conditions' => array('id' => $get_country_id)));
 $DataArray1 = ClassRegistry::init('TravelCountry')->find('first', array('fields' => array('country_name'), 'conditions' => array('TravelCountry.id' => $get_country_id)));
 $get_country_name = $DataArray1['TravelCountry']['country_name'];
 
-//$get_province_name = $this->Custom->getProvinceName($get_province_id);
+$DataArray2 = ClassRegistry::init('Province')->find('first', array('fields' => array('name'), 'conditions' => array('Province.id' => $get_province_id)));
+$get_province_name = $DataArray2['Province']['name'];
 
-//$get_city_name = $this->Custom->getCityName($get_city_id);
+$DataArray3 = ClassRegistry::init('TravelCity')->find('first', array('fields' => array('city_name'), 'conditions' => array('TravelCity.id' => $get_city_id)));
+$get_city_name = $DataArray3['TravelCity']['city_name'];
 
 $msg_flag = 'Y';
-$msg = 'Showing [HOTELS PENDING EDIT] From: [' . $get_country_name . " -> ". $get_province_name . " -> " . $get_city_name. "]";
+$msg = 'Showing [WTB] Hotels [PENDING EDIT] From: [' . $get_country_name . " -> ". $get_province_name . " -> " . $get_city_name. "]";
 
 array_push($search_condition, array('TravelHotelLookup.city_id' => $get_city_id));
 array_push($search_condition, array('TravelHotelLookup.province_id' => $get_province_id));
