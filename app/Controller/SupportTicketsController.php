@@ -440,13 +440,13 @@ $province_id =	$_GET['province_id'];
 $user_id_get =	$_GET['user_id'];
 $flag_get =	$_GET['flag'];
 
-$DataArray1 = ClassRegistry::init('TravelCountry')->find('first', array('fields' => array('country_name'), 'conditions' => array('TravelCountry.id' => $get_country_id)));
+$DataArray1 = ClassRegistry::init('TravelCountry')->find('first', array('fields' => array('country_name'), 'conditions' => array('TravelCountry.id' => $country_id)));
 $get_country_name = $DataArray1['TravelCountry']['country_name'];
 
-$DataArray2 = ClassRegistry::init('Province')->find('first', array('fields' => array('name'), 'conditions' => array('Province.id' => $get_province_id)));
+$DataArray2 = ClassRegistry::init('Province')->find('first', array('fields' => array('name'), 'conditions' => array('Province.id' => $province_id)));
 $get_province_name = $DataArray2['Province']['name'];
 
-$DataArray3 = ClassRegistry::init('TravelCity')->find('first', array('fields' => array('city_name'), 'conditions' => array('TravelCity.id' => $get_city_id)));
+$DataArray3 = ClassRegistry::init('TravelCity')->find('first', array('fields' => array('city_name'), 'conditions' => array('TravelCity.id' => $city_id)));
 $get_city_name = $DataArray3['TravelCity']['city_name'];
 
 
