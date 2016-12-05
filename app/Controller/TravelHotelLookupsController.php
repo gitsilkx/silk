@@ -80,7 +80,7 @@ class TravelHotelLookupsController extends AppController {
 
     public $components = array('Sms', 'Image');
 
-    public $uploadDir;
+    public $uploadDir;  
 
 
 
@@ -184,6 +184,7 @@ $get_city_id =	$_GET['city_id'];
 $get_country_name = 'XXX';
 $get_province_name = 'XXX';
 $get_city_name = 'XXX';
+
 
 $msg_flag = 'Y';
 $msg = 'Showing [HOTELS PENDING EDIT] From: [' . $get_country_name . " -> ". $get_province_name . " -> " . $get_city_name. "]";
