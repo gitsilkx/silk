@@ -185,7 +185,7 @@ $get_country_name = 'XXX';
 $get_province_name = 'XXX';
 $get_city_name = 'XXX';
 
-$get_country_name = $this->TravelCountry->find('all', array('fields' => 'country_name', 'conditions' => array('id' => $get_country_id)));
+//$get_country_name = $this->TravelCountry->find('all', array('fields' => 'country_name', 'conditions' => array('id' => $get_country_id)));
 
 //$get_province_name = $this->Custom->getProvinceName($get_province_id);
 
