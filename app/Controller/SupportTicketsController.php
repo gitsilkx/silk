@@ -454,7 +454,6 @@ $get_creator_name = $DataArray4['User']['fname']." ".$DataArray4['User']['lname'
 
 
 $msg_flag = 'Y';
-$msg = 'Showing [OPEN/RESOLVED] Tickets Created by: ['. $get_creator_name . "] For Hotels  in: [" . $get_country_name . " -> ". $get_province_name . " -> " . $get_city_name. "]";
 
 $result_array = ClassRegistry::init('TravelHotelLookup')->find('all', array('fields' => array('id'),'conditions' => array('TravelHotelLookup.country_id' => $country_id,'TravelHotelLookup.city_id' => $city_id,'TravelHotelLookup.province_id ' => $province_id)));
  count($result_array);
@@ -470,10 +469,10 @@ array_push($search_condition, $conditions);
 
 if ($flag_get == 'O') {
 	array_push($search_condition, array('SupportTicket.status' => '1')); 
-	$msg = 'Showing [OPEN] Tickets Created by: ['. $get_creator_name . "] For Hotels  in: [" . $get_country_name . " -> ". $get_province_name . " -> " . $get_city_name. "]";
+	$msg = '[OPEN] Tickets by: ['. $get_creator_name . "] For Hotels  in: [" . $get_country_name . " -> ". $get_province_name . " -> " . $get_city_name. "]";
 } elseif ($flag_get == 'R') {
 	array_push($search_condition, array('SupportTicket.status' => '2')); 
-	$msg = 'Showing [RESOLVED] Tickets Created by: ['. $get_creator_name . "] For Hotels  in: [" . $get_country_name . " -> ". $get_province_name . " -> " . $get_city_name. "]";
+	$msg = '[RESOLVED] Tickets by: ['. $get_creator_name . "] For Hotels  in: [" . $get_country_name . " -> ". $get_province_name . " -> " . $get_city_name. "]";
 }
 
 array_push($search_condition, array('SupportTicket.created_by' => $user_id_get));  
