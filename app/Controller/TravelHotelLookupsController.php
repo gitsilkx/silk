@@ -187,7 +187,7 @@ $get_city_name = 'XXX';
 
 //$get_country_name = $this->TravelCountry->find('all', array('fields' => 'country_name', 'conditions' => array('id' => $get_country_id)));
 $DataArray1 = ClassRegistry::init('TravelCountry')->find('first', array('fields' => array('country_name'), 'conditions' => array('TravelCountry.id' => $get_country_id)));
-$get_country_name = $DataArray['TravelCountry']['country_name'];
+$get_country_name = $DataArray1['TravelCountry']['country_name'];
 
 //$get_province_name = $this->Custom->getProvinceName($get_province_id);
 
