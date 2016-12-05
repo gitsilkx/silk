@@ -362,57 +362,73 @@ class CustomHelper extends Helper {
     }
     
     public function getSupplierHotelTotalCnt($country_id,$city_id,$supplier_id){
-         $dataArray = ClassRegistry::init('TravelCitySupplier')->find('first', array('fields' => array('TravelCitySupplier.supplier_coutry_code','TravelCitySupplier.supplier_city_code'),'conditions' => array('TravelCitySupplier.city_country_id' => $country_id,'TravelCitySupplier.city_id' => $city_id,'TravelCitySupplier.supplier_id' => $supplier_id)));
+         $dataArray = ClassRegistry::init('TravelCitySupplier')->find('first', array('fields' => 
+			array('TravelCitySupplier.supplier_coutry_code','TravelCitySupplier.supplier_city_code'),
+				'conditions' => array('TravelCitySupplier.city_country_id' => $country_id,
+										'TravelCitySupplier.city_id' => $city_id,
+										'TravelCitySupplier.supplier_id' => $supplier_id,
+										'TravelCitySupplier.wtb_status' => '1',
+										'TravelCitySupplier.active' => 'TRUE',
+										'TravelCitySupplier.city_supplier_status' => '2',
+										'TravelCitySupplier.excluded' => 'FALSE')));
          $supplier_country_code = $dataArray['TravelCitySupplier']['supplier_coutry_code'];
          $supplier_city_code = $dataArray['TravelCitySupplier']['supplier_city_code'];
-         return ClassRegistry::init('SupplierHotel')->find('count', array('fields' => array('id'),'conditions' => array('SupplierHotel.country_code' => $supplier_country_code,'SupplierHotel.city_code' => $supplier_city_code)));
+         return ClassRegistry::init('SupplierHotel')->find('count', array('fields' => array('id'),
+			'conditions' => array('SupplierHotel.country_code' => $supplier_country_code,
+									'SupplierHotel.city_code' => $supplier_city_code)));
     }
     
+
+	
     public function getSupplierHotelSubmitCnt($get_country_id,$get_province_id,$get_city_id,$get_creator,$get_level_id,$get_supplier_id ){
-		
 	$search_condition = array()	;
-$result_array = ClassRegistry::init('TravelHotelRoomSupplier')->find('all', array('fields' => array('id'),'conditions' => array('TravelHotelRoomSupplier.hotel_country_id' => $get_country_id,'TravelHotelRoomSupplier.hotel_city_id' => $get_city_id,'TravelHotelRoomSupplier.supplier_id' => $get_supplier_id)));
+	$result_array = ClassRegistry::init('TravelHotelRoomSupplier')->find('all', array('fields' => array('id'),
+			'conditions' => array('TravelHotelRoomSupplier.hotel_country_id' => $get_country_id,
+								'TravelHotelRoomSupplier.hotel_city_id' => $get_city_id,
+								'TravelHotelRoomSupplier.supplier_id' => $get_supplier_id)));
 
 	count($result_array);
-	
 	$checkCondition = false;
 
 	foreach( $result_array as  $results){
-		$get_id = $results['TravelHotelRoomSupplier']['id'];
-		$conditions['or'][] = array('TravelActionItem.hotel_supplier_id =' => $get_id);  
+
+		$get_id = $results['TravelHotelRoomSupplier']['id'];	
+		$conditions['or'][] = array('TravelActionItem.hotel_supplier_id =' => $get_id);
 		$checkCondition = true;
 
-	}
-		
-			
-	array_push($search_condition, $conditions);
+		}								
 
-	array_push($search_condition, array('TravelActionItem.created_by_id' => $get_creator));
+		if($checkCondition == true) {	
+              return ClassRegistry::init('TravelActionItem')->find('count', array('fields' => 
+                    array('id'),'conditions' => array(
+                                    'TravelActionItem.created_by_id' => $get_creator,
+                                    'TravelActionItem.level_id' => $get_level_id,
+                                    'TravelActionItem.type_id' => array('1','4'),
+                                    'TravelActionItem.action_item_active' => 'Yes',
+                                    $conditions )));
+		} else {
+			return 0;
+		}			
 
-	array_push($search_condition, array('TravelActionItem.next_action_by' => $get_user_id));
-
-	array_push($search_condition, array('TravelActionItem.level_id' => $get_level_id));
-
-	array_push($search_condition, array('TravelActionItem.action_item_active' => 'Yes'));	
-		
-		
-         return ClassRegistry::init('TravelActionItem')->find('count', array('fields' => array('id'),'conditions' => $search_condition));
-     /*    $dataArray = ClassRegistry::init('TravelCitySupplier')->find('first', array('fields' => array('TravelCitySupplier.supplier_coutry_code','TravelCitySupplier.supplier_city_code'),'conditions' => array('TravelCitySupplier.city_country_id' => $country_id,'TravelCitySupplier.city_id' => $city_id,'TravelCitySupplier.supplier_id' => $supplier_id)));
-         $supplier_country_code = $dataArray['TravelCitySupplier']['supplier_coutry_code'];
-         $supplier_city_code = $dataArray['TravelCitySupplier']['supplier_city_code'];
-         return ClassRegistry::init('SupplierHotel')->find('count', array('fields' => array('id'),'conditions' => array('SupplierHotel.country_code' => $supplier_country_code,'SupplierHotel.city_code' => $supplier_city_code,'SupplierHotel.status' => array('2','4'))));
-*/
     }
 	
 	 public function getSupplierHotelPendingCnt($country_id,$city_id,$supplier_id){
 
-         $dataArray = ClassRegistry::init('TravelCitySupplier')->find('first', array('fields' => array('TravelCitySupplier.supplier_coutry_code','TravelCitySupplier.supplier_city_code'),'conditions' => array('TravelCitySupplier.city_country_id' => $country_id,'TravelCitySupplier.city_id' => $city_id,'TravelCitySupplier.supplier_id' => $supplier_id)));
-
+         $dataArray = ClassRegistry::init('TravelCitySupplier')->find('first', 
+		 array('fields' => array('TravelCitySupplier.supplier_coutry_code','TravelCitySupplier.supplier_city_code'),
+				'conditions' => array('TravelCitySupplier.city_country_id' => $country_id,
+										'TravelCitySupplier.city_id' => $city_id,
+										'TravelCitySupplier.supplier_id' => $supplier_id,
+										'TravelCitySupplier.wtb_status' => '1',
+										'TravelCitySupplier.active' => 'TRUE',
+										'TravelCitySupplier.city_supplier_status' => '2',
+										'TravelCitySupplier.excluded' => 'FALSE')));
          $supplier_country_code = $dataArray['TravelCitySupplier']['supplier_coutry_code'];
-
          $supplier_city_code = $dataArray['TravelCitySupplier']['supplier_city_code'];
-
-         return ClassRegistry::init('SupplierHotel')->find('count', array('fields' => array('id'),'conditions' => array('SupplierHotel.country_code' => $supplier_country_code,'SupplierHotel.city_code' => $supplier_city_code,'SupplierHotel.status' => array('1','5'))));
+         return ClassRegistry::init('SupplierHotel')->find('count', array('fields' => array('id'),
+			'conditions' => array('SupplierHotel.country_code' => $supplier_country_code,
+									'SupplierHotel.city_code' => $supplier_city_code,
+									'SupplierHotel.status' => array('1','5'))));
 
     }
     
@@ -706,5 +722,6 @@ if($type == 'Mapping Submitted')
 
 
 }
+
 
 
