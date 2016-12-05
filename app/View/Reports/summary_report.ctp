@@ -21,7 +21,7 @@
                         <label for="un_member">Summary Type:</label>
                         <?php echo $this->Form->input('summary_type', array('options' => $summary, 'empty' => '--Select--', 'data-required' => 'true','disabled' => '2')); ?>
                     </div>                    <div class="col-sm-3 col-xs-6">
-                        <label for="un_member">Choose Person:</label>
+                        <label for="un_member">Person:</label>
                         <?php echo $this->Form->input('user_id', array('options' => $persons, 'empty' => $Select)); ?>
                     </div>
                     <div class="col-sm-3 col-xs-6">
@@ -98,14 +98,18 @@
 					$getSupplierHotelSubmitCnt = 0;
 					$getSupplierHotelTotalCnt = 0;	
 					$getSupplierHotelPendingCnt =0;
+					$getSupportTicketCnt =0;
+					$getSupportTicketCnt2 =0;					
 					
                         foreach ($TravelCities as $TravelCity):
                             $id = $TravelCity['TravelCity']['id'];              
                             $country_id = $TravelCity[0]['country_id'];
                             $province_id = $TravelCity[0]['province_id'];							
-			    $creator = $TravelCity[0]['user_id'];
+							$creator = $TravelCity[0]['user_id'];
                             $levelh = '7';
                             $levelm = '4';
+                            $flago = 'O';
+                            $flagr = 'R';							
 							
 							$getHotelUnallocatedCnt += $getHotelUnallocatedCnt_1 = $this->Custom->getHotelUnallocatedCnt($country_id,$id);
 							$getHotePendingCnt += $getHotePendingCnt_1 = $this->Custom->getHotePendingCnt($country_id,$id,$province_id);
@@ -125,7 +129,8 @@
 							$getSupplierHotelTotalCnt += $getSupplierHotelTotalCnt_1 = $this->Custom->getSupplierHotelTotalCnt($country_id,$id,$supplier_id);
 							
 							
-							$getSupportTicketCnt += $getSupportTicketCnt_1 = $this->Custom->getSupportTicketCnt($country_id,$id,$TravelCity[0]['province_id'],$logged_user);
+							$getSupportTicketCnt += $getSupportTicketCnt_1 = $this->Custom->getSupportTicketCnt($country_id,$id,$TravelCity[0]['province_id'],$logged_user,'O');
+							$getSupportTicketCnt2 += $getSupportTicketCnt_2 = $this->Custom->getSupportTicketCnt($country_id,$id,$TravelCity[0]['province_id'],$logged_user,'R');							
                             ?>
                             <tr>                              
 				<td><?php echo $i; ?></td>
@@ -177,7 +182,7 @@
 								<td class="background-l-sky"><?php echo $getSupplierHotelCompeleteCnt_1; ?></td>
                                 <td class="background-l-sky"><?php echo $getSupplierHotelTotalCnt_1; ?></td>
 								
-				<td class="background-ticket"><a href="<?php echo $this->webroot .'support_tickets?country_id='.$country_id.'&city_id='.$id .'&province_id='.$TravelCity[0]['province_id'].'&user_id='.$TravelCity[0]['user_id']?>" target="_blank"><?php echo $getSupportTicketCnt_1 ; ?></a></td>
+				<td class="background-ticket"><a href="<?php echo $this->webroot .'support_tickets?country_id='.$country_id.'&city_id='.$id .'&province_id='.$TravelCity[0]['province_id'].'&user_id='.$logged_user.'&flag='.$flago?>" target="_blank"><?php echo $getSupportTicketCnt_1; ?></a> / <a href="<?php echo $this->webroot .'support_tickets?country_id='.$country_id.'&city_id='.$id .'&province_id='.$TravelCity[0]['province_id'].'&user_id='.$logged_user.'&flag='.$flagr?>" target="_blank"><?php echo $getSupportTicketCnt_2; ?></a></td>
 
                             </tr> 
                         <?php 
@@ -204,7 +209,7 @@
                                 <th class="display-total"><?php echo $getSupplierHotelCompeleteCnt; ?></th>                                
                                 <th class="display-total"><?php echo $getSupplierHotelTotalCnt; ?></th>
 								
-				<th class="display-total"><?php echo $getSupportTicketCnt;?></td>
+				<th class="display-total"><?php echo $getSupportTicketCnt.' / '.$getSupportTicketCnt2 ?></td>
                             </tr>
 
 <?php						
