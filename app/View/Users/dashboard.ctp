@@ -336,21 +336,19 @@
                     </div>
                 </div>
             </div>
-
             <div class="col-md-4 active">
+
                 <div class="info-box  bg-info  text-white" id="initial-tour">
                     <div class="info-icon bg-info-dark">
                         <span aria-hidden="true" class="icon icon-layers"></span>
                     </div>
                     <div class="info-details">
         <?php
-        echo $this->Html->link('<h4>My Mappings<span class="pull-right">' . $mapping_all_count . '</span></h4>', '/mappinges', array('data-toggle' => 'tooltip', 'data-placement' => 'right', 'title' => 'My Builders', 'escape' => false));
-        echo $this->Html->link('<p>Supplier Country / City <span class="badge pull-right bg-white text-success">' . $city_county_supplier_count . '</span> </p>', '#', array('data-toggle' => 'tooltip', 'data-placement' => 'right', 'title' => 'Supplier Country', 'escape' => false));
-
-        echo $this->Html->link('<p>Supplier Hotel <span class="badge pull-right bg-white text-success">' . $hotel_supplier_all_count . '</span> </p>', '/my-mappings/mapping_type:3', array('data-toggle' => 'tooltip', 'data-placement' => 'right', 'title' => 'Supplier Hotel', 'escape' => false));
+        echo $this->Html->link('<h4>My Mapping Area<span class="pull-right"></span></h4>', '/mappinge_areas/supplier_hotels', array('data-toggle' => 'tooltip', 'data-placement' => 'right', 'title' => 'My Mapping Area', 'escape' => false));
         ?>
                     </div>
                 </div>
+
             </div>
             <div class="col-md-4 active">
                 <div class="info-box  bg-info  text-white" id="initial-tour">
@@ -359,66 +357,13 @@
                     </div>
                     <div class="info-details">
         <?php
-        echo $this->Html->link('<h4>Fetch New Hotels<span class="pull-right"></span></h4>', '#', array('data-toggle' => 'tooltip', 'data-placement' => 'right', 'title' => 'Fetch New Hotels', 'escape' => false));
+        echo $this->Html->link('<h4>My Reports<span class="pull-right"></span></h4>', '/admin/reports', array('data-toggle' => 'tooltip', 'data-placement' => 'right', 'title' => 'My Reports', 'escape' => false));
         ?>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-4 active">
-                <div class="info-box  bg-info  text-white" id="initial-tour">
-                    <div class="info-icon bg-info-dark">
-                        <span aria-hidden="true" class="icon icon-layers"></span>
-                    </div>
-                    <div class="info-details">
-        <?php
-        echo $this->Html->link('<h4>My Action<span class="pull-right"></span></h4>', '/travel_action_items', array('data-toggle' => 'tooltip', 'data-placement' => 'right', 'title' => 'Fetch New Hotels', 'escape' => false));
-        ?>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 active">
 
-                <div class="info-box  bg-info  text-white" id="initial-tour">
-                    <div class="info-icon bg-info-dark">
-                        <span aria-hidden="true" class="icon icon-layers"></span>
-                    </div>
-                    <div class="info-details">
-        <?php
-        echo $this->Html->link('<h4>Mapping Area<span class="pull-right"></span></h4>', '/mappinge_areas/supplier_hotels', array('data-toggle' => 'tooltip', 'data-placement' => 'right', 'title' => 'Packages', 'escape' => false));
-        ?>
-                    </div>
-                </div>
-
-            </div>
-            <div class="col-md-4 active">
-                <div class="info-box  bg-info  text-white" id="initial-tour">
-                    <div class="info-icon bg-info-dark">
-                        <span aria-hidden="true" class="icon icon-layers"></span>
-                    </div>
-                    <div class="info-details">
-        <?php
-        echo $this->Html->link('<h4>Reports<span class="pull-right"></span></h4>', '/admin/reports', array('data-toggle' => 'tooltip', 'data-placement' => 'right', 'title' => 'Reports', 'escape' => false));
-        ?>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 active">
-
-                <div class="info-box  bg-info  text-white" id="initial-tour">
-                    <div class="info-icon bg-info-dark">
-                        <span aria-hidden="true" class="icon icon-layers"></span>
-                    </div>
-                    <div class="info-details">
-        <?php
-        echo $this->Html->link('<h4>Hotel Images<span class="pull-right"></span></h4>', '/travel_hotel_images/', array('data-toggle' => 'tooltip', 'data-placement' => 'right', 'title' => 'Hotel Images', 'escape' => false));
-        ?>
-                    </div>
-                </div>
-
-            </div>
-        </div>
                         <?php
                     } else {
                         ?>
