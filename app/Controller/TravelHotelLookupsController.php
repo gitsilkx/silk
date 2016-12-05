@@ -192,7 +192,7 @@ $DataArray3 = ClassRegistry::init('TravelCity')->find('first', array('fields' =>
 $get_city_name = $DataArray3['TravelCity']['city_name'];
 
 $msg_flag = 'Y';
-$msg = 'Showing [WTB] Hotels [PENDING EDIT] From: [' . $get_country_name . " -> ". $get_province_name . " -> " . $get_city_name. "]";
+$msg = '[WTB] Hotels [PENDING EDIT] From: [' . $get_country_name . " -> ". $get_province_name . " -> " . $get_city_name. "]";
 
 array_push($search_condition, array('TravelHotelLookup.city_id' => $get_city_id));
 array_push($search_condition, array('TravelHotelLookup.province_id' => $get_province_id));
