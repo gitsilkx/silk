@@ -36,7 +36,7 @@ App::uses('AppController', 'Controller');
 class MappingeAreasController extends AppController {
 
     public $uses = array('TravelHotelLookup', 'TravelCountry', 'TravelCity', 'Province', 'SupplierHotel', 'TravelSupplier',
-        'TravelLookupContinent', 'TravelHotelRoomSupplier', 'TravelCitySupplier');
+        'TravelLookupContinent', 'TravelHotelRoomSupplier', 'TravelCitySupplier', 'User');
 
     public function supplier_hotels() {
 
@@ -57,6 +57,7 @@ class MappingeAreasController extends AppController {
         $city_id = '';
         $supplier_city_codde = array();
         $hotel_name = '';
+       
 
         if ($this->checkProvince())
             $proArr = $this->checkProvince();
@@ -181,7 +182,7 @@ class MappingeAreasController extends AppController {
 
 
         $this->set(compact('TravelCities', 'TravelCitySuppliers', 'supplier_city_codde', 'Provinces', 'TravelCountries', 'check_mapp', 'display', 'TravelLookupContinents'
-                        , 'TravelSuppliers', 'supplier_id', 'continent_id', 'country_id', 'province_id', 'city_id', 'hotel_name'));
+                        , 'TravelSuppliers', 'supplier_id', 'continent_id', 'country_id', 'province_id', 'city_id', 'hotel_name','msg_flag','msg'));
     }
 
     public function getCountryNameWithCountryId($country_id){
@@ -239,7 +240,9 @@ class MappingeAreasController extends AppController {
 
         $hotel_name = '';
 
-
+        $msg_flag = '';
+        
+        $msg = '';   
 
         if ($this->checkProvince())
 
@@ -260,6 +263,21 @@ $get_supplier_id =	$_GET['supplier_id'];
 $supplier_id = $get_supplier_id;
 $country_id = $get_country_id;
 $city_id = $get_city_id;
+
+$DataArray1 = ClassRegistry::init('TravelCountry')->find('first', array('fields' => array('country_name'), 'conditions' => array('TravelCountry.id' => $country_id)));
+$get_country_name = $DataArray1['TravelCountry']['country_name'];
+
+$DataArray2 = ClassRegistry::init('Province')->find('first', array('fields' => array('name'), 'conditions' => array('Province.id' => $province_id)));
+$get_province_name = $DataArray2['Province']['name'];
+
+$DataArray3 = ClassRegistry::init('TravelCity')->find('first', array('fields' => array('city_name'), 'conditions' => array('TravelCity.id' => $city_id)));
+$get_city_name = $DataArray3['TravelCity']['city_name'];
+
+$DataArray4 = ClassRegistry::init('TravelSupplier')->find('first', array('fields' => array('supplier_code'), 'conditions' => array('TravelSupplier.id' => $get_supplier_id)));
+$get_supplier_code = $DataArray3['TravelSupplier']['supplier_code'];
+
+$msg_flag = 'Y';
+$msg = "[".$get_supplier_code."] Hotels for WTB: [" . $get_country_name . " -> ". $get_province_name . " -> " . $get_city_name. "] with Status = [FETCHED] or [CREATED]";
 
 // THIS PART IS FOR JUST DISPLAYING THE CITY MAPPINGS FOR THE PASSED COUNTRY+CITY+SUPPLIER.
 $check_mapp = 'TRUE';
