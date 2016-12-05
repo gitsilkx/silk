@@ -438,6 +438,7 @@ $country_id =	$_GET['country_id'];
 $city_id =	$_GET['city_id'];
 $province_id =	$_GET['province_id'];
 $user_id_get =	$_GET['user_id'];
+$flag_get =	$_GET['flag'];
 $get_creator_name = 'XXX';
 $get_country_name = 'XXX';
 $get_province_name = 'XXX';
@@ -458,7 +459,14 @@ $result_array = ClassRegistry::init('TravelHotelLookup')->find('all', array('fie
 
 array_push($search_condition, $conditions);
 
-array_push($search_condition, array('SupportTicket.status' => array('1','2')));  
+if ($flag_get == 'O') {
+	array_push($search_condition, array('SupportTicket.status' => '1')); 
+	$msg = 'Showing [OPEN] Tickets Created by: ['. $get_creator_name . "] For Hotels  in: [" . $get_country_name . " -> ". $get_province_name . " -> " . $get_city_name. "]";
+} elseif ($flag_get == 'R') {
+	array_push($search_condition, array('SupportTicket.status' => '2')); 
+	$msg = 'Showing [RESOLVED] Tickets Created by: ['. $get_creator_name . "] For Hotels  in: [" . $get_country_name . " -> ". $get_province_name . " -> " . $get_city_name. "]";
+}
+
 array_push($search_condition, array('SupportTicket.created_by' => $user_id_get));  
 //array_push($search_condition, array('SupportTicket.status' => '1' OR '2'));
 
