@@ -182,7 +182,7 @@ class MappingeAreasController extends AppController {
 
 
         $this->set(compact('TravelCities', 'TravelCitySuppliers', 'supplier_city_codde', 'Provinces', 'TravelCountries', 'check_mapp', 'display', 'TravelLookupContinents'
-                        , 'TravelSuppliers', 'supplier_id', 'continent_id', 'country_id', 'province_id', 'city_id', 'hotel_name','msg_flag','msg'));
+                        , 'TravelSuppliers', 'supplier_id', 'continent_id', 'country_id', 'province_id', 'city_id', 'hotel_name'));
     }
 
     public function getCountryNameWithCountryId($country_id){
@@ -336,7 +336,7 @@ array_push($search_condition, array('SupplierHotel.supplier_id' => $get_supplier
 
 
  $this->set(compact('TravelCities', 'TravelCitySuppliers', 'supplier_city_codde', 'Provinces', 'TravelCountries', 'check_mapp', 'display', 'TravelLookupContinents'
-                        , 'TravelSuppliers', 'supplier_id', 'continent_id', 'country_id', 'country_name', 'province_id', 'city_id', 'city_name', 'hotel_name'));
+                        , 'TravelSuppliers', 'supplier_id', 'continent_id', 'country_id', 'country_name', 'province_id', 'city_id', 'city_name', 'hotel_name','msg_flag','msg'));
 
     }
     
