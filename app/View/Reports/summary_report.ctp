@@ -80,6 +80,7 @@
                 <tbody>
                     <?php
                     $i = 1;
+
 					//echo '<pre>';
                  /// print_r($TravelCities);
                 //  die;
@@ -105,11 +106,17 @@
                             $id = $TravelCity['TravelCity']['id'];              
                             $country_id = $TravelCity[0]['country_id'];
                             $province_id = $TravelCity[0]['province_id'];							
-							$creator = $TravelCity[0]['user_id'];
+                            $creator = $TravelCity[0]['user_id'];
                             $levelh = '7';
                             $levelm = '4';
                             $flago = 'O';
-                            $flagr = 'R';							
+                            $flagr = 'R';
+                            
+                            if ($role_id = '64' || $role_id = '68') {
+                                $target_user = $TravelCity[0]['user_id'];
+                            } else {
+                                $target_user = $logged_user;
+                            }
 							
 							$getHotelUnallocatedCnt += $getHotelUnallocatedCnt_1 = $this->Custom->getHotelUnallocatedCnt($country_id,$id);
 							$getHotePendingCnt += $getHotePendingCnt_1 = $this->Custom->getHotePendingCnt($country_id,$id,$province_id);
@@ -129,8 +136,8 @@
 							$getSupplierHotelTotalCnt += $getSupplierHotelTotalCnt_1 = $this->Custom->getSupplierHotelTotalCnt($country_id,$id,$supplier_id);
 							
 							
-							$getSupportTicketCnt += $getSupportTicketCnt_1 = $this->Custom->getSupportTicketCnt($country_id,$id,$TravelCity[0]['province_id'],$logged_user,'O');
-							$getSupportTicketCnt2 += $getSupportTicketCnt_2 = $this->Custom->getSupportTicketCnt($country_id,$id,$TravelCity[0]['province_id'],$logged_user,'R');							
+							$getSupportTicketCnt += $getSupportTicketCnt_1 = $this->Custom->getSupportTicketCnt($country_id,$id,$TravelCity[0]['province_id'],$target_user,'O');
+							$getSupportTicketCnt2 += $getSupportTicketCnt_2 = $this->Custom->getSupportTicketCnt($country_id,$id,$TravelCity[0]['province_id'],$target_user,'R');							
                             ?>
                             <tr>                              
 				<td><?php echo $i; ?></td>
@@ -182,7 +189,7 @@
 								<td class="background-l-sky"><?php echo $getSupplierHotelCompeleteCnt_1; ?></td>
                                 <td class="background-l-sky"><?php echo $getSupplierHotelTotalCnt_1; ?></td>
 								
-				<td class="background-ticket"><a href="<?php echo $this->webroot .'support_tickets?country_id='.$country_id.'&city_id='.$id .'&province_id='.$TravelCity[0]['province_id'].'&user_id='.$logged_user.'&flag='.$flago?>" target="_blank"><?php echo $getSupportTicketCnt_1; ?></a> / <a href="<?php echo $this->webroot .'support_tickets?country_id='.$country_id.'&city_id='.$id .'&province_id='.$TravelCity[0]['province_id'].'&user_id='.$logged_user.'&flag='.$flagr?>" target="_blank"><?php echo $getSupportTicketCnt_2; ?></a></td>
+				<td class="background-ticket"><a href="<?php echo $this->webroot .'support_tickets?country_id='.$country_id.'&city_id='.$id .'&province_id='.$TravelCity[0]['province_id'].'&user_id='.$target_user.'&flag='.$flago?>" target="_blank"><?php echo $getSupportTicketCnt_1; ?></a> / <a href="<?php echo $this->webroot .'support_tickets?country_id='.$country_id.'&city_id='.$id .'&province_id='.$TravelCity[0]['province_id'].'&user_id='.$target_user.'&flag='.$flagr?>" target="_blank"><?php echo $getSupportTicketCnt_2; ?></a></td>
 
                             </tr> 
                         <?php 
