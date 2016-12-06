@@ -6088,7 +6088,7 @@ class ReportsController extends AppController {
 }
 
         $TravelSuppliers = $this->TravelSupplier->find('list', array('fields' => 'id,supplier_code', 'order' => 'supplier_code ASC'));
-        $this->set(compact('persons','TravelCities','TravelSuppliers','display','summary','Select','channel_id','logged_user'));
+        $this->set(compact('persons','TravelCities','TravelSuppliers','display','summary','Select','channel_id','logged_user','role_id'));
 
     }
     public function duplicate_hotel_report() {
