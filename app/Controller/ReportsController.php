@@ -6006,7 +6006,7 @@ class ReportsController extends AppController {
 			}
 			else
 				$ProvincePermissions = $this->ProvincePermission->find('all',array('conditions' => array('user_id' => $data_user_id)));
-	}elseif($role_id == '64') {			   
+	} elseif($role_id == '64' || $role_id == '68') {		   
 				$personArr = array();
 				$Select = 'All';
                if($summary_type == '2'){  //for approvel
@@ -6052,7 +6052,7 @@ class ReportsController extends AppController {
                         $ProvincePermissions = $this->ProvincePermission->find('all',array('conditions' => array('user_id' => $user_arr)));
 						
 					}else{
-                       $ProvincePermissions = $this->ProvincePermission->find('all',array('conditions' => array('OR' => array('ProvincePermission.approval_id' => $user_id,'ProvincePermission.maaping_approval_id' => $user_id,'ProvincePermission.user_id' => $user_id)))); 
+                       $ProvincePermissions = $this->ProvincePermission->find('all',array('conditions' => array('ProvincePermission.user_id' => $data_user_id))); 
 					}
 
 			
