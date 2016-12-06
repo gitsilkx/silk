@@ -337,6 +337,12 @@ class SupportTicketsController extends AppController {
 
                 }
 
+                if (!empty($this->data['SupportTicket']['response_issue_id'])) {
+
+                    $response_issue_id = $this->data['SupportTicket']['response_issue_id'];
+
+                }                
+
                 if (!empty($this->data['SupportTicket']['response_level_assessment'])) {
 
                     $response_level_assessment = $this->data['SupportTicket']['response_level_assessment'];
@@ -377,7 +383,7 @@ class SupportTicketsController extends AppController {
 
                 $update = true;
 
-                $sql_query = 'Update table SupportTicket SET response_level_assessment = '.$response_level_assessment.',response = '.$response.',response_ip = '.$_SERVER['REMOTE_ADDR'].',status=2,response1 = '.$res.$where;
+                $sql_query = 'Update table SupportTicket SET response_issue_id = '.$response_issue_id.',response_level_assessment = '.$response_level_assessment.',response = '.$response.',response_ip = '.$_SERVER['REMOTE_ADDR'].',status=2,response1 = '.$res.$where;
 
                 $sql_query .="<br><br>".count($selected)." Number of Records that will be impacted by this Operation";
 
@@ -390,6 +396,8 @@ class SupportTicketsController extends AppController {
                 
 
                 $UpdateArray['SupportTicket']['response1'] = "'".$res."'";
+
+                $UpdateArray['SupportTicket']['response_issue_id'] = "'".$response_issue_id."'";
 
                 $UpdateArray['SupportTicket']['response_level_assessment'] = "'".$response_level_assessment."'";
 
