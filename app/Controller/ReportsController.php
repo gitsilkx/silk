@@ -5865,7 +5865,8 @@ class ReportsController extends AppController {
                }
                else
                    $ProvincePermissions = $this->ProvincePermission->find('all',array('conditions' => array('user_id' => $data_user_id)));
-	} elseif($role_id == '64' || $role_id == '68') {		   
+	} 
+        elseif($role_id == '64' || $role_id == '68') {		   
 				$personArr = array();
 				$Select = 'All';
                if($summary_type == '2'){  //for approvel
@@ -5937,6 +5938,23 @@ class ReportsController extends AppController {
           $this->TravelCity->unbindModel(
                 array('hasMany' => array('TravelHotelRoomSupplier','TravelCitySupplier','TravelArea','TravelHotelLookup','TravelSuburb'))
             );
+			$AllCitiesProvinces = $this->TravelCity->find('all',array('fields' => 'id,city_name','conditions' => array('province_id' => $val['province_id'])));
+			
+			foreach($AllCitiesProvinces as $AllCitiesProvince)
+			{	
+				$TravelCities[$i]['TravelCity']['id'] =$AllCitiesProvince['TravelCity']['id'];
+				$TravelCities[$i]['TravelCity']['city_name'] =$AllCitiesProvince['TravelCity']['city_name'];
+				
+				// $TravelCities[$i] = array('id'=>$AllCitiesProvince['TravelCity']['id'],'city_name'=>$AllCitiesProvince['TravelCity']['city_name']);
+				 array_push($TravelCities[$i], array('province_id' => $val['province_id'],'country_id' => $val['country_id'],'user_id' => $val['user_id'],'approval_id' => $val['approval_id'],'maaping_approval_id' => $val['maaping_approval_id'])); 
+				    $i++;
+			}
+ }            
+/*          
+           foreach($dataArray as $val){
+          $this->TravelCity->unbindModel(
+                array('hasMany' => array('TravelHotelRoomSupplier','TravelCitySupplier','TravelArea','TravelHotelLookup','TravelSuburb'))
+            );
                $TravelCities[] = $this->TravelCity->find('first',array('fields' => 'id,city_name','conditions' => array('province_id' => $val['province_id'])));
                array_push($TravelCities[$i], array('province_id' => $val['province_id'],'country_id' => $val['country_id'],'user_id' => $val['user_id'],'approval_id' => $val['approval_id'],'maaping_approval_id' => $val['maaping_approval_id'])); 
 			   
@@ -5944,6 +5962,7 @@ class ReportsController extends AppController {
                 ///$andArray = array('province_id' => $val['province_id'],'country_id' => $val['country_id']);
                 $i++;
            } 
+*/           
         }
         
         
