@@ -5794,14 +5794,16 @@ class ReportsController extends AppController {
 
 //        elseif($channel_id == '261' || $channel_id == '214') {
         elseif($role_id == '64') { 
-            $Select = 'All';
+//            $Select = 'All';
+				$personArr = array();            
             $summary = array('1' => 'Operation','2' => 'Approver');
+/*            
             $persons = $this->ProvincePermission->find('all', array('fields' => array('ProvincePermission.user_id', 'User.fname','User.lname'),
            'joins' => array(
                 array(
                     'table' => 'users',
                     'alias' => 'User',
-					 'type' => 'LEFT',
+//					 'type' => 'LEFT',
                     'conditions' => array(
                         'ProvincePermission.user_id = User.id') 
                 ) 
@@ -5810,7 +5812,7 @@ class ReportsController extends AppController {
 			//echo '<pre>';
 			//print_r($persons);die;
              $persons = Set::combine($persons, '{n}.ProvincePermission.user_id', array('%s %s', '{n}.User.fname', '{n}.User.lname'));   
-
+*/
         }
         elseif($role_id == '68') {
             $summary = array('1' => 'Operation');
@@ -5826,18 +5828,21 @@ class ReportsController extends AppController {
             'group' => 'ProvincePermission.user_id'));
              $persons = Set::combine($persons, '{n}.ProvincePermission.user_id', array('%s %s', '{n}.User.fname', '{n}.User.lname'));
         }
-		$data_choose_date= '';
+	
+        $data_choose_date= '';
         if ($this->request->is('post') || $this->request->is('put')) {
-            $display = 'TRUE';
+           $display = 'TRUE';
            $data_user_id = $this->data['Report']['user_id'];
            $summary_type = $this->data['Report']['summary_type'];
            $supplier_id = $this->data['Report']['supplier_id']; 
-		   $data_choose_date= $this->data['Report']['choose_date'];
-           if($channel_id == '262'){
+           $data_choose_date= $this->data['Report']['choose_date'];
+//           if($channel_id == '262'){
+        if($role_id == '65' || $role_id == '28') {           
            $ProvincePermissions = $this->ProvincePermission->find('all',array('conditions' => array('user_id' => $data_user_id)));
           }
 // || $channel_id == '261' add by pc as per requirment
-           elseif($channel_id == '258' || $channel_id == '259' || $channel_id == '261') {
+//           elseif($channel_id == '258' || $channel_id == '259' || $channel_id == '261') {
+		elseif($role_id == '61' || $role_id == '62') {	          
                if($summary_type == '2'){
                    $Select = 'All';
                    $personArr = array('OR' => array('ProvincePermission.approval_id' => $data_user_id,'ProvincePermission.maaping_approval_id' => $data_user_id,'ProvincePermission.user_id' => $data_user_id));
@@ -5860,8 +5865,64 @@ class ReportsController extends AppController {
                }
                else
                    $ProvincePermissions = $this->ProvincePermission->find('all',array('conditions' => array('user_id' => $data_user_id)));
-        }
-		$dataArray = array();
+	} elseif($role_id == '64' || $role_id == '68') {		   
+				$personArr = array();
+				$Select = 'All';
+               if($summary_type == '2'){  //for approvel
+				
+			     $persons = $this->ProvincePermission->find('all', array('fields' => array('User.id', 'User.fname','User.lname'), 
+				   'joins' => array(
+						array(
+							'table' => 'users',
+							'alias' => 'User',
+							'conditions' => array(
+												'OR' => array(
+													'ProvincePermission.approval_id = User.id',
+													'ProvincePermission.maaping_approval_id = User.id'))
+						)
+					),
+
+            'conditions' => $personArr,
+            'group' => 'User.id',
+            'order' => 'User.fname ASC'));
+			
+			} else{ //for opration
+				$persons = $this->ProvincePermission->find('all', array('fields' => array('User.id', 'User.fname','User.lname'),
+                       'joins' => array(     
+                       array(
+								'table' => 'users',
+                                'alias' => 'User',
+                                'conditions' => array(
+                                                    'ProvincePermission.user_id = User.id')
+                            )
+                        ),
+                        'conditions' => $personArr,
+                        'group' => 'User.id',
+                        'order' => 'User.fname ASC'));	
+			}			
+				$all_users = Set::combine($persons, '{n}.User.id', array('%s', '{n}.User.id'));				
+				 $user_str = implode(',',$all_users); 				
+				 $user_arr =  explode(',',$user_str);
+			
+	
+					$persons = Set::combine($persons, '{n}.User.id', array('%s %s', '{n}.User.fname', '{n}.User.lname'));  
+  			
+                    if($data_user_id ==''){
+                        $ProvincePermissions = $this->ProvincePermission->find('all',array('conditions' => array('user_id' => $user_arr)));
+						
+					}else{
+                       $ProvincePermissions = $this->ProvincePermission->find('all',array('conditions' => array('ProvincePermission.user_id' => $data_user_id))); 
+					}
+
+			
+			
+				
+
+	}
+		
+        
+        
+        $dataArray = array();
 			foreach($ProvincePermissions as $ProvincePermission){
                array_push($dataArray, array('province_id' => $ProvincePermission['ProvincePermission']['province_id'],'country_id' => $ProvincePermission['ProvincePermission']['country_id'],'user_id' => $ProvincePermission['ProvincePermission']['user_id']
 			   ,'approval_id' => $ProvincePermission['ProvincePermission']['approval_id'],'maaping_approval_id' => $ProvincePermission['ProvincePermission']['maaping_approval_id']
@@ -5884,6 +5945,8 @@ class ReportsController extends AppController {
                 $i++;
            } 
         }
+        
+        
         $TravelSuppliers = $this->TravelSupplier->find('list', array('fields' => 'id,supplier_code', 'order' => 'supplier_code ASC'));
 		$ChooseDate = array('today' => 'Today','yesterday' => 'Yesterday','this_week' => 'This Week','this_month' => 'This Month','this_year' => 'This Year','last_year' => 'Last Year');
         $this->set(compact('persons','TravelCities','TravelSuppliers','display','summary','Select','channel_id','ChooseDate','data_choose_date'));
