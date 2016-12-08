@@ -493,7 +493,7 @@ array_push($search_condition, array('SupportTicket.created_by' => $user_id_get))
 
   
   
-        //array_push($search_condition, array('OR' => array('SupportTicket.created_by' => $user_id_get, 'SupportTicket.next_action_by' => $user_id_get, 'SupportTicket.approved_by' => $user_id_get, 'SupportTicket.last_action_by' => $user_id_get)));
+        array_push($search_condition, array('OR' => array('SupportTicket.created_by' => $user_id_get, 'SupportTicket.next_action_by' => $user_id_get, 'SupportTicket.approved_by' => $user_id_get, 'SupportTicket.last_action_by' => $user_id_get)));
 
         $this->paginate['order'] = array('SupportTicket.created' => 'desc');
 
