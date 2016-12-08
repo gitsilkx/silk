@@ -85,42 +85,42 @@
                     
                     //For get today
                     if($data_choose_date == 'today'){
-                            $sdate = date('y-m-d').' 00:00:00';
-                            $edate = date("y-m-d").' 23:59:59'; 	
+                            $sdate = date('Y-m-d').' 00:00:00';
+                            $edate = date("Y-m-d").' 23:59:59'; 	
                     }
 
                     //For get yesterday
                     elseif($data_choose_date == 'yesterday'){
-                            $yesterday = date('y-m-d',strtotime("-1 days"));
+                            $yesterday = date('Y-m-d',strtotime("-1 days"));
                             $sdate = $yesterday.' 00:00:00';
                             $edate = $yesterday.' 23:59:59'; 	
                     }
 
                     //For get this week
                     elseif($data_choose_date == 'this_week'){
-                            $sdate = date('y-m-d', strtotime("last saturday")).' 00:00:00';
-                            $edate = date("y-m-d").' 23:59:59'; 	
+                            $sdate = date('Y-m-d', strtotime("last sunday")).' 00:00:00';
+                            $edate = date("Y-m-d").' 23:59:59'; 	
                     }
 
                     #For get this month
                     elseif($data_choose_date == 'this_month'){
-                            $sdate = date('y-m-01').' 00:00:00';
-                            $edate = date("y-m-d").' 23:59:59'; 
+                            $sdate = date('Y-m-01').' 00:00:00';
+                            $edate = date("Y-m-d").' 23:59:59'; 
                     }
 
                     //For get this year
                     elseif($data_choose_date == 'this_year'){
-                    $sdate = date('y-01-01').' 00:00:00';
-                    $edate = date("y-m-d").' 23:59:59';  
+                    $sdate = date('Y-01-01').' 00:00:00';
+                    $edate = date("Y-m-d").' 23:59:59';  
                     }	 
 
                     //For get last year
                     elseif($data_choose_date == 'last_year'){
-                    $year =	date('y')-1;
+                    $year =	date('Y')-1;
                     $sdate = date("$year-01-01").' 00:00:00';
                     $edate = date("$year-12-t").' 23:59:59';  
                     }
-
+                    
                     if (isset($TravelCities) && count($TravelCities) > 0):
 					
 					$hotelEditedCnt = 0;
