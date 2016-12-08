@@ -5923,7 +5923,7 @@ class ReportsController extends AppController {
 		
         
         
-        $dataArray = array();
+//        $dataArray = array();
 			foreach($ProvincePermissions as $ProvincePermission){
                array_push($dataArray, array('province_id' => $ProvincePermission['ProvincePermission']['province_id'],'country_id' => $ProvincePermission['ProvincePermission']['country_id'],'user_id' => $ProvincePermission['ProvincePermission']['user_id']
 			   ,'approval_id' => $ProvincePermission['ProvincePermission']['approval_id'],'maaping_approval_id' => $ProvincePermission['ProvincePermission']['maaping_approval_id']
