@@ -259,6 +259,156 @@ else
                     <fieldset class="nopdng">
                         <div class="row">
                             <div class="col-sm-12">
+                                <h4>Facilities</h4>
+                                <div class="col-sm-6">
+                                    <div class="form-group ">
+                                        <label>Business Center</label>
+                                        <span class="colon">:</span>
+                                        <div class="col-sm-10">
+                                            <?php
+                                            $options = array('Y' => 'Yes', 'N' => 'No');
+                                            $attributes = array('legend' => false, 'hiddenField' => false, 'label' => false, 'div' => false, 'class' => 'attrInputs', 'default' => 'N');
+                                            echo $this->Form->radio('business_center', $options, $attributes);
+                                            ?></div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="reg_input_name">Dining</label>
+                                        <span class="colon">:</span>
+                                        <div class="col-sm-10"> <?php echo $this->Form->radio('dining_facilities', $options, $attributes); ?></div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="reg_input_name">Bar</label>
+                                        <span class="colon">:</span>
+                                        <div class="col-sm-10"> <?php echo $this->Form->radio('bar_lounge', $options, $attributes); ?></div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="reg_input_name">Fitness</label>
+                                        <span class="colon">:</span>
+                                        <div class="col-sm-10"> <?php echo $this->Form->radio('fitness_center', $options, $attributes); ?></div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="reg_input_name">Kids</label>
+                                        <span class="colon">:</span>
+                                        <div class="col-sm-10"> <?php echo $this->Form->radio('kids', $options, $attributes); ?></div>
+                                    </div>
+
+
+                                </div>
+
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="reg_input_name">Meeting</label>
+                                        <span class="colon">:</span>
+                                        <div class="col-sm-10"> <?php echo $this->Form->radio('meeting_facilities', $options, $attributes); ?></div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="reg_input_name">Pool</label>
+                                        <span class="colon">:</span>
+                                        <div class="col-sm-10"> <?php echo $this->Form->radio('pool', $options, $attributes); ?></div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="reg_input_name">Golf</label>
+                                        <span class="colon">:</span>
+                                        <div class="col-sm-10"> <?php echo $this->Form->radio('golf', $options, $attributes); ?></div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="reg_input_name">Tennis</label>
+                                        <span class="colon">:</span>
+                                        <div class="col-sm-10"> <?php echo $this->Form->radio('tennis', $options, $attributes); ?></div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="reg_input_name">Handicap</label>
+                                        <span class="colon">:</span>
+                                        <div class="col-sm-10"> <?php echo $this->Form->radio('handicap', $options, $attributes); ?></div>
+                                    </div>
+
+
+
+
+                                </div>
+                                <div style="clear: both"></div>
+                                <h4>Ratings</h4>
+                                <div class="col-sm-6">
+
+                                    <div class="form-group ">
+                                        <label>Standard Rating</label>
+                                        <span class="colon">:</span>
+                                        <div class="col-sm-10">
+                                            <?php
+                                           
+                                            $options = array('1' => '1', '2' => '2', '3' => '3', '4' => '4', '5' => '5', '6' => '6', '7' => '7');
+                                            $attributes = array('legend' => false, 'hiddenField' => false, 'label' => false, 'div' => false, 'class' => 'attrInputs');
+                                            echo $this->Form->radio('standard_rating', $options, $attributes);
+                                            //  echo $this->Form->input('star');
+                                           
+                                            //echo $this->Form->input('standard_rating');
+                                            ?></div>
+                                    </div>
+                                    <div class="form-group ">
+                                        <label>Food Rating</label>
+                                        <span class="colon">:</span>
+                                        <div class="col-sm-10">
+                                            <?php
+                                            $options = array('1' => '1', '2' => '2', '3' => '3', '4' => '4', '5' => '5', '6' => '6', '7' => '7');
+                                            $attributes = array('legend' => false, 'hiddenField' => false, 'label' => false, 'div' => false, 'class' => 'attrInputs');
+                                            echo $this->Form->radio('food_rating', $options, $attributes);
+                                           // echo $this->Form->input('food_rating');
+                                            ?></div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>Location Rating</label>
+                                        <span class="colon">:</span>
+                                        <div class="col-sm-10"> <?php 
+                                         $options = array('1' => '1', '2' => '2', '3' => '3', '4' => '4', '5' => '5', '6' => '6', '7' => '7');
+                                            $attributes = array('legend' => false, 'hiddenField' => false, 'label' => false, 'div' => false, 'class' => 'attrInputs');
+                                            echo $this->Form->radio('location_rating', $options, $attributes);
+                                        //echo $this->Form->input('location_rating'); ?></div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Overall Rating</label>
+                                        <span class="colon">:</span>
+                                        <div class="col-sm-10"> <?php 
+                                         $options = array('1' => '1', '2' => '2', '3' => '3', '4' => '4', '5' => '5', '6' => '6', '7' => '7');
+                                            $attributes = array('legend' => false, 'hiddenField' => false, 'label' => false, 'div' => false, 'class' => 'attrInputs');
+                                            echo $this->Form->radio('overall_rating', $options, $attributes);
+                                        //echo $this->Form->input('overall_rating'); ?></div>
+                                    </div>
+
+                                </div>
+                                <div class="col-sm-6">
+
+                                    <div class="form-group">
+                                        <label>Hotel Rating</label>
+                                        <span class="colon">:</span>
+                                        <div class="col-sm-10"> <?php 
+                                         $options = array('1' => '1', '2' => '2', '3' => '3', '4' => '4', '5' => '5', '6' => '6', '7' => '7');
+                                            $attributes = array('legend' => false, 'hiddenField' => false, 'label' => false, 'div' => false, 'class' => 'attrInputs');
+                                            echo $this->Form->radio('hotel_rating', $options, $attributes);
+                                        //echo $this->Form->input('hotel_rating'); ?></div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Service Rating</label>
+                                        <span class="colon">:</span>
+                                        <div class="col-sm-10"> <?php 
+                                         $options = array('1' => '1', '2' => '2', '3' => '3', '4' => '4', '5' => '5', '6' => '6', '7' => '7');
+                                            $attributes = array('legend' => false, 'hiddenField' => false, 'label' => false, 'div' => false, 'class' => 'attrInputs');
+                                            echo $this->Form->radio('service_rating', $options, $attributes);
+                                        //echo $this->Form->input('service_rating'); ?></div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Value Rating</label>
+                                        <span class="colon">:</span>
+                                        <div class="col-sm-10"> <?php 
+                                         $options = array('1' => '1', '2' => '2', '3' => '3', '4' => '4', '5' => '5', '6' => '6', '7' => '7');
+                                            $attributes = array('legend' => false, 'hiddenField' => false, 'label' => false, 'div' => false, 'class' => 'attrInputs');
+                                            echo $this->Form->radio('value_rating', $options, $attributes);
+                                        //echo $this->Form->input('value_rating'); ?></div>
+                                    </div>
+
+                                </div>
+
+
                                 <div style="clear: both;"></div>
                                 <h4>Hotel Contacts</h4>
                                 <div class="col-sm-6">
@@ -316,7 +466,92 @@ else
                                 <h4>Hotel Pictures</h4>       
 
 
+                                <div class="row" id="fr-select">
+                                    <div class="col-sm-6 uploadfile">
+                                        <div class="form-group">
+                                            <div class="col-sm-10 editable txtbox">
+                                                <label>Picture1</label>
+                                                <span class="colon">:</span>
+                                                <div class="fileupload fileupload-new" data-provides="fileupload">
+                                                    <div class="fileupload-new img-thumbnail" style="width: 178px; height: 120px;">
+                                                        <?php
+                                                        if ($this->data['TravelHotelLookup']['hotel_img1']) {
+                                                            $imagePath = $this->webroot . 'uploads/hotels';
+                                                            $image1 = $imagePath . '/' . $this->data['TravelHotelLookup']['hotel_img1'];
+                                                        } else {
+                                                            $image1 = $this->webroot . "img/no_img_180.png";
+                                                        }
+                                                        ?>
+                                                        <img src="<?php echo $image1; ?>" height="200" width="170" />
 
+                                                    </div>
+                                                    <div class="fileupload-preview fileupload-exists img-thumbnail" style="width: 178px; height: 120px"></div>
+                                                    <div>
+                                                        <span class="btn btn-default btn-file"><span class="fileupload-new">Select image</span><span class="fileupload-exists">Change</span>
+                                                            <input type="file" name="data[TravelHotelLookup][image1]" />
+
+                                                        </span>
+                                                        <a href="#" class="btn btn-default fileupload-exists" data-dismiss="fileupload">Remove</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-sm-10 editable txtbox">
+                                                <label>Picture3</label>
+                                                <span class="colon">:</span>
+                                                <div class="fileupload fileupload-new" data-provides="fileupload">
+                                                    <div class="fileupload-new img-thumbnail" style="width: 178px; height: 120px;">
+                                                        <?php
+                                                        if ($this->data['TravelHotelLookup']['hotel_img3']) {
+                                                            $imagePath = $this->webroot . 'uploads/hotels';
+                                                            $image3 = $imagePath . '/' . $this->data['TravelHotelLookup']['hotel_img3'];
+                                                        } else {
+                                                            $image3 = $this->webroot . "img/no_img_180.png";
+                                                        }
+                                                        ?>
+                                                        <img src="<?php echo $image3; ?>" height="200" width="170" />
+
+                                                    </div>
+                                                    <div class="fileupload-preview fileupload-exists img-thumbnail" style="width: 178px; height: 120px"></div>
+                                                    <div>
+                                                        <span class="btn btn-default btn-file"><span class="fileupload-new">Select image</span><span class="fileupload-exists">Change</span>
+                                                            <input type="file" name="data[TravelHotelLookup][image3]" />
+
+                                                        </span>
+                                                        <a href="#" class="btn btn-default fileupload-exists" data-dismiss="fileupload">Remove</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-sm-10 editable txtbox">
+                                                <label>Picture5</label>
+                                                <span class="colon">:</span>
+                                                <div class="fileupload fileupload-new" data-provides="fileupload">
+                                                    <div class="fileupload-new img-thumbnail" style="width: 178px; height: 120px;">
+                                                        <?php
+                                                        if ($this->data['TravelHotelLookup']['hotel_img5']) {
+                                                            $imagePath = $this->webroot . 'uploads/hotels';
+                                                            $image5 = $imagePath . '/' . $this->data['TravelHotelLookup']['hotel_img5'];
+                                                        } else {
+                                                            $image5 = $this->webroot . "img/no_img_180.png";
+                                                        }
+                                                        ?>
+                                                        <img src="<?php echo $image5; ?>" height="200" width="170" />
+
+                                                    </div>
+                                                    <div class="fileupload-preview fileupload-exists img-thumbnail" style="width: 178px; height: 120px"></div>
+                                                    <div>
+                                                        <span class="btn btn-default btn-file"><span class="fileupload-new">Select image</span><span class="fileupload-exists">Change</span>
+                                                            <input type="file" name="data[TravelHotelLookup][image5]" />
+
+                                                        </span>
+                                                        <a href="#" class="btn btn-default fileupload-exists" data-dismiss="fileupload">Remove</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                         <h4>Hotel Logo</h4>
 
                                         <div class="form-group">
