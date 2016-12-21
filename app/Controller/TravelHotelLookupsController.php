@@ -2494,21 +2494,43 @@ array_push($search_condition, array('TravelHotelLookup.suburb_id ' => '0',
 
                                                                 <HotelImage6Full />
 
+                                                                <HotelImage7Full />
+
+                                                                <HotelImage8Full />
+
+                                                                <HotelImage9Full />
+
+                                                                <HotelImage10Full />
+
+                                                                <HotelImage11Full />
+
+                                                                <HotelImage12Full />
+
+                                                                <HotelImage13Full />
+
+                                                                <HotelImage14Full />
+
+                                                                <HotelImage15Full />
+
+                                                                <HotelImage16Full />
+
+                                                                <HotelImage17Full />
+
+                                                                <HotelImage18Full />
+                                                                
+                                                                <HotelImage19Full />
+
+                                                                <HotelImage20Full />
+                                                                
                                                                 <HotelImage1Thumb />
 
                                                                 <HotelImage2Thumb />
 
-                                                                <HotelImage3Thumb />
-
-                                                                <HotelImage4Thumb />
-
-                                                                <HotelImage5Thumb />
-
-                                                                <HotelImage6Thumb />
-
                                                                 <IsImage>false</IsImage>
 
                                                                 <IsPage>false</IsPage>
+
+                                                                <HotelFormerName />
 
                                                                 <Logo>' . $Logo . '</Logo>
 
@@ -3598,21 +3620,43 @@ array_push($search_condition, array('TravelHotelLookup.suburb_id ' => '0',
 
                                                                 <HotelImage6Full />
 
+                                                                <HotelImage7Full />
+
+                                                                <HotelImage8Full />
+
+                                                                <HotelImage9Full />
+
+                                                                <HotelImage10Full />
+
+                                                                <HotelImage11Full />
+
+                                                                <HotelImage12Full />
+
+                                                                <HotelImage13Full />
+
+                                                                <HotelImage14Full />
+
+                                                                <HotelImage15Full />
+
+                                                                <HotelImage16Full />
+
+                                                                <HotelImage17Full />
+
+                                                                <HotelImage18Full />
+                                                                
+                                                                <HotelImage19Full />
+
+                                                                <HotelImage20Full />
+                                                                
                                                                 <HotelImage1Thumb />
 
                                                                 <HotelImage2Thumb />
 
-                                                                <HotelImage3Thumb />
-
-                                                                <HotelImage4Thumb />
-
-                                                                <HotelImage5Thumb />
-
-                                                                <HotelImage6Thumb />
-
                                                                 <IsImage>false</IsImage>
 
                                                                 <IsPage>false</IsPage>
+
+                                                                <HotelFormerName />
 
                                                                 <Logo>' . $Logo . '</Logo>
 
@@ -4832,21 +4876,43 @@ array_push($search_condition, array('TravelHotelLookup.suburb_id ' => '0',
 
                                                                 <HotelImage6Full />
 
+                                                                <HotelImage7Full />
+
+                                                                <HotelImage8Full />
+
+                                                                <HotelImage9Full />
+
+                                                                <HotelImage10Full />
+
+                                                                <HotelImage11Full />
+
+                                                                <HotelImage12Full />
+
+                                                                <HotelImage13Full />
+
+                                                                <HotelImage14Full />
+
+                                                                <HotelImage15Full />
+
+                                                                <HotelImage16Full />
+
+                                                                <HotelImage17Full />
+
+                                                                <HotelImage18Full />
+                                                                
+                                                                <HotelImage19Full />
+
+                                                                <HotelImage20Full />
+                                                                
                                                                 <HotelImage1Thumb />
 
                                                                 <HotelImage2Thumb />
 
-                                                                <HotelImage3Thumb />
-
-                                                                <HotelImage4Thumb />
-
-                                                                <HotelImage5Thumb />
-
-                                                                <HotelImage6Thumb />
-
                                                                 <IsImage>false</IsImage>
 
                                                                 <IsPage>false</IsPage>
+
+                                                                <HotelFormerName />
 
                                                                 <Logo>' . $Logo . '</Logo>
 
