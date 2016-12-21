@@ -313,6 +313,246 @@ else
                                 </div>
 
                                 <div style="clear: both;"></div>
+                                <h4>Hotel Pictures</h4>       
+
+
+                                <div class="row" id="fr-select">
+                                    <div class="col-sm-6 uploadfile">
+                                        <div class="form-group">
+                                            <div class="col-sm-10 editable txtbox">
+                                                <label>Picture1</label>
+                                                <span class="colon">:</span>
+                                                <div class="fileupload fileupload-new" data-provides="fileupload">
+                                                    <div class="fileupload-new img-thumbnail" style="width: 178px; height: 120px;">
+                                                        <?php
+                                                        if ($this->data['TravelHotelLookup']['hotel_img1']) {
+                                                            $imagePath = $this->webroot . 'uploads/hotels';
+                                                            $image1 = $imagePath . '/' . $this->data['TravelHotelLookup']['hotel_img1'];
+                                                        } else {
+                                                            $image1 = $this->webroot . "img/no_img_180.png";
+                                                        }
+                                                        ?>
+                                                        <img src="<?php echo $image1; ?>" height="200" width="170" />
+
+                                                    </div>
+                                                    <div class="fileupload-preview fileupload-exists img-thumbnail" style="width: 178px; height: 120px"></div>
+                                                    <div>
+                                                        <span class="btn btn-default btn-file"><span class="fileupload-new">Select image</span><span class="fileupload-exists">Change</span>
+                                                            <input type="file" name="data[TravelHotelLookup][image1]" />
+
+                                                        </span>
+                                                        <a href="#" class="btn btn-default fileupload-exists" data-dismiss="fileupload">Remove</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-sm-10 editable txtbox">
+                                                <label>Picture3</label>
+                                                <span class="colon">:</span>
+                                                <div class="fileupload fileupload-new" data-provides="fileupload">
+                                                    <div class="fileupload-new img-thumbnail" style="width: 178px; height: 120px;">
+                                                        <?php
+                                                        if ($this->data['TravelHotelLookup']['hotel_img3']) {
+                                                            $imagePath = $this->webroot . 'uploads/hotels';
+                                                            $image3 = $imagePath . '/' . $this->data['TravelHotelLookup']['hotel_img3'];
+                                                        } else {
+                                                            $image3 = $this->webroot . "img/no_img_180.png";
+                                                        }
+                                                        ?>
+                                                        <img src="<?php echo $image3; ?>" height="200" width="170" />
+
+                                                    </div>
+                                                    <div class="fileupload-preview fileupload-exists img-thumbnail" style="width: 178px; height: 120px"></div>
+                                                    <div>
+                                                        <span class="btn btn-default btn-file"><span class="fileupload-new">Select image</span><span class="fileupload-exists">Change</span>
+                                                            <input type="file" name="data[TravelHotelLookup][image3]" />
+
+                                                        </span>
+                                                        <a href="#" class="btn btn-default fileupload-exists" data-dismiss="fileupload">Remove</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-sm-10 editable txtbox">
+                                                <label>Picture5</label>
+                                                <span class="colon">:</span>
+                                                <div class="fileupload fileupload-new" data-provides="fileupload">
+                                                    <div class="fileupload-new img-thumbnail" style="width: 178px; height: 120px;">
+                                                        <?php
+                                                        if ($this->data['TravelHotelLookup']['hotel_img5']) {
+                                                            $imagePath = $this->webroot . 'uploads/hotels';
+                                                            $image5 = $imagePath . '/' . $this->data['TravelHotelLookup']['hotel_img5'];
+                                                        } else {
+                                                            $image5 = $this->webroot . "img/no_img_180.png";
+                                                        }
+                                                        ?>
+                                                        <img src="<?php echo $image5; ?>" height="200" width="170" />
+
+                                                    </div>
+                                                    <div class="fileupload-preview fileupload-exists img-thumbnail" style="width: 178px; height: 120px"></div>
+                                                    <div>
+                                                        <span class="btn btn-default btn-file"><span class="fileupload-new">Select image</span><span class="fileupload-exists">Change</span>
+                                                            <input type="file" name="data[TravelHotelLookup][image5]" />
+
+                                                        </span>
+                                                        <a href="#" class="btn btn-default fileupload-exists" data-dismiss="fileupload">Remove</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <h4>Hotel Logo</h4>
+
+                                        <div class="form-group">
+                                            <div class="col-sm-10 editable txtbox">
+                                                <label>Logo1</label>
+                                                <span class="colon">:</span>
+                                                <div class="fileupload fileupload-new" data-provides="fileupload">
+                                                    <div class="fileupload-new img-thumbnail" style="width: 178px; height: 120px;">
+
+<?php
+if ($this->data['TravelHotelLookup']['logo']) {
+    $imagePath = $this->webroot . 'uploads/hotels/logo';
+    $logo_image1 = $imagePath . '/' . $this->data['TravelHotelLookup']['logo'];
+} else {
+    $logo_image1 = $this->webroot . "img/no_img_180.png";
+}
+?>
+                                                        <img src="<?php echo $logo_image1; ?>" height="200" width="170" /></div>
+                                                    <div class="fileupload-preview fileupload-exists img-thumbnail" style="width: 178px; height: 120px"></div>
+                                                    <div>
+                                                        <span class="btn btn-default btn-file"><span class="fileupload-new">Select image</span><span class="fileupload-exists">Change</span>
+                                                            <input type="file" name="data[TravelHotelLookup][logo_image1]" />
+
+                                                        </span>
+                                                        <a href="#" class="btn btn-default fileupload-exists" data-dismiss="fileupload">Remove</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+
+                                    </div>
+
+                                    <div class="col-sm-6 uploadfile">
+                                        <div class="form-group">
+                                            <div class="col-sm-10 editable txtbox">
+                                                <label>Picture2</label>
+                                                <span class="colon">:</span>
+                                                <div class="fileupload fileupload-new" data-provides="fileupload">
+                                                    <div class="fileupload-new img-thumbnail" style="width: 178px; height: 120px;">
+
+<?php
+if ($this->data['TravelHotelLookup']['hotel_img2']) {
+    $imagePath = $this->webroot . 'uploads/hotels';
+    $image2 = $imagePath . '/' . $this->data['TravelHotelLookup']['hotel_img2'];
+} else {
+    $image2 = $this->webroot . "img/no_img_180.png";
+}
+?>
+                                                        <img src="<?php echo $image2; ?>" height="200" width="170" /></div>
+                                                    <div class="fileupload-preview fileupload-exists img-thumbnail" style="width: 178px; height: 120px">
+
+
+                                                    </div>
+                                                    <div>
+                                                        <span class="btn btn-default btn-file"><span class="fileupload-new">Select image</span><span class="fileupload-exists">Change</span>
+                                                            <input type="file" name="data[TravelHotelLookup][image2]" />
+
+                                                        </span>
+                                                        <a href="#" class="btn btn-default fileupload-exists" data-dismiss="fileupload">Remove</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-sm-10 editable txtbox">
+                                                <label>Picture4</label>
+                                                <span class="colon">:</span>
+                                                <div class="fileupload fileupload-new" data-provides="fileupload">
+                                                    <div class="fileupload-new img-thumbnail" style="width: 178px; height: 120px;">
+                                                        <?php
+                                                        if ($this->data['TravelHotelLookup']['hotel_img4']) {
+                                                            $imagePath = $this->webroot . 'uploads/hotels';
+                                                            $image4 = $imagePath . '/' . $this->data['TravelHotelLookup']['hotel_img4'];
+                                                        } else {
+                                                            $image4 = $this->webroot . "img/no_img_180.png";
+                                                        }
+                                                        ?>
+                                                        <img src="<?php echo $image4; ?>" height="200" width="170" />
+
+                                                    </div>
+                                                    <div class="fileupload-preview fileupload-exists img-thumbnail" style="width: 178px; height: 120px"></div>
+                                                    <div>
+                                                        <span class="btn btn-default btn-file"><span class="fileupload-new">Select image</span><span class="fileupload-exists">Change</span>
+                                                            <input type="file" name="data[TravelHotelLookup][image4]" />
+
+                                                        </span>
+                                                        <a href="#" class="btn btn-default fileupload-exists" data-dismiss="fileupload">Remove</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-sm-10 editable txtbox">
+                                                <label>Picture6</label>
+                                                <span class="colon">:</span>
+                                                <div class="fileupload fileupload-new" data-provides="fileupload">
+                                                    <div class="fileupload-new img-thumbnail" style="width: 178px; height: 120px;">
+                                                        <?php
+                                                        if ($this->data['TravelHotelLookup']['hotel_img6']) {
+                                                            $imagePath = $this->webroot . 'uploads/hotels';
+                                                            $image6 = $imagePath . '/' . $this->data['TravelHotelLookup']['hotel_img6'];
+                                                        } else {
+                                                            $image6 = $this->webroot . "img/no_img_180.png";
+                                                        }
+                                                        ?>
+                                                        <img src="<?php echo $image6; ?>" height="200" width="170" />
+
+                                                    </div>
+                                                    <div class="fileupload-preview fileupload-exists img-thumbnail" style="width: 178px; height: 120px"></div>
+                                                    <div>
+                                                        <span class="btn btn-default btn-file"><span class="fileupload-new">Select image</span><span class="fileupload-exists">Change</span>
+                                                            <input type="file" name="data[TravelHotelLookup][image6]" />
+
+                                                        </span>
+                                                        <a href="#" class="btn btn-default fileupload-exists" data-dismiss="fileupload">Remove</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-sm-10 editable txtbox">
+                                                <label>Logo2</label>
+                                                <span class="colon">:</span>
+                                                <div class="fileupload fileupload-new" data-provides="fileupload">
+                                                    <div class="fileupload-new img-thumbnail" style="width: 178px; height: 120px;">
+<?php
+if ($this->data['TravelHotelLookup']['logo1']) {
+    $imagePath = $this->webroot . 'uploads/hotels/logo';
+    $logo_image2 = $imagePath . '/' . $this->data['TravelHotelLookup']['logo1'];
+} else {
+    $logo_image2 = $this->webroot . "img/no_img_180.png";
+}
+?>
+                                                        <img src="<?php echo $logo_image2; ?>" height="200" width="170" />
+                                                    </div>
+                                                    <div class="fileupload-preview fileupload-exists img-thumbnail" style="width: 178px; height: 120px"></div>
+                                                    <div>
+                                                        <span class="btn btn-default btn-file"><span class="fileupload-new">Select image</span><span class="fileupload-exists">Change</span>
+                                                            <input type="file" name="data[TravelHotelLookup][logo_image2]" />
+
+                                                        </span>
+                                                        <a href="#" class="btn btn-default fileupload-exists" data-dismiss="fileupload">Remove</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div style="clear: both"></div>
                                     <div class="col-sm-12">
                                     <h4>Mapping Information</h4>
                     
